@@ -80,3 +80,15 @@ jobs:
         if: github.event_name == 'push'
         continue-on-error: true
         run: node scripts/indexnow.mjs "${{ github.event.before }}" "${{ github.sha }}"
+      # Annuncia nel topic Annunci del gruppo Telegram i post del blog
+      # aggiunti da questo push. Come sopra: dopo il deploy, e senza far
+      # fallire il job. Senza il secret lo script esce 0 e non fa nulla; chat
+      # e topic Annunci (15) sono i default, sovrascrivibili con le variabili
+      # TELEGRAM_CHAT_ID e TELEGRAM_ANNOUNCE_TOPIC_ID del repo.
+      - name: Announce new blog posts on Telegram
+        if: github.event_name == 'push'
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+        run: node scripts/announce-post.mjs "${{ github.event.before }}" "${{ github.sha }}"

@@ -73,6 +73,16 @@ ricavandole dal diff fra i due sha del push. La chiave è il file
 la legge dal nome del file, così le due cose non possono divergere.
 Invio manuale di tutte le URL: `node scripts/indexnow.mjs --all`.
 
+### Annunci su Telegram
+
+Sempre dopo il deploy, `scripts/announce-post.mjs` pubblica nel topic
+**Annunci** del gruppo Telegram (`t.me/meshcore_ita/15`) i post del blog
+*aggiunti* da quel push: titolo, lede e URL. Le modifiche a un post già
+pubblicato non vengono riannunciate. Richiede il secret
+`TELEGRAM_BOT_TOKEN` sul repo (senza, lo step non fa nulla e non fallisce) e
+che il bot possa scrivere in quel topic. Invio manuale:
+`node scripts/announce-post.mjs --post <slug>`.
+
 ## Contribuire
 
 Vedi [CONTRIBUTING.md](CONTRIBUTING.md). In fondo a ogni pagina del sito c'è
