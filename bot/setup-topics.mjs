@@ -3,7 +3,7 @@
 // MeshCore ITA. Ripetibile: salta i topic già creati in un run precedente.
 // Uso: node bot/setup-topics.mjs [--dry-run]
 
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, renameSync, openSync, closeSync, unlinkSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import process from 'node:process';
@@ -53,8 +53,33 @@ function loadState() {
   }
 }
 
+// Scrittura atomica: un'interruzione a metà lascerebbe uno stato illeggibile,
+// e loadState ripartirebbe da zero ricreando topic già esistenti.
 function saveState(state) {
-  writeFileSync(STATE_FILE, `${JSON.stringify(state, null, 2)}\n`);
+  const tmp = `${STATE_FILE}.tmp`;
+  writeFileSync(tmp, `${JSON.stringify(state, null, 2)}\n`);
+  renameSync(tmp, STATE_FILE);
+}
+
+// Lock esclusivo: due run in parallelo creerebbero i topic due volte.
+const LOCK_FILE = `${STATE_FILE}.lock`;
+function acquireLock() {
+  try {
+    closeSync(openSync(LOCK_FILE, 'wx'));
+  } catch {
+    console.error(`Un altro run è in corso (rimuovi ${LOCK_FILE} se è rimasto orfano).`);
+    process.exit(1);
+  }
+  const release = () => {
+    try {
+      unlinkSync(LOCK_FILE);
+    } catch {
+      /* già rimosso */
+    }
+  };
+  process.on('exit', release);
+  process.on('SIGINT', () => process.exit(130));
+  process.on('SIGTERM', () => process.exit(143));
 }
 
 async function tg(token, method, payload) {
@@ -124,6 +149,7 @@ async function main() {
   }
 
   const token = getToken();
+  acquireLock();
   const state = loadState();
 
   let stickers = [];

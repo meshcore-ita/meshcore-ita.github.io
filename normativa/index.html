@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Normativa MeshCore Italia: potenza, duty cycle, 433 MHz">
 <meta name="twitter:description" content="Limiti ERP e duty cycle delle sub-bande 868-870 MHz per MeshCore in Italia, calcolo ERP/EIRP con guadagno antenna, banda 433 MHz e uso in banda radioamatoriale.">
-<meta property="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta name="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
 
 <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
 <link rel="mask-icon" href="../assets/img/favicon.svg" color="#22c55e">
@@ -42,7 +42,8 @@
       "@type": "TechArticle",
       "headline": "Normativa MeshCore in Italia: potenza, duty cycle e frequenze",
       "description": "Quadro normativo per l'uso di MeshCore in Italia: limiti di potenza e duty cycle delle sub-bande 868-870 MHz, calcolo ERP/EIRP, banda 433 MHz e incompatibilità con l'uso radioamatoriale.",
-      "about": "Normativa radio MeshCore Italia"
+      "about": "Normativa radio MeshCore Italia",
+      "dateModified": "2026-09-14"
     },
     {
       "@type": "FAQPage",
@@ -79,7 +80,8 @@
             "text": "Nessun ente misura in automatico il duty cycle dei singoli nodi: il limite è normativo e la sua osservanza è responsabilità dell'operatore. I parametri di default del preset condiviso e il traffico tipico di una mesh restano ampiamente sotto il 10%, ma un uso anomalo (ad esempio un loop di flood) può avvicinarsi al limite."
           }
         }
-      ]
+      ],
+      "dateModified": "2026-09-14"
     },
     {
       "@type": "BreadcrumbList",
@@ -354,17 +356,17 @@
   </div>
 </footer>
 
-<dialog class="search" id="search" data-search-index="../search-index.json">
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="../search-index.json">
   <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
     <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
     <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
   </form>
   <ul class="search__results" id="search-results"></ul>
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
-
-<script type="module" src="../assets/js/main.js?v=2" defer></script>
-<script type="module" src="../assets/js/search.js?v=1" defer></script>
-<script type="module" src="../assets/js/widgets.js?v=1" defer></script>
+<script type="module" src="../assets/js/main.js?v=3" defer></script>
+<script type="module" src="../assets/js/search.js?v=2" defer></script>
+<script type="module" src="../assets/js/widgets.js?v=2" defer></script>
 </body>
 </html>

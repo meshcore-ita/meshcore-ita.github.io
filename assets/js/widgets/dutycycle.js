@@ -85,7 +85,7 @@ export default function mount(root) {
     toaOut.textContent = `${fmt(toa, 0)} ms`;
     airOut.textContent = `${fmt(airtimeS, 1)} s`;
     dutyOut.textContent = `${fmt(dutyPct, 2)} %`;
-    dutyOut.className = dutyPct >= 10 ? 'is-bad' : dutyPct >= 5 ? 'is-warn' : 'is-ok';
+    dutyOut.className = dutyPct > DUTY_LIMIT * 100 ? 'is-bad' : dutyPct >= 5 ? 'is-warn' : 'is-ok';
     maxOut.textContent = String(maxPkt);
 
     const spacing = W / pkt;

@@ -29,14 +29,41 @@ function initMobileNav() {
   const nav = document.querySelector('.nav');
   if (!toggle) return;
   const body = document.body;
+  const label = toggle.querySelector('.sr-only');
+  const desktopQuery = window.matchMedia('(min-width: 821px)');
+  const supportsInert = 'inert' in HTMLElement.prototype;
 
-  const close = () => {
+  // Chiuso, il menu mobile è nascosto solo visivamente dal CSS: senza questo
+  // i suoi link restano raggiungibili da tastiera e dagli screen reader.
+  const syncHidden = () => {
+    if (!nav) return;
+    const hidden = !desktopQuery.matches && !body.dataset.navOpen;
+    if (supportsInert) {
+      nav.inert = hidden;
+      return;
+    }
+    nav.setAttribute('aria-hidden', hidden ? 'true' : 'false');
+    nav.querySelectorAll('.nav__link').forEach((link) => {
+      if (hidden) link.setAttribute('tabindex', '-1');
+      else link.removeAttribute('tabindex');
+    });
+  };
+
+  const close = ({ restoreFocus = false } = {}) => {
+    const wasOpen = Boolean(body.dataset.navOpen);
     delete body.dataset.navOpen;
     toggle.setAttribute('aria-expanded', 'false');
+    if (label) label.textContent = 'Apri il menu';
+    syncHidden();
+    if (wasOpen && restoreFocus) toggle.focus();
   };
   const open = () => {
     body.dataset.navOpen = 'true';
     toggle.setAttribute('aria-expanded', 'true');
+    if (label) label.textContent = 'Chiudi il menu';
+    syncHidden();
+    const first = nav && nav.querySelector('.nav__link');
+    if (first) first.focus();
   };
 
   toggle.addEventListener('click', () => {
@@ -46,20 +73,29 @@ function initMobileNav() {
 
   if (nav) {
     nav.querySelectorAll('.nav__link').forEach((link) => {
-      link.addEventListener('click', close);
+      link.addEventListener('click', () => close());
     });
   }
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') close();
+    if (event.key === 'Escape') close({ restoreFocus: true });
   });
 
-  const desktopQuery = window.matchMedia('(min-width: 821px)');
-  const handleBreakpoint = (event) => {
-    if (event.matches) close();
+  // Click fuori dal menu aperto: chiude come farebbe un menu nativo.
+  document.addEventListener('click', (event) => {
+    if (!body.dataset.navOpen) return;
+    if (toggle.contains(event.target)) return;
+    if (nav && nav.contains(event.target)) return;
+    close();
+  });
+
+  const handleBreakpoint = () => {
+    if (desktopQuery.matches) close();
+    else syncHidden();
   };
   if (desktopQuery.addEventListener) desktopQuery.addEventListener('change', handleBreakpoint);
   else if (desktopQuery.addListener) desktopQuery.addListener(handleBreakpoint);
+  syncHidden();
 }
 
 function initCmdbox() {
@@ -98,13 +134,14 @@ function initCmdbox() {
   activate(initial, false);
 }
 
+// Copia reale: Clipboard API dove disponibile, altrimenti execCommand con
+// esito verificato. Se nessuna delle due funziona la promise viene rifiutata,
+// così il bottone non può annunciare "COPIATO" senza aver copiato niente.
 function copyText(text) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     return navigator.clipboard.writeText(text);
   }
-  // Fallback: select the text in an offscreen textarea without relying on
-  // the deprecated document.execCommand('copy') API.
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const textarea = document.createElement('textarea');
     textarea.value = text;
     textarea.setAttribute('readonly', '');
@@ -115,11 +152,26 @@ function copyText(text) {
     textarea.focus();
     textarea.select();
     textarea.setSelectionRange(0, text.length);
-    window.setTimeout(() => {
-      document.body.removeChild(textarea);
-    }, 0);
-    resolve();
+    let copied = false;
+    try {
+      copied = document.execCommand('copy');
+    } catch {
+      copied = false;
+    }
+    document.body.removeChild(textarea);
+    if (copied) resolve();
+    else reject(new Error('copia negli appunti non supportata'));
   });
+}
+
+// Fallback finale: selezionare il testo così l'utente lo copia a mano.
+function selectElementText(node) {
+  const selection = window.getSelection();
+  if (!selection) return;
+  const range = document.createRange();
+  range.selectNodeContents(node);
+  selection.removeAllRanges();
+  selection.addRange(range);
 }
 
 function initCopyButtons() {
@@ -137,17 +189,26 @@ function initCopyButtons() {
       if (!codeEl) return;
       const text = codeEl.textContent.trim();
 
+      const restore = () => {
+        if (resetTimer) window.clearTimeout(resetTimer);
+        resetTimer = window.setTimeout(() => {
+          delete button.dataset.copied;
+          if (label) label.textContent = originalLabel;
+        }, 1600);
+      };
+
       copyText(text)
         .then(() => {
           button.dataset.copied = 'true';
           if (label) label.textContent = 'COPIATO';
-          if (resetTimer) window.clearTimeout(resetTimer);
-          resetTimer = window.setTimeout(() => {
-            delete button.dataset.copied;
-            if (label) label.textContent = originalLabel;
-          }, 1600);
+          restore();
         })
-        .catch(() => {});
+        .catch(() => {
+          // Niente falsi positivi: il testo viene selezionato e l'etichetta lo dice.
+          selectElementText(codeEl);
+          if (label) label.textContent = 'COPIA A MANO';
+          restore();
+        });
     });
   });
 }
@@ -206,12 +267,28 @@ function initBackground() {
   if (!ctx) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const MAX = 3600;
+  // Meno particelle su macchine deboli e schermi piccoli: l'effetto resta,
+  // il costo per frame no.
+  const lowPower = (navigator.hardwareConcurrency || 4) <= 4 || window.innerWidth < 700;
+  const MAX = lowPower ? 1200 : 3600;
   const angle = new Float32Array(MAX);
   const dist = new Float32Array(MAX);
   const drift = new Float32Array(MAX);
   const phase = new Float32Array(MAX);
   const size = new Float32Array(MAX);
+
+  // Stringhe colore precalcolate: senza, ogni particella ne alloca una nuova
+  // a ogni frame (fino a 3600 stringhe × 60 fps di lavoro per il GC).
+  const STEPS = 24;
+  const GREEN = [];
+  const WHITE = [];
+  for (let i = 0; i < STEPS; i += 1) {
+    const a = ((i + 1) / STEPS).toFixed(3);
+    GREEN.push(`rgba(74,222,128,${a})`);
+    WHITE.push(`rgba(235,235,235,${a})`);
+  }
+  const shade = (palette, alpha) =>
+    palette[Math.min(STEPS - 1, Math.max(0, Math.round(alpha * STEPS) - 1))];
   let width = 0, height = 0, count = 0, cx = 0, cy = 0, radius = 0, band = 0;
   let glow = null;
   let inView = true, raf = null;
@@ -274,9 +351,7 @@ function initBackground() {
       const twinkle = reduceMotion ? 0.8 : 0.55 + 0.45 * Math.sin(time * 0.0014 + phase[i]);
       const edge = 1 - Math.min(1, Math.abs(dist[i]) / band);
       const alpha = (0.18 + twinkle * 0.62) * (0.22 + edge * 0.78);
-      ctx.fillStyle = edge > 0.55
-        ? `rgba(74,222,128,${alpha.toFixed(3)})`
-        : `rgba(235,235,235,${(alpha * 0.6).toFixed(3)})`;
+      ctx.fillStyle = edge > 0.55 ? shade(GREEN, alpha) : shade(WHITE, alpha * 0.6);
       ctx.fillRect(x, y, size[i], size[i]);
     }
   };

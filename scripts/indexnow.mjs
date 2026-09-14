@@ -21,10 +21,13 @@ const ENDPOINT = 'https://api.indexnow.org/IndexNow';
 const host = new URL(SITE_BASE).host;
 
 // 'guida/index.html' -> '<base>guida/', 'index.html' -> '<base>',
-// 'blog/index.html' -> '<base>blog/', 'blog/guida/index.html' -> '<base>blog/guida/'
+// 'blog/index.html' -> '<base>blog/', 'blog/guida/index.html' -> '<base>blog/guida/',
+// 'blog/pagina/2/index.html' -> '<base>blog/pagina/2/'
 function pathToUrl(file) {
   if (file === 'index.html') return SITE_BASE;
   if (file === 'blog/index.html') return `${SITE_BASE}blog/`;
+  const paged = file.match(/^blog\/pagina\/(\d+)\/index\.html$/);
+  if (paged) return `${SITE_BASE}blog/pagina/${paged[1]}/`;
   const post = file.match(/^blog\/([a-z0-9-]+)\/index\.html$/);
   if (post) return `${SITE_BASE}blog/${post[1]}/`;
   const m = file.match(/^([a-z0-9-]+)\/index\.html$/);

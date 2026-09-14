@@ -88,7 +88,12 @@ export default function mount(root) {
     el('label', {}, ['Larghezza di banda (BW)', bwSel]),
     el('label', {}, ['Payload ', plOut, ' B', plRange]),
   ]));
-  const canvas = el('canvas', { width: '640', height: '224' });
+  const canvas = el('canvas', {
+    width: '640',
+    height: '224',
+    role: 'img',
+    'aria-label': 'Animazione del chirp LoRa: frequenza in funzione del tempo per il pacchetto configurato. I valori numerici equivalenti sono elencati sotto il grafico.',
+  });
   root.append(el('div', { class: 'widget__stage' }, [canvas]));
   const out = el('dl', { class: 'widget__out' });
   const mk = (label) => { const dd = el('dd', {}); out.append(el('div', {}, [el('dt', { text: label }), dd])); return dd; };

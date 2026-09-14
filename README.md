@@ -24,8 +24,8 @@ search-index.json        indice per la ricerca interna, generato
 sitemap.xml robots.txt   generati
 404.html                 generato
 assets/                  css, js (ES module), logo, favicon, immagine social
-bot/ worker/             bot Telegram della community
-.github/workflows/       deploy su GitHub Pages + gate di build
+bot/ worker/             bot Telegram della community (testi e regole condivisi)
+.github/workflows/       gate di build sulle PR + deploy su GitHub Pages
 ```
 
 ## Build
@@ -36,8 +36,13 @@ node build.mjs          # rigenera pagine, blog, feed, ricerca, sitemap, robots.
 node build.mjs --check  # esce 1 se i file generati divergono dai sorgenti
 ```
 
-`--check` gira in CI: una PR che modifica `content/` senza rigenerare non
-viene pubblicata.
+La build rimuove anche le pagine generate rimaste senza sorgente (per esempio
+dopo aver cancellato un `content/<slug>.html`); `--check` le segnala come
+orfane invece di cancellarle.
+
+`--check` gira su ogni pull request (`.github/workflows/check.yml`) e di nuovo
+prima del deploy: una PR che modifica `content/` senza rigenerare non viene
+pubblicata.
 
 ## Sviluppo locale
 

@@ -8,3 +8,8 @@ node_modules/
 
 # generato da bot/setup-topics.mjs
 bot/topics.created.json
+bot/topics.created.json.lock
+bot/topics.created.json.tmp
+
+# staging del deploy su GitHub Pages
+_site/

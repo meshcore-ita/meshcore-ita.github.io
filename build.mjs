@@ -10,7 +10,7 @@
 //   node build.mjs           write generated files to disk
 //   node build.mjs --check   build in memory, fail if committed output drifts
 
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync, rmSync, rmdirSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
@@ -20,10 +20,12 @@ const ROOT = dirname(fileURLToPath(import.meta.url));
 
 export { SITE_BASE };
 
-const REPO_EDIT_BASE =
-  'https://github.com/meshcore-ita/meshcore-ita.github.io/edit/main/';
-const REPO_TREE_BASE =
-  'https://github.com/meshcore-ita/meshcore-ita.github.io/tree/main/';
+// Repo di pubblicazione: in CI arriva da GITHUB_REPOSITORY, così un fork
+// genera link "Modifica questa pagina" verso il proprio repo e non a monte.
+const REPO_SLUG = process.env.GITHUB_REPOSITORY || 'meshcore-ita/meshcore-ita.github.io';
+const REPO_WEB_BASE = `${process.env.GITHUB_SERVER_URL || 'https://github.com'}/${REPO_SLUG}`;
+const REPO_EDIT_BASE = `${REPO_WEB_BASE}/edit/main/`;
+const REPO_TREE_BASE = `${REPO_WEB_BASE}/tree/main/`;
 const CONTENT_DIR = join(ROOT, 'content');
 const BLOG_DIR = join(CONTENT_DIR, 'blog');
 const BLOG_SLUG = 'blog';
@@ -36,6 +38,16 @@ const POST_REQUIRED_KEYS = ['slug', 'title', 'description', 'h1', 'lede', 'publi
 const DEFAULT_AUTHOR = 'MeshCore ITA';
 const FEED_MAX_ENTRIES = 20;
 const POSTS_PER_PAGE = 10;
+
+// Slug: solo minuscole, cifre e trattini singoli — finiscono in URL, canonical
+// e sitemap senza essere codificati. "blog" è la rotta dell'indice generato.
+const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const RESERVED_SLUGS = new Set(['blog', 'assets', 'content', 'templates', 'scripts', 'bot', 'worker']);
+// Cartelle del repo che non contengono output generato: mai toccate dalla
+// pulizia delle pagine orfane (_site è la staging area del deploy).
+const SOURCE_DIRS = new Set(['assets', 'content', 'templates', 'scripts', 'bot', 'worker', 'node_modules', '_site']);
+// Tipi JSON-LD a cui ha senso applicare la data di ultimo aggiornamento.
+const DATED_TYPES = new Set(['Article', 'TechArticle', 'HowTo', 'BlogPosting', 'FAQPage', 'WebPage', 'DefinedTermSet']);
 
 const EXTERNAL_NAV_LINKS = [
   { label: 'TELEGRAM', href: 'https://t.me/meshcore_ita' },
@@ -62,11 +74,19 @@ function escape(value) {
 
 function humanDate(iso) {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
-  if (!m) throw new Error(`data "updated" non valida (atteso YYYY-MM-DD): ${iso}`);
+  if (!m) throw new Error(`data non valida (atteso YYYY-MM-DD): ${iso}`);
   const [, year, month, day] = m;
-  const name = MONTHS_IT[Number(month) - 1];
-  if (!name) throw new Error(`mese non valido in "updated": ${iso}`);
-  return `${Number(day)} ${name} ${year}`;
+  const d = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+  // Date.UTC normalizza il 31 febbraio: se i componenti non tornano, la data
+  // non esiste nel calendario e non deve finire in <time>/sitemap/feed.
+  if (
+    d.getUTCFullYear() !== Number(year) ||
+    d.getUTCMonth() + 1 !== Number(month) ||
+    d.getUTCDate() !== Number(day)
+  ) {
+    throw new Error(`data inesistente nel calendario: ${iso}`);
+  }
+  return `${Number(day)} ${MONTHS_IT[Number(month) - 1]} ${year}`;
 }
 
 // Valida un campo data di un post (published/updated) con un messaggio che
@@ -84,6 +104,26 @@ function assertPostDate(file, field, iso) {
 export function renderMarkdown(body, lead = '') {
   const html = marked.parse(body, { gfm: true, breaks: false });
   return `<section class="section">\n${lead}  <div class="prose">\n${html}\n  </div>\n</section>`;
+}
+
+// I sorgenti markdown sono markdown puro (vedi CONTRIBUTING.md): l'HTML grezzo
+// finirebbe non filtrato nelle pagine generate, quindi la build lo rifiuta.
+function assertNoRawHtml(label, body) {
+  const walk = (tokens) => {
+    for (const token of tokens) {
+      if (!token || typeof token !== 'object') continue;
+      if (token.type === 'html') {
+        throw new Error(
+          `${label}: HTML grezzo non ammesso nel markdown — ${String(token.raw).trim().slice(0, 60)}`
+        );
+      }
+      for (const key of ['tokens', 'items', 'rows', 'header']) {
+        const value = token[key];
+        if (Array.isArray(value)) walk(value.flat());
+      }
+    }
+  };
+  walk(marked.lexer(body, { gfm: true }));
 }
 
 // --- content parsing --------------------------------------------------
@@ -126,10 +166,17 @@ function parseContentFile(file) {
   if (meta.slug !== expectedSlug) {
     throw new Error(`${file}: "slug" (${meta.slug}) non corrisponde al nome del file (${expectedSlug})`);
   }
+  if (!SLUG_RE.test(meta.slug)) {
+    throw new Error(`${file}: "slug" non valido (solo minuscole, cifre e trattini): ${meta.slug}`);
+  }
+  if (RESERVED_SLUGS.has(meta.slug)) {
+    throw new Error(`${file}: "slug" riservato a una rotta generata: ${meta.slug}`);
+  }
   const body = match[2].trim();
   if (!body) {
     throw new Error(`${file}: il corpo della pagina è vuoto`);
   }
+  if (ext === 'md') assertNoRawHtml(file, body);
   const fragment = anchorHeadings(ext === 'md' ? renderMarkdown(body) : body);
   return { file, meta, fragment };
 }
@@ -179,6 +226,9 @@ function parsePostFile(file) {
   if (meta.slug !== expectedSlug) {
     throw new Error(`blog/${file}: "slug" (${meta.slug}) non corrisponde al nome del file (${expectedSlug})`);
   }
+  if (!SLUG_RE.test(meta.slug)) {
+    throw new Error(`blog/${file}: "slug" non valido (solo minuscole, cifre e trattini): ${meta.slug}`);
+  }
   assertPostDate(file, 'published', meta.published);
   if (meta.updated === undefined) meta.updated = meta.published;
   assertPostDate(file, 'updated', meta.updated);
@@ -197,6 +247,7 @@ function parsePostFile(file) {
   if (!body) {
     throw new Error(`blog/${file}: il corpo dell'articolo è vuoto`);
   }
+  assertNoRawHtml(`blog/${file}`, body);
   const fragment = anchorHeadings(renderMarkdown(body, buildPostMetaBlock(meta)));
   return { file, meta, fragment };
 }
@@ -266,7 +317,9 @@ function slugify(text) {
 // esatta invece della cima della pagina. Gli id sono deterministici, quindi
 // restano validi finché il titolo non cambia.
 function anchorHeadings(fragment) {
-  const used = new Set();
+  // Si parte dagli id già presenti nel sorgente: un id generato non deve mai
+  // duplicarne uno scritto a mano (step, sezioni, ancore di nota).
+  const used = new Set([...fragment.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
   const nextId = (text) => {
     const base = slugify(text);
     let id = base;
@@ -353,8 +406,7 @@ function computeAllChunks(pages, posts) {
   return [...pageChunks, ...postChunks];
 }
 
-function buildKbModule(pages, posts) {
-  const chunks = computeAllChunks(pages, posts);
+function buildKbModule(chunks) {
   const banner = [
     '// File generato automaticamente da build.mjs — NON modificare a mano.',
     '// Per rigenerare: node build.mjs',
@@ -368,8 +420,8 @@ function buildKbModule(pages, posts) {
 
 // Stessi chunk di worker/kb.generated.mjs, in JSON puro per la ricerca
 // client-side (assets/js/search.js li carica via fetch).
-function buildSearchIndex(pages, posts) {
-  return `${JSON.stringify(computeAllChunks(pages, posts))}\n`;
+function buildSearchIndex(chunks) {
+  return `${JSON.stringify(chunks)}\n`;
 }
 
 // --- rendering helpers --------------------------------------------------
@@ -438,10 +490,20 @@ function wrapJsonLd(graph) {
   return json.replace(/<\/script/gi, '<\\/script');
 }
 
+// I nodi datati ereditano la data "updated" del sorgente, se non la portano
+// già: senza, i motori non vedono mai l'ultimo aggiornamento della pagina.
+function withDateModified(nodes, updated) {
+  return nodes.map((node) =>
+    node && DATED_TYPES.has(node['@type']) && node.dateModified === undefined
+      ? { ...node, dateModified: updated }
+      : node
+  );
+}
+
 function buildJsonLd(meta) {
   const canonical = `${SITE_BASE}${meta.slug}/`;
   const graph = [
-    ...meta.jsonld,
+    ...withDateModified(meta.jsonld, meta.updated),
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
@@ -581,6 +643,9 @@ function renderPage(layout, meta, fragment, pages, file) {
     '{{TITLE}}': escape(meta.title),
     '{{DESCRIPTION}}': escape(meta.description),
     '{{CANONICAL}}': canonical,
+    // "article" per la documentazione; una pagina può dichiararsi diversa
+    // (es. la pagina community, che è una scheda dell'organizzazione).
+    '{{OG_TYPE}}': escape(meta.ogType || 'article'),
     '{{OG_IMAGE}}': `${SITE_BASE}assets/img/og-image.png`,
     '{{JSONLD}}': buildJsonLd(meta),
     '{{NAV}}': buildNav(pages, meta.slug, relativeHref(1)),
@@ -611,6 +676,7 @@ function renderPost(layout, meta, fragment, pages, file) {
     '{{TITLE}}': escape(meta.title),
     '{{DESCRIPTION}}': escape(meta.description),
     '{{CANONICAL}}': canonical,
+    '{{OG_TYPE}}': 'article',
     '{{OG_IMAGE}}': `${SITE_BASE}assets/img/og-image.png`,
     '{{JSONLD}}': buildPostJsonLd(meta),
     '{{NAV}}': buildNav(pages, BLOG_SLUG, hrefFor),
@@ -727,6 +793,8 @@ function renderBlogIndex(layout, pagePosts, allPosts, pages, pageNum, totalPages
     '{{TITLE}}': escape(meta.title),
     '{{DESCRIPTION}}': escape(meta.description),
     '{{CANONICAL}}': canonical,
+    // L'indice è un elenco, non un articolo.
+    '{{OG_TYPE}}': 'website',
     '{{OG_IMAGE}}': `${SITE_BASE}assets/img/og-image.png`,
     '{{JSONLD}}': buildBlogIndexJsonLd(pagePosts, pageNum),
     '{{NAV}}': buildNav(pages, BLOG_SLUG, hrefFor),
@@ -840,25 +908,81 @@ function computeOutputs() {
   const layout = readFileSync(LAYOUT_PATH, 'utf8');
   const notFoundTemplate = readFileSync(NOT_FOUND_TEMPLATE_PATH, 'utf8');
   const outputs = new Map();
+  // Due sorgenti che scrivono lo stesso file sarebbero una pagina che ne
+  // sovrascrive un'altra in silenzio: meglio fermare la build.
+  const put = (rel, content) => {
+    if (outputs.has(rel)) throw new Error(`due sorgenti generano lo stesso file: ${rel}`);
+    outputs.set(rel, content);
+  };
   for (const { file, meta, fragment } of pages) {
-    outputs.set(join(meta.slug, 'index.html'), renderPage(layout, meta, fragment, pages, file));
+    put(join(meta.slug, 'index.html'), renderPage(layout, meta, fragment, pages, file));
   }
   for (const { file, meta, fragment } of posts) {
-    outputs.set(join(BLOG_SLUG, meta.slug, 'index.html'), renderPost(layout, meta, fragment, pages, file));
+    put(join(BLOG_SLUG, meta.slug, 'index.html'), renderPost(layout, meta, fragment, pages, file));
   }
   const slices = paginatePosts(posts);
   slices.forEach((slice, i) => {
     const n = i + 1;
     const rel = n === 1 ? join(BLOG_SLUG, 'index.html') : join(BLOG_SLUG, 'pagina', String(n), 'index.html');
-    outputs.set(rel, renderBlogIndex(layout, slice, posts, pages, n, slices.length));
+    put(rel, renderBlogIndex(layout, slice, posts, pages, n, slices.length));
   });
-  outputs.set('feed.xml', buildFeed(posts, pages));
-  outputs.set('sitemap.xml', buildSitemap(pages, posts));
-  outputs.set('robots.txt', buildRobots());
-  outputs.set('404.html', renderNotFound(notFoundTemplate, pages));
-  outputs.set(join('worker', 'kb.generated.mjs'), buildKbModule(pages, posts));
-  outputs.set('search-index.json', buildSearchIndex(pages, posts));
+  const chunks = computeAllChunks(pages, posts);
+  put('feed.xml', buildFeed(posts, pages));
+  put('sitemap.xml', buildSitemap(pages, posts));
+  put('robots.txt', buildRobots());
+  put('404.html', renderNotFound(notFoundTemplate, pages));
+  put(join('worker', 'kb.generated.mjs'), buildKbModule(chunks));
+  put('search-index.json', buildSearchIndex(chunks));
   return { pages, posts, outputs };
+}
+
+// Pagine generate presenti sul disco: ogni <dir>/index.html fuori dalle
+// cartelle sorgente. Serve a riconoscere le rotte rimaste dopo la
+// cancellazione di un contenuto.
+function listGeneratedPages(dir = ROOT, rel = '') {
+  const found = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name.startsWith('.')) continue;
+    const childRel = rel ? `${rel}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      if (!rel && SOURCE_DIRS.has(entry.name)) continue;
+      found.push(...listGeneratedPages(join(dir, entry.name), childRel));
+    } else if (rel && entry.name === 'index.html') {
+      found.push(childRel);
+    }
+  }
+  return found;
+}
+
+function staleOutputs(outputs) {
+  const expected = new Set([...outputs.keys()].map((rel) => rel.split('\\').join('/')));
+  return listGeneratedPages().filter((rel) => !expected.has(rel));
+}
+
+// Rimuove il file e poi le cartelle rimaste vuote risalendo fino alla radice.
+function removeGenerated(rel) {
+  rmSync(join(ROOT, rel), { force: true });
+  let dir = dirname(join(ROOT, rel));
+  while (dir !== ROOT) {
+    try {
+      rmdirSync(dir);
+    } catch {
+      return;
+    }
+    dir = dirname(dir);
+  }
+}
+
+// La home è scritta a mano ma pubblica URL assoluti: se non corrispondono a
+// SITE_BASE (fork, repo rinominato) canonical, og:url e feed puntano altrove.
+function checkHomeBase() {
+  const homePath = join(ROOT, 'index.html');
+  if (!existsSync(homePath)) return [];
+  const canonical = /<link rel="canonical" href="([^"]+)"/.exec(readFileSync(homePath, 'utf8'));
+  if (!canonical) return ['index.html: manca il link canonical'];
+  return canonical[1] === SITE_BASE
+    ? []
+    : [`index.html: canonical ${canonical[1]} non corrisponde a SITE_BASE (${SITE_BASE})`];
 }
 
 function writeOutputs(outputs) {
@@ -881,6 +1005,10 @@ function checkOutputs(outputs) {
       problems.push(`non aggiornato: ${rel}`);
     }
   }
+  for (const rel of staleOutputs(outputs)) {
+    problems.push(`orfano (nessun sorgente lo genera): ${rel}`);
+  }
+  problems.push(...checkHomeBase());
   return problems;
 }
 
@@ -914,8 +1042,12 @@ function main() {
     return;
   }
 
+  const stale = staleOutputs(outputs);
+  for (const rel of stale) removeGenerated(rel);
   writeOutputs(outputs);
-  console.log(`Generati ${outputs.size} file (${summary}).`);
+  for (const problem of checkHomeBase()) console.warn(`Attenzione: ${problem}`);
+  const removed = stale.length ? `, rimossi ${stale.length} file orfani` : '';
+  console.log(`Generati ${outputs.size} file (${summary})${removed}.`);
 }
 
 // Eseguito solo da riga di comando: importare questo modulo (per SITE_BASE

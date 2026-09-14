@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MeshCore non funziona? Diagnosi e soluzioni ai problemi comuni">
 <meta name="twitter:description" content="MeshCore non funziona, il BLE non si accoppia o il web flasher non vede la board su Linux? Diagnosi, causa e comando risolutivo per nove problemi comuni.">
-<meta property="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta name="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
 
 <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
 <link rel="mask-icon" href="../assets/img/favicon.svg" color="#22c55e">
@@ -113,7 +113,8 @@
             "text": "Diagnosi: il nodo non risponde più correttamente o non entra più in funzionamento normale. Causa: una configurazione o un firmware corrotti, spesso dopo un aggiornamento interrotto. Soluzione: se riesci a collegarti dall'app, esporta le impostazioni, esegui un factory reset e poi reimportale dopo aver ripristinato il pairing Bluetooth; se non riesci a collegarti, usa il web flasher per entrare in modalità DFU, esegui “Erase Flash” e poi reinstalla il firmware con “Flash!”. Dalla versione firmware 1.7.0, le board con pulsante utente (alcune RAK, T114) hanno anche una modalità di recovery: tienilo premuto entro 8 secondi dall'accensione per accedere alla console del web flasher."
           }
         }
-      ]
+      ],
+      "dateModified": "2026-09-10"
     },
     {
       "@type": "TechArticle",
@@ -343,17 +344,17 @@
   </div>
 </footer>
 
-<dialog class="search" id="search" data-search-index="../search-index.json">
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="../search-index.json">
   <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
     <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
     <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
   </form>
   <ul class="search__results" id="search-results"></ul>
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
-
-<script type="module" src="../assets/js/main.js?v=2" defer></script>
-<script type="module" src="../assets/js/search.js?v=1" defer></script>
-<script type="module" src="../assets/js/widgets.js?v=1" defer></script>
+<script type="module" src="../assets/js/main.js?v=3" defer></script>
+<script type="module" src="../assets/js/search.js?v=2" defer></script>
+<script type="module" src="../assets/js/widgets.js?v=2" defer></script>
 </body>
 </html>

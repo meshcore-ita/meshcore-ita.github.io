@@ -92,8 +92,15 @@ controllo CI degli altri file generati.
 
 - Il Worker accetta solo POST con header `x-telegram-bot-api-secret-token`
   corrispondente al secret: senza, risponde 403.
-- Risponde subito `200` e invia il messaggio in `ctx.waitUntil`, così Telegram
-  non ritenta la consegna.
+- Comandi e risposte AI valgono solo nel topic "Supporto e troubleshooting"
+  (`TELEGRAM_HELP_TOPIC_ID`, default 17) e in chat privata: la regola è
+  condivisa con il runtime long polling in `bot/routing.mjs`.
+- Le domande AI sono limitate a 6 all'ora per utente e 30 all'ora per chat:
+  senza limite un solo utente può esaurire la quota giornaliera di Workers AI
+  per tutto il gruppo. Il contatore vive nell'isolate del Worker.
+- Risponde subito `200` e invia il messaggio in `ctx.waitUntil`, con 3 tentativi
+  su 429/5xx/errori di rete: Telegram non riconsegna l'update, quindi un invio
+  perso sarebbe perso per sempre.
 - Con `TELEGRAM_CHAT_ID` impostata gli update di altre chat vengono ignorati.
 - Il piano free copre 100.000 richieste al giorno: per un gruppo di community
   è ampiamente sufficiente.

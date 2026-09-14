@@ -22,13 +22,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           # serve lo storico per diffare i due sha del push e capire
           # quali pagine sono cambiate davvero
           fetch-depth: 0
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 20
           cache: npm
@@ -43,19 +43,35 @@ jobs:
       # below deploys — stale generated pages can never reach production.
       - name: Verify generated pages match content/
         run: node build.mjs --check
-      # L'artifact carica l'intera root del repo: node_modules non deve
-      # finire in produzione, build.mjs l'ha già usato e basta.
-      - name: Remove node_modules from artifact
-        run: rm -rf node_modules
+      # Si pubblica solo il sito: sorgenti, script del bot, configurazione del
+      # Worker e metadati di repo non hanno motivo di finire online.
+      - name: Stage public site
+        run: |
+          mkdir -p _site
+          rsync -a --delete \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '_site' \
+            --exclude 'node_modules' \
+            --exclude 'bot' \
+            --exclude 'worker' \
+            --exclude 'scripts' \
+            --exclude 'content' \
+            --exclude 'templates' \
+            --exclude 'build.mjs' \
+            --exclude 'package.json' \
+            --exclude 'package-lock.json' \
+            --exclude '*.md' \
+            ./ _site/
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
-          path: '.'
+          path: '_site'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
       # Notifica IndexNow (Bing, Yandex, Seznam, Naver) delle sole pagine
       # cambiate in questo push. Gira dopo il deploy: le URL devono essere
       # già raggiungibili quando i motori vengono a leggerle. Non fallisce

@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Glossario MeshCore: LoRa, spreading factor, mesh e sicurezza">
 <meta name="twitter:description" content="Glossario in italiano dei termini MeshCore e LoRa: cos'è LoRa, spreading factor, duty cycle, repeater, room server, Ed25519 e altri 25+ termini spiegati.">
-<meta property="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta name="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
 
 <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
 <link rel="mask-icon" href="../assets/img/favicon.svg" color="#22c55e">
@@ -137,7 +137,7 @@
         {
           "@type": "DefinedTerm",
           "name": "Advert",
-          "description": "Pacchetto periodico con cui un nodo annuncia la propria presenza e identità alla mesh; di default ogni 12 ore."
+          "description": "Pacchetto con cui un nodo annuncia la propria presenza e identità alla mesh: periodico sui repeater e sui room server (default ogni 12 ore), inviato su richiesta dell'utente sui companion."
         },
         {
           "@type": "DefinedTerm",
@@ -214,7 +214,8 @@
           "name": "Bin merged / non-merged",
           "description": "Due varianti del firmware compilato: il bin merged azzera l'abbinamento Bluetooth ma mantiene nome, chiavi e preset; il non-merged mantiene il pairing esistente."
         }
-      ]
+      ],
+      "dateModified": "2026-09-10"
     },
     {
       "@type": "BreadcrumbList",
@@ -311,7 +312,7 @@
     <h3 id="mesh-flood-e-path-discovery">Mesh, flood e path discovery</h3>
     <p>La mesh è la topologia in cui i nodi si scambiano e ripetono pacchetti tra loro senza infrastruttura centrale. Il flood è la modalità con cui un pacchetto viene ritrasmesso verso tutti i vicini, usata da MeshCore per advert e messaggi di canale. Il path discovery è invece il meccanismo con cui MeshCore scopre un percorso diretto tra due nodi per i messaggi privati, evitando di inondare l'intera rete.</p>
     <h3 id="hop-e-advert">Hop e advert</h3>
-    <p>Un hop è ogni passaggio di un pacchetto attraverso un repeater: MeshCore applica un limite interno di 64 hop. L'advert è il pacchetto periodico con cui un nodo annuncia la propria presenza e identità, inviato di default ogni 12 ore o subito con il comando <code>advert</code>.</p>
+    <p>Un hop è ogni passaggio di un pacchetto attraverso un repeater: MeshCore applica un limite interno di 64 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 12 ore), un companion solo su richiesta esplicita dell'utente o con il comando <code>advert</code>.</p>
     <h3 id="nodo-repeater-room-server-companion-sensor">Nodo, repeater, room server, companion, sensor</h3>
     <p>Nodo è il termine generico per qualsiasi dispositivo che esegue il firmware MeshCore. Un repeater estende la copertura inoltrando i pacchetti sui percorsi appresi. Un room server funziona come una bacheca condivisa, conservando fino a 32 messaggi non letti per ogni utente. Un companion è collegato via BLE o USB a un'app o a un client web e non ripete i pacchetti altrui. Un sensor trasmette telemetria o payload personalizzati sulla mesh. I dettagli su hardware e configurazione di ciascun ruolo sono nella <a class="link" href="../guida/">guida passo passo a MeshCore in italiano</a>.</p>
     <h3 id="mappa-pubblica">Mappa pubblica</h3>
@@ -429,17 +430,17 @@
   </div>
 </footer>
 
-<dialog class="search" id="search" data-search-index="../search-index.json">
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="../search-index.json">
   <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
     <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
     <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
   </form>
   <ul class="search__results" id="search-results"></ul>
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
-
-<script type="module" src="../assets/js/main.js?v=2" defer></script>
-<script type="module" src="../assets/js/search.js?v=1" defer></script>
-<script type="module" src="../assets/js/widgets.js?v=1" defer></script>
+<script type="module" src="../assets/js/main.js?v=3" defer></script>
+<script type="module" src="../assets/js/search.js?v=2" defer></script>
+<script type="module" src="../assets/js/widgets.js?v=2" defer></script>
 </body>
 </html>

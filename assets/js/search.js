@@ -17,6 +17,19 @@ function normalize(text) {
   return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 }
 
+// Variante che conserva la lunghezza: gli indici calcolati sul testo
+// normalizzato vengono usati per ritagliare il testo originale, quindi una
+// normalizzazione che accorcia (accenti già decomposti nel sorgente)
+// sposterebbe l'evidenziazione sulle lettere sbagliate.
+function normalizeAligned(text) {
+  let out = '';
+  for (const ch of text) {
+    const folded = ch.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    out += (folded[0] ?? ' ').padEnd(ch.length, ' ');
+  }
+  return out;
+}
+
 function tokenize(query) {
   return normalize(query).trim().split(/\s+/).filter(Boolean);
 }
@@ -56,7 +69,7 @@ function searchChunks(chunks, tokens) {
 // evidenzia le occorrenze con <mark>, costruendo nodi DOM (mai innerHTML,
 // il testo viene dall'indice generato dai contenuti).
 function buildSnippet(rawText, tokens) {
-  const norm = normalize(rawText);
+  const norm = normalizeAligned(rawText);
   let firstIndex = -1;
   for (const token of tokens) {
     const idx = norm.indexOf(token);
@@ -112,6 +125,18 @@ function initSearch() {
   if (!input || !list || !empty) return;
 
   list.setAttribute('role', 'listbox');
+  list.id = list.id || 'search-results';
+  input.setAttribute('role', 'combobox');
+  input.setAttribute('aria-controls', list.id);
+  input.setAttribute('aria-autocomplete', 'list');
+  input.setAttribute('aria-expanded', 'false');
+
+  // Conteggio dei risultati annunciato dagli screen reader: la lista da sola
+  // cambia in silenzio.
+  const status = document.createElement('p');
+  status.className = 'sr-only';
+  status.setAttribute('role', 'status');
+  dialog.append(status);
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -120,6 +145,7 @@ function initSearch() {
   let current = []; // risultati mostrati, per la navigazione da tastiera
   let activeIndex = -1;
   let debounceTimer = null;
+  let queryToken = 0; // invalida le ricerche in volo (dialog chiuso o query nuova)
 
   function loadIndex() {
     if (chunks) return Promise.resolve(chunks);
@@ -145,6 +171,8 @@ function initSearch() {
     current = [];
     activeIndex = -1;
     input.removeAttribute('aria-activedescendant');
+    input.setAttribute('aria-expanded', 'false');
+    status.textContent = '';
     empty.hidden = true;
   }
 
@@ -183,9 +211,13 @@ function initSearch() {
     if (!results.length) {
       empty.textContent = 'Nessun risultato.';
       empty.hidden = false;
+      input.setAttribute('aria-expanded', 'false');
+      status.textContent = 'Nessun risultato.';
       return;
     }
     empty.hidden = true;
+    input.setAttribute('aria-expanded', 'true');
+    status.textContent = `${results.length} risultat${results.length === 1 ? 'o' : 'i'}.`;
 
     results.forEach((chunk, i) => {
       const li = document.createElement('li');
@@ -222,13 +254,23 @@ function initSearch() {
       clearResults();
       return;
     }
+    // Una fetch lenta non deve ripopolare un dialog già chiuso né sovrascrivere
+    // i risultati di una query più recente.
+    queryToken += 1;
+    const token = queryToken;
     loadIndex()
-      .then((data) => renderResults(searchChunks(data, tokens), tokens))
+      .then((data) => {
+        if (token !== queryToken || !dialog.open) return;
+        renderResults(searchChunks(data, tokens), tokens);
+      })
       .catch(() => {
+        if (token !== queryToken || !dialog.open) return;
         list.textContent = '';
         current = [];
+        input.setAttribute('aria-expanded', 'false');
         empty.textContent = "Impossibile caricare l'indice di ricerca. Riprova più tardi.";
         empty.hidden = false;
+        status.textContent = empty.textContent;
       });
   }
 
@@ -246,6 +288,8 @@ function initSearch() {
   });
 
   dialog.addEventListener('close', () => {
+    queryToken += 1; // scarta le ricerche ancora in volo
+    if (debounceTimer) window.clearTimeout(debounceTimer);
     input.value = '';
     clearResults();
   });

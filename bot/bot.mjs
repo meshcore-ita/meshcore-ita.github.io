@@ -8,8 +8,8 @@
 import { readFileSync } from 'node:fs';
 import process from 'node:process';
 import { REPLIES } from './content.mjs';
+import { DEFAULT_HELP_TOPIC_ID, isAllowedThread, parseCommand, sendWithRetry } from './routing.mjs';
 
-const BOT_USERNAME = 'meshcore_ita_bot';
 const COMMANDS = new Set(Object.keys(REPLIES));
 
 function readTokenFile(path) {
@@ -37,11 +37,10 @@ function getToken() {
 const TOKEN = getToken();
 const API = `https://api.telegram.org/bot${TOKEN}`;
 const ALLOWED_CHAT_ID = process.env.TELEGRAM_CHAT_ID ? String(process.env.TELEGRAM_CHAT_ID) : null;
-// I comandi sono attivi solo nel topic "Supporto e troubleshooting": il suo
-// message_thread_id coincide con l'id del messaggio di creazione del topic
-// (t.me/meshcore_ita/17). Override via env se il topic viene ricreato.
-const HELP_TOPIC_ID = Number(process.env.TELEGRAM_HELP_TOPIC_ID ?? 17);
+const HELP_TOPIC_ID = Number(process.env.TELEGRAM_HELP_TOPIC_ID ?? DEFAULT_HELP_TOPIC_ID);
 
+// Ritorna il risultato Telegram; su risposta non ok solleva, tranne quando il
+// chiamante chiede l'esito grezzo (raw) per decidere se ritentare.
 async function tg(method, payload, options = {}) {
   const res = await fetch(`${API}/${method}`, {
     method: 'POST',
@@ -49,7 +48,15 @@ async function tg(method, payload, options = {}) {
     body: JSON.stringify(payload ?? {}),
     signal: options.signal,
   });
-  const data = await res.json();
+  const data = await res.json().catch(() => ({}));
+  if (options.raw) {
+    return {
+      ok: Boolean(data.ok),
+      status: res.status,
+      retryAfter: data.parameters && data.parameters.retry_after,
+      description: data.description,
+    };
+  }
   if (!data.ok) {
     throw new Error(`${method} fallita: ${data.description ?? res.status}`);
   }
@@ -60,29 +67,17 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Estrae il nome comando da "/cmd" o "/cmd@meshcore_ita_bot", ignorando
-// argomenti successivi. Ritorna null se il testo non è un comando o il
-// comando è rivolto esplicitamente a un altro bot.
-function parseCommand(text) {
-  if (typeof text !== 'string' || text[0] !== '/') return null;
-  const firstToken = text.split(/\s/, 1)[0].slice(1);
-  const [cmd, mention] = firstToken.split('@');
-  if (mention && mention.toLowerCase() !== BOT_USERNAME.toLowerCase()) return null;
-  return cmd.toLowerCase();
-}
-
 async function handleMessage(message) {
   const chatId = message.chat && message.chat.id;
   if (ALLOWED_CHAT_ID && String(chatId) !== ALLOWED_CHAT_ID) return;
 
-  const cmd = parseCommand(message.text);
-  if (!cmd || !COMMANDS.has(cmd)) return;
+  const cmd = parseCommand(message.text, COMMANDS);
+  if (!cmd) return;
 
   // Fuori dal topic di supporto il bot resta zitto: niente risposte nei topic
   // regionali, in Annunci o in General. Il thread ignorato finisce nei log,
   // così si ricava l'id giusto se i topic vengono ricreati.
-  const isPrivate = message.chat && message.chat.type === 'private';
-  if (!isPrivate && message.message_thread_id !== HELP_TOPIC_ID) {
+  if (!isAllowedThread(message, HELP_TOPIC_ID)) {
     console.log(
       `${new Date().toISOString()} /${cmd} ignorato chat=${chatId} thread=${message.message_thread_id ?? 'none'}`
     );
@@ -97,11 +92,17 @@ async function handleMessage(message) {
   };
   if (message.message_thread_id) payload.message_thread_id = message.message_thread_id;
 
-  await tg('sendMessage', payload);
-
   const user = message.from && message.from.username
     ? `@${message.from.username}`
     : String((message.from && message.from.id) ?? 'sconosciuto');
+
+  // Un 429 o un 5xx transitorio non deve far perdere la risposta: l'update è
+  // già stato consumato e Telegram non lo riproporrà.
+  const sent = await sendWithRetry(() => tg('sendMessage', payload, { raw: true }), { sleep });
+  if (!sent.ok) {
+    console.error(`${new Date().toISOString()} /${cmd} NON inviato chat=${chatId} user=${user}: ${sent.error}`);
+    return;
+  }
   console.log(`${new Date().toISOString()} /${cmd} chat=${chatId} user=${user}`);
 }
 

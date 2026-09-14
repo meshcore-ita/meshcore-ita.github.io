@@ -35,7 +35,7 @@
         { "@type": "DefinedTerm", "name": "Flood", "description": "Modalità di propagazione in cui un pacchetto viene ritrasmesso verso tutti i vicini; usata da MeshCore per advert e messaggi di canale." },
         { "@type": "DefinedTerm", "name": "Path discovery", "description": "Meccanismo con cui MeshCore scopre un percorso diretto tra due nodi per i messaggi privati, invece di usare il flood." },
         { "@type": "DefinedTerm", "name": "Hop", "description": "Ogni passaggio di un pacchetto attraverso un repeater; MeshCore applica un limite interno di 64 hop." },
-        { "@type": "DefinedTerm", "name": "Advert", "description": "Pacchetto periodico con cui un nodo annuncia la propria presenza e identità alla mesh; di default ogni 12 ore." },
+        { "@type": "DefinedTerm", "name": "Advert", "description": "Pacchetto con cui un nodo annuncia la propria presenza e identità alla mesh: periodico sui repeater e sui room server (default ogni 12 ore), inviato su richiesta dell'utente sui companion." },
         { "@type": "DefinedTerm", "name": "Nodo", "description": "Qualsiasi dispositivo che esegue il firmware MeshCore, indipendentemente dal ruolo che assume." },
         { "@type": "DefinedTerm", "name": "Repeater", "description": "Ruolo di un nodo che estende la copertura della mesh inoltrando i pacchetti sui percorsi appresi." },
         { "@type": "DefinedTerm", "name": "Room Server", "description": "Ruolo di un nodo che funziona come bacheca condivisa, conservando fino a 32 messaggi non letti per ogni utente." },
@@ -90,7 +90,7 @@
     <h3>Mesh, flood e path discovery</h3>
     <p>La mesh è la topologia in cui i nodi si scambiano e ripetono pacchetti tra loro senza infrastruttura centrale. Il flood è la modalità con cui un pacchetto viene ritrasmesso verso tutti i vicini, usata da MeshCore per advert e messaggi di canale. Il path discovery è invece il meccanismo con cui MeshCore scopre un percorso diretto tra due nodi per i messaggi privati, evitando di inondare l'intera rete.</p>
     <h3>Hop e advert</h3>
-    <p>Un hop è ogni passaggio di un pacchetto attraverso un repeater: MeshCore applica un limite interno di 64 hop. L'advert è il pacchetto periodico con cui un nodo annuncia la propria presenza e identità, inviato di default ogni 12 ore o subito con il comando <code>advert</code>.</p>
+    <p>Un hop è ogni passaggio di un pacchetto attraverso un repeater: MeshCore applica un limite interno di 64 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 12 ore), un companion solo su richiesta esplicita dell'utente o con il comando <code>advert</code>.</p>
     <h3>Nodo, repeater, room server, companion, sensor</h3>
     <p>Nodo è il termine generico per qualsiasi dispositivo che esegue il firmware MeshCore. Un repeater estende la copertura inoltrando i pacchetti sui percorsi appresi. Un room server funziona come una bacheca condivisa, conservando fino a 32 messaggi non letti per ogni utente. Un companion è collegato via BLE o USB a un'app o a un client web e non ripete i pacchetti altrui. Un sensor trasmette telemetria o payload personalizzati sulla mesh. I dettagli su hardware e configurazione di ciascun ruolo sono nella <a class="link" href="../guida/">guida passo passo a MeshCore in italiano</a>.</p>
     <h3>Mappa pubblica</h3>

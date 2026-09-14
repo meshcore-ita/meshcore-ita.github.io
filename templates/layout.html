@@ -12,7 +12,7 @@
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="{{FEED_URL}}">
 
-<meta property="og:type" content="article">
+<meta property="og:type" content="{{OG_TYPE}}">
 <meta property="og:site_name" content="MeshCore ITA">
 <meta property="og:title" content="{{TITLE}}">
 <meta property="og:description" content="{{DESCRIPTION}}">
@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{TITLE}}">
 <meta name="twitter:description" content="{{DESCRIPTION}}">
-<meta property="twitter:image" content="{{OG_IMAGE}}">
+<meta name="twitter:image" content="{{OG_IMAGE}}">
 
 <link rel="icon" type="image/svg+xml" href="{{ROOT}}assets/img/favicon.svg">
 <link rel="mask-icon" href="{{ROOT}}assets/img/favicon.svg" color="#22c55e">
@@ -94,17 +94,17 @@
   </div>
 </footer>
 
-<dialog class="search" id="search" data-search-index="{{ROOT}}search-index.json">
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="{{ROOT}}search-index.json">
   <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
     <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
     <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
   </form>
   <ul class="search__results" id="search-results"></ul>
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
-
-<script type="module" src="{{ROOT}}assets/js/main.js?v=2" defer></script>
-<script type="module" src="{{ROOT}}assets/js/search.js?v=1" defer></script>
-<script type="module" src="{{ROOT}}assets/js/widgets.js?v=1" defer></script>
+<script type="module" src="{{ROOT}}assets/js/main.js?v=3" defer></script>
+<script type="module" src="{{ROOT}}assets/js/search.js?v=2" defer></script>
+<script type="module" src="{{ROOT}}assets/js/widgets.js?v=2" defer></script>
 </body>
 </html>

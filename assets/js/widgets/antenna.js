@@ -45,11 +45,13 @@ function ampAz(a, deg) {
 
 const toDb = (amp) => 20 * Math.log10(Math.max(amp, 1e-3));
 // Ampiezza in elevazione: 0° = orizzonte. tilt ruota il massimo verso l'alto.
-// Verticale omni: taglio simmetrico (lobo avanti e dietro), nullo allo zenit.
+// Verticale omni: taglio simmetrico (lobo avanti e dietro), nullo allo zenit;
+// il tilt meccanico ruota l'intero taglio, non solo il lobo avanti.
 function ampEl(a, deg, tilt) {
   const n = nFromHpbw(a.hpbwEl);
-  if (a.omni) return Math.max(cosN(wrap(deg), n), cosN(wrap(deg - 180), n));
-  return cosN(wrap(deg - tilt), n);
+  const d = wrap(deg - tilt);
+  if (a.omni) return Math.max(cosN(d, n), cosN(wrap(d - 180), n));
+  return cosN(d, n);
 }
 
 // Impedenza vs frequenza: RLC serie, X(f) = X0 + Q·R·(f/f0 - f0/f).
@@ -257,7 +259,7 @@ export default function mount(root) {
     ddCov.className = covered === n ? 'is-ok' : covered >= n / 2 ? 'is-warn' : 'is-bad';
     ddGain.textContent = `${fmt(a.gain, 1)} dBi (${fmt(a.gain - 2.15, 1)} dBd)`;
     ddHpbw.textContent = a.omni ? `360° × ${a.hpbwEl}°` : `${a.hpbwAz}° × ${a.hpbwEl}°`;
-    ddZ.textContent = `${fmt(z.r, 0)} ${z.x < 0 ? '−' : '+'} j${fmt(Math.abs(z.x), 0)} Ω`;
+    ddZ.textContent = `${fmt(z.r, 0)} ${z.x < -0.5 ? '−' : '+'} j${fmt(Math.abs(z.x), 0)} Ω`;
     ddSwr.textContent = `${fmt(s, 2)}:1`;
     ddSwr.className = s <= 1.5 ? 'is-ok' : s <= 2 ? 'is-warn' : 'is-bad';
     ddBand.textContent = lo === hi ? 'fuori banda' : `${fmt(lo, 1)}–${fmt(hi, 1)} MHz`;

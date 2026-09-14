@@ -55,8 +55,12 @@ contenuti nuovi:
   `author` (default: `"MeshCore ITA"`), `tags` (array di stringhe).
 
 In entrambi i casi `slug` deve essere identico al nome del file (senza
-estensione), e il corpo dopo il blocco meta è markdown puro (GFM), senza
-HTML grezzo: viene convertito automaticamente dalla build.
+estensione) e in forma URL-safe (minuscole, cifre e trattini singoli: la build
+rifiuta il resto). Il corpo dopo il blocco meta è markdown puro (GFM): l'HTML
+grezzo non è ammesso e fa fallire la build, non viene silenziosamente incluso.
+
+Chiave meta opzionale `ogType`: cambia `og:type` della pagina (default
+`article`; usa `website` per pagine che non sono articoli).
 
 L'indice degli Aggiornamenti si impagina da solo a 10 post per pagina: la
 prima resta `/blog/`, le successive diventano `/blog/pagina/2/`,

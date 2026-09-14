@@ -24,13 +24,20 @@ function getToken() {
   process.exit(1);
 }
 
+// Telegram risponde 200 anche su errori applicativi: senza controllare ok
+// lo script stampa "undefined" ed esce 0, lasciando il webhook com'era.
 async function tg(token, method, payload) {
   const res = await fetch(`https://api.telegram.org/bot${token}/${method}`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(payload ?? {}),
   });
-  return res.json();
+  const data = await res.json().catch(() => null);
+  if (!res.ok || !data || data.ok !== true) {
+    console.error(`${method} fallita: HTTP ${res.status} — ${data?.description ?? 'risposta non interpretabile'}`);
+    process.exit(1);
+  }
+  return data;
 }
 
 const token = getToken();

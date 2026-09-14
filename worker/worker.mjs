@@ -7,19 +7,10 @@
 // Variabile opzionale:
 //   TELEGRAM_CHAT_ID       se impostata, il bot risponde solo in quella chat
 import { REPLIES } from '../bot/content.mjs';
+import { BOT_USERNAME, DEFAULT_HELP_TOPIC_ID, isAllowedThread, parseCommand, sendWithRetry } from '../bot/routing.mjs';
 import { KB_CHUNKS } from './kb.generated.mjs';
 
-const BOT_USERNAME = 'meshcore_ita_bot';
 const COMMANDS = new Set(Object.keys(REPLIES));
-
-// '/cli', '/cli@meshcore_ita_bot arg' -> 'cli'; comando rivolto ad altro bot -> null
-function parseCommand(text) {
-  if (typeof text !== 'string' || text[0] !== '/') return null;
-  const [cmd, mention] = text.split(/\s/, 1)[0].slice(1).split('@');
-  if (mention && mention.toLowerCase() !== BOT_USERNAME) return null;
-  const name = cmd.toLowerCase();
-  return COMMANDS.has(name) ? name : null;
-}
 
 // Testo libero rivolto al bot: "/chiedi <domanda>" oppure una menzione
 // @meshcore_ita_bot. Con privacy mode attiva sono gli unici messaggi che il
@@ -193,13 +184,52 @@ async function answerWithAI(env, question) {
   return text || 'Non ho una risposta affidabile. Prova con /link oppure scrivi nel topic Supporto e troubleshooting.';
 }
 
+// Quota Workers AI: senza limiti, un singolo utente può bruciare i neuron
+// giornalieri e spegnere le risposte AI per tutto il gruppo. Il contatore vive
+// nell'isolate (niente KV da configurare): limita il caso realistico, cioè lo
+// spam a raffica, non un attacco distribuito.
+const AI_USER_PER_HOUR = 6;
+const AI_CHAT_PER_HOUR = 30;
+const AI_HOUR_MS = 3600_000;
+const aiHits = new Map(); // chiave -> array di timestamp
+
+function allowAi(key, limit, now) {
+  const hits = (aiHits.get(key) ?? []).filter((t) => now - t < AI_HOUR_MS);
+  if (hits.length >= limit) {
+    aiHits.set(key, hits);
+    return false;
+  }
+  hits.push(now);
+  aiHits.set(key, hits);
+  return true;
+}
+
+function aiQuotaOk(message) {
+  const now = Date.now();
+  const chatKey = `c:${message.chat.id}`;
+  const userKey = `u:${message.from?.id ?? 'anon'}`;
+  return allowAi(chatKey, AI_CHAT_PER_HOUR, now) && allowAi(userKey, AI_USER_PER_HOUR, now);
+}
+
+// Invio con ritentativi: il Worker risponde 200 subito, quindi Telegram non
+// riconsegna l'update e una risposta persa è persa per sempre.
 async function sendMessage(token, payload) {
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) console.error(`sendMessage ${res.status}: ${await res.text()}`);
+  const attempt = async () => {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json().catch(() => ({}));
+    return {
+      ok: res.ok && data.ok !== false,
+      status: res.status,
+      retryAfter: data.parameters && data.parameters.retry_after,
+    };
+  };
+  const sent = await sendWithRetry(attempt);
+  if (!sent.ok) console.error(`sendMessage fallita: ${sent.error}`);
+  return sent.ok;
 }
 
 export default {
@@ -216,7 +246,12 @@ export default {
     const chatId = String(message.chat.id);
     if (env.TELEGRAM_CHAT_ID && chatId !== String(env.TELEGRAM_CHAT_ID)) return new Response('ok');
 
-    const command = parseCommand(message.text);
+    // Stesso confine del runtime long polling: fuori dal topic di supporto
+    // (e fuori dalla chat privata) il bot non risponde.
+    const helpTopicId = Number(env.TELEGRAM_HELP_TOPIC_ID ?? DEFAULT_HELP_TOPIC_ID);
+    if (!isAllowedThread(message, helpTopicId)) return new Response('ok');
+
+    const command = parseCommand(message.text, COMMANDS);
     const question = command ? null : parseQuestion(message.text);
     if (!command && !question) return new Response('ok');
 
@@ -229,6 +264,17 @@ export default {
 
     if (command) {
       ctx.waitUntil(sendMessage(env.TELEGRAM_BOT_TOKEN, { ...base, text: REPLIES[command] }));
+      return new Response('ok');
+    }
+
+    if (!aiQuotaOk(message)) {
+      ctx.waitUntil(
+        sendMessage(env.TELEGRAM_BOT_TOKEN, {
+          ...base,
+          text: 'Troppe domande di fila: riprova tra qualche minuto. Nel frattempo usa /link o i comandi del bot.',
+          parse_mode: undefined,
+        })
+      );
       return new Response('ok');
     }
 

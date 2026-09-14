@@ -118,8 +118,9 @@
   </div>
 </footer>
 
-<dialog class="search" id="search" data-search-index="https://meshcore-ita.github.io/search-index.json">
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="https://meshcore-ita.github.io/search-index.json">
   <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
     <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
     <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
   </form>
@@ -127,7 +128,7 @@
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
 
-<script type="module" src="https://meshcore-ita.github.io/assets/js/main.js?v=2" defer></script>
-<script type="module" src="https://meshcore-ita.github.io/assets/js/search.js?v=1" defer></script>
+<script type="module" src="https://meshcore-ita.github.io/assets/js/main.js?v=3" defer></script>
+<script type="module" src="https://meshcore-ita.github.io/assets/js/search.js?v=2" defer></script>
 </body>
 </html>

@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mappa e copertura MeshCore: come funziona map.meshcore.io">
 <meta name="twitter:description" content="Mappa pubblica MeshCore: cosa mostra map.meshcore.io, come aggiungere companion e repeater, privacy della posizione e come stimare la copertura reale.">
-<meta property="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta name="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
 
 <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
 <link rel="mask-icon" href="../assets/img/favicon.svg" color="#22c55e">
@@ -43,7 +43,8 @@
       "headline": "Mappa e copertura MeshCore: come funziona map.meshcore.io",
       "description": "Guida alla Internet Map pubblica di MeshCore, a come aggiungere un nodo e a come stimare la copertura reale della mesh oltre ciò che mostra la mappa.",
       "inLanguage": "it",
-      "about": "MeshCore Internet Map"
+      "about": "MeshCore Internet Map",
+      "dateModified": "2026-09-11"
     },
     {
       "@type": "FAQPage",
@@ -80,7 +81,8 @@
             "text": "Il modo più affidabile è un test con un secondo nodo: spostati nel punto che vuoi verificare, invia un advert e controlla con neighbors e stats-radio se il tuo repeater lo riceve, leggendo RSSI e SNR. Sentire un advert non basta a garantire che un messaggio venga instradato con successo: conferma la copertura scambiando anche un messaggio di prova con un altro nodo della zona, e confrontati nel topic regionale del gruppo Telegram."
           }
         }
-      ]
+      ],
+      "dateModified": "2026-09-11"
     },
     {
       "@type": "BreadcrumbList",
@@ -324,17 +326,17 @@
   </div>
 </footer>
 
-<dialog class="search" id="search" data-search-index="../search-index.json">
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="../search-index.json">
   <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
     <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
     <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
   </form>
   <ul class="search__results" id="search-results"></ul>
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
-
-<script type="module" src="../assets/js/main.js?v=2" defer></script>
-<script type="module" src="../assets/js/search.js?v=1" defer></script>
-<script type="module" src="../assets/js/widgets.js?v=1" defer></script>
+<script type="module" src="../assets/js/main.js?v=3" defer></script>
+<script type="module" src="../assets/js/search.js?v=2" defer></script>
+<script type="module" src="../assets/js/widgets.js?v=2" defer></script>
 </body>
 </html>

@@ -59,7 +59,7 @@ export default function mount(root) {
 
   const W = 400;
   const H = 70;
-  const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}` });
+  const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img' });
   const MIN_DB = -20;
   const MAX_DB = 100;
   const x = (v) => ((Math.min(Math.max(v, MIN_DB), MAX_DB) - MIN_DB) / (MAX_DB - MIN_DB)) * W;
@@ -79,8 +79,8 @@ export default function mount(root) {
   const ddFspl = mk('FSPL');
   const ddSens = mk('Sensibilità stimata');
   const ddMargin = mk('Margine');
-  const ddErpDbm = mk('ERP effettivo');
-  const ddErpMw = mk('ERP effettivo');
+  const ddErpDbm = mk('ERP effettivo (dBm)');
+  const ddErpMw = mk('ERP effettivo (mW)');
   root.append(out);
 
   root.append(
@@ -135,6 +135,7 @@ export default function mount(root) {
     bar.setAttribute('fill', color);
     marginLabel.setAttribute('x', String(Math.min(Math.max(x1, 20), W - 20)));
     marginLabel.textContent = `margine ${fmt(margin)} dB`;
+    svg.setAttribute('aria-label', `Barra del margine di collegamento: ${fmt(margin)} dB rispetto alla sensibilità stimata`);
   }
 
   for (const c of [ptx, gtx, ltx, grx, lrx, dist]) c.input.addEventListener('input', recalc);

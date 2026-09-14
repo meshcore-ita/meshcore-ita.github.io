@@ -11,6 +11,7 @@ on:
     paths:
       - 'worker/**'
       - 'bot/content.mjs'
+      - 'bot/routing.mjs'
       - '.github/workflows/worker.yml'
   workflow_dispatch:
 
@@ -24,9 +25,9 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 20
 
@@ -37,11 +38,11 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_WEBHOOK_SECRET: ${{ secrets.TELEGRAM_WEBHOOK_SECRET }}
         run: |
-          printf '%s' "$TELEGRAM_BOT_TOKEN" | npx --yes wrangler@4 secret put TELEGRAM_BOT_TOKEN
-          printf '%s' "$TELEGRAM_WEBHOOK_SECRET" | npx --yes wrangler@4 secret put TELEGRAM_WEBHOOK_SECRET
+          printf '%s' "$TELEGRAM_BOT_TOKEN" | npx --yes wrangler@4.131.2 secret put TELEGRAM_BOT_TOKEN
+          printf '%s' "$TELEGRAM_WEBHOOK_SECRET" | npx --yes wrangler@4.131.2 secret put TELEGRAM_WEBHOOK_SECRET
 
       - name: Deploy
         working-directory: worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: npx --yes wrangler@4 deploy
+        run: npx --yes wrangler@4.131.2 deploy

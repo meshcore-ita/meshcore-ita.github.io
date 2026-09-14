@@ -675,7 +675,7 @@ export const KB_CHUNKS = [
     "page": "Glossario",
     "title": "Hop e advert",
     "url": "https://meshcore-ita.github.io/glossario/#hop-e-advert",
-    "text": "Un hop è ogni passaggio di un pacchetto attraverso un repeater: MeshCore applica un limite interno di 64 hop. L'advert è il pacchetto periodico con cui un nodo annuncia la propria presenza e identità, inviato di default ogni 12 ore o subito con il comando advert ."
+    "text": "Un hop è ogni passaggio di un pacchetto attraverso un repeater: MeshCore applica un limite interno di 64 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 12 ore), un companion solo su richiesta esplicita dell'utente o con il comando advert ."
   },
   {
     "id": "glossario--nodo-repeater-room-server-companion-sensor",
