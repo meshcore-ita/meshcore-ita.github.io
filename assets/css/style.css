@@ -1333,6 +1333,15 @@ dialog.search::backdrop {
   color: var(--dim);
 }
 
+/* Chrome/Safari disegnano una ✕ nativa dentro input[type=search]: doppione
+   della pillola ESC accanto, e non stilabile. Via. */
+.search__input::-webkit-search-cancel-button,
+.search__input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
 .search__close {
   flex: 0 0 auto;
   font-family: var(--font-mono);
