@@ -1406,6 +1406,34 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/awesome-meshcore--cos-e",
+    "page": "Aggiornamenti",
+    "title": "Cos'è",
+    "url": "https://meshcore-ita.github.io/blog/awesome-meshcore/#cos-e",
+    "text": "awesome-meshcore è un elenco curato di risorse su MeshCore, nel formato delle awesome list : una pagina sola, voci brevi, ogni link verificato prima di entrare. Lo manteniamo noi della community italiana, ma è scritto in inglese e copre il progetto a livello internazionale: serve a chi cerca uno strumento e non sa da dove partire. Al momento raccoglie oltre 160 voci. Il repository è sotto licenza CC0: puoi riusarlo come vuoi, anche senza citarci."
+  },
+  {
+    "id": "blog/awesome-meshcore--cosa-ci-trovi",
+    "page": "Aggiornamenti",
+    "title": "Cosa ci trovi",
+    "url": "https://meshcore-ita.github.io/blog/awesome-meshcore/#cosa-ci-trovi",
+    "text": "Risorse ufficiali : sito, documentazione, blog, web flasher, mappa, FAQ e repository del firmware del progetto MeshCore. Client , divisi tra open source e closed source, per Android, iOS, desktop e browser. Librerie e SDK per chi vuole scriverci sopra qualcosa, in particolare in Python e JavaScript. Integrazioni e bot , incluse quelle verso altri sistemi di messaggistica. Dashboard self-hosted e strumenti di analisi dei pacchetti , utili per chi gestisce un repeater e vuole vedere cosa passa davvero sulla rete. Firmware e flashing : alternative e strumenti oltre al flasher ufficiale. Mappe, diagnostica e pianificazione RF , compresi i tool per stimare una tratta prima di salire sul tetto —…"
+  },
+  {
+    "id": "blog/awesome-meshcore--perche-un-elenco-separato-dal-sito",
+    "page": "Aggiornamenti",
+    "title": "Perché un elenco separato dal sito",
+    "url": "https://meshcore-ita.github.io/blog/awesome-meshcore/#perche-un-elenco-separato-dal-sito",
+    "text": "Questo sito è documentazione in italiano: spiega come si configura un nodo, qual è il preset condiviso, cosa fare quando qualcosa non funziona. Ogni dato che pubblichiamo deve essere verificabile su una fonte upstream, e le pagine restano poche e stabili. L'elenco awesome risponde a una domanda diversa — \"esiste già uno strumento per X?\" — ed è per sua natura in movimento: nascono client nuovi, alcuni progetti si fermano, le community regionali cambiano indirizzo. Tenerlo in un repository a parte, in inglese, permette di aggiornarlo spesso senza toccare la documentazione, e lo rende utile anche fuori dall'Italia."
+  },
+  {
+    "id": "blog/awesome-meshcore--come-contribuire",
+    "page": "Aggiornamenti",
+    "title": "Come contribuire",
+    "url": "https://meshcore-ita.github.io/blog/awesome-meshcore/#come-contribuire",
+    "text": "Manca un progetto? Un link non risponde più? Apri una pull request o una issue sul repository . Le regole sono quelle classiche delle awesome list: una riga per voce, con una descrizione breve di cosa fa, non di quanto è bello; niente link affiliati, niente progetti abbandonati senza dirlo; la voce va nella sezione giusta, e le community vanno sotto il proprio paese. Se preferisci, segnalacelo anche solo nel gruppo Telegram MeshCore ITA : a inserirlo nell'elenco ci pensiamo noi."
+  },
+  {
     "id": "blog/wiki-e-aggiornamenti--cosa-cambia",
     "page": "Aggiornamenti",
     "title": "Cosa cambia",

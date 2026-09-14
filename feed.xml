@@ -7,6 +7,75 @@
   <updated>2026-09-14T00:00:00Z</updated>
   <author><name>MeshCore ITA</name></author>
   <entry>
+    <id>https://meshcore-ita.github.io/blog/awesome-meshcore/</id>
+    <title>Awesome MeshCore: l'elenco curato delle risorse MeshCore</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/awesome-meshcore/"/>
+    <published>2026-09-14T00:00:00Z</published>
+    <updated>2026-09-14T00:00:00Z</updated>
+    <summary type="text">Oltre 160 risorse MeshCore in un solo posto: client, librerie, bot, mappe, strumenti di analisi e community di tutto il mondo. Licenza CC0, pull request aperte.</summary>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-14&quot;&gt;14 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt;&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;community&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;risorse&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;cos-e&quot;&gt;Cos&amp;#39;è&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;awesome-meshcore&lt;/a&gt; è un
+elenco curato di risorse su MeshCore, nel formato delle
+&lt;a href=&quot;https://awesome.re&quot;&gt;awesome list&lt;/a&gt;: una pagina sola, voci brevi, ogni link
+verificato prima di entrare. Lo manteniamo noi della community italiana, ma
+è scritto in inglese e copre il progetto a livello internazionale: serve a
+chi cerca uno strumento e non sa da dove partire.&lt;/p&gt;
+&lt;p&gt;Al momento raccoglie oltre 160 voci. Il repository è sotto licenza CC0: puoi
+riusarlo come vuoi, anche senza citarci.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-ci-trovi&quot;&gt;Cosa ci trovi&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Risorse ufficiali&lt;/strong&gt;: sito, documentazione, blog, web flasher, mappa,
+FAQ e repository del firmware del progetto MeshCore.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Client&lt;/strong&gt;, divisi tra open source e closed source, per Android, iOS,
+desktop e browser.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Librerie e SDK&lt;/strong&gt; per chi vuole scriverci sopra qualcosa, in particolare
+in Python e JavaScript.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Integrazioni e bot&lt;/strong&gt;, incluse quelle verso altri sistemi di messaggistica.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Dashboard self-hosted&lt;/strong&gt; e &lt;strong&gt;strumenti di analisi dei pacchetti&lt;/strong&gt;, utili
+per chi gestisce un repeater e vuole vedere cosa passa davvero sulla rete.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Firmware e flashing&lt;/strong&gt;: alternative e strumenti oltre al flasher ufficiale.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mappe, diagnostica e pianificazione RF&lt;/strong&gt;, compresi i tool per stimare
+una tratta prima di salire sul tetto — lo stesso tema della nostra pagina
+su &lt;a href=&quot;../../link-budget/&quot;&gt;portata e link budget&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Guide e materiale didattico&lt;/strong&gt;: corsi, canali YouTube, wiki regionali e
+podcast, in diverse lingue.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Community&lt;/strong&gt;, raggruppate per paese: dall&amp;#39;Australia agli Stati Uniti,
+passando per l&amp;#39;Italia. Nella sezione italiana ci sono questo sito e il
+gruppo Telegram.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;perche-un-elenco-separato-dal-sito&quot;&gt;Perché un elenco separato dal sito&lt;/h2&gt;
+&lt;p&gt;Questo sito è documentazione in italiano: spiega come si configura un nodo,
+qual è il preset condiviso, cosa fare quando qualcosa non funziona. Ogni
+dato che pubblichiamo deve essere verificabile su una fonte upstream, e le
+pagine restano poche e stabili.&lt;/p&gt;
+&lt;p&gt;L&amp;#39;elenco awesome risponde a una domanda diversa — &amp;quot;esiste già uno strumento
+per X?&amp;quot; — ed è per sua natura in movimento: nascono client nuovi, alcuni
+progetti si fermano, le community regionali cambiano indirizzo. Tenerlo in
+un repository a parte, in inglese, permette di aggiornarlo spesso senza
+toccare la documentazione, e lo rende utile anche fuori dall&amp;#39;Italia.&lt;/p&gt;
+&lt;h2 id=&quot;come-contribuire&quot;&gt;Come contribuire&lt;/h2&gt;
+&lt;p&gt;Manca un progetto? Un link non risponde più? Apri una pull request o una
+issue sul &lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;repository&lt;/a&gt;.
+Le regole sono quelle classiche delle awesome list:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;una riga per voce, con una descrizione breve di cosa fa, non di quanto è
+bello;&lt;/li&gt;
+&lt;li&gt;niente link affiliati, niente progetti abbandonati senza dirlo;&lt;/li&gt;
+&lt;li&gt;la voce va nella sezione giusta, e le community vanno sotto il proprio
+paese.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se preferisci, segnalacelo anche solo nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;: a inserirlo nell&amp;#39;elenco ci
+pensiamo noi.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+  <entry>
     <id>https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/</id>
     <title>Aggiornamenti, ricerca e feed: cosa cambia sul sito MeshCore ITA</title>
     <link rel="alternate" href="https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/"/>
