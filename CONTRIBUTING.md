@@ -29,7 +29,7 @@ Questo sito è documentazione tecnica, non divulgazione approssimativa.
   (`EU/UK (Narrow)`). Se cambia, va aggiornato ovunque compaia, non solo
   nella pagina del preset.
 
-## Aggiungere una pagina nuova
+## Aggiungere una pagina nuova (HTML)
 
 1. Crea `content/<slug>.html`. Il file inizia con un blocco `<!--meta {...}-->`
    JSON con le chiavi: `slug`, `nav`, `order`, `primary`, `title`,
@@ -41,10 +41,48 @@ Questo sito è documentazione tecnica, non divulgazione approssimativa.
 4. Usa solo le classi CSS già esistenti in `assets/css/style.css`.
 5. Lancia `node build.mjs` e committa anche i file generati.
 
+## Aggiungere contenuti in markdown
+
+Oltre alle pagine HTML esistenti, il sito supporta sorgenti in markdown per
+contenuti nuovi:
+
+- **Pagina di documentazione**: `content/<slug>.md`. Stesso blocco meta
+  delle pagine `.html` (`slug`, `nav`, `order`, `primary`, `title`,
+  `description`, `h1`, `lede`, `updated`).
+- **Post della sezione Aggiornamenti**: `content/blog/<slug>.md`. Chiavi
+  meta obbligatorie: `slug`, `title`, `description`, `h1`, `lede`,
+  `published`. Opzionali: `updated` (default: uguale a `published`),
+  `author` (default: `"MeshCore ITA"`), `tags` (array di stringhe).
+
+In entrambi i casi `slug` deve essere identico al nome del file (senza
+estensione), e il corpo dopo il blocco meta è markdown puro (GFM), senza
+HTML grezzo: viene convertito automaticamente dalla build.
+
+L'indice degli Aggiornamenti si impagina da solo a 10 post per pagina: la
+prima resta `/blog/`, le successive diventano `/blog/pagina/2/`,
+`/blog/pagina/3/` e così via. Non c'è niente da configurare, e `/blog/`
+non cambia mai URL.
+
+Per una guida passo passo su come scrivere un post, vedi
+["Come scrivere un post"](https://meshcore-ita.github.io/blog/come-scrivere-un-post/)
+nella sezione Aggiornamenti del sito.
+
+## Regola SEO: non spostare gli URL esistenti
+
+Gli URL delle pagine pubblicate non cambiano mai: rinominare uno `slug` o
+spostare una pagina rompe i link già condivisi e indicizzati dai motori di
+ricerca. Se una pagina va ristrutturata, si modifica il contenuto lasciando
+lo `slug` (e quindi l'URL) invariato.
+
 ## Verifica prima di aprire la PR
 
+Da quando il sito supporta il markdown, il progetto ha una dipendenza
+npm (`marked`): dopo aver clonato il repository, o se `package.json`
+cambia, esegui prima `npm ci`.
+
 ```sh
-node build.mjs          # rigenera pagine, sitemap, robots, 404
+npm ci                  # installa le dipendenze (marked)
+node build.mjs          # rigenera pagine, sitemap, robots, 404, blog, feed
 node build.mjs --check  # deve uscire 0: è lo stesso gate della CI
 python3 -m http.server 8080   # controlla il risultato nel browser
 ```

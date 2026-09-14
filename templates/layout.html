@@ -10,6 +10,7 @@
 <meta name="description" content="{{DESCRIPTION}}">
 <link rel="canonical" href="{{CANONICAL}}">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="{{FEED_URL}}">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="MeshCore ITA">
@@ -26,13 +27,13 @@
 <meta name="twitter:description" content="{{DESCRIPTION}}">
 <meta property="twitter:image" content="{{OG_IMAGE}}">
 
-<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
-<link rel="mask-icon" href="../assets/img/favicon.svg" color="#22c55e">
+<link rel="icon" type="image/svg+xml" href="{{ROOT}}assets/img/favicon.svg">
+<link rel="mask-icon" href="{{ROOT}}assets/img/favicon.svg" color="#22c55e">
 
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geist-300-700-latin.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="{{ROOT}}assets/fonts/geist-300-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="{{ROOT}}assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
 
-<link rel="stylesheet" href="../assets/css/style.css?v=3">
+<link rel="stylesheet" href="{{ROOT}}assets/css/style.css?v=3">
 
 <script type="application/ld+json">{{JSONLD}}</script>
 </head>
@@ -42,13 +43,14 @@
 
 <header class="site-header" data-scrolled="false">
   <div class="site-header__inner">
-    <a class="brand" href="../">
-      <img class="brand__mark" src="../assets/img/logo.svg" alt="" width="28" height="28">
+    <a class="brand" href="{{ROOT}}">
+      <img class="brand__mark" src="{{ROOT}}assets/img/logo.svg" alt="" width="28" height="28">
       <span class="brand__text">MeshCore <em>ITA</em></span>
     </a>
     <nav class="nav" id="nav">
 {{NAV}}
     </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
       <span class="sr-only">Apri il menu</span>
     </button>
@@ -60,8 +62,7 @@
   <section class="hero hero--page">
     <nav class="crumbs" aria-label="Breadcrumb">
       <ol>
-        <li><a href="../">Home</a></li>
-        <li aria-current="page">{{BREADCRUMB_LABEL}}</li>
+{{BREADCRUMB}}
       </ol>
     </nav>
     <p class="eyelash">{{EYELASH}}</p>
@@ -93,6 +94,16 @@
   </div>
 </footer>
 
-<script type="module" src="../assets/js/main.js?v=2" defer></script>
+<dialog class="search" id="search" data-search-index="{{ROOT}}search-index.json">
+  <form class="search__form" method="dialog">
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+
+<script type="module" src="{{ROOT}}assets/js/main.js?v=2" defer></script>
+<script type="module" src="{{ROOT}}assets/js/search.js?v=1" defer></script>
 </body>
 </html>

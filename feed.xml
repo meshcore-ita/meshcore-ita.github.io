@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MeshCore ITA — Aggiornamenti</title>
+  <id>https://meshcore-ita.github.io/blog/</id>
+  <link rel="self" href="https://meshcore-ita.github.io/feed.xml"/>
+  <link rel="alternate" href="https://meshcore-ita.github.io/blog/"/>
+  <updated>2026-09-14T00:00:00Z</updated>
+  <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/</id>
+    <title>Aggiornamenti, ricerca e feed: cosa cambia sul sito MeshCore ITA</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/"/>
+    <published>2026-09-14T00:00:00Z</published>
+    <updated>2026-09-14T00:00:00Z</updated>
+    <summary type="text">Una sezione Aggiornamenti, un feed Atom, la ricerca interna e il footer raggruppato per sezione. Nessun URL esistente è cambiato.</summary>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-14&quot;&gt;14 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt;&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;sito&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;community&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;cosa-cambia&quot;&gt;Cosa cambia&lt;/h2&gt;
+&lt;p&gt;Da oggi il sito ha una sezione &lt;strong&gt;Aggiornamenti&lt;/strong&gt; (questa che stai leggendo):
+una serie di post per raccontare novità sul sito, sulla documentazione e
+sulla community, senza dover infilare tutto nelle pagine di riferimento
+esistenti.&lt;/p&gt;
+&lt;p&gt;Insieme alla sezione Aggiornamenti arrivano tre cose:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Un feed Atom&lt;/strong&gt;, su &lt;code&gt;/feed.xml&lt;/code&gt;. Se usi un lettore RSS/Atom puoi
+iscriverti lì e sapere quando esce un nuovo post, senza dover controllare
+il sito a mano. Ogni voce del feed contiene titolo, data di pubblicazione
+e riassunto del post.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La ricerca interna&lt;/strong&gt;, richiamabile dal pulsante di ricerca nell&amp;#39;header
+o dalla dialog che si apre in ogni pagina del sito. Cerca nel testo delle
+pagine di documentazione e dei post, senza uscire dal sito o passare da
+un motore esterno: utile quando sai cosa cerchi ma non ricordi in quale
+pagina si trova.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La documentazione raggruppata per sezione nel footer&lt;/strong&gt;: le pagine come
+Guida, App, Hardware, Preset radio, Comandi, Glossario, FAQ eccetera sono
+ora organizzate in gruppi (Inizia, Hardware, Rete, Riferimento, Community)
+invece che in un elenco piatto. La barra di navigazione in testa alla
+pagina resta invariata: il raggruppamento riguarda solo il footer.
+Trovare la pagina giusta dovrebbe essere più rapido, soprattutto ora che
+il numero di pagine di riferimento è cresciuto.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;cosa-non-cambia&quot;&gt;Cosa non cambia&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Nessun URL esistente è cambiato.&lt;/strong&gt; &lt;code&gt;/guida/&lt;/code&gt;, &lt;code&gt;/hardware/&lt;/code&gt;,
+&lt;code&gt;/preset-radio/&lt;/code&gt;, &lt;code&gt;/comandi/&lt;/code&gt; e tutte le altre pagine restano agli stessi
+indirizzi di sempre. Se hai un link salvato o condiviso da qualche parte,
+continua a funzionare.&lt;/p&gt;
+&lt;h2 id=&quot;come-contribuire&quot;&gt;Come contribuire&lt;/h2&gt;
+&lt;p&gt;Il modo per contribuire resta lo stesso di sempre: ogni pagina del sito ha
+in fondo il link &lt;strong&gt;&amp;quot;Modifica questa pagina su GitHub&amp;quot;&lt;/strong&gt;, che apre l&amp;#39;editor
+GitHub sul file sorgente corretto. Al salvataggio, GitHub propone di aprire
+una pull request.&lt;/p&gt;
+&lt;p&gt;La novità è che, oltre alle pagine di documentazione esistenti (scritte in
+HTML), ora è possibile scrivere &lt;strong&gt;nuovi contenuti in markdown&lt;/strong&gt;: sia nuove
+pagine, sia post come questo. Il markdown è più semplice da scrivere e da
+revisionare in una pull request rispetto all&amp;#39;HTML, quindi è il formato
+consigliato per chi vuole proporre qualcosa di nuovo.&lt;/p&gt;
+&lt;p&gt;Se vuoi scrivere un post per gli Aggiornamenti, trovi la guida pratica nel
+prossimo post di questa sezione.&lt;/p&gt;
+&lt;h2 id=&quot;dove-trovarci&quot;&gt;Dove trovarci&lt;/h2&gt;
+&lt;p&gt;Le discussioni sulla documentazione, sul sito e sulla rete in generale
+avvengono su GitHub (repository
+&lt;a href=&quot;https://github.com/meshcore-ita&quot;&gt;meshcore-ita&lt;/a&gt;) e sul gruppo Telegram
+pubblico &lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;, aperto a chiunque senza
+bisogno di invito. Se hai domande, correzioni o proposte, sono i due posti
+giusti dove portarle.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/come-scrivere-un-post/</id>
+    <title>Come scrivere un post per gli Aggiornamenti di MeshCore ITA</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/come-scrivere-un-post/"/>
+    <published>2026-09-13T00:00:00Z</published>
+    <updated>2026-09-13T00:00:00Z</updated>
+    <summary type="text">Dove sta il file, quali chiavi meta servono e come pubblicare un nuovo post nella sezione Aggiornamenti.</summary>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-13&quot;&gt;13 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt;&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;contribuire&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;dove-sta-il-file&quot;&gt;Dove sta il file&lt;/h2&gt;
+&lt;p&gt;Ogni post della sezione Aggiornamenti è un file markdown dentro
+&lt;code&gt;content/blog/&lt;/code&gt;. Il nome del file diventa l&amp;#39;URL del post: un file
+&lt;code&gt;content/blog/mio-post.md&lt;/code&gt; finisce pubblicato su &lt;code&gt;/blog/mio-post/&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Per scriverne uno nuovo:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Crea un file &lt;code&gt;content/blog/&amp;lt;slug&amp;gt;.md&lt;/code&gt;, dove &lt;code&gt;&amp;lt;slug&amp;gt;&lt;/code&gt; è il nome che
+vuoi dare al post (minuscolo, parole separate da trattino).&lt;/li&gt;
+&lt;li&gt;Il file inizia con un blocco di meta dati, poi il corpo in markdown.&lt;/li&gt;
+&lt;li&gt;Rigenera il sito e committa l&amp;#39;output.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;il-blocco-meta&quot;&gt;Il blocco meta&lt;/h2&gt;
+&lt;p&gt;Come per le pagine di documentazione, il file inizia con un commento
+&lt;code&gt;&amp;lt;!--meta { ... } --&amp;gt;&lt;/code&gt; contenente un oggetto JSON. Per un post servono
+queste chiavi:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;slug&lt;/code&gt;: &lt;strong&gt;deve essere identico al nome del file&lt;/strong&gt;, senza estensione. Se
+il file è &lt;code&gt;come-scrivere-un-post.md&lt;/code&gt;, &lt;code&gt;slug&lt;/code&gt; deve valere
+&lt;code&gt;&amp;quot;come-scrivere-un-post&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;title&lt;/code&gt;: titolo per il tag &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; e per i motori di ricerca.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;description&lt;/code&gt;: riassunto breve, usato come meta description.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;h1&lt;/code&gt;: titolo mostrato in cima al post.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lede&lt;/code&gt;: sottotitolo/riassunto mostrato sotto l&amp;#39;&lt;code&gt;h1&lt;/code&gt; e nella lista dei
+post.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;published&lt;/code&gt;: data di pubblicazione, formato &lt;code&gt;AAAA-MM-GG&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sono opzionali:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;updated&lt;/code&gt;: data di ultimo aggiornamento, se diversa da &lt;code&gt;published&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;author&lt;/code&gt;: di default è &lt;code&gt;&amp;quot;MeshCore ITA&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tags&lt;/code&gt;: un array di stringhe, per etichettare l&amp;#39;argomento del post
+(es. &lt;code&gt;[&amp;quot;sito&amp;quot;, &amp;quot;community&amp;quot;]&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;il-corpo&quot;&gt;Il corpo&lt;/h2&gt;
+&lt;p&gt;Dopo il blocco meta, il resto del file è markdown normale (GFM: titoli,
+liste, tabelle, link, blocchi di codice, grassetto/corsivo). Niente HTML
+grezzo: il markdown viene convertito automaticamente in HTML dalla build,
+seguendo lo stile del sito.&lt;/p&gt;
+&lt;p&gt;Usa &lt;code&gt;##&lt;/code&gt; per i titoli di sezione (l&amp;#39;&lt;code&gt;h1&lt;/code&gt; lo genera già il layout dal campo
+&lt;code&gt;h1&lt;/code&gt; del meta). Mantieni lo stesso registro delle altre pagine del sito:
+italiano tecnico, diretto, frasi brevi, niente marketing.&lt;/p&gt;
+&lt;h2 id=&quot;pubblicare-il-post&quot;&gt;Pubblicare il post&lt;/h2&gt;
+&lt;p&gt;Dopo aver scritto il file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;node build.mjs          # rigenera il sito, incluso /blog/ e il feed
+node build.mjs --check  # deve uscire 0: è lo stesso gate della CI
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Committa sia il file sorgente in &lt;code&gt;content/blog/&lt;/code&gt; sia tutti i file generati
+che cambiano (&lt;code&gt;blog/&lt;/code&gt;, &lt;code&gt;feed.xml&lt;/code&gt;, &lt;code&gt;search-index.json&lt;/code&gt; e l&amp;#39;eventuale
+sitemap). La CI esegue &lt;code&gt;node build.mjs --check&lt;/code&gt; su ogni pull request e la
+rifiuta se i file generati non corrispondono ai sorgenti.&lt;/p&gt;
+&lt;p&gt;Se preferisci non usare la riga di comando, il link &lt;strong&gt;&amp;quot;Modifica questa
+pagina su GitHub&amp;quot;&lt;/strong&gt; in fondo a ogni pagina apre comunque l&amp;#39;editor web e
+produce una pull request: in quel caso è chi revisiona la PR a rigenerare
+e verificare i file di output.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+</feed>

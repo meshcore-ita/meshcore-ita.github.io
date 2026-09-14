@@ -9,6 +9,7 @@
 <title>Pagina non trovata — MeshCore ITA</title>
 <meta name="description" content="La pagina richiesta non esiste su MeshCore ITA. Torna alla home o scegli una delle sezioni principali del sito.">
 <meta name="robots" content="noindex">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
 
 <link rel="icon" type="image/svg+xml" href="https://meshcore-ita.github.io/assets/img/favicon.svg">
 <link rel="mask-icon" href="https://meshcore-ita.github.io/assets/img/favicon.svg" color="#22c55e">
@@ -34,9 +35,11 @@
       <a class="nav__link" href="https://meshcore-ita.github.io/hardware/">Hardware</a>
       <a class="nav__link" href="https://meshcore-ita.github.io/faq/">FAQ</a>
       <a class="nav__link" href="https://meshcore-ita.github.io/community/">Community</a>
+      <a class="nav__link" href="https://meshcore-ita.github.io/blog/">Aggiornamenti</a>
       <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
       <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
     </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
       <span class="sr-only">Apri il menu</span>
     </button>
@@ -68,21 +71,37 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="foot__nav">
-      <p class="foot__nav-label">Documentazione</p>
+      <p class="foot__nav-label">Inizia</p>
       <ul class="foot__nav-list">
         <li><a href="https://meshcore-ita.github.io/guida/">Guida</a></li>
+        <li><a href="https://meshcore-ita.github.io/app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
         <li><a href="https://meshcore-ita.github.io/preset-radio/">Preset radio</a></li>
         <li><a href="https://meshcore-ita.github.io/hardware/">Hardware</a></li>
+        <li><a href="https://meshcore-ita.github.io/installare-repeater/">Repeater</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="https://meshcore-ita.github.io/mappa-copertura/">Mappa</a></li>
+        <li><a href="https://meshcore-ita.github.io/regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
         <li><a href="https://meshcore-ita.github.io/comandi/">Comandi</a></li>
         <li><a href="https://meshcore-ita.github.io/problemi/">Problemi</a></li>
         <li><a href="https://meshcore-ita.github.io/faq/">FAQ</a></li>
         <li><a href="https://meshcore-ita.github.io/meshcore-vs-meshtastic/">Confronti</a></li>
         <li><a href="https://meshcore-ita.github.io/glossario/">Glossario</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
         <li><a href="https://meshcore-ita.github.io/community/">Community</a></li>
-        <li><a href="https://meshcore-ita.github.io/installare-repeater/">Repeater</a></li>
-        <li><a href="https://meshcore-ita.github.io/mappa-copertura/">Mappa</a></li>
-        <li><a href="https://meshcore-ita.github.io/app/">App</a></li>
-        <li><a href="https://meshcore-ita.github.io/regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Aggiornamenti</p>
+      <ul class="foot__nav-list">
+        <li><a href="https://meshcore-ita.github.io/blog/">Aggiornamenti</a></li>
       </ul>
     </div>
     <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
@@ -97,6 +116,16 @@
   </div>
 </footer>
 
+<dialog class="search" id="search" data-search-index="https://meshcore-ita.github.io/search-index.json">
+  <form class="search__form" method="dialog">
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+
 <script type="module" src="https://meshcore-ita.github.io/assets/js/main.js?v=2" defer></script>
+<script type="module" src="https://meshcore-ita.github.io/assets/js/search.js?v=1" defer></script>
 </body>
 </html>

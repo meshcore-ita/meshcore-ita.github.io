@@ -10,12 +10,17 @@ progetto MeshCore upstream né ad altre community italiane.
 ## Struttura
 
 ```
-content/<slug>.html      sorgenti delle pagine (meta JSON + fragment)
+content/<slug>.html      sorgenti pagine di documentazione (meta JSON + fragment HTML)
+content/<slug>.md        sorgenti pagine di documentazione in markdown
+content/blog/<slug>.md   sorgenti dei post della sezione Aggiornamenti (markdown)
 templates/layout.html    layout condiviso di tutte le pagine generate
 templates/404.html       layout della pagina 404
-build.mjs                generatore statico (Node stdlib, zero dipendenze)
+build.mjs                generatore statico (Node, dipendenza: marked)
 index.html               home page, scritta a mano
 <slug>/index.html        pagine generate — NON modificare a mano
+blog/                    indice e post generati della sezione Aggiornamenti
+feed.xml                 feed Atom dei post, generato
+search-index.json        indice per la ricerca interna, generato
 sitemap.xml robots.txt   generati
 404.html                 generato
 assets/                  css, js (ES module), logo, favicon, immagine social
@@ -26,7 +31,8 @@ bot/ worker/             bot Telegram della community
 ## Build
 
 ```sh
-node build.mjs          # rigenera pagine, sitemap, robots.txt, 404
+npm ci                  # installa le dipendenze (marked)
+node build.mjs          # rigenera pagine, blog, feed, ricerca, sitemap, robots.txt, 404
 node build.mjs --check  # esce 1 se i file generati divergono dai sorgenti
 ```
 
@@ -36,7 +42,7 @@ viene pubblicata.
 ## Sviluppo locale
 
 ```sh
-node build.mjs && python3 -m http.server 8080
+npm ci && node build.mjs && python3 -m http.server 8080
 ```
 
 Poi apri `http://localhost:8080/`.

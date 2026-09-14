@@ -31,6 +31,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
       # GITHUB_REPOSITORY is a default env var GitHub Actions sets on every
       # step (no explicit `env:` needed); build.mjs resolves SITE_BASE from
       # it, so this always checks against the same absolute-URL base this
@@ -40,6 +43,10 @@ jobs:
       # below deploys — stale generated pages can never reach production.
       - name: Verify generated pages match content/
         run: node build.mjs --check
+      # L'artifact carica l'intera root del repo: node_modules non deve
+      # finire in produzione, build.mjs l'ha già usato e basta.
+      - name: Remove node_modules from artifact
+        run: rm -rf node_modules
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

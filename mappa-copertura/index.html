@@ -10,6 +10,7 @@
 <meta name="description" content="Mappa pubblica MeshCore: cosa mostra map.meshcore.io, come aggiungere companion e repeater, privacy della posizione e come stimare la copertura reale.">
 <link rel="canonical" href="https://meshcore-ita.github.io/mappa-copertura/">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="MeshCore ITA">
@@ -117,9 +118,11 @@
       <a class="nav__link" href="../hardware/">Hardware</a>
       <a class="nav__link" href="../faq/">FAQ</a>
       <a class="nav__link" href="../community/">Community</a>
+      <a class="nav__link" href="../blog/">Aggiornamenti</a>
       <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
       <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
     </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
       <span class="sr-only">Apri il menu</span>
     </button>
@@ -143,7 +146,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Cos'è</p>
-    <h2 class="section__title">La Internet Map di MeshCore</h2>
+    <h2 id="la-internet-map-di-meshcore" class="section__title">La Internet Map di MeshCore</h2>
     <p class="section__lede">Una mappa pubblica e consultabile da chiunque, dove i proprietari dei nodi possono decidere di comparire.</p>
   </div>
   <div class="prose">
@@ -155,17 +158,17 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Come partecipare</p>
-    <h2 class="section__title">Aggiungere un nodo alla mappa</h2>
+    <h2 id="aggiungere-un-nodo-alla-mappa" class="section__title">Aggiungere un nodo alla mappa</h2>
   </div>
   <div class="grid grid--2">
     <article class="card">
       <p class="card__num">01</p>
-      <h3 class="card__title">Companion</h3>
+      <h3 id="companion" class="card__title">Companion</h3>
       <p class="card__body">Apri l'app MeshCore, vai su "Internet Map" e scegli "Add me to the Map". Il nodo comparirà sulla mappa pubblica con il nome e la posizione impostati sul companion.</p>
     </article>
     <article class="card">
       <p class="card__num">02</p>
-      <h3 class="card__title">Repeater o room server</h3>
+      <h3 id="repeater-o-room-server" class="card__title">Repeater o room server</h3>
       <p class="card__body">Apri il nodo dalla lista contatti, tocca "Share" e poi "Upload to Internet Map". La posizione caricata è quella impostata sul nodo con <code>set lat</code> e <code>set lon</code>, descritti nella pagina dei <a class="link" href="../comandi/">comandi CLI per amministrare un nodo MeshCore</a>.</p>
     </article>
   </div>
@@ -177,7 +180,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Privacy</p>
-    <h2 class="section__title">Cosa comporta pubblicare una posizione</h2>
+    <h2 id="cosa-comporta-pubblicare-una-posizione" class="section__title">Cosa comporta pubblicare una posizione</h2>
   </div>
   <div class="prose">
     <p>La mappa è pubblica: chiunque, non solo la community MeshCore, può consultarla su un browser. Caricare la posizione esatta di un companion tenuto in casa rende identificabile pubblicamente il tuo indirizzo, in modo permanente finché non rimuovi il nodo dalla mappa. Per un nodo domestico è ragionevole chiedersi se serva davvero comparire: se l'obiettivo è solo restare in contatto con la mesh locale, spesso non serve caricare il companion, mentre ha più senso caricare un eventuale repeater condiviso, la cui posizione fisica (un tetto, un palo, una sede) è già di fatto un punto pubblico e utile a chi vuole agganciarsi alla mesh.</p>
@@ -188,7 +191,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Il limite della mappa</p>
-    <h2 class="section__title">Mappa dei nodi, non mappa della copertura</h2>
+    <h2 id="mappa-dei-nodi-non-mappa-della-copertura" class="section__title">Mappa dei nodi, non mappa della copertura</h2>
     <p class="section__lede">Un puntino sulla mappa dice "questo nodo esiste ed è stato dichiarato qui", non "questa zona è coperta dal segnale".</p>
   </div>
   <div class="prose">
@@ -200,7 +203,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Verifica sul campo</p>
-    <h2 class="section__title">Come stimare la copertura reale</h2>
+    <h2 id="come-stimare-la-copertura-reale" class="section__title">Come stimare la copertura reale</h2>
   </div>
   <table class="spec">
     <caption>Segnali da controllare per stimare la copertura</caption>
@@ -222,21 +225,21 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Domande frequenti</p>
-    <h2 class="section__title">FAQ sulla mappa e la copertura</h2>
+    <h2 id="faq-sulla-mappa-e-la-copertura" class="section__title">FAQ sulla mappa e la copertura</h2>
   </div>
-  <details class="faq">
+  <details class="faq" id="il-mio-nodo-e-automaticamente-sulla-mappa-pubblica">
     <summary class="faq__q">Il mio nodo è automaticamente sulla mappa pubblica?</summary>
     <p class="faq__a">No, non automaticamente: devi caricarlo tu. Per un companion, apri l'app MeshCore, vai su "Internet Map" e scegli "Add me to the Map". Per un repeater o room server, aprilo dalla lista contatti, tocca "Share" e poi "Upload to Internet Map". Una volta caricato, il nodo è consultabile sulla mappa pubblica su map.meshcore.io.</p>
   </details>
-  <details class="faq">
+  <details class="faq" id="e-sicuro-pubblicare-la-posizione-di-un-nodo-domestico">
     <summary class="faq__q">È sicuro pubblicare la posizione di un nodo domestico?</summary>
     <p class="faq__a">È una scelta volontaria che va valutata caso per caso. Pubblicare la posizione esatta di un companion tenuto in casa rende identificabile pubblicamente dove abiti; per un nodo domestico molti preferiscono non caricarlo sulla mappa, oppure impostare una posizione approssimata invece delle coordinate precise. Per un repeater installato in un punto già pubblico (tetto condominiale, palo, sede di un'associazione) il rischio di privacy è minore.</p>
   </details>
-  <details class="faq">
+  <details class="faq" id="la-mappa-mostra-la-copertura-reale-della-mesh">
     <summary class="faq__q">La mappa mostra la copertura reale della mesh?</summary>
     <p class="faq__a">No. La mappa mostra solo i nodi che i loro proprietari hanno scelto volontariamente di caricare, non le aree effettivamente coperte dal segnale. Un'area senza puntini sulla mappa può comunque avere copertura da nodi non pubblicati, mentre un'area con più puntini non garantisce che i messaggi passino davvero tra quei nodi: per questo serve una verifica sul campo.</p>
   </details>
-  <details class="faq">
+  <details class="faq" id="come-verifico-la-copertura-reale-nella-mia-zona">
     <summary class="faq__q">Come verifico la copertura reale nella mia zona?</summary>
     <p class="faq__a">Il modo più affidabile è un test con un secondo nodo: spostati nel punto che vuoi verificare, invia un advert e controlla con neighbors e stats-radio se il tuo repeater lo riceve, leggendo RSSI e SNR. Sentire un advert non basta a garantire che un messaggio venga instradato con successo: conferma la copertura scambiando anche un messaggio di prova con un altro nodo della zona, e confrontati nel topic regionale del gruppo Telegram.</p>
   </details>
@@ -272,21 +275,37 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="foot__nav">
-      <p class="foot__nav-label">Documentazione</p>
+      <p class="foot__nav-label">Inizia</p>
       <ul class="foot__nav-list">
         <li><a href="../guida/">Guida</a></li>
+        <li><a href="../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
         <li><a href="../preset-radio/">Preset radio</a></li>
         <li><a href="../hardware/">Hardware</a></li>
+        <li><a href="../installare-repeater/">Repeater</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../mappa-copertura/" aria-current="true">Mappa</a></li>
+        <li><a href="../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
         <li><a href="../comandi/">Comandi</a></li>
         <li><a href="../problemi/">Problemi</a></li>
         <li><a href="../faq/">FAQ</a></li>
         <li><a href="../meshcore-vs-meshtastic/">Confronti</a></li>
         <li><a href="../glossario/">Glossario</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
         <li><a href="../community/">Community</a></li>
-        <li><a href="../installare-repeater/">Repeater</a></li>
-        <li><a href="../mappa-copertura/" aria-current="true">Mappa</a></li>
-        <li><a href="../app/">App</a></li>
-        <li><a href="../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Aggiornamenti</p>
+      <ul class="foot__nav-list">
+        <li><a href="../blog/">Aggiornamenti</a></li>
       </ul>
     </div>
     <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
@@ -303,6 +322,16 @@
   </div>
 </footer>
 
+<dialog class="search" id="search" data-search-index="../search-index.json">
+  <form class="search__form" method="dialog">
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+
 <script type="module" src="../assets/js/main.js?v=2" defer></script>
+<script type="module" src="../assets/js/search.js?v=1" defer></script>
 </body>
 </html>

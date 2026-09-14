@@ -11,6 +11,7 @@
 <link rel="canonical" href="https://meshcore-ita.github.io/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="sitemap" type="application/xml" href="sitemap.xml">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MeshCore ITA">
@@ -115,9 +116,11 @@
       <a class="nav__link" href="hardware/">Hardware</a>
       <a class="nav__link" href="faq/">FAQ</a>
       <a class="nav__link" href="community/">Community</a>
+      <a class="nav__link" href="blog/">Aggiornamenti</a>
       <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
       <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
     </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
       <span class="sr-only">Apri il menu</span>
     </button>
@@ -538,6 +541,16 @@
   </div>
 </footer>
 
+<dialog class="search" id="search" data-search-index="search-index.json">
+  <form class="search__form" method="dialog">
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+
 <script type="module" src="assets/js/main.js?v=2" defer></script>
+<script type="module" src="assets/js/search.js?v=1" defer></script>
 </body>
 </html>

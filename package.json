@@ -1,0 +1,12 @@
+{
+  "name": "meshcore-ita-site",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "marked": "^18.0.0"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check"
+  }
+}

@@ -10,6 +10,7 @@
 <meta name="description" content="Glossario in italiano dei termini MeshCore e LoRa: cos'è LoRa, spreading factor, duty cycle, repeater, room server, Ed25519 e altri 25+ termini spiegati.">
 <link rel="canonical" href="https://meshcore-ita.github.io/glossario/">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="MeshCore ITA">
@@ -251,9 +252,11 @@
       <a class="nav__link" href="../hardware/">Hardware</a>
       <a class="nav__link" href="../faq/">FAQ</a>
       <a class="nav__link" href="../community/">Community</a>
+      <a class="nav__link" href="../blog/">Aggiornamenti</a>
       <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
       <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
     </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
       <span class="sr-only">Apri il menu</span>
     </button>
@@ -277,23 +280,23 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Terminologia</p>
-    <h2 class="section__title">Radio e LoRa</h2>
+    <h2 id="radio-e-lora" class="section__title">Radio e LoRa</h2>
     <p class="section__lede">I termini che descrivono come MeshCore trasmette fisicamente sull'aria.</p>
   </div>
   <div class="prose">
-    <h3>LoRa</h3>
+    <h3 id="lora">LoRa</h3>
     <p>Modulazione radio a spettro allargato (chirp spread spectrum) su cui si basa la trasmissione fisica di MeshCore. Permette portate lunghe con potenze basse, a scapito della velocità di trasmissione.</p>
-    <h3>LoRaWAN</h3>
+    <h3 id="lorawan">LoRaWAN</h3>
     <p>Protocollo di rete a stella costruito sopra LoRa, con gateway e server centrali a cui i dispositivi si collegano. È un'architettura diversa da MeshCore, che è invece una mesh peer-to-peer senza gateway obbligatorio né backend internet.</p>
-    <h3>Frequenza e banda (bandwidth)</h3>
+    <h3 id="frequenza-e-banda-bandwidth">Frequenza e banda (bandwidth)</h3>
     <p>La frequenza è il canale su cui opera un nodo; il preset condiviso dalla community italiana usa 869.618 MHz. La banda è la larghezza di spettro occupata da ogni trasmissione, 62.5 kHz nello stesso preset. Tutti i dettagli sono nella pagina dedicata al <a class="link" href="../preset-radio/">preset radio italiano per MeshCore</a>.</p>
-    <h3>Spreading Factor (SF) e Coding Rate (CR)</h3>
+    <h3 id="spreading-factor-sf-e-coding-rate-cr">Spreading Factor (SF) e Coding Rate (CR)</h3>
     <p>Lo spreading factor allunga o accorcia la durata di ogni simbolo radio, scambiando portata con velocità e airtime: più alto è l'SF, più lontano arriva il segnale ma più a lungo occupa il canale. Il coding rate aggiunge ridondanza per la correzione d'errore. Il preset italiano usa SF8 e CR8.</p>
-    <h3>ERP e duty cycle</h3>
+    <h3 id="erp-e-duty-cycle">ERP e duty cycle</h3>
     <p>L'ERP è la potenza radiata effettiva dall'antenna: nella sotto-banda usata in Italia il limite è 500 mW ERP. Il duty cycle è la percentuale di tempo per cui un nodo può trasmettere in un'ora: il limite di banda è il 10%, cioè al massimo 6 minuti di trasmissione ogni ora.</p>
-    <h3>RSSI, SNR e airtime</h3>
+    <h3 id="rssi-snr-e-airtime">RSSI, SNR e airtime</h3>
     <p>L'RSSI misura la potenza del segnale ricevuto in dBm; l'SNR misura quanto quel segnale sia pulito rispetto al rumore di fondo. L'airtime è il tempo effettivo che il radio passa in trasmissione, il valore che conta ai fini del duty cycle. Entrambi RSSI e SNR dell'ultimo pacchetto ricevuto, insieme all'airtime, si leggono su un repeater con il comando <code>stats-radio</code>, descritto nella pagina dei <a class="link" href="../comandi/">comandi CLI per amministrare un nodo MeshCore</a>.</p>
-    <h3>Antenna, guadagno e ROS/SWR</h3>
+    <h3 id="antenna-guadagno-e-ros-swr">Antenna, guadagno e ROS/SWR</h3>
     <p>L'antenna irradia e riceve il segnale: la sua altezza e posizione contano spesso più della potenza di trasmissione. Il guadagno, in dBi, indica quanto un'antenna concentra l'energia in una direzione. Il ROS (o SWR) misura quanto bene antenna e cavo siano adattati al radio: valori alti indicano energia riflessa e sprecata, e nel tempo possono danneggiare lo stadio di uscita.</p>
   </div>
 </section>
@@ -301,17 +304,17 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Terminologia</p>
-    <h2 class="section__title">Rete mesh e ruoli dei nodi</h2>
+    <h2 id="rete-mesh-e-ruoli-dei-nodi" class="section__title">Rete mesh e ruoli dei nodi</h2>
     <p class="section__lede">Come i pacchetti si muovono tra i nodi e quali ruoli può assumere un dispositivo MeshCore.</p>
   </div>
   <div class="prose">
-    <h3>Mesh, flood e path discovery</h3>
+    <h3 id="mesh-flood-e-path-discovery">Mesh, flood e path discovery</h3>
     <p>La mesh è la topologia in cui i nodi si scambiano e ripetono pacchetti tra loro senza infrastruttura centrale. Il flood è la modalità con cui un pacchetto viene ritrasmesso verso tutti i vicini, usata da MeshCore per advert e messaggi di canale. Il path discovery è invece il meccanismo con cui MeshCore scopre un percorso diretto tra due nodi per i messaggi privati, evitando di inondare l'intera rete.</p>
-    <h3>Hop e advert</h3>
+    <h3 id="hop-e-advert">Hop e advert</h3>
     <p>Un hop è ogni passaggio di un pacchetto attraverso un repeater: MeshCore applica un limite interno di 64 hop. L'advert è il pacchetto periodico con cui un nodo annuncia la propria presenza e identità, inviato di default ogni 12 ore o subito con il comando <code>advert</code>.</p>
-    <h3>Nodo, repeater, room server, companion, sensor</h3>
+    <h3 id="nodo-repeater-room-server-companion-sensor">Nodo, repeater, room server, companion, sensor</h3>
     <p>Nodo è il termine generico per qualsiasi dispositivo che esegue il firmware MeshCore. Un repeater estende la copertura inoltrando i pacchetti sui percorsi appresi. Un room server funziona come una bacheca condivisa, conservando fino a 32 messaggi non letti per ogni utente. Un companion è collegato via BLE o USB a un'app o a un client web e non ripete i pacchetti altrui. Un sensor trasmette telemetria o payload personalizzati sulla mesh. I dettagli su hardware e configurazione di ciascun ruolo sono nella <a class="link" href="../guida/">guida passo passo a MeshCore in italiano</a>.</p>
-    <h3>Mappa pubblica</h3>
+    <h3 id="mappa-pubblica">Mappa pubblica</h3>
     <p>La mappa pubblica, consultabile su map.meshcore.io, mostra i nodi che i loro proprietari hanno scelto volontariamente di condividere.</p>
   </div>
 </section>
@@ -319,15 +322,15 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Terminologia</p>
-    <h2 class="section__title">Sicurezza e crittografia</h2>
+    <h2 id="sicurezza-e-crittografia" class="section__title">Sicurezza e crittografia</h2>
     <p class="section__lede">Come MeshCore protegge identità e contenuto dei messaggi senza un server centrale.</p>
   </div>
   <div class="prose">
-    <h3>Ed25519 e chiave pubblica</h3>
+    <h3 id="ed25519-e-chiave-pubblica">Ed25519 e chiave pubblica</h3>
     <p>Ed25519 è la curva ellittica usata da MeshCore per l'identità e la firma di ogni nodo. La chiave pubblica che ne deriva è l'identificativo crittografico del nodo, condiviso per stabilire fiducia e instradare i messaggi verso il destinatario corretto.</p>
-    <h3>X25519 / ECDH e AES-128</h3>
+    <h3 id="x25519-ecdh-e-aes-128">X25519 / ECDH e AES-128</h3>
     <p>X25519 (ECDH su curva ellittica) è lo scambio di chiavi con cui due nodi derivano una chiave condivisa senza mai trasmetterla in chiaro. Quella chiave viene poi usata con AES-128 per cifrare il contenuto dei messaggi, che restano privati anche senza rete internet o cellulare.</p>
-    <h3>PIN di pairing</h3>
+    <h3 id="pin-di-pairing">PIN di pairing</h3>
     <p>Il PIN di pairing è il codice numerico richiesto per accoppiare via Bluetooth un nodo companion; il valore di default è <code>123456</code>. Se l'accoppiamento fallisce, la pagina <a class="link" href="../problemi/">soluzioni ai problemi più comuni di MeshCore</a> elenca le cause più frequenti.</p>
   </div>
 </section>
@@ -335,15 +338,15 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Terminologia</p>
-    <h2 class="section__title">Firmware e aggiornamenti</h2>
+    <h2 id="firmware-e-aggiornamenti" class="section__title">Firmware e aggiornamenti</h2>
     <p class="section__lede">I termini che incontri flashando o aggiornando un nodo.</p>
   </div>
   <div class="prose">
-    <h3>Web flasher</h3>
+    <h3 id="web-flasher">Web flasher</h3>
     <p>Lo strumento ufficiale nel browser, su flasher.meshcore.io, per installare il firmware MeshCore via USB senza bisogno di toolchain locali.</p>
-    <h3>OTA e DFU</h3>
+    <h3 id="ota-e-dfu">OTA e DFU</h3>
     <p>OTA è l'aggiornamento firmware over-the-air, avviato con il comando <code>start ota</code>: su board ESP32 apre un hotspot Wi-Fi dedicato, su board nRF52 prepara il nodo per il DFU (Device Firmware Update), completato tramite l'app nRF DFU dello smartphone.</p>
-    <h3>Bin merged / non-merged</h3>
+    <h3 id="bin-merged-non-merged">Bin merged / non-merged</h3>
     <p>Due varianti del firmware compilato per l'aggiornamento: il bin merged azzera l'abbinamento Bluetooth esistente ma mantiene nome, chiavi e preset radio salvati; il bin non-merged mantiene invece il pairing Bluetooth già stabilito. La procedura completa, comando per comando, è nella pagina dei <a class="link" href="../comandi/">comandi CLI per amministrare un nodo MeshCore</a>; per il confronto con altri sistemi mesh vedi la pagina <a class="link" href="../meshcore-vs-meshtastic/">MeshCore a confronto con Meshtastic</a>.</p>
   </div>
 </section>
@@ -377,21 +380,37 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="foot__nav">
-      <p class="foot__nav-label">Documentazione</p>
+      <p class="foot__nav-label">Inizia</p>
       <ul class="foot__nav-list">
         <li><a href="../guida/">Guida</a></li>
+        <li><a href="../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
         <li><a href="../preset-radio/">Preset radio</a></li>
         <li><a href="../hardware/">Hardware</a></li>
+        <li><a href="../installare-repeater/">Repeater</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../mappa-copertura/">Mappa</a></li>
+        <li><a href="../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
         <li><a href="../comandi/">Comandi</a></li>
         <li><a href="../problemi/">Problemi</a></li>
         <li><a href="../faq/">FAQ</a></li>
         <li><a href="../meshcore-vs-meshtastic/">Confronti</a></li>
         <li><a href="../glossario/" aria-current="true">Glossario</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
         <li><a href="../community/">Community</a></li>
-        <li><a href="../installare-repeater/">Repeater</a></li>
-        <li><a href="../mappa-copertura/">Mappa</a></li>
-        <li><a href="../app/">App</a></li>
-        <li><a href="../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Aggiornamenti</p>
+      <ul class="foot__nav-list">
+        <li><a href="../blog/">Aggiornamenti</a></li>
       </ul>
     </div>
     <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
@@ -408,6 +427,16 @@
   </div>
 </footer>
 
+<dialog class="search" id="search" data-search-index="../search-index.json">
+  <form class="search__form" method="dialog">
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+
 <script type="module" src="../assets/js/main.js?v=2" defer></script>
+<script type="module" src="../assets/js/search.js?v=1" defer></script>
 </body>
 </html>

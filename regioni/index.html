@@ -10,6 +10,7 @@
 <meta name="description" content="MeshCore in Lombardia, Lazio, Veneto e nelle altre regioni italiane: come trovare nodi vicini, il topic Telegram della tua regione e come aggiungere copertura.">
 <link rel="canonical" href="https://meshcore-ita.github.io/regioni/">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="MeshCore ITA">
@@ -187,9 +188,11 @@
       <a class="nav__link" href="../hardware/">Hardware</a>
       <a class="nav__link" href="../faq/">FAQ</a>
       <a class="nav__link" href="../community/">Community</a>
+      <a class="nav__link" href="../blog/">Aggiornamenti</a>
       <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
       <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
     </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
       <span class="sr-only">Apri il menu</span>
     </button>
@@ -213,7 +216,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Copertura locale</p>
-    <h2 class="section__title">Perché MeshCore cresce regione per regione</h2>
+    <h2 id="perche-meshcore-cresce-regione-per-regione" class="section__title">Perché MeshCore cresce regione per regione</h2>
     <p class="section__lede">Un nodo LoRa parla con chi ha vicino, non con l'Italia intera: la mesh si costruisce a partire da isole locali che si allargano.</p>
   </div>
   <div class="prose">
@@ -225,7 +228,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Topic regionali</p>
-    <h2 class="section__title">Tutte le regioni italiane nel gruppo Telegram</h2>
+    <h2 id="tutte-le-regioni-italiane-nel-gruppo-telegram" class="section__title">Tutte le regioni italiane nel gruppo Telegram</h2>
     <p class="section__lede">Ogni regione ha un topic dedicato con prefisso <code>IT ·</code>, dove si discute copertura, installazioni e aggancio tra nodi vicini.</p>
   </div>
   <table class="spec">
@@ -264,7 +267,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Presentarsi</p>
-    <h2 class="section__title">Cosa scrivere quando arrivi nel topic della tua regione</h2>
+    <h2 id="cosa-scrivere-quando-arrivi-nel-topic-della-tua-regione" class="section__title">Cosa scrivere quando arrivi nel topic della tua regione</h2>
   </div>
   <div class="prose">
     <p>Un messaggio di presentazione utile è breve ma specifico: indica la zona di massima (comune o area, non serve l'indirizzo esatto), il tipo di nodo che hai — companion, repeater o room server — e il tipo di antenna e installazione, ad esempio "companion portatile con antenna stock" oppure "repeater fisso in terrazzo a 15 metri con antenna 5.8 dBi". Specifica anche cosa cerchi: se stai solo verificando se c'è copertura vicino a te, se cerchi un aggancio con un nodo esistente, o se hai un repeater da proporre come punto condiviso di zona. Più il messaggio è concreto, più è facile per chi è già attivo nella tua area capire se e come collegarti, invece di dover fare domande di chiarimento.</p>
@@ -274,7 +277,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Aggancio</p>
-    <h2 class="section__title">Da nodi isolati a mesh locale</h2>
+    <h2 id="da-nodi-isolati-a-mesh-locale" class="section__title">Da nodi isolati a mesh locale</h2>
   </div>
   <div class="prose">
     <p>Un aggancio tra due nodi vicini si verifica concretamente, non si stima a tavolino: dopo esservi messi d'accordo nel topic regionale, allineate entrambi i nodi allo stesso <a class="link" href="../preset-radio/">preset radio italiano per MeshCore</a> — nodi su preset diversi non si sentono anche se a pochi metri — e poi inviate un advert da entrambe le parti per verificare che ciascuno compaia nei contatti dell'altro. Se l'aggancio diretto non funziona per orografia o distanza, il passo successivo è capire se un repeater esistente nella zona può fare da ponte tra i due nodi: chi lo gestisce può confermarlo nel topic. Da qui la mesh locale cresce per aggiunte successive: ogni nuovo nodo che si aggancia a uno già presente estende l'area coperta, e ogni repeater ben posizionato può mettere in comunicazione gruppi di utenti che da soli non si sentirebbero.</p>
@@ -284,7 +287,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Repeater condiviso</p>
-    <h2 class="section__title">Proporre un repeater di zona</h2>
+    <h2 id="proporre-un-repeater-di-zona" class="section__title">Proporre un repeater di zona</h2>
   </div>
   <div class="prose">
     <p>Se hai una posizione in quota o comunque sopraelevata rispetto agli ostacoli locali — un tetto, un traliccio, un'altura — puoi valutare di installare un repeater condiviso invece di un secondo companion. Prima di procedere, verifica nel topic della tua regione se qualcuno copre già la tua zona: un repeater doppione a poca distanza da uno esistente aggiunge poco e complica la disambiguazione dei percorsi sulla mesh. Se la copertura manca davvero, la pagina <a class="link" href="../installare-repeater/">come installare un repeater MeshCore</a> copre l'installazione passo passo, dalla scelta della board all'amministrazione via CLI; una volta operativo, annuncialo nel topic regionale e valuta di caricarlo sulla mappa pubblica, così chi è nella tua area sa che può contare su quel nodo invece di installarne uno equivalente a poche centinaia di metri.</p>
@@ -294,7 +297,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Attenzione</p>
-    <h2 class="section__title">La copertura non è garantita: va verificata sul campo</h2>
+    <h2 id="la-copertura-non-e-garantita-va-verificata-sul-campo" class="section__title">La copertura non è garantita: va verificata sul campo</h2>
   </div>
   <div class="prose">
     <p>Nessuna delle informazioni raccolte nei topic regionali, né la presenza di un repeater sulla mappa pubblica, sostituisce una verifica reale. Orografia, ostacoli, altezza dell'antenna e persino le condizioni atmosferiche influiscono sulla portata effettiva più della distanza in linea d'aria: un repeater segnalato come attivo può non raggiungere un punto che sembra vicino sulla carta. Prima di contare su una copertura per un uso critico, verificala di persona con un contatto reale e uno scambio di messaggi, e tienila aggiornata nel topic regionale se cambia: un nodo spento o rimosso senza avviso lascia altri a fare affidamento su una copertura che non c'è più. Per approfondire i fattori che determinano la portata reale, vedi anche la pagina delle <a class="link" href="../faq/">domande frequenti su MeshCore in italiano</a>.</p>
@@ -330,21 +333,37 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="foot__nav">
-      <p class="foot__nav-label">Documentazione</p>
+      <p class="foot__nav-label">Inizia</p>
       <ul class="foot__nav-list">
         <li><a href="../guida/">Guida</a></li>
+        <li><a href="../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
         <li><a href="../preset-radio/">Preset radio</a></li>
         <li><a href="../hardware/">Hardware</a></li>
+        <li><a href="../installare-repeater/">Repeater</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../mappa-copertura/">Mappa</a></li>
+        <li><a href="../regioni/" aria-current="true">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
         <li><a href="../comandi/">Comandi</a></li>
         <li><a href="../problemi/">Problemi</a></li>
         <li><a href="../faq/">FAQ</a></li>
         <li><a href="../meshcore-vs-meshtastic/">Confronti</a></li>
         <li><a href="../glossario/">Glossario</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
         <li><a href="../community/">Community</a></li>
-        <li><a href="../installare-repeater/">Repeater</a></li>
-        <li><a href="../mappa-copertura/">Mappa</a></li>
-        <li><a href="../app/">App</a></li>
-        <li><a href="../regioni/" aria-current="true">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Aggiornamenti</p>
+      <ul class="foot__nav-list">
+        <li><a href="../blog/">Aggiornamenti</a></li>
       </ul>
     </div>
     <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
@@ -361,6 +380,16 @@
   </div>
 </footer>
 
+<dialog class="search" id="search" data-search-index="../search-index.json">
+  <form class="search__form" method="dialog">
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+
 <script type="module" src="../assets/js/main.js?v=2" defer></script>
+<script type="module" src="../assets/js/search.js?v=1" defer></script>
 </body>
 </html>

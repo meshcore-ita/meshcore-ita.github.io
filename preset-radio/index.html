@@ -10,6 +10,7 @@
 <meta name="description" content="Preset radio MeshCore Italia: 869.618 MHz, banda 62.5 kHz, SF8, CR8. Comando per impostarlo, perché il preset 869.525 è deprecato e limiti normativi.">
 <link rel="canonical" href="https://meshcore-ita.github.io/preset-radio/">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="MeshCore ITA">
@@ -116,9 +117,11 @@
       <a class="nav__link" href="../hardware/">Hardware</a>
       <a class="nav__link" href="../faq/">FAQ</a>
       <a class="nav__link" href="../community/">Community</a>
+      <a class="nav__link" href="../blog/">Aggiornamenti</a>
       <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
       <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
     </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
       <span class="sr-only">Apri il menu</span>
     </button>
@@ -142,7 +145,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Il preset in breve</p>
-    <h2 class="section__title">I parametri condivisi dalla community italiana</h2>
+    <h2 id="i-parametri-condivisi-dalla-community-italiana" class="section__title">I parametri condivisi dalla community italiana</h2>
     <p class="section__lede">Una radio LoRa sente solo un'altra radio impostata esattamente sugli stessi parametri: frequenza, banda, spreading factor e coding rate devono coincidere.</p>
   </div>
   <table class="spec">
@@ -169,7 +172,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Configurazione</p>
-    <h2 class="section__title">Come impostarlo</h2>
+    <h2 id="come-impostarlo" class="section__title">Come impostarlo</h2>
   </div>
   <div class="prose">
     <p>Il modo più diretto è da riga di comando, via USB seriale o da un client MeshCore autenticato come admin su repeater e room server:</p>
@@ -195,7 +198,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Perché è cambiato</p>
-    <h2 class="section__title">Il vecchio preset è deprecato</h2>
+    <h2 id="il-vecchio-preset-e-deprecato" class="section__title">Il vecchio preset è deprecato</h2>
   </div>
   <div class="prose">
     <p>Il preset precedente — <code>869.525 MHz</code>, <code>SF11</code>, <code>BW 250 kHz</code>, <code>CR5</code> — è oggi etichettato come <strong>Deprecato</strong> nell'elenco ufficiale dei preset del client MeshCore. La community internazionale è passata a un preset "narrow", con banda più stretta e spreading factor più basso, per migliorare l'interoperabilità tra reti nazionali diverse. Chi resta sul preset vecchio non è in errore di configurazione in senso stretto, ma è semplicemente su una frequenza e con parametri che nessun altro nodo italiano ascolta più: frequenza, banda, SF e CR devono coincidere esattamente perché due radio LoRa si sentano, quindi un nodo disallineato resta isolato dalla mesh anche se acceso e funzionante. Se hai un nodo configurato da tempo, vale la pena controllare i suoi parametri con <code>get radio</code> e riallinearlo con il comando indicato sopra.</p>
@@ -205,24 +208,24 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">I parametri spiegati</p>
-    <h2 class="section__title">Cosa significano frequenza, banda, SF e CR</h2>
+    <h2 id="cosa-significano-frequenza-banda-sf-e-cr" class="section__title">Cosa significano frequenza, banda, SF e CR</h2>
     <p class="section__lede">Ogni parametro sposta l'equilibrio tra portata, robustezza del segnale e velocità di trasmissione.</p>
   </div>
   <div class="grid grid--2">
     <article class="card">
-      <h3 class="card__title">Frequenza e banda (bandwidth)</h3>
+      <h3 id="frequenza-e-banda-bandwidth" class="card__title">Frequenza e banda (bandwidth)</h3>
       <p class="card__body">La frequenza (869.618 MHz) è il canale su cui i nodi trasmettono e ricevono. La banda (62.5 kHz) è l'ampiezza dello spettro occupato attorno a quella frequenza: una banda più stretta concentra l'energia del segnale, aumentando la sensibilità in ricezione a scapito della velocità dati.</p>
     </article>
     <article class="card">
-      <h3 class="card__title">Spreading Factor (SF)</h3>
+      <h3 id="spreading-factor-sf" class="card__title">Spreading Factor (SF)</h3>
       <p class="card__body">Determina quanto ogni bit viene "diffuso" nel tempo. Uno spreading factor più alto (es. SF11 del preset vecchio) aumenta la portata e la resistenza al rumore, ma allunga il tempo di trasmissione di ogni pacchetto. SF8, usato nel preset attuale, è un compromesso più veloce, adatto a mesh dense con più nodi che condividono lo stesso canale.</p>
     </article>
     <article class="card">
-      <h3 class="card__title">Coding Rate (CR)</h3>
+      <h3 id="coding-rate-cr" class="card__title">Coding Rate (CR)</h3>
       <p class="card__body">Aggiunge ridondanza al pacchetto per correggere errori di trasmissione dovuti a interferenze o rumore. Un coding rate più alto protegge meglio il pacchetto ma aumenta l'airtime, cioè il tempo che il pacchetto occupa sul canale radio.</p>
     </article>
     <article class="card">
-      <h3 class="card__title">Il compromesso airtime/portata</h3>
+      <h3 id="il-compromesso-airtime-portata" class="card__title">Il compromesso airtime/portata</h3>
       <p class="card__body">Parametri che favoriscono la portata (SF alto, banda stretta, CR alto) allungano l'airtime di ogni pacchetto, riducendo quanti pacchetti la mesh può scambiare per unità di tempo entro i limiti di duty cycle. Il preset condiviso dalla community è la scelta di compromesso ritenuta migliore per l'uso tipico in Italia: cambiarlo unilateralmente isola il tuo nodo dal resto della rete.</p>
     </article>
   </div>
@@ -231,7 +234,7 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Quadro normativo</p>
-    <h2 class="section__title">Limiti di potenza e duty cycle</h2>
+    <h2 id="limiti-di-potenza-e-duty-cycle" class="section__title">Limiti di potenza e duty cycle</h2>
   </div>
   <div class="prose">
     <p>Il preset condiviso opera nella sub-banda <strong>869.4–869.65 MHz</strong>, dove la normativa europea (ETSI EN 300 220) e il Piano Nazionale di Ripartizione delle Frequenze consentono l'uso libero, senza licenza, entro precisi limiti: potenza massima <strong>500 mW ERP</strong> e <strong>duty cycle del 10%</strong>, cioè al massimo 6 minuti di trasmissione ogni ora per ogni dispositivo. Questi limiti sono già rispettati dai parametri di default consigliati dalla community, ma restano comunque responsabilità di chi configura e gestisce il nodo, in particolare se si aumenta la potenza di trasmissione oltre i valori di default con il comando <code>set tx</code>. Per i termini tecnici usati in questa pagina — advert, path-discovery, room server e altri — consulta il <a class="link" href="../glossario/">glossario dei termini MeshCore</a>; per capire come questo approccio radio si confronta con altri sistemi mesh, vedi il <a class="link" href="../meshcore-vs-meshtastic/">confronto tra MeshCore e Meshtastic</a>.</p>
@@ -241,21 +244,21 @@
 <section class="section">
   <div class="section__head">
     <p class="eyelash">Domande frequenti</p>
-    <h2 class="section__title">FAQ sul preset radio</h2>
+    <h2 id="faq-sul-preset-radio" class="section__title">FAQ sul preset radio</h2>
   </div>
-  <details class="faq">
+  <details class="faq" id="il-preset-radio-e-obbligatorio-per-usare-meshcore-in-italia">
     <summary class="faq__q">Il preset radio è obbligatorio per usare MeshCore in Italia?</summary>
     <p class="faq__a">Non è obbligatorio dal punto di vista tecnico: puoi impostare qualsiasi frequenza e parametri consentiti dalla normativa. È però fortemente raccomandato, perché è l'unico modo per sentire e farsi sentire dagli altri nodi della mesh italiana: due nodi con preset diversi semplicemente non si vedono.</p>
   </details>
-  <details class="faq">
+  <details class="faq" id="perche-il-vecchio-preset-869-525-mhz-e-deprecato">
     <summary class="faq__q">Perché il vecchio preset 869.525 MHz è deprecato?</summary>
     <p class="faq__a">Il vecchio preset EU/UK (869.525 MHz, SF11, BW 250 kHz, CR5) è oggi etichettato come Deprecato nell'elenco ufficiale dei preset del client MeshCore. La community internazionale è passata a un preset narrow, con banda più stretta e spreading factor più basso, per una migliore interoperabilità: per l'Italia il preset attuale è 869.618 MHz, BW 62.5 kHz, SF8, CR8, corrispondente a EU/UK (Narrow) nel client.</p>
   </details>
-  <details class="faq">
+  <details class="faq" id="cosa-succede-se-resto-sul-preset-vecchio">
     <summary class="faq__q">Cosa succede se resto sul preset vecchio?</summary>
     <p class="faq__a">Un nodo rimasto sul preset deprecato non riceve né trasmette pacchetti verso i nodi allineati al preset attuale: frequenza, banda, spreading factor e coding rate devono coincidere esattamente perché due radio LoRa si sentano. Il nodo resta isolato dalla mesh italiana finché non viene riallineato.</p>
   </details>
-  <details class="faq">
+  <details class="faq" id="serve-una-licenza-radioamatoriale-per-usare-questo-preset">
     <summary class="faq__q">Serve una licenza radioamatoriale per usare questo preset?</summary>
     <p class="faq__a">No. Entro i limiti di potenza, ERP e duty cycle della sub-banda 869.4-869.65 MHz previsti da ETSI EN 300 220 e dal Piano Nazionale di Ripartizione delle Frequenze, l'uso è libero e non richiede licenza. La responsabilità del rispetto di questi limiti resta comunque dell'operatore del nodo.</p>
   </details>
@@ -290,21 +293,37 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="foot__nav">
-      <p class="foot__nav-label">Documentazione</p>
+      <p class="foot__nav-label">Inizia</p>
       <ul class="foot__nav-list">
         <li><a href="../guida/">Guida</a></li>
+        <li><a href="../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
         <li><a href="../preset-radio/" aria-current="true">Preset radio</a></li>
         <li><a href="../hardware/">Hardware</a></li>
+        <li><a href="../installare-repeater/">Repeater</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../mappa-copertura/">Mappa</a></li>
+        <li><a href="../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
         <li><a href="../comandi/">Comandi</a></li>
         <li><a href="../problemi/">Problemi</a></li>
         <li><a href="../faq/">FAQ</a></li>
         <li><a href="../meshcore-vs-meshtastic/">Confronti</a></li>
         <li><a href="../glossario/">Glossario</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
         <li><a href="../community/">Community</a></li>
-        <li><a href="../installare-repeater/">Repeater</a></li>
-        <li><a href="../mappa-copertura/">Mappa</a></li>
-        <li><a href="../app/">App</a></li>
-        <li><a href="../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Aggiornamenti</p>
+      <ul class="foot__nav-list">
+        <li><a href="../blog/">Aggiornamenti</a></li>
       </ul>
     </div>
     <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
@@ -321,6 +340,16 @@
   </div>
 </footer>
 
+<dialog class="search" id="search" data-search-index="../search-index.json">
+  <form class="search__form" method="dialog">
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+
 <script type="module" src="../assets/js/main.js?v=2" defer></script>
+<script type="module" src="../assets/js/search.js?v=1" defer></script>
 </body>
 </html>

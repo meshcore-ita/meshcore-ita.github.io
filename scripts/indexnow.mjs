@@ -7,7 +7,7 @@
 // La chiave è pubblica per specifica: deve essere servita come
 import { execFileSync } from 'node:child_process';
 import { readFileSync, readdirSync } from 'node:fs';
-import { SITE_BASE } from '../build.mjs';
+import { SITE_BASE } from './site-base.mjs';
 
 // La chiave è il nome del file <chiave>.txt presente nella root del sito:
 // una sola fonte di verità, impossibile che file e script divergano.
@@ -20,9 +20,13 @@ const KEY = keyFile.replace(/\.txt$/, '');
 const ENDPOINT = 'https://api.indexnow.org/IndexNow';
 const host = new URL(SITE_BASE).host;
 
-// 'guida/index.html' -> '<base>guida/', 'index.html' -> '<base>'
+// 'guida/index.html' -> '<base>guida/', 'index.html' -> '<base>',
+// 'blog/index.html' -> '<base>blog/', 'blog/guida/index.html' -> '<base>blog/guida/'
 function pathToUrl(file) {
   if (file === 'index.html') return SITE_BASE;
+  if (file === 'blog/index.html') return `${SITE_BASE}blog/`;
+  const post = file.match(/^blog\/([a-z0-9-]+)\/index\.html$/);
+  if (post) return `${SITE_BASE}blog/${post[1]}/`;
   const m = file.match(/^([a-z0-9-]+)\/index\.html$/);
   return m ? `${SITE_BASE}${m[1]}/` : null;
 }

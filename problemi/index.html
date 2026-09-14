@@ -10,6 +10,7 @@
 <meta name="description" content="MeshCore non funziona, il BLE non si accoppia o il web flasher non vede la board su Linux? Diagnosi, causa e comando risolutivo per nove problemi comuni.">
 <link rel="canonical" href="https://meshcore-ita.github.io/problemi/">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="MeshCore ITA">
@@ -158,9 +159,11 @@
       <a class="nav__link" href="../hardware/">Hardware</a>
       <a class="nav__link" href="../faq/">FAQ</a>
       <a class="nav__link" href="../community/">Community</a>
+      <a class="nav__link" href="../blog/">Aggiornamenti</a>
       <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
       <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
     </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
       <span class="sr-only">Apri il menu</span>
     </button>
@@ -184,23 +187,23 @@
 <section class="section" data-reveal>
     <div class="section__head">
       <p class="eyelash">Prima di tutto</p>
-      <h2 class="section__title">Il metodo veloce, in tre passaggi</h2>
+      <h2 id="il-metodo-veloce-in-tre-passaggi" class="section__title">Il metodo veloce, in tre passaggi</h2>
       <p class="section__lede">Prima di cercare il caso specifico, verifica questi tre punti: da soli risolvono la maggior parte delle segnalazioni.</p>
     </div>
     <ol class="steps">
       <li class="step" data-reveal>
         <p class="step__num">01</p>
-        <h3 class="step__title">Controlla il preset radio</h3>
+        <h3 id="controlla-il-preset-radio" class="step__title">Controlla il preset radio</h3>
         <p class="step__body">Il motivo più comune per cui due nodi non si sentono è un preset diverso. Lancia <code>get radio</code> da un client admin e confronta il risultato con il <a class="link" href="../preset-radio/">preset radio condiviso per l'Italia</a>: deve restituire <code>869.618,62.5,8,8</code>.</p>
       </li>
       <li class="step" data-reveal>
         <p class="step__num">02</p>
-        <h3 class="step__title">Controlla l'orologio</h3>
+        <h3 id="controlla-l-orologio" class="step__title">Controlla l'orologio</h3>
         <p class="step__body">Molti nodi "invisibili" hanno semplicemente l'ora sbagliata. Sincronizza con <code>clock sync</code> da un client admin, oppure imposta l'epoch manualmente con <code>time &lt;epoch&gt;</code> via seriale.</p>
       </li>
       <li class="step" data-reveal>
         <p class="step__num">03</p>
-        <h3 class="step__title">Controlla i permessi USB (solo Linux)</h3>
+        <h3 id="controlla-i-permessi-usb-solo-linux" class="step__title">Controlla i permessi USB (solo Linux)</h3>
         <p class="step__body">Se il web flasher non vede la board, quasi sempre è un problema di permessi sulla porta seriale: il caso dedicato più sotto spiega il comando esatto da usare.</p>
       </li>
     </ol>
@@ -209,44 +212,44 @@
   <section class="section" data-reveal>
     <div class="section__head">
       <p class="eyelash">Troubleshooting</p>
-      <h2 class="section__title">Nove casi comuni: diagnosi, causa, soluzione</h2>
+      <h2 id="nove-casi-comuni-diagnosi-causa-soluzione" class="section__title">Nove casi comuni: diagnosi, causa, soluzione</h2>
       <p class="section__lede">Ogni caso segue lo stesso schema: cosa osservi, perché succede, come risolverlo.</p>
     </div>
     <div class="grid grid--2">
       <article class="card" data-reveal>
-        <h3 class="card__title">Il nodo non compare in app</h3>
+        <h3 id="il-nodo-non-compare-in-app" class="card__title">Il nodo non compare in app</h3>
         <p class="card__body"><strong>Diagnosi:</strong> il nodo è acceso e nel raggio radio ma non compare nella lista contatti o discover del client. <strong>Causa:</strong> quasi sempre un problema di orologio: su un T-Deck può mancare il fix GPS o il baud rate GPS è sbagliato, oppure il nodo remoto ha l'ora sbagliata e i suoi advert vengono scartati. <strong>Soluzione:</strong> da un client admin lancia <code>clock sync</code> per sincronizzare l'orologio del nodo collegato, oppure imposta l'ora manualmente con <code>time &lt;epoch&gt;</code> via seriale; poi lancia <code>advert</code> per forzare un nuovo annuncio.</p>
       </article>
       <article class="card" data-reveal>
-        <h3 class="card__title">Il Bluetooth (BLE) non si accoppia</h3>
+        <h3 id="il-bluetooth-ble-non-si-accoppia" class="card__title">Il Bluetooth (BLE) non si accoppia</h3>
         <p class="card__body"><strong>Diagnosi:</strong> il client MeshCore non trova il nodo tra i dispositivi Bluetooth disponibili, oppure il pairing fallisce. <strong>Causa:</strong> sul nodo è stato flashato il firmware Companion USB-only invece di Companion BLE: solo un companion accetta connessioni Bluetooth, un repeater o un room server non ne aprono mai una. <strong>Soluzione:</strong> verifica con il web flasher di aver installato il firmware Companion BLE corretto per la tua board; il PIN di pairing di default è <code>123456</code>.</p>
       </article>
       <article class="card" data-reveal>
-        <h3 class="card__title">Il web flasher non vede la board (Linux)</h3>
+        <h3 id="il-web-flasher-non-vede-la-board-linux" class="card__title">Il web flasher non vede la board (Linux)</h3>
         <p class="card__body"><strong>Diagnosi:</strong> il browser mostra un errore del tipo “Failed to open serial port” quando provi a collegarti alla board dal web flasher. <strong>Causa:</strong> su Linux l'utente non ha i permessi di lettura e scrittura sulla porta seriale USB assegnata alla board. <strong>Soluzione:</strong> assegna i permessi con <code>sudo setfacl -m u:$USER:rw /dev/ttyUSB0</code> (adatta il device path, ad esempio <code>/dev/ttyACM0</code> per una board nRF), poi ricarica la pagina del web flasher e riprova la connessione.</p>
       </article>
       <article class="card" data-reveal>
-        <h3 class="card__title">Nessun nodo è raggiungibile</h3>
+        <h3 id="nessun-nodo-e-raggiungibile" class="card__title">Nessun nodo è raggiungibile</h3>
         <p class="card__body"><strong>Diagnosi:</strong> il nodo trasmette regolarmente ma non riesce a sentire né a farsi sentire da nessun altro nodo della mesh. <strong>Causa:</strong> il preset radio — frequenza, banda, spreading factor o coding rate — non corrisponde a quello del resto della mesh: due nodi su preset diversi non comunicano, anche se vicini. <strong>Soluzione:</strong> controlla il preset attuale con <code>get radio</code> e riallinealo con <code>set radio 869.618,62.5,8,8</code>, poi riavvia con <code>reboot</code>.</p>
       </article>
       <article class="card" data-reveal>
-        <h3 class="card__title">La batteria dura poco</h3>
+        <h3 id="la-batteria-dura-poco" class="card__title">La batteria dura poco</h3>
         <p class="card__body"><strong>Diagnosi:</strong> un repeater alimentato a batteria si scarica molto più rapidamente del previsto. <strong>Causa:</strong> il risparmio energetico non è attivo, oppure la potenza di trasmissione è impostata più alta del necessario per la copertura richiesta. <strong>Soluzione:</strong> attiva il risparmio energetico con <code>powersaving on</code> — il nodo dorme tra una trasmissione e l'altra — e riduci la potenza TX con <code>set tx &lt;dbm&gt;</code> (intervallo 1–22 dBm); controlla il valore attuale con <code>get tx</code>.</p>
       </article>
       <article class="card" data-reveal>
-        <h3 class="card__title">Il firmware va aggiornato via OTA/DFU</h3>
+        <h3 id="il-firmware-va-aggiornato-via-ota-dfu" class="card__title">Il firmware va aggiornato via OTA/DFU</h3>
         <p class="card__body"><strong>Diagnosi:</strong> la board è già installata in un punto scomodo da raggiungere via USB e serve aggiornare il firmware da remoto. <strong>Causa:</strong> gli aggiornamenti via cavo richiedono accesso fisico alla board a ogni versione. <strong>Soluzione:</strong> su ESP32 lancia <code>start ota</code> dal client admin, collegati all'hotspot Wi-Fi “MeshCore OTA” e vai su <code>192.168.4.1/update</code>; su board nRF (RAK, T114, Seeed XIAO) usa <code>start ota</code> insieme all'app nRF DFU sullo smartphone.</p>
       </article>
       <article class="card" data-reveal>
-        <h3 class="card__title">Il Bluetooth si disconnette in continuazione (Heltec V3)</h3>
+        <h3 id="il-bluetooth-si-disconnette-in-continuazione-heltec-v3" class="card__title">Il Bluetooth si disconnette in continuazione (Heltec V3)</h3>
         <p class="card__body"><strong>Diagnosi:</strong> il collegamento BLE tra companion e app cade spesso, anche a pochi metri di distanza. <strong>Causa:</strong> su Heltec V3 l'antenna Bluetooth/Wi-Fi integrata è una piccola bobina sul circuito stampato, con portata di pochi metri. <strong>Soluzione:</strong> resta vicino al nodo durante l'uso; in alternativa, chi ha dimestichezza con la saldatura può sostituire l'antenna a bobina con un filo di circa 31 mm per migliorare la portata BLE — è una modifica hardware da valutare con cautela.</p>
       </article>
       <article class="card" data-reveal>
-        <h3 class="card__title">Il repeater sembra sordo, non sente più i nodi vicini</h3>
+        <h3 id="il-repeater-sembra-sordo-non-sente-piu-i-nodi-vicini" class="card__title">Il repeater sembra sordo, non sente più i nodi vicini</h3>
         <p class="card__body"><strong>Diagnosi:</strong> un repeater che prima funzionava smette di sentire nodi che dovrebbero essere in portata, pur restando acceso e configurato correttamente. <strong>Causa:</strong> può trattarsi dell'AGC (Automatic Gain Control) del chip radio SX1262, che può bloccarsi in presenza di forti interferenze vicine alla frequenza usata. <strong>Soluzione:</strong> imposta un reset periodico dell'AGC con <code>set agc.reset.interval &lt;numero&gt;</code> — il valore è in secondi, in multipli di 4; <code>set agc.reset.interval 4</code> è un buon punto di partenza.</p>
       </article>
       <article class="card" data-reveal>
-        <h3 class="card__title">Il dispositivo sembra corrotto o bloccato</h3>
+        <h3 id="il-dispositivo-sembra-corrotto-o-bloccato" class="card__title">Il dispositivo sembra corrotto o bloccato</h3>
         <p class="card__body"><strong>Diagnosi:</strong> il nodo non risponde più correttamente o non entra più in funzionamento normale. <strong>Causa:</strong> una configurazione o un firmware corrotti, spesso dopo un aggiornamento interrotto. <strong>Soluzione:</strong> se riesci a collegarti dall'app, esporta le impostazioni, esegui un factory reset e poi reimportale dopo aver ripristinato il pairing Bluetooth; se non riesci a collegarti, usa il web flasher per entrare in modalità DFU, esegui “Erase Flash” e poi reinstalla il firmware con “Flash!”. Dalla versione firmware 1.7.0, le board con pulsante utente (alcune RAK, T114) hanno anche una modalità di recovery: tienilo premuto entro 8 secondi dall'accensione per accedere alla console del web flasher.</p>
       </article>
     </div>
@@ -255,7 +258,7 @@
   <section class="section" data-reveal>
     <div class="section__head">
       <p class="eyelash">Serve altro aiuto?</p>
-      <h2 class="section__title">Se il problema persiste</h2>
+      <h2 id="se-il-problema-persiste" class="section__title">Se il problema persiste</h2>
       <p class="section__lede">Non tutti i problemi rientrano in uno schema fisso: a volte serve ispezionare lo stato del nodo o confrontarsi con chi ha già affrontato lo stesso caso.</p>
     </div>
     <p class="prose">Il <a class="link" href="../comandi/">riferimento completo dei comandi CLI</a> ti permette di ispezionare lo stato del nodo con <code>stats-radio</code> (noise floor, RSSI/SNR, airtime) e <code>neighbors</code> (vicini diretti uditi di recente). Le <a class="link" href="../faq/">domande frequenti su MeshCore</a> coprono altri dubbi comuni su portata, preset e mappa pubblica, mentre la <a class="link" href="../hardware/">pagina hardware</a> elenca le board supportate se il problema dipende dal modello specifico che usi. Chi arriva da altri sistemi mesh può trovare utile il confronto in <a class="link" href="../meshcore-vs-meshtastic/">MeshCore vs Meshtastic</a> per capire le differenze di routing prima di aprire una segnalazione. Se non risolvi comunque, chiedi nel gruppo Telegram: la community risponde spesso in pochi minuti.</p>
@@ -291,21 +294,37 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="foot__nav">
-      <p class="foot__nav-label">Documentazione</p>
+      <p class="foot__nav-label">Inizia</p>
       <ul class="foot__nav-list">
         <li><a href="../guida/">Guida</a></li>
+        <li><a href="../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
         <li><a href="../preset-radio/">Preset radio</a></li>
         <li><a href="../hardware/">Hardware</a></li>
+        <li><a href="../installare-repeater/">Repeater</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../mappa-copertura/">Mappa</a></li>
+        <li><a href="../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
         <li><a href="../comandi/">Comandi</a></li>
         <li><a href="../problemi/" aria-current="true">Problemi</a></li>
         <li><a href="../faq/">FAQ</a></li>
         <li><a href="../meshcore-vs-meshtastic/">Confronti</a></li>
         <li><a href="../glossario/">Glossario</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
         <li><a href="../community/">Community</a></li>
-        <li><a href="../installare-repeater/">Repeater</a></li>
-        <li><a href="../mappa-copertura/">Mappa</a></li>
-        <li><a href="../app/">App</a></li>
-        <li><a href="../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Aggiornamenti</p>
+      <ul class="foot__nav-list">
+        <li><a href="../blog/">Aggiornamenti</a></li>
       </ul>
     </div>
     <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
@@ -322,6 +341,16 @@
   </div>
 </footer>
 
+<dialog class="search" id="search" data-search-index="../search-index.json">
+  <form class="search__form" method="dialog">
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+
 <script type="module" src="../assets/js/main.js?v=2" defer></script>
+<script type="module" src="../assets/js/search.js?v=1" defer></script>
 </body>
 </html>
