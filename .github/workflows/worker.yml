@@ -29,7 +29,9 @@ jobs:
 
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: 20
+          # wrangler 4.131 richiede Node >= 22 (serve solo al deploy: il
+          # Worker gira sul runtime di Cloudflare).
+          node-version: 22
 
       - name: Sincronizza i secret del Worker
         working-directory: worker
