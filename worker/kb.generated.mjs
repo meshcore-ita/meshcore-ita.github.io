@@ -1389,7 +1389,14 @@ export const KB_CHUNKS = [
     "page": "Portata e link budget",
     "title": "FAQ su portata e link budget",
     "url": "https://meshcore-ita.github.io/link-budget/#faq-su-portata-e-link-budget",
-    "text": "Riferimenti"
+    "text": "Scelta dell'antenna"
+  },
+  {
+    "id": "link-budget--direttivita-perche-il-guadagno-non-e-gratis",
+    "page": "Portata e link budget",
+    "title": "Direttività: perché il guadagno non è gratis",
+    "url": "https://meshcore-ita.github.io/link-budget/#direttivita-perche-il-guadagno-non-e-gratis",
+    "text": "Un'antenna non amplifica: ridistribuisce. Ogni dB di guadagno è energia tolta a una direzione e data a un'altra. Il guadagno di un'antenna passiva nasce solo dal restringere il diagramma di radiazione: il dipolo a mezz'onda irradia 2.15 dBi verso l'orizzonte perché non irradia nulla lungo il proprio asse 12 ; una Yagi arriva a 10-13 dBi perché concentra la stessa potenza in un cono di 35-50° e attenua tutto il resto di decine di dB. La relazione approssimata di Kraus lo quantifica: G ≈ 41253 / (HPBW_az · HPBW_el) , con le aperture a -3 dB in gradi 13 . Per una mesh la conseguenza è pratica: in città , con nodi in tutte le direzioni, un'antenna direttiva \"perde\" la maggior parte dei vicini,…"
   },
   {
     "id": "link-budget--fonti",

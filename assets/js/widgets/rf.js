@@ -42,7 +42,7 @@ export const fmt = (n, digits = 1) => Number(n).toFixed(digits).replace('-', 'âˆ
 
 // Helper DOM minimo condiviso. I tag SVG vanno creati nel loro namespace,
 // altrimenti non vengono renderizzati.
-const SVG_TAGS = new Set(['svg', 'g', 'rect', 'line', 'path', 'text', 'circle', 'ellipse', 'polygon', 'polyline']);
+const SVG_TAGS = new Set(['svg', 'g', 'defs', 'clipPath', 'rect', 'line', 'path', 'text', 'circle', 'ellipse', 'polygon', 'polyline']);
 export function el(tag, attrs = {}, children = []) {
   const node = SVG_TAGS.has(tag)
     ? document.createElementNS('http://www.w3.org/2000/svg', tag)

@@ -221,6 +221,35 @@
 
 <section class="section">
   <div class="section__head">
+    <p class="eyelash">Scelta dell'antenna</p>
+    <h2 class="section__title">Direttività: perché il guadagno non è gratis</h2>
+    <p class="section__lede">Un'antenna non amplifica: ridistribuisce. Ogni dB di guadagno è energia tolta a una direzione e data a un'altra.</p>
+  </div>
+  <div class="prose">
+    <p>Il guadagno di un'antenna passiva nasce solo dal restringere il diagramma di radiazione: il dipolo a mezz'onda irradia 2.15 dBi verso l'orizzonte perché non irradia nulla lungo il proprio asse<sup class="cit"><a href="#f12">12</a></sup>; una Yagi arriva a 10-13 dBi perché concentra la stessa potenza in un cono di 35-50° e attenua tutto il resto di decine di dB. La relazione approssimata di Kraus lo quantifica: <code>G ≈ 41253 / (HPBW_az · HPBW_el)</code>, con le aperture a -3 dB in gradi<sup class="cit"><a href="#f13">13</a></sup>. Per una mesh la conseguenza è pratica: <strong>in città</strong>, con nodi in tutte le direzioni, un'antenna direttiva "perde" la maggior parte dei vicini, e una verticale omnidirezionale da 2-3.5 dBi copre di più anche se il numero sulla scatola è più basso; <strong>per un ponte tra due repeater</strong> fissi la direttiva vince due volte, perché guadagna in entrambe le direzioni e riceve meno rumore e meno traffico dalle direzioni che non interessano.</p>
+    <p>Anche l'omnidirezionale ha un costo nascosto: una verticale 5/8λ da 3.5 dBi ottiene il guadagno schiacciando il lobo verso l'orizzonte, quindi un nodo molto più in basso (un repeater su una torre che serve il quartiere ai suoi piedi) o molto più in alto riceve meno di quanto riceverebbe da un semplice dipolo. Il widget mostra entrambi gli effetti: scegli antenna e scenario, e conta quanti nodi restano entro -3 dB dal massimo; il tilt meccanico serve a vedere cosa succede a un repeater inclinato verso valle.</p>
+  </div>
+  <div class="widget" data-widget="antenna" aria-label="Simulatore interattivo di direttività, impedenza e SWR dell'antenna"></div>
+  <div class="prose">
+    <p>La carta di Smith e la curva SWR rispondono alla domanda successiva dell'autocostruttore: l'antenna è accordata? Il punto rappresenta l'impedenza al connettore normalizzata a 50 Ω; al centro l'adattamento è perfetto, e la distanza dal centro è il modulo del coefficiente di riflessione <code>|Γ| = (SWR − 1)/(SWR + 1)</code><sup class="cit"><a href="#f14">14</a></sup>. Con SWR 2:1 torna indietro l'11 % della potenza (0.5 dB persi): trascurabile rispetto a un cavo sbagliato, ma un SWR molto alto su un modulo LoRa da 22 dBm senza protezione può danneggiare il finale<sup class="cit"><a href="#f2">2</a></sup>. La banda utile è stretta per progetto: un'antenna tagliata per 869.6 MHz non è quella giusta per LoRaWAN a 868.1 né per il 433 MHz, e il pannello "Calcolo lunghezze" dà le misure di partenza per tagliarla, da rifinire con un NanoVNA.</p>
+  </div>
+  <table class="spec">
+    <caption>Antenne tipiche a 869 MHz: valori nominali di riferimento</caption>
+    <thead><tr><th scope="col">Antenna</th><th scope="col">Guadagno</th><th scope="col">Apertura −3 dB</th><th scope="col">Quando ha senso</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Dipolo λ/2 verticale</th><td>2.15 dBi</td><td>360° × 78°</td><td>Nodo urbano, palmare, primo repeater: copre tutto, niente da puntare</td></tr>
+      <tr><th scope="row">Antenna PCB / U.FL interna</th><td>0-1 dBi</td><td>irregolare</td><td>Solo dentro casa o in tasca: la board e la mano fanno parte dell'antenna</td></tr>
+      <tr><th scope="row">Verticale 5/8λ con radiali</th><td>3-3.5 dBi</td><td>360° × ~55°</td><td>Repeater fisso su terreno pianeggiante, nodi tutti all'orizzonte</td></tr>
+      <tr><th scope="row">Yagi 3 elementi</th><td>7-7.5 dBi</td><td>~65° × 80°</td><td>Client fisso verso un repeater lontano; ponte corto</td></tr>
+      <tr><th scope="row">Yagi 6 elementi</th><td>10-10.5 dBi</td><td>~48° × 55°</td><td>Ponte punto-punto tra repeater, 10-30 km in visibilità</td></tr>
+      <tr><th scope="row">Yagi 10 elementi</th><td>~13 dBi</td><td>~36° × 40°</td><td>Dorsale fissa; richiede puntamento fine e supporto rigido</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Le antenne a "20 dBi" a 869 MHz non esistono in formato hobbistico: una parabola arriva a quel guadagno solo con circa 1.5 m di diametro (<code>G = 10·log₁₀(η·(πD/λ)²)</code>, η ≈ 0.6)<sup class="cit"><a href="#f13">13</a></sup>. Diffidare dei guadagni dichiarati sulle antenne "a stilo" da 5-12 dBi lunghe pochi centimetri: fisicamente impossibili. Il limite di 500 mW ERP conta il guadagno d'antenna: con una Yagi da 10 dBi la potenza del radio va ridotta, vedi il <a class="link" href="../normativa/">calcolatore ERP</a>.</p>
+</section>
+
+<section class="section">
+  <div class="section__head">
     <p class="eyelash">Riferimenti</p>
     <h2 class="section__title">Fonti</h2>
   </div>
@@ -236,5 +265,8 @@
     <li id="f9">Roger Coudé (VE2DBE), <em>Radio Mobile Online</em>, simulazione di propagazione radio su terreno digitale. <a href="https://www.ve2dbe.com/rmonline_s.asp" target="_blank" rel="noopener">ve2dbe.com/rmonline_s.asp</a></li>
     <li id="f10">John Magliacane (KD2BD), <em>SPLAT! — A Terrestrial RF Path Analysis Application</em>. <a href="https://www.qsl.net/kd2bd/splat.html" target="_blank" rel="noopener">qsl.net/kd2bd/splat.html</a></li>
     <li id="f11">Commissione Europea, Joint Research Centre, <em>PVGIS — Photovoltaic Geographical Information System</em>. <a href="https://re.jrc.ec.europa.eu/pvg_tools/en/" target="_blank" rel="noopener">re.jrc.ec.europa.eu/pvg_tools/en/</a></li>
+    <li id="f12">Antenna-Theory.com, <em>The Half-Wave Dipole Antenna</em> (guadagno 2.15 dBi, diagramma di radiazione, HPBW 78°). <a href="https://www.antenna-theory.com/antennas/halfwave.php" target="_blank" rel="noopener">antenna-theory.com/antennas/halfwave.php</a></li>
+    <li id="f13">Constantine A. Balanis, <em>Antenna Theory: Analysis and Design</em>, 4ª ed., Wiley, 2016 (§2.4-2.6 direttività e approssimazione di Kraus; §15.4 guadagno di apertura delle parabole).</li>
+    <li id="f14">Antenna-Theory.com, <em>VSWR (Voltage Standing Wave Ratio)</em> (relazione tra SWR, coefficiente di riflessione e potenza riflessa). <a href="https://www.antenna-theory.com/definitions/vswr.php" target="_blank" rel="noopener">antenna-theory.com/definitions/vswr.php</a></li>
   </ol>
 </section>
