@@ -738,6 +738,45 @@ table.spec caption {
 }
 
 /* -----------------------------------------------------------
+   Citazioni: <sup class="cit"><a href="#f1">1</a></sup> nel testo,
+   <ol class="fonti"> in coda alla pagina con <li id="f1">.
+   ----------------------------------------------------------- */
+
+.cit {
+  font-family: var(--font-mono);
+  font-size: .7em;
+  line-height: 0;
+  vertical-align: super;
+  margin-left: .1em;
+}
+
+.cit a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.fonti {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+.fonti li {
+  margin-bottom: .6rem;
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+
+.fonti li:target {
+  color: var(--fg);
+}
+
+.fonti a {
+  overflow-wrap: anywhere;
+}
+
+/* -----------------------------------------------------------
    FAQ
    ----------------------------------------------------------- */
 
@@ -1105,6 +1144,141 @@ table.spec caption {
   display: inline-block;
   margin: 0 .5rem;
   color: var(--line-strong);
+}
+
+/* -----------------------------------------------------------
+   Widget interattivi (assets/js/widgets/*.js). Shell condivisa:
+   .widget > .widget__controls (label+input) + .widget__stage (svg/canvas)
+   + .widget__out (valori). I widget non definiscono altri stili globali.
+   ----------------------------------------------------------- */
+
+.widget {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  background: rgba(255, 255, 255, .02);
+  display: grid;
+  gap: 1.25rem;
+}
+
+.widget--failed { display: none; }
+
+.widget__controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: .75rem 1.25rem;
+}
+
+.widget__controls label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .3rem .4rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.widget__controls label > input,
+.widget__controls label > select {
+  flex-basis: 100%;
+}
+
+.widget__controls output,
+.widget__val {
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: .9rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.widget input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.widget select,
+.widget input[type="number"] {
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: .4rem .5rem;
+  font: inherit;
+  font-family: var(--font-mono);
+  font-size: .9rem;
+}
+
+.widget__stage {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  background: #050505;
+  border: 1px solid var(--line);
+}
+
+.widget__stage svg,
+.widget__stage canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.widget__stage text:not([fill]) {
+  fill: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.widget__out {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: .75rem 1.25rem;
+  margin: 0;
+}
+
+.widget__out div { display: grid; gap: .2rem; }
+
+.widget__out dt {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.widget__out dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  color: var(--fg);
+}
+
+.widget__out dd.is-ok { color: var(--accent); }
+.widget__out dd.is-warn { color: #f59e0b; }
+.widget__out dd.is-bad { color: #ef4444; }
+
+.widget__cmd {
+  font-family: var(--font-mono);
+  font-size: .9rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: .6rem .8rem;
+  color: var(--fg);
+  overflow-x: auto;
+  margin: 0;
+}
+
+.widget__note {
+  color: var(--dim);
+  font-size: .8rem;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .prose {

@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+
+<title>Normativa MeshCore Italia: potenza, duty cycle, 433 MHz</title>
+<meta name="description" content="Limiti ERP e duty cycle delle sub-bande 868-870 MHz per MeshCore in Italia, calcolo ERP/EIRP con guadagno antenna, banda 433 MHz e uso in banda radioamatoriale.">
+<link rel="canonical" href="https://meshcore-ita.github.io/normativa/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MeshCore ITA">
+<meta property="og:title" content="Normativa MeshCore Italia: potenza, duty cycle, 433 MHz">
+<meta property="og:description" content="Limiti ERP e duty cycle delle sub-bande 868-870 MHz per MeshCore in Italia, calcolo ERP/EIRP con guadagno antenna, banda 433 MHz e uso in banda radioamatoriale.">
+<meta property="og:url" content="https://meshcore-ita.github.io/normativa/">
+<meta property="og:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="it_IT">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Normativa MeshCore Italia: potenza, duty cycle, 433 MHz">
+<meta name="twitter:description" content="Limiti ERP e duty cycle delle sub-bande 868-870 MHz per MeshCore in Italia, calcolo ERP/EIRP con guadagno antenna, banda 433 MHz e uso in banda radioamatoriale.">
+<meta property="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="mask-icon" href="../assets/img/favicon.svg" color="#22c55e">
+
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geist-300-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/css/style.css?v=5">
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Normativa MeshCore in Italia: potenza, duty cycle e frequenze",
+      "description": "Quadro normativo per l'uso di MeshCore in Italia: limiti di potenza e duty cycle delle sub-bande 868-870 MHz, calcolo ERP/EIRP, banda 433 MHz e incompatibilità con l'uso radioamatoriale.",
+      "about": "Normativa radio MeshCore Italia"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "MeshCore sul preset 869.618 MHz richiede una licenza radioamatoriale?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. La sub-banda 869.4-869.65 MHz è ad uso libero per apparati a corto raggio entro i limiti di potenza (500 mW ERP) e duty cycle (10%) fissati dalla norma armonizzata ETSI EN 300 220-2 e recepiti nel Piano Nazionale di Ripartizione delle Frequenze. Non serve nominativo né autorizzazione generale."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Posso alzare la potenza di trasmissione oltre il default con set tx?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Solo restando entro il limite di 500 mW ERP della sub-banda 869.4-869.65 MHz, calcolato sottraendo il guadagno dell'antenna (in dBd) e sommando la perdita di cavo alla potenza in uscita dal radio. Il rispetto del limite resta responsabilità di chi configura il nodo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Posso usare MeshCore in banda radioamatoriale con il mio nominativo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Non in modo conforme: MeshCore cifra canali e messaggi diretti, mentre le trasmissioni radioamatoriali non possono essere rese volutamente incomprensibili a terzi, salvo il controllo di satelliti. Restare sulla sub-banda 869.4-869.65 MHz ad uso libero, oppure sulla banda LPD 433 MHz, evita il conflitto."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Chi controlla che il duty cycle del 10% sia rispettato?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nessun ente misura in automatico il duty cycle dei singoli nodi: il limite è normativo e la sua osservanza è responsabilità dell'operatore. I parametri di default del preset condiviso e il traffico tipico di una mesh restano ampiamente sotto il 10%, ma un uso anomalo (ad esempio un loop di flood) può avvicinarsi al limite."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://meshcore-ita.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Normativa",
+          "item": "https://meshcore-ita.github.io/normativa/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Vai al contenuto</a>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<header class="site-header" data-scrolled="false">
+  <div class="site-header__inner">
+    <a class="brand" href="../">
+      <img class="brand__mark" src="../assets/img/logo.svg" alt="" width="28" height="28">
+      <span class="brand__text">MeshCore <em>ITA</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a class="nav__link" href="../guida/">Guida</a>
+      <a class="nav__link" href="../preset-radio/">Preset radio</a>
+      <a class="nav__link" href="../hardware/">Hardware</a>
+      <a class="nav__link" href="../faq/">FAQ</a>
+      <a class="nav__link" href="../community/">Community</a>
+      <a class="nav__link" href="../blog/">Aggiornamenti</a>
+      <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
+      <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
+    </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="sr-only">Apri il menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero hero--page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="../">Home</a></li>
+        <li aria-current="page">Normativa</li>
+      </ol>
+    </nav>
+    <p class="eyelash">Normativa</p>
+    <h1 class="hero__title">Normativa: potenza, duty cycle e frequenze per MeshCore in Italia</h1>
+    <p class="hero__lede">Le sub-bande libere 868-870 MHz, il calcolo ERP/EIRP con il guadagno d'antenna e perché MeshCore non è compatibile con l'uso in banda radioamatoriale con nominativo.</p>
+  </section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Sintesi</p>
+    <h2 id="le-sub-bande-863-870-mhz-rilevanti-per-meshcore" class="section__title">Le sub-bande 863-870 MHz rilevanti per MeshCore</h2>
+    <p class="section__lede">Solo tre sub-bande contano per un nodo MeshCore in Italia: quella del preset condiviso e le due adiacenti spesso confuse con essa.</p>
+  </div>
+  <table class="spec">
+    <caption>Limiti di potenza e duty cycle, apparati a corto raggio non specifici<sup class="cit"><a href="#f1">1</a></sup></caption>
+    <thead>
+      <tr>
+        <th scope="col">Sub-banda</th>
+        <th scope="col">Potenza max</th>
+        <th scope="col">Duty cycle</th>
+        <th scope="col">Uso per MeshCore</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">868.000–868.600 MHz</th><td>25 mW e.r.p.</td><td>≤ 1%</td><td>Non usata dal preset condiviso: potenza troppo bassa per un repeater.</td></tr>
+      <tr><th scope="row">869.400–869.650 MHz</th><td>500 mW e.r.p.</td><td>≤ 10%</td><td>Sub-banda del <a class="link" href="../preset-radio/">preset radio condiviso</a> (869.618 MHz).</td></tr>
+      <tr><th scope="row">869.700–870.000 MHz</th><td>5 mW e.r.p. (oppure 25 mW con duty cycle ≤ 1%)</td><td>Nessun limite (oppure ≤ 1%)</td><td>Non usata: 5 mW è troppo poco, 25 mW impone un duty cycle più stretto del preset.</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Il preset condiviso 869.618 MHz, BW 62.5 kHz, SF8, CR8 (dettagli nella pagina <a class="link" href="../preset-radio/">preset radio</a>) resta dentro la sub-banda 869.4-869.65 MHz appunto per sfruttarne il tetto di potenza più alto.</p>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Potenza reale irradiata</p>
+    <h2 id="erp-eirp-e-come-si-calcola-la-potenza-massima-consentita" class="section__title">ERP, EIRP e come si calcola la potenza massima consentita</h2>
+  </div>
+  <div class="prose">
+    <p>L'ERP (<em>effective radiated power</em>) è la potenza misurata rispetto a un'antenna dipolo a mezz'onda di riferimento: è la grandezza usata dalla norma ETSI EN 300 220 e quindi il limite che conta per MeshCore in Italia. L'EIRP (<em>equivalent isotropically radiated power</em>), usata più spesso nelle schede tecniche dei chip radio, è invece riferita a un'antenna isotropica ideale. La differenza tra i due riferimenti è una costante fisica: <strong>EIRP = ERP + 2.15 dB</strong>.</p>
+    <p>La norma definisce l'ERP come la potenza in uscita dal connettore d'antenna corretta per il guadagno dell'antenna stessa, espresso in dBd (relativo al dipolo)<sup class="cit"><a href="#f2">2</a></sup>. Le antenne in commercio dichiarano però il guadagno in dBi: va convertito sottraendo 2.15 (G<sub>dBd</sub> = G<sub>dBi</sub> − 2.15). Un cavo coassiale tra radio e antenna introduce inoltre una perdita in dB che va sommata, perché riduce la potenza che arriva davvero all'antenna. La formula per la potenza massima impostabile sul radio (in uscita dal connettore, prima del cavo) è quindi:</p>
+    <p class="note"><strong>P<sub>tx</sub> (dBm) ≤ ERP<sub>max</sub> (dBm) − G<sub>dBd</sub> + L<sub>cavo</sub> (dB)</strong>, con G<sub>dBd</sub> = G<sub>dBi</sub> − 2.15</p>
+  </div>
+  <table class="spec">
+    <caption>Esempio: antenna 5 dBi, cavo con 1 dB di perdita, sub-banda 869.4–869.65 MHz</caption>
+    <thead>
+      <tr><th scope="col">Parametro</th><th scope="col">Valore</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">ERP massimo di sub-banda</th><td>500 mW = 27 dBm ERP<sup class="cit"><a href="#f1">1</a></sup> (29.15 dBm EIRP)</td></tr>
+      <tr><th scope="row">Guadagno antenna in dBd</th><td>5 dBi − 2.15 = 2.85 dBd</td></tr>
+      <tr><th scope="row">Perdita cavo</th><td>1 dB</td></tr>
+      <tr><th scope="row">Potenza max in uscita dal radio</th><td>27 − 2.85 + 1 = 25.15 dBm ≈ 327 mW</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Con questa antenna e questo cavo, impostare <code>set tx</code> oltre 327 mW equivalenti (25.15 dBm) porta l'ERP effettivo oltre il limite di 500 mW della sub-banda, anche se il radio da solo potrebbe uscire a potenza più alta.</p>
+  <div class="widget" data-widget="erp" aria-label="Calcolatore interattivo di ERP e potenza massima"></div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Duty cycle</p>
+    <h2 id="cosa-conta-per-il-10-di-duty-cycle" class="section__title">Cosa conta per il 10% di duty cycle</h2>
+  </div>
+  <div class="prose">
+    <p>Il duty cycle del 10% nella sub-banda 869.4–869.65 MHz<sup class="cit"><a href="#f1">1</a></sup> è una frazione di tempo, non di pacchetti: significa al massimo 6 minuti di trasmissione effettiva ogni ora, per singolo dispositivo, indipendentemente da quanti pacchetti vengono inviati in quella finestra. Un pacchetto LoRa più lungo (SF alto, banda stretta, CR alto) consuma più duty cycle di uno breve a parità di dati trasmessi, perché il limite è sul tempo che il trasmettitore resta acceso, non sui byte inviati.</p>
+    <p>MeshCore non applica un contatore di duty cycle lato firmware: il rispetto del limite dipende dai parametri del preset condiviso (che tengono l'airtime di un singolo pacchetto di 50 byte intorno al mezzo secondo, vedi <a class="link" href="../link-budget/">portata e link budget</a>) e dal comportamento reale della mesh, spiegato nella pagina sul <a class="link" href="../preset-radio/">preset radio</a>. Un nodo che si limita a scambiare messaggi, advert periodici e path-discovery resta ampiamente sotto il 10% anche con centinaia di pacchetti all'ora; un traffico anomalo (loop di flood, invii ravvicinati non necessari) può invece avvicinarsi al limite, ed è responsabilità dell'operatore evitarlo. La pagina delle <a class="link" href="../faq/">FAQ</a> approfondisce il compromesso tra airtime e portata.</p>
+  </div>
+  <div class="widget" data-widget="dutycycle" aria-label="Simulatore interattivo del duty cycle"></div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Quadro giuridico</p>
+    <h2 id="perche-queste-frequenze-sono-ad-uso-libero" class="section__title">Perché queste frequenze sono ad uso libero</h2>
+  </div>
+  <div class="prose">
+    <p>Le tre sub-bande della tabella sopra rientrano nella categoria degli apparati a corto raggio non specifici (SRD), disciplinata a livello europeo dalla decisione di armonizzazione dello spettro 2017/1483/UE e dalla relativa norma tecnica armonizzata ETSI EN 300 220-2<sup class="cit"><a href="#f1">1</a></sup>. In Italia questa allocazione è recepita nel Piano Nazionale di Ripartizione delle Frequenze (PNRF), approvato con decreto ministeriale del 31 agosto 2022 e pubblicato nel Supplemento ordinario n. 35 alla Gazzetta Ufficiale n. 214 del 13 settembre 2022<sup class="cit"><a href="#f3">3</a></sup>, ai sensi del Codice delle comunicazioni elettroniche (decreto legislativo 1° agosto 2003, n. 259)<sup class="cit"><a href="#f4">4</a></sup>. Per questa categoria di apparati non serve un'autorizzazione generale né un nominativo: l'uso è libero entro i limiti tecnici della norma armonizzata, ma resta comunque soggetto alle regole generali del Codice sulla non interferenza con altri servizi.</p>
+    <p class="note">Questa pagina descrive il quadro tecnico-normativo per informazione tecnica: non è consulenza legale. Per un caso specifico verifica direttamente le fonti citate o consulta un professionista.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Alternativa a 433 MHz</p>
+    <h2 id="lpd-433-mhz-libero-uso-ma-non-e-la-banda-radioamatoriale" class="section__title">LPD 433 MHz: libero uso, ma non è la banda radioamatoriale</h2>
+  </div>
+  <div class="prose">
+    <p>La sub-banda 433.050–434.790 MHz è anch'essa ad uso libero per SRD, con potenza massima 10 mW e.r.p. sull'intera banda<sup class="cit"><a href="#f1">1</a></sup>: è la stessa banda su cui operano i dispositivi LPD (Low Power Device) commerciali. Numericamente si sovrappone alla porzione 430-440 MHz allocata in Italia, in via secondaria, al servizio di radioamatore<sup class="cit"><a href="#f3">3</a></sup>: stessa porzione di spettro, ma due statuti giuridici diversi. Un nodo MeshCore configurato su questa sub-banda a 10 mW e.r.p. resta nell'uso libero SRD, senza bisogno di nominativo; usare invece i privilegi di potenza più alta della banda radioamatoriale richiederebbe una licenza e ricadrebbe nel problema descritto nella sezione seguente.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Radioamatori</p>
+    <h2 id="perche-meshcore-non-e-compatibile-con-l-uso-radioamatoriale" class="section__title">Perché MeshCore non è compatibile con l'uso radioamatoriale</h2>
+  </div>
+  <div class="prose">
+    <p>MeshCore cifra il contenuto dei canali e dei messaggi diretti per progetto. Il Regolamento delle radiocomunicazioni dell'ITU, ratificato dall'Italia con legge 31 gennaio 1996, n. 61 e richiamato nel PNRF<sup class="cit"><a href="#f3">3</a></sup>, vieta di regola alle stazioni radioamatoriali l'uso di codici o cifrari il cui scopo sia nascondere il significato delle comunicazioni, con la sola eccezione dei segnali di controllo verso satelliti radioamatoriali<sup class="cit"><a href="#f6">6</a></sup>. La normativa italiana sui radioamatori (allegato 26 al Codice delle comunicazioni elettroniche, più volte modificato, tra cui dal decreto ministeriale 21 luglio 2005<sup class="cit"><a href="#f5">5</a></sup>) lega l'uso della banda radioamatoriale all'identificazione della stazione con il nominativo assegnato: trasmettere con MeshCore, cifrato, sotto il proprio nominativo in banda radioamatoriale non è quindi conforme a questo impianto normativo.</p>
+    <p>Le opzioni compatibili restano due: usare le sub-bande SRD ad uso libero già viste in questa pagina — il preset condiviso a 869.618 MHz o, in alternativa, la banda LPD 433 MHz a 10 mW e.r.p. — oppure, per chi ha una licenza radioamatoriale e vuole comunque sperimentare su bande radioamatoriali, farlo con un protocollo che non cifri il traffico e rispetti l'obbligo di trasmissione in chiaro.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Domande frequenti</p>
+    <h2 id="faq-sulla-normativa" class="section__title">FAQ sulla normativa</h2>
+  </div>
+  <details class="faq" id="meshcore-sul-preset-869-618-mhz-richiede-una-licenza-radioamatoriale">
+    <summary class="faq__q">MeshCore sul preset 869.618 MHz richiede una licenza radioamatoriale?</summary>
+    <p class="faq__a">No. La sub-banda 869.4-869.65 MHz è ad uso libero per apparati a corto raggio entro i limiti di potenza (500 mW ERP) e duty cycle (10%) fissati dalla norma armonizzata ETSI EN 300 220-2 e recepiti nel Piano Nazionale di Ripartizione delle Frequenze. Non serve nominativo né autorizzazione generale.</p>
+  </details>
+  <details class="faq" id="posso-alzare-la-potenza-di-trasmissione-oltre-il-default-con-set-tx">
+    <summary class="faq__q">Posso alzare la potenza di trasmissione oltre il default con set tx?</summary>
+    <p class="faq__a">Solo restando entro il limite di 500 mW ERP della sub-banda 869.4-869.65 MHz, calcolato sottraendo il guadagno dell'antenna (in dBd) e sommando la perdita di cavo alla potenza in uscita dal radio. Il rispetto del limite resta responsabilità di chi configura il nodo.</p>
+  </details>
+  <details class="faq" id="posso-usare-meshcore-in-banda-radioamatoriale-con-il-mio-nominativo">
+    <summary class="faq__q">Posso usare MeshCore in banda radioamatoriale con il mio nominativo?</summary>
+    <p class="faq__a">Non in modo conforme: MeshCore cifra canali e messaggi diretti, mentre le trasmissioni radioamatoriali non possono essere rese volutamente incomprensibili a terzi, salvo il controllo di satelliti. Restare sulla sub-banda 869.4-869.65 MHz ad uso libero, oppure sulla banda LPD 433 MHz, evita il conflitto.</p>
+  </details>
+  <details class="faq" id="chi-controlla-che-il-duty-cycle-del-10-sia-rispettato">
+    <summary class="faq__q">Chi controlla che il duty cycle del 10% sia rispettato?</summary>
+    <p class="faq__a">Nessun ente misura in automatico il duty cycle dei singoli nodi: il limite è normativo e la sua osservanza è responsabilità dell'operatore. I parametri di default del preset condiviso e il traffico tipico di una mesh restano ampiamente sotto il 10%, ma un uso anomalo (ad esempio un loop di flood) può avvicinarsi al limite.</p>
+  </details>
+  <p class="section__lede">Per la configurazione del preset radio vedi <a class="link" href="../preset-radio/">preset radio MeshCore Italia</a>; per l'installazione di un nodo fisso vedi <a class="link" href="../installare-repeater/">installare un repeater</a>; per altri dubbi tecnici vedi le <a class="link" href="../faq/">FAQ</a>.</p>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Riferimenti</p>
+    <h2 id="fonti" class="section__title">Fonti</h2>
+  </div>
+  <ol class="fonti">
+    <li id="f1">ETSI, <em>EN 300 220-2 V3.2.1 — Short Range Devices (SRD) operating in the frequency range 25 MHz to 1 000 MHz; Part 2</em>, Annex B, 2018-06. <a href="https://www.etsi.org/deliver/etsi_en/300200_300299/30022002/03.02.01_60/en_30022002v030201p.pdf" target="_blank" rel="noopener">etsi.org<span class="ext-arrow">↗</span></a></li>
+    <li id="f2">ETSI, <em>EN 300 220-1 V3.1.1 — Short Range Devices (SRD) operating in the frequency range 25 MHz to 1 000 MHz; Part 1</em>, clausola 5.2.1-5.2.2, 2017-02. <a href="https://www.etsi.org/deliver/etsi_en/300200_300299/30022001/03.01.01_60/en_30022001v030101p.pdf" target="_blank" rel="noopener">etsi.org<span class="ext-arrow">↗</span></a></li>
+    <li id="f3">Ministero dello Sviluppo Economico, decreto 31 agosto 2022, <em>Piano nazionale di ripartizione delle frequenze tra 0 e 3000 GHz</em>, Gazzetta Ufficiale n. 214 del 13 settembre 2022, Supplemento ordinario n. 35. <a href="https://www.gazzettaufficiale.it/eli/gu/2022/09/13/214/so/35/sg/pdf" target="_blank" rel="noopener">gazzettaufficiale.it<span class="ext-arrow">↗</span></a></li>
+    <li id="f4">Decreto legislativo 1° agosto 2003, n. 259, <em>Codice delle comunicazioni elettroniche</em>. <a href="https://www.bosettiegatti.eu/info/norme/statali/2003_0259.htm" target="_blank" rel="noopener">bosettiegatti.eu<span class="ext-arrow">↗</span></a></li>
+    <li id="f5">Ministro delle comunicazioni, decreto 21 luglio 2005, <em>Modifiche all'allegato 26 del decreto legislativo 1° agosto 2003, n. 259</em>. <a href="https://www.radioamatore.info/informazioni/74-normativa-legislazione-del-mondo-radioamatore/144-decreto-21-luglio-2005.html" target="_blank" rel="noopener">radioamatore.info<span class="ext-arrow">↗</span></a></li>
+    <li id="f6">ITU, <em>Radio Regulations — Articles</em>, Edition of 2020, Vol. 1, Art. 25 "Amateur services", n. 25.2A (p. 307). <a href="https://search.itu.int/history/HistoryDigitalCollectionDocLibrary/1.44.48.en.101.pdf" target="_blank" rel="noopener">search.itu.int (PDF)<span class="ext-arrow">↗</span></a></li>
+  </ol>
+</section>
+<section class="section related" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Continua a leggere</p>
+      <h2 class="section__title">Altri contenuti MeshCore ITA</h2>
+    </div>
+    <div class="grid grid--2">
+      <a class="card" href="../regioni/">
+        <h3 class="card__title">Regioni</h3>
+        <p class="card__body">La copertura MeshCore cresce per aree contigue: ecco come orientarti nella tua regione e presentarti nel topic giusto.</p>
+      </a>
+      <a class="card" href="../link-budget/">
+        <h3 class="card__title">Portata e link budget</h3>
+        <p class="card__body">Link budget, sensibilità del chip radio, perdita di spazio libero e strumenti gratuiti per stimare la portata prima di installare un repeater.</p>
+      </a>
+      <a class="card" href="../app/">
+        <h3 class="card__title">App</h3>
+        <p class="card__body">Il primo setup è nella guida; qui vediamo come si usa MeshCore giorno per giorno una volta che il nodo è già configurato.</p>
+      </a>
+      <a class="card" href="../">
+        <h3 class="card__title">Home</h3>
+        <p class="card__body">Torna alla pagina principale di MeshCore ITA.</p>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="foot__nav">
+      <p class="foot__nav-label">Inizia</p>
+      <ul class="foot__nav-list">
+        <li><a href="../guida/">Guida</a></li>
+        <li><a href="../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
+        <li><a href="../preset-radio/">Preset radio</a></li>
+        <li><a href="../hardware/">Hardware</a></li>
+        <li><a href="../installare-repeater/">Repeater</a></li>
+        <li><a href="../link-budget/">Portata e link budget</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../mappa-copertura/">Mappa</a></li>
+        <li><a href="../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
+        <li><a href="../comandi/">Comandi</a></li>
+        <li><a href="../problemi/">Problemi</a></li>
+        <li><a href="../faq/">FAQ</a></li>
+        <li><a href="../meshcore-vs-meshtastic/">Confronti</a></li>
+        <li><a href="../glossario/">Glossario</a></li>
+        <li><a href="../normativa/" aria-current="true">Normativa</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
+        <li><a href="../community/">Community</a></li>
+      </ul>
+      <p class="foot__nav-label">Aggiornamenti</p>
+      <ul class="foot__nav-list">
+        <li><a href="../blog/">Aggiornamenti</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
+    <p class="site-footer__note">Contenuti sotto licenza CC BY 4.0, codice del sito sotto licenza MIT.</p>
+    <p class="foot__meta">Aggiornato il 14 settembre 2026</p>
+    <p class="foot__meta">Trovato un errore o vuoi aggiungere qualcosa? <a class="link" href="https://github.com/meshcore-ita/meshcore-ita.github.io/edit/main/content/normativa.html" target="_blank" rel="noopener">Modifica questa pagina su GitHub<span class="ext-arrow">↗</span></a> — la modifica diventa una pull request.</p>
+    <ul class="site-footer__links">
+      <li><a href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Telegram<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://meshcore.io/" target="_blank" rel="noopener">MeshCore<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">Flasher<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://map.meshcore.io/" target="_blank" rel="noopener">Mappa pubblica<span class="ext-arrow">↗</span></a></li>
+    </ul>
+  </div>
+</footer>
+
+<dialog class="search" id="search" data-search-index="../search-index.json">
+  <form class="search__form" method="dialog">
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+
+<script type="module" src="../assets/js/main.js?v=2" defer></script>
+<script type="module" src="../assets/js/search.js?v=1" defer></script>
+<script type="module" src="../assets/js/widgets.js?v=1" defer></script>
+</body>
+</html>

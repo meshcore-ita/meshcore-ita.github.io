@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+
+<title>Link budget MeshCore: portata, sensibilità, FSPL</title>
+<meta name="description" content="Stimare la portata di un nodo MeshCore: link budget, sensibilità SX1262, spazio libero a 869 MHz, perdita nei cavi e simulatori gratuiti di copertura.">
+<link rel="canonical" href="https://meshcore-ita.github.io/link-budget/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MeshCore ITA">
+<meta property="og:title" content="Link budget MeshCore: portata, sensibilità, FSPL">
+<meta property="og:description" content="Stimare la portata di un nodo MeshCore: link budget, sensibilità SX1262, spazio libero a 869 MHz, perdita nei cavi e simulatori gratuiti di copertura.">
+<meta property="og:url" content="https://meshcore-ita.github.io/link-budget/">
+<meta property="og:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="it_IT">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Link budget MeshCore: portata, sensibilità, FSPL">
+<meta name="twitter:description" content="Stimare la portata di un nodo MeshCore: link budget, sensibilità SX1262, spazio libero a 869 MHz, perdita nei cavi e simulatori gratuiti di copertura.">
+<meta property="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="mask-icon" href="../assets/img/favicon.svg" color="#22c55e">
+
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geist-300-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/css/style.css?v=5">
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Link budget MeshCore: portata, sensibilità SX1262 e perdita di spazio libero",
+      "description": "Come calcolare il link budget di un nodo MeshCore sul preset radio italiano: sensibilità del chip SX1262, tempo in aria, perdita di spazio libero a 869 MHz, zona di Fresnel, perdite dei cavi coassiali e dimensionamento solare.",
+      "about": "Link budget e portata radio MeshCore"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Perché due nodi con margine di segnale abbondante a volte non si sentono comunque?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Perché il calcolo di margine basato sulla sola perdita di spazio libero (FSPL) ignora gli ostacoli reali. Anche con decine di dB di margine teorico, un edificio, una collina o della vegetazione che invadono la prima zona di Fresnel introducono una perdita di diffrazione aggiuntiva non compresa nella FSPL: in pratica è quasi sempre la linea di vista libera, non la potenza disponibile, a limitare la portata reale in Italia."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qual è la sensibilità reale del preset radio italiano?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Il datasheet del chip SX1262 tabula la sensibilità LoRa in guadagno boosted solo per SF7 e SF12 a banda 10.4, 125, 250 e 500 kHz, non per la combinazione SF8/62.5 kHz del preset italiano. Interpolando linearmente tra i due estremi tabulati a 125 kHz e scalando di circa 3 dB per il dimezzamento della banda a 62.5 kHz si stima una sensibilità di circa -130 dBm."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Conviene un cavo coassiale lungo per portare l'antenna più in alto?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Solo se il guadagno di quota supera la perdita del cavo aggiuntivo. Un cavo economico come l'RG-58 perde oltre 4 dB ogni 10 metri a 869 MHz, quanto quasi dimezzare la potenza trasmessa: per run superiori a pochi metri conviene un cavo a bassa perdita come l'LMR-400, oppure spostare il radio vicino all'antenna e portare giù solo l'alimentazione e i dati."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Un piccolo pannello solare basta per un nodo nRF52 sempre acceso?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nell'esempio di dimensionamento con un consumo medio di 30 mA a 3.7 V (circa 2.7 Wh al giorno) e l'irraggiamento di dicembre nel Nord Italia su un pannello inclinato per l'inverno, bastano pochi Watt di picco per coprire il fabbisogno con margine; la scelta pratica tipica da 5-10 W lascia comunque ampio margine per giornate nuvolose consecutive e perdite del regolatore di carica."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://meshcore-ita.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Portata e link budget",
+          "item": "https://meshcore-ita.github.io/link-budget/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Vai al contenuto</a>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<header class="site-header" data-scrolled="false">
+  <div class="site-header__inner">
+    <a class="brand" href="../">
+      <img class="brand__mark" src="../assets/img/logo.svg" alt="" width="28" height="28">
+      <span class="brand__text">MeshCore <em>ITA</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a class="nav__link" href="../guida/">Guida</a>
+      <a class="nav__link" href="../preset-radio/">Preset radio</a>
+      <a class="nav__link" href="../hardware/">Hardware</a>
+      <a class="nav__link" href="../faq/">FAQ</a>
+      <a class="nav__link" href="../community/">Community</a>
+      <a class="nav__link" href="../blog/">Aggiornamenti</a>
+      <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
+      <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
+    </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="sr-only">Apri il menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero hero--page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="../">Home</a></li>
+        <li aria-current="page">Portata e link budget</li>
+      </ol>
+    </nav>
+    <p class="eyelash">Portata e link budget</p>
+    <h1 class="hero__title">Quanto arriva davvero un nodo MeshCore</h1>
+    <p class="hero__lede">Link budget, sensibilità del chip radio, perdita di spazio libero e strumenti gratuiti per stimare la portata prima di installare un repeater.</p>
+  </section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Il modello</p>
+    <h2 id="perche-la-portata-non-si-stima-in-chilometri" class="section__title">Perché la portata non si stima in chilometri</h2>
+    <p class="section__lede">Un collegamento radio funziona se, sommando guadagni e perdite in dB, il segnale arriva al ricevitore sopra la sua soglia minima di sensibilità.</p>
+  </div>
+  <div class="prose">
+    <p>Il link budget di un collegamento wireless è la somma algebrica di tutti i guadagni e le perdite tra il trasmettitore e il ricevitore. Nella forma generale usata dalle note applicative Semtech per LoRa<sup class="cit"><a href="#f1">1</a></sup> è:</p>
+    <p><code>P_rx = P_tx + G_sistema − L_sistema − L_canale − M</code></p>
+    <p>dove <code>M</code> è un margine di fading aggiuntivo. Per un collegamento punto-punto con antenna e cavo distinti su entrambi i lati, la stessa equazione si riscrive nella forma pratica usata in questa pagina:</p>
+    <p><code>P_tx + G_tx − L_cavo_tx + G_rx − L_cavo_rx − L_path ≥ sensibilità del ricevitore</code></p>
+    <p>Se il risultato eguaglia esattamente la sensibilità, il margine è zero: qualunque fading, interferenza o disallineamento dell'antenna fa cadere il collegamento. Le sezioni seguenti quantificano ogni termine per il <a class="link" href="../preset-radio/">preset radio condiviso dalla community italiana</a>: sensibilità del chip, perdita di spazio libero, perdita dei cavi e margine risultante.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Il ricevitore</p>
+    <h2 id="sensibilita-del-chip-sx1262-sul-preset-italiano" class="section__title">Sensibilità del chip SX1262 sul preset italiano</h2>
+    <p class="section__lede">Il datasheet non tabula direttamente SF8 a 62.5 kHz: la sensibilità del preset condiviso va ricavata per interpolazione.</p>
+  </div>
+  <div class="prose">
+    <p>La Tabella 3-8 "Receive Mode Specifications" del datasheet Semtech SX1261/2 (pagina 19 di 111) riporta la sensibilità LoRa a guadagno boosted solo per gli estremi SF7 e SF12, alle bande 10.4, 125, 250 e 500 kHz<sup class="cit"><a href="#f2">2</a></sup>. Né SF8 né la banda 62.5 kHz del preset italiano compaiono come riga propria. Il valore più vicino tabulato è la banda 125 kHz: -124 dBm a SF7, -137 dBm a SF12. Interpolando linearmente tra i due estremi (passo di circa 2.6 dB per spreading factor) e poi scalando di -3 dB per il dimezzamento della banda da 125 a 62.5 kHz — dimezzare la banda dimezza la potenza di rumore integrata, quindi migliora la sensibilità di circa 3 dB — si ottiene una sensibilità stimata di circa <strong>-129.6 dBm</strong> per SF8/BW62.5 kHz, il preset condiviso dalla community italiana.</p>
+    <p>Lo stesso datasheet definisce, alla sezione 6.1.4 "LoRa Time-on-Air" (pagina 41), la formula per il tempo in aria di un pacchetto<sup class="cit"><a href="#f2">2</a></sup>: tempo di simbolo <code>T_sym = 2^SF / BW</code>; preambolo <code>T_preambolo = (n_preambolo + 4.25) × T_sym</code>; numero di simboli di payload <code>n_payload = 8 + max(⌈(8·PL − 4·SF + 28 + 16·CRC − 20·H) / (4·(SF − 2·DE))⌉ × (CR+4), 0)</code>, con <code>DE=1</code> quando è attiva la low data rate optimization (LDRO). Lo stesso documento (pagina 39) fissa la soglia per attivare la LDRO: simbolo ≥ 16.38 ms, condizione che scatta a partire da SF10 sulla banda 62.5 kHz e da SF11 sulla banda 125 kHz. La tabella seguente usa un pacchetto da 50 byte, preambolo di 8 simboli, coding rate 4/8 (CR8 del preset), header esplicito e CRC attivo:</p>
+  </div>
+  <table class="spec">
+    <caption>Bitrate e tempo in aria stimati, pacchetto da 50 byte (SX1262, CR8, preambolo 8, header esplicito, CRC on)</caption>
+    <thead>
+      <tr><th scope="col">BW</th><th scope="col">SF</th><th scope="col">Sensibilità stimata</th><th scope="col">Bitrate</th><th scope="col">Tempo in aria</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">62.5 kHz</th><td>SF7</td><td>-127.0 dBm</td><td>≈1709 bit/s</td><td>≈287 ms</td></tr>
+      <tr><th scope="row">62.5 kHz</th><td>SF8 (preset ITA)</td><td>≈-129.6 dBm</td><td>≈977 bit/s</td><td>≈509 ms</td></tr>
+      <tr><th scope="row">62.5 kHz</th><td>SF9</td><td>-132.2 dBm</td><td>≈549 bit/s</td><td>≈952 ms</td></tr>
+      <tr><th scope="row">62.5 kHz</th><td>SF10</td><td>-134.8 dBm</td><td>≈305 bit/s</td><td>≈2036 ms</td></tr>
+      <tr><th scope="row">62.5 kHz</th><td>SF11</td><td>-137.4 dBm</td><td>≈168 bit/s</td><td>≈3809 ms</td></tr>
+      <tr><th scope="row">62.5 kHz</th><td>SF12</td><td>-140.0 dBm</td><td>≈92 bit/s</td><td>≈6570 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF7</td><td>-124.0 dBm</td><td>≈3418 bit/s</td><td>≈144 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF8</td><td>-126.6 dBm</td><td>≈1953 bit/s</td><td>≈255 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF9</td><td>-129.2 dBm</td><td>≈1099 bit/s</td><td>≈476 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF10</td><td>-131.8 dBm</td><td>≈610 bit/s</td><td>≈887 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF11</td><td>-134.4 dBm</td><td>≈336 bit/s</td><td>≈1905 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF12</td><td>-137.0 dBm</td><td>≈183 bit/s</td><td>≈3285 ms</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Righe SF7/SF12 a 10.4, 125, 250 e 500 kHz: valori tabulati direttamente dal datasheet. Le altre righe (incluso l'intero blocco 62.5 kHz) sono stime per interpolazione/scalatura, non specifiche garantite dal produttore.</p>
+  <div class="widget" data-widget="chirp" aria-label="Animazione del chirp LoRa e del tempo in aria"></div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Lo spazio libero</p>
+    <h2 id="perdita-di-spazio-libero-a-869-mhz" class="section__title">Perdita di spazio libero a 869 MHz</h2>
+    <p class="section__lede">La FSPL da sola lascia margini enormi anche a 50 km: quasi mai è lei a fermare un collegamento MeshCore in Italia.</p>
+  </div>
+  <div class="prose">
+    <p>La perdita di spazio libero (free space path loss, FSPL) in decibel è <code>FSPL = 20·log₁₀(d_km) + 20·log₁₀(f_MHz) + 32.44</code>. Applicandola a 869.618 MHz, con il limite di potenza di 500 mW ERP (27 dBm ERP) della sub-banda 869.4-869.65 MHz<sup class="cit"><a href="#f3">3</a></sup> — limiti approfonditi nella pagina sulla <a class="link" href="../normativa/">normativa delle sub-bande libere</a> — e la sensibilità stimata di circa -129.6 dBm per SF8/BW62.5 kHz:</p>
+  </div>
+  <table class="spec">
+    <caption>FSPL e margine teorico a 869.618 MHz, 27 dBm ERP, sensibilità -129.6 dBm</caption>
+    <thead>
+      <tr><th scope="col">Distanza</th><th scope="col">FSPL</th><th scope="col">Margine (antenne unitarie, no ostacoli)</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">1 km</th><td>91.2 dB</td><td>+65.4 dB</td></tr>
+      <tr><th scope="row">5 km</th><td>105.2 dB</td><td>+51.4 dB</td></tr>
+      <tr><th scope="row">10 km</th><td>111.2 dB</td><td>+45.4 dB</td></tr>
+      <tr><th scope="row">20 km</th><td>117.3 dB</td><td>+39.3 dB</td></tr>
+      <tr><th scope="row">50 km</th><td>125.2 dB</td><td>+31.4 dB</td></tr>
+    </tbody>
+  </table>
+  <div class="prose">
+    <p>Anche a 50 km in linea d'aria il margine teorico resta ampiamente positivo: la FSPL da sola non è quasi mai il fattore che limita la portata pratica di un nodo in Italia. A dominare sono gli ostacoli lungo il percorso, valutati con il raggio della prima zona di Fresnel a metà tratta: <code>r₁ = 17.32 · √(d / (4·f))</code> con <code>d</code> in km e <code>f</code> in GHz. A 10 km su 869.618 MHz, <code>r₁ ≈ 29.4 m</code>. La Raccomandazione ITU-R P.526 richiede, perché un ostacolo non venga considerato tale, uno spazio libero da ostruzioni pari ad almeno il 60% del raggio della prima zona di Fresnel su entrambi i lati del collegamento<sup class="cit"><a href="#f4">4</a></sup>: a 10 km significa circa <strong>17.6 m</strong> di spazio libero verticale a metà percorso, non solo la linea di vista ottica tra le due antenne. Un tetto, una collina o degli alberi che invadono questo volume introducono una perdita di diffrazione aggiuntiva non compresa nella FSPL: è questo, non il margine di potenza, il motivo per cui in pratica un repeater in pianura copre più lontano di uno con potenza identica ma circondato da ostacoli.</p>
+  </div>
+  <div class="widget" data-widget="linkbudget" aria-label="Calcolatore interattivo del link budget"></div>
+  <div class="widget" data-widget="fresnel" aria-label="Visualizzatore interattivo della zona di Fresnel"></div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Il cavo</p>
+    <h2 id="quanto-costa-in-db-il-cavo-coassiale" class="section__title">Quanto costa in dB il cavo coassiale</h2>
+    <p class="section__lede">Un cavo economico può vanificare in pochi metri il guadagno di un'antenna migliore.</p>
+  </div>
+  <table class="spec">
+    <caption>Perdita indicativa per 10 m di cavo coassiale a ~869-900 MHz</caption>
+    <thead>
+      <tr><th scope="col">Cavo</th><th scope="col">Perdita / 10 m</th><th scope="col">Fonte</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">RG-58</th><td>≈4.3 dB</td><td>Crown Electronics, 13 dB/100 ft a 900 MHz (valore tabulato più vicino)<sup class="cit"><a href="#f7">7</a></sup></td></tr>
+      <tr><th scope="row">RG-213</th><td>≈2.5 dB</td><td>FeedFlex RG213/U, 24.9 dB/100 m a 900 MHz (valore tabulato più vicino)<sup class="cit"><a href="#f6">6</a></sup></td></tr>
+      <tr><th scope="row">LMR-400</th><td>≈1.3 dB</td><td>Times Microwave, formula datasheet a 869.618 MHz<sup class="cit"><a href="#f5">5</a></sup></td></tr>
+    </tbody>
+  </table>
+  <div class="prose">
+    <p>4.3 dB persi in soli 10 m di RG-58 equivalgono a lasciare a terra più di due terzi della potenza trasmessa. La regola pratica resta la stessa: tenere il cavo il più corto possibile, e se la distanza tra radio e antenna è superiore a qualche metro conviene un cavo a bassa perdita come l'LMR-400 oppure spostare il radio vicino all'antenna, portando giù solo alimentazione e dati (dettagli nella <a class="link" href="../installare-repeater/">guida all'installazione di un repeater</a>).</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Prima di salire sul tetto</p>
+    <h2 id="strumenti-gratuiti-per-simulare-la-copertura" class="section__title">Strumenti gratuiti per simulare la copertura</h2>
+    <p class="section__lede">Simulano il percorso su un modello del terreno, non sostituiscono una verifica sul campo.</p>
+  </div>
+  <div class="grid grid--3">
+    <article class="card">
+      <h3 id="heywhatsthat-8" class="card__title">HeyWhatsThat<sup class="cit"><a href="#f8">8</a></sup></h3>
+      <p class="card__body">Calcola il profilo altimetrico e la linea di vista da un punto verso qualsiasi direzione, gratis e senza installazione, usando dati di elevazione globali. Utile per un primo controllo rapido degli ostacoli tra due siti candidati.</p>
+    </article>
+    <article class="card">
+      <h3 id="radio-mobile-online-9" class="card__title">Radio Mobile Online<sup class="cit"><a href="#f9">9</a></sup></h3>
+      <p class="card__body">Software dedicato alla radioamatoriale che simula un collegamento punto-punto o la copertura di un repeater su terreno digitale, con parametri di frequenza, potenza e antenna configurabili.</p>
+    </article>
+    <article class="card">
+      <h3 id="splat-10" class="card__title">SPLAT!<sup class="cit"><a href="#f10">10</a></sup></h3>
+      <p class="card__body">Strumento open source a riga di comando (Longley-Rice) per l'analisi di percorso e la mappa di copertura di un repeater, tra 20 MHz e 20 GHz. Più tecnico dei precedenti, adatto a chi vuole automatizzare più simulazioni.</p>
+    </article>
+  </div>
+  <div class="prose">
+    <p>Questi strumenti stimano la copertura teorica sul modello del terreno: non sanno nulla di un edificio costruito di recente, della vegetazione stagionale o di un'antenna montata più bassa del previsto. Il riscontro definitivo resta il confronto con la <a class="link" href="../mappa-copertura/">mappa pubblica dei nodi effettivamente attivi</a> e, meglio ancora, un test sul campo con <code>neighbors</code> e <code>stats-radio</code> come descritto nella guida all'installazione di un repeater.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Alimentazione</p>
+    <h2 id="dimensionare-un-pannello-solare-con-pvgis" class="section__title">Dimensionare un pannello solare con PVGIS</h2>
+    <p class="section__lede">Esempio di calcolo per un nodo nRF52 a basso consumo nel mese più sfavorevole, dicembre nel Nord Italia.</p>
+  </div>
+  <div class="prose">
+    <p>Il tool gratuito PVGIS della Commissione Europea<sup class="cit"><a href="#f11">11</a></sup> fornisce l'irraggiamento medio mensile per qualunque punto, su un piano inclinato a scelta. Esempio di dimensionamento, con ipotesi esplicite:</p>
+  </div>
+  <table class="spec">
+    <caption>Esempio: nodo nRF52, consumo medio dichiarato 30 mA a 3.7 V, dicembre, Torino</caption>
+    <thead>
+      <tr><th scope="col">Grandezza</th><th scope="col">Valore</th><th scope="col">Ipotesi</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">Consumo medio</th><td>30 mA × 3.7 V = 111 mW</td><td>Valore medio dichiarato dall'utente con <code>powersaving on</code>, non il picco in trasmissione</td></tr>
+      <tr><th scope="row">Fabbisogno giornaliero</th><td>111 mW × 24 h ≈ 2.7 Wh/giorno</td><td>Consumo costante nelle 24 ore</td></tr>
+      <tr><th scope="row">Irraggiamento dicembre</th><td>≈3.6 kWh/m²/giorno</td><td>Pannello inclinato 60° verso sud, media multi-annuale PVGIS (dataset PVGIS-SARAH2, 2005-2020) per Torino, lat 45.07 lon 7.69</td></tr>
+      <tr><th scope="row">Fattore di derating</th><td>0.75</td><td>Perdite di temperatura, disallineamento, regolatore di carica e batteria</td></tr>
+      <tr><th scope="row">Pannello minimo teorico</th><td>2.7 / (3.6 × 0.75) ≈ 1 Wp</td><td>Nessun margine per giornate nuvolose consecutive</td></tr>
+      <tr><th scope="row">Batteria per 5 giorni di autonomia</th><td>5 × 2.7 Wh ≈ 13.3 Wh ≈ 4.5 Ah a 3.7 V</td><td>Ipotesi di 5 giorni senza ricarica utile, profondità di scarica max 80% per una cella Li-ion</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Il pannello minimo teorico di ~1 Wp lascia zero margine: la scelta pratica comune nella community, un pannello da 5-10 W con una cella da qualche migliaio di mAh, assorbe con ampio margine sia le giornate nuvolose consecutive sia il degrado della batteria nel tempo. Per le opzioni di alimentazione in generale vedi la <a class="link" href="../installare-repeater/">guida all'installazione di un repeater</a>.</p>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Domande frequenti</p>
+    <h2 id="faq-su-portata-e-link-budget" class="section__title">FAQ su portata e link budget</h2>
+  </div>
+  <details class="faq" id="perche-due-nodi-con-margine-di-segnale-abbondante-a-volte-non-si-sentono-comunque">
+    <summary class="faq__q">Perché due nodi con margine di segnale abbondante a volte non si sentono comunque?</summary>
+    <p class="faq__a">Perché il calcolo di margine basato sulla sola perdita di spazio libero (FSPL) ignora gli ostacoli reali. Anche con decine di dB di margine teorico, un edificio, una collina o della vegetazione che invadono la prima zona di Fresnel introducono una perdita di diffrazione aggiuntiva non compresa nella FSPL: in pratica è quasi sempre la linea di vista libera, non la potenza disponibile, a limitare la portata reale in Italia.</p>
+  </details>
+  <details class="faq" id="qual-e-la-sensibilita-reale-del-preset-radio-italiano">
+    <summary class="faq__q">Qual è la sensibilità reale del preset radio italiano?</summary>
+    <p class="faq__a">Il datasheet del chip SX1262 tabula la sensibilità LoRa in guadagno boosted solo per SF7 e SF12 a banda 10.4, 125, 250 e 500 kHz, non per la combinazione SF8/62.5 kHz del preset italiano. Interpolando linearmente tra i due estremi tabulati a 125 kHz e scalando di circa 3 dB per il dimezzamento della banda a 62.5 kHz si stima una sensibilità di circa -130 dBm.</p>
+  </details>
+  <details class="faq" id="conviene-un-cavo-coassiale-lungo-per-portare-l-antenna-piu-in-alto">
+    <summary class="faq__q">Conviene un cavo coassiale lungo per portare l'antenna più in alto?</summary>
+    <p class="faq__a">Solo se il guadagno di quota supera la perdita del cavo aggiuntivo. Un cavo economico come l'RG-58 perde oltre 4 dB ogni 10 metri a 869 MHz, quanto quasi dimezzare la potenza trasmessa: per run superiori a pochi metri conviene un cavo a bassa perdita come l'LMR-400, oppure spostare il radio vicino all'antenna e portare giù solo l'alimentazione e i dati.</p>
+  </details>
+  <details class="faq" id="un-piccolo-pannello-solare-basta-per-un-nodo-nrf52-sempre-acceso">
+    <summary class="faq__q">Un piccolo pannello solare basta per un nodo nRF52 sempre acceso?</summary>
+    <p class="faq__a">Nell'esempio di dimensionamento con un consumo medio di 30 mA a 3.7 V (circa 2.7 Wh al giorno) e l'irraggiamento di dicembre nel Nord Italia su un pannello inclinato per l'inverno, bastano pochi Watt di picco per coprire il fabbisogno con margine; la scelta pratica tipica da 5-10 W lascia comunque ampio margine per giornate nuvolose consecutive e perdite del regolatore di carica.</p>
+  </details>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Riferimenti</p>
+    <h2 id="fonti" class="section__title">Fonti</h2>
+  </div>
+  <ol class="fonti">
+    <li id="f1">Semtech Corporation, <em>AN1200.22 LoRa Modulation Basics</em>, Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). <a href="https://ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf" target="_blank" rel="noopener">ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf</a></li>
+    <li id="f2">Semtech Corporation, <em>SX1261/2 datasheet</em>, Rev. 1.2, giugno 2019, Tabella 3-8 "Receive Mode Specifications" (p. 19/111), §6.1.4 "LoRa Time-on-Air" (p. 41/111), nota LDRO (p. 39/111). <a href="https://cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf" target="_blank" rel="noopener">cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf</a></li>
+    <li id="f3">ETSI, <em>EN 300 220-2 V3.2.1</em>, giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). <a href="https://www.etsi.org/deliver/etsi_en/300200_300299/30022002/03.02.01_60/en_30022002v030201p.pdf" target="_blank" rel="noopener">etsi.org/deliver/.../en_30022002v030201p.pdf</a></li>
+    <li id="f4">ITU-R, <em>Recommendation ITU-R P.526-16, Propagation by diffraction</em>, novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di clearance). <a href="https://www.itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.526-16-202511-I!!PDF-E.pdf" target="_blank" rel="noopener">itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.526-16-202511-I!!PDF-E.pdf</a></li>
+    <li id="f5">Times Microwave Systems, <em>LMR-400 datasheet</em> (attenuazione vs frequenza e formula k1√f + k2f). <a href="https://timesmicrowave.com/wp-content/uploads/2022/06/lmr-400-datasheet-1.pdf" target="_blank" rel="noopener">timesmicrowave.com/wp-content/uploads/2022/06/lmr-400-datasheet-1.pdf</a></li>
+    <li id="f6">FeedFlex, <em>RG213/U Coaxial Cable to MIL-C-17G, Technical Data Sheet</em> (tabella attenuazione dB/100m). <a href="https://www.datamatik.no/media/produkt/92005-rg213.pdf" target="_blank" rel="noopener">datamatik.no/media/produkt/92005-rg213.pdf</a></li>
+    <li id="f7">Crown Electronics, <em>RG-58 Data Sheet</em> (tabella attenuazione dB/100 ft). <a href="https://crownrf.com/specs/rg-58.pdf" target="_blank" rel="noopener">crownrf.com/specs/rg-58.pdf</a></li>
+    <li id="f8">HeyWhatsThat, profilo altimetrico e linea di vista online. <a href="https://www.heywhatsthat.com/" target="_blank" rel="noopener">heywhatsthat.com</a></li>
+    <li id="f9">Roger Coudé (VE2DBE), <em>Radio Mobile Online</em>, simulazione di propagazione radio su terreno digitale. <a href="https://www.ve2dbe.com/rmonline_s.asp" target="_blank" rel="noopener">ve2dbe.com/rmonline_s.asp</a></li>
+    <li id="f10">John Magliacane (KD2BD), <em>SPLAT! — A Terrestrial RF Path Analysis Application</em>. <a href="https://www.qsl.net/kd2bd/splat.html" target="_blank" rel="noopener">qsl.net/kd2bd/splat.html</a></li>
+    <li id="f11">Commissione Europea, Joint Research Centre, <em>PVGIS — Photovoltaic Geographical Information System</em>. <a href="https://re.jrc.ec.europa.eu/pvg_tools/en/" target="_blank" rel="noopener">re.jrc.ec.europa.eu/pvg_tools/en/</a></li>
+  </ol>
+</section>
+<section class="section related" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Continua a leggere</p>
+      <h2 class="section__title">Altri contenuti MeshCore ITA</h2>
+    </div>
+    <div class="grid grid--2">
+      <a class="card" href="../normativa/">
+        <h3 class="card__title">Normativa</h3>
+        <p class="card__body">Le sub-bande libere 868-870 MHz, il calcolo ERP/EIRP con il guadagno d'antenna e perché MeshCore non è compatibile con l'uso in banda radioamatoriale con nominativo.</p>
+      </a>
+      <a class="card" href="../regioni/">
+        <h3 class="card__title">Regioni</h3>
+        <p class="card__body">La copertura MeshCore cresce per aree contigue: ecco come orientarti nella tua regione e presentarti nel topic giusto.</p>
+      </a>
+      <a class="card" href="../app/">
+        <h3 class="card__title">App</h3>
+        <p class="card__body">Il primo setup è nella guida; qui vediamo come si usa MeshCore giorno per giorno una volta che il nodo è già configurato.</p>
+      </a>
+      <a class="card" href="../">
+        <h3 class="card__title">Home</h3>
+        <p class="card__body">Torna alla pagina principale di MeshCore ITA.</p>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="foot__nav">
+      <p class="foot__nav-label">Inizia</p>
+      <ul class="foot__nav-list">
+        <li><a href="../guida/">Guida</a></li>
+        <li><a href="../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
+        <li><a href="../preset-radio/">Preset radio</a></li>
+        <li><a href="../hardware/">Hardware</a></li>
+        <li><a href="../installare-repeater/">Repeater</a></li>
+        <li><a href="../link-budget/" aria-current="true">Portata e link budget</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../mappa-copertura/">Mappa</a></li>
+        <li><a href="../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
+        <li><a href="../comandi/">Comandi</a></li>
+        <li><a href="../problemi/">Problemi</a></li>
+        <li><a href="../faq/">FAQ</a></li>
+        <li><a href="../meshcore-vs-meshtastic/">Confronti</a></li>
+        <li><a href="../glossario/">Glossario</a></li>
+        <li><a href="../normativa/">Normativa</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
+        <li><a href="../community/">Community</a></li>
+      </ul>
+      <p class="foot__nav-label">Aggiornamenti</p>
+      <ul class="foot__nav-list">
+        <li><a href="../blog/">Aggiornamenti</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
+    <p class="site-footer__note">Contenuti sotto licenza CC BY 4.0, codice del sito sotto licenza MIT.</p>
+    <p class="foot__meta">Aggiornato il 14 settembre 2026</p>
+    <p class="foot__meta">Trovato un errore o vuoi aggiungere qualcosa? <a class="link" href="https://github.com/meshcore-ita/meshcore-ita.github.io/edit/main/content/link-budget.html" target="_blank" rel="noopener">Modifica questa pagina su GitHub<span class="ext-arrow">↗</span></a> — la modifica diventa una pull request.</p>
+    <ul class="site-footer__links">
+      <li><a href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Telegram<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://meshcore.io/" target="_blank" rel="noopener">MeshCore<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">Flasher<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://map.meshcore.io/" target="_blank" rel="noopener">Mappa pubblica<span class="ext-arrow">↗</span></a></li>
+    </ul>
+  </div>
+</footer>
+
+<dialog class="search" id="search" data-search-index="../search-index.json">
+  <form class="search__form" method="dialog">
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+
+<script type="module" src="../assets/js/main.js?v=2" defer></script>
+<script type="module" src="../assets/js/search.js?v=1" defer></script>
+<script type="module" src="../assets/js/widgets.js?v=1" defer></script>
+</body>
+</html>

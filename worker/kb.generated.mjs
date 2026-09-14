@@ -1210,6 +1210,195 @@ export const KB_CHUNKS = [
     "text": "Nessuna delle informazioni raccolte nei topic regionali, né la presenza di un repeater sulla mappa pubblica, sostituisce una verifica reale. Orografia, ostacoli, altezza dell'antenna e persino le condizioni atmosferiche influiscono sulla portata effettiva più della distanza in linea d'aria: un repeater segnalato come attivo può non raggiungere un punto che sembra vicino sulla carta. Prima di contare su una copertura per un uso critico, verificala di persona con un contatto reale e uno scambio di messaggi, e tienila aggiornata nel topic regionale se cambia: un nodo spento o rimosso senza avviso lascia altri a fare affidamento su una copertura che non c'è più. Per approfondire i fattori che…"
   },
   {
+    "id": "normativa--meshcore-sul-preset-869-618-mhz-richiede-una-licenza-radioamatoriale",
+    "page": "Normativa",
+    "title": "MeshCore sul preset 869.618 MHz richiede una licenza radioamatoriale?",
+    "url": "https://meshcore-ita.github.io/normativa/#meshcore-sul-preset-869-618-mhz-richiede-una-licenza-radioamatoriale",
+    "text": "No. La sub-banda 869.4-869.65 MHz è ad uso libero per apparati a corto raggio entro i limiti di potenza (500 mW ERP) e duty cycle (10%) fissati dalla norma armonizzata ETSI EN 300 220-2 e recepiti nel Piano Nazionale di Ripartizione delle Frequenze. Non serve nominativo né autorizzazione generale."
+  },
+  {
+    "id": "normativa--posso-alzare-la-potenza-di-trasmissione-oltre-il-default-con-set-tx",
+    "page": "Normativa",
+    "title": "Posso alzare la potenza di trasmissione oltre il default con set tx?",
+    "url": "https://meshcore-ita.github.io/normativa/#posso-alzare-la-potenza-di-trasmissione-oltre-il-default-con-set-tx",
+    "text": "Solo restando entro il limite di 500 mW ERP della sub-banda 869.4-869.65 MHz, calcolato sottraendo il guadagno dell'antenna (in dBd) e sommando la perdita di cavo alla potenza in uscita dal radio. Il rispetto del limite resta responsabilità di chi configura il nodo."
+  },
+  {
+    "id": "normativa--posso-usare-meshcore-in-banda-radioamatoriale-con-il-mio-nominativo",
+    "page": "Normativa",
+    "title": "Posso usare MeshCore in banda radioamatoriale con il mio nominativo?",
+    "url": "https://meshcore-ita.github.io/normativa/#posso-usare-meshcore-in-banda-radioamatoriale-con-il-mio-nominativo",
+    "text": "Non in modo conforme: MeshCore cifra canali e messaggi diretti, mentre le trasmissioni radioamatoriali non possono essere rese volutamente incomprensibili a terzi, salvo il controllo di satelliti. Restare sulla sub-banda 869.4-869.65 MHz ad uso libero, oppure sulla banda LPD 433 MHz, evita il conflitto."
+  },
+  {
+    "id": "normativa--chi-controlla-che-il-duty-cycle-del-10-sia-rispettato",
+    "page": "Normativa",
+    "title": "Chi controlla che il duty cycle del 10% sia rispettato?",
+    "url": "https://meshcore-ita.github.io/normativa/#chi-controlla-che-il-duty-cycle-del-10-sia-rispettato",
+    "text": "Nessun ente misura in automatico il duty cycle dei singoli nodi: il limite è normativo e la sua osservanza è responsabilità dell'operatore. I parametri di default del preset condiviso e il traffico tipico di una mesh restano ampiamente sotto il 10%, ma un uso anomalo (ad esempio un loop di flood) può avvicinarsi al limite."
+  },
+  {
+    "id": "normativa--le-sub-bande-863-870-mhz-rilevanti-per-meshcore",
+    "page": "Normativa",
+    "title": "Le sub-bande 863-870 MHz rilevanti per MeshCore",
+    "url": "https://meshcore-ita.github.io/normativa/#le-sub-bande-863-870-mhz-rilevanti-per-meshcore",
+    "text": "Solo tre sub-bande contano per un nodo MeshCore in Italia: quella del preset condiviso e le due adiacenti spesso confuse con essa. Limiti di potenza e duty cycle, apparati a corto raggio non specifici 1 Sub-banda Potenza max Duty cycle Uso per MeshCore 868.000–868.600 MHz 25 mW e.r.p. ≤ 1% Non usata dal preset condiviso: potenza troppo bassa per un repeater. 869.400–869.650 MHz 500 mW e.r.p. ≤ 10% Sub-banda del preset radio condiviso (869.618 MHz). 869.700–870.000 MHz 5 mW e.r.p. (oppure 25 mW con duty cycle ≤ 1%) Nessun limite (oppure ≤ 1%) Non usata: 5 mW è troppo poco, 25 mW impone un duty cycle più stretto del preset. Il preset condiviso 869.618 MHz, BW 62.5 kHz, SF8, CR8 (dettagli…"
+  },
+  {
+    "id": "normativa--erp-eirp-e-come-si-calcola-la-potenza-massima-consentita",
+    "page": "Normativa",
+    "title": "ERP, EIRP e come si calcola la potenza massima consentita",
+    "url": "https://meshcore-ita.github.io/normativa/#erp-eirp-e-come-si-calcola-la-potenza-massima-consentita",
+    "text": "L'ERP ( effective radiated power ) è la potenza misurata rispetto a un'antenna dipolo a mezz'onda di riferimento: è la grandezza usata dalla norma ETSI EN 300 220 e quindi il limite che conta per MeshCore in Italia. L'EIRP ( equivalent isotropically radiated power ), usata più spesso nelle schede tecniche dei chip radio, è invece riferita a un'antenna isotropica ideale. La differenza tra i due riferimenti è una costante fisica: EIRP = ERP + 2.15 dB . La norma definisce l'ERP come la potenza in uscita dal connettore d'antenna corretta per il guadagno dell'antenna stessa, espresso in dBd (relativo al dipolo) 2 . Le antenne in commercio dichiarano però il guadagno in dBi: va convertito…"
+  },
+  {
+    "id": "normativa--cosa-conta-per-il-10-di-duty-cycle",
+    "page": "Normativa",
+    "title": "Cosa conta per il 10% di duty cycle",
+    "url": "https://meshcore-ita.github.io/normativa/#cosa-conta-per-il-10-di-duty-cycle",
+    "text": "Il duty cycle del 10% nella sub-banda 869.4–869.65 MHz 1 è una frazione di tempo, non di pacchetti: significa al massimo 6 minuti di trasmissione effettiva ogni ora, per singolo dispositivo, indipendentemente da quanti pacchetti vengono inviati in quella finestra. Un pacchetto LoRa più lungo (SF alto, banda stretta, CR alto) consuma più duty cycle di uno breve a parità di dati trasmessi, perché il limite è sul tempo che il trasmettitore resta acceso, non sui byte inviati. MeshCore non applica un contatore di duty cycle lato firmware: il rispetto del limite dipende dai parametri del preset condiviso (che tengono l'airtime di un singolo pacchetto di 50 byte intorno al mezzo secondo, vedi…"
+  },
+  {
+    "id": "normativa--perche-queste-frequenze-sono-ad-uso-libero",
+    "page": "Normativa",
+    "title": "Perché queste frequenze sono ad uso libero",
+    "url": "https://meshcore-ita.github.io/normativa/#perche-queste-frequenze-sono-ad-uso-libero",
+    "text": "Le tre sub-bande della tabella sopra rientrano nella categoria degli apparati a corto raggio non specifici (SRD), disciplinata a livello europeo dalla decisione di armonizzazione dello spettro 2017/1483/UE e dalla relativa norma tecnica armonizzata ETSI EN 300 220-2 1 . In Italia questa allocazione è recepita nel Piano Nazionale di Ripartizione delle Frequenze (PNRF), approvato con decreto ministeriale del 31 agosto 2022 e pubblicato nel Supplemento ordinario n. 35 alla Gazzetta Ufficiale n. 214 del 13 settembre 2022 3 , ai sensi del Codice delle comunicazioni elettroniche (decreto legislativo 1° agosto 2003, n. 259) 4 . Per questa categoria di apparati non serve un'autorizzazione generale…"
+  },
+  {
+    "id": "normativa--lpd-433-mhz-libero-uso-ma-non-e-la-banda-radioamatoriale",
+    "page": "Normativa",
+    "title": "LPD 433 MHz: libero uso, ma non è la banda radioamatoriale",
+    "url": "https://meshcore-ita.github.io/normativa/#lpd-433-mhz-libero-uso-ma-non-e-la-banda-radioamatoriale",
+    "text": "La sub-banda 433.050–434.790 MHz è anch'essa ad uso libero per SRD, con potenza massima 10 mW e.r.p. sull'intera banda 1 : è la stessa banda su cui operano i dispositivi LPD (Low Power Device) commerciali. Numericamente si sovrappone alla porzione 430-440 MHz allocata in Italia, in via secondaria, al servizio di radioamatore 3 : stessa porzione di spettro, ma due statuti giuridici diversi. Un nodo MeshCore configurato su questa sub-banda a 10 mW e.r.p. resta nell'uso libero SRD, senza bisogno di nominativo; usare invece i privilegi di potenza più alta della banda radioamatoriale richiederebbe una licenza e ricadrebbe nel problema descritto nella sezione seguente. Radioamatori"
+  },
+  {
+    "id": "normativa--perche-meshcore-non-e-compatibile-con-l-uso-radioamatoriale",
+    "page": "Normativa",
+    "title": "Perché MeshCore non è compatibile con l'uso radioamatoriale",
+    "url": "https://meshcore-ita.github.io/normativa/#perche-meshcore-non-e-compatibile-con-l-uso-radioamatoriale",
+    "text": "MeshCore cifra il contenuto dei canali e dei messaggi diretti per progetto. Il Regolamento delle radiocomunicazioni dell'ITU, ratificato dall'Italia con legge 31 gennaio 1996, n. 61 e richiamato nel PNRF 3 , vieta di regola alle stazioni radioamatoriali l'uso di codici o cifrari il cui scopo sia nascondere il significato delle comunicazioni, con la sola eccezione dei segnali di controllo verso satelliti radioamatoriali 6 . La normativa italiana sui radioamatori (allegato 26 al Codice delle comunicazioni elettroniche, più volte modificato, tra cui dal decreto ministeriale 21 luglio 2005 5 ) lega l'uso della banda radioamatoriale all'identificazione della stazione con il nominativo assegnato:…"
+  },
+  {
+    "id": "normativa--faq-sulla-normativa",
+    "page": "Normativa",
+    "title": "FAQ sulla normativa",
+    "url": "https://meshcore-ita.github.io/normativa/#faq-sulla-normativa",
+    "text": "Per la configurazione del preset radio vedi preset radio MeshCore Italia ; per l'installazione di un nodo fisso vedi installare un repeater ; per altri dubbi tecnici vedi le FAQ . Riferimenti"
+  },
+  {
+    "id": "normativa--fonti",
+    "page": "Normativa",
+    "title": "Fonti",
+    "url": "https://meshcore-ita.github.io/normativa/#fonti",
+    "text": "ETSI, EN 300 220-2 V3.2.1 — Short Range Devices (SRD) operating in the frequency range 25 MHz to 1 000 MHz; Part 2 , Annex B, 2018-06. etsi.org ↗ ETSI, EN 300 220-1 V3.1.1 — Short Range Devices (SRD) operating in the frequency range 25 MHz to 1 000 MHz; Part 1 , clausola 5.2.1-5.2.2, 2017-02. etsi.org ↗ Ministero dello Sviluppo Economico, decreto 31 agosto 2022, Piano nazionale di ripartizione delle frequenze tra 0 e 3000 GHz , Gazzetta Ufficiale n. 214 del 13 settembre 2022, Supplemento ordinario n. 35. gazzettaufficiale.it ↗ Decreto legislativo 1° agosto 2003, n. 259, Codice delle comunicazioni elettroniche . bosettiegatti.eu ↗ Ministro delle comunicazioni, decreto 21 luglio 2005,…"
+  },
+  {
+    "id": "link-budget--perche-due-nodi-con-margine-di-segnale-abbondante-a-volte-non-si-sentono-comunque",
+    "page": "Portata e link budget",
+    "title": "Perché due nodi con margine di segnale abbondante a volte non si sentono comunque?",
+    "url": "https://meshcore-ita.github.io/link-budget/#perche-due-nodi-con-margine-di-segnale-abbondante-a-volte-non-si-sentono-comunque",
+    "text": "Perché il calcolo di margine basato sulla sola perdita di spazio libero (FSPL) ignora gli ostacoli reali. Anche con decine di dB di margine teorico, un edificio, una collina o della vegetazione che invadono la prima zona di Fresnel introducono una perdita di diffrazione aggiuntiva non compresa nella FSPL: in pratica è quasi sempre la linea di vista libera, non la potenza disponibile, a limitare la portata reale in Italia."
+  },
+  {
+    "id": "link-budget--qual-e-la-sensibilita-reale-del-preset-radio-italiano",
+    "page": "Portata e link budget",
+    "title": "Qual è la sensibilità reale del preset radio italiano?",
+    "url": "https://meshcore-ita.github.io/link-budget/#qual-e-la-sensibilita-reale-del-preset-radio-italiano",
+    "text": "Il datasheet del chip SX1262 tabula la sensibilità LoRa in guadagno boosted solo per SF7 e SF12 a banda 10.4, 125, 250 e 500 kHz, non per la combinazione SF8/62.5 kHz del preset italiano. Interpolando linearmente tra i due estremi tabulati a 125 kHz e scalando di circa 3 dB per il dimezzamento della banda a 62.5 kHz si stima una sensibilità di circa -130 dBm."
+  },
+  {
+    "id": "link-budget--conviene-un-cavo-coassiale-lungo-per-portare-l-antenna-piu-in-alto",
+    "page": "Portata e link budget",
+    "title": "Conviene un cavo coassiale lungo per portare l'antenna più in alto?",
+    "url": "https://meshcore-ita.github.io/link-budget/#conviene-un-cavo-coassiale-lungo-per-portare-l-antenna-piu-in-alto",
+    "text": "Solo se il guadagno di quota supera la perdita del cavo aggiuntivo. Un cavo economico come l'RG-58 perde oltre 4 dB ogni 10 metri a 869 MHz, quanto quasi dimezzare la potenza trasmessa: per run superiori a pochi metri conviene un cavo a bassa perdita come l'LMR-400, oppure spostare il radio vicino all'antenna e portare giù solo l'alimentazione e i dati."
+  },
+  {
+    "id": "link-budget--un-piccolo-pannello-solare-basta-per-un-nodo-nrf52-sempre-acceso",
+    "page": "Portata e link budget",
+    "title": "Un piccolo pannello solare basta per un nodo nRF52 sempre acceso?",
+    "url": "https://meshcore-ita.github.io/link-budget/#un-piccolo-pannello-solare-basta-per-un-nodo-nrf52-sempre-acceso",
+    "text": "Nell'esempio di dimensionamento con un consumo medio di 30 mA a 3.7 V (circa 2.7 Wh al giorno) e l'irraggiamento di dicembre nel Nord Italia su un pannello inclinato per l'inverno, bastano pochi Watt di picco per coprire il fabbisogno con margine; la scelta pratica tipica da 5-10 W lascia comunque ampio margine per giornate nuvolose consecutive e perdite del regolatore di carica."
+  },
+  {
+    "id": "link-budget--perche-la-portata-non-si-stima-in-chilometri",
+    "page": "Portata e link budget",
+    "title": "Perché la portata non si stima in chilometri",
+    "url": "https://meshcore-ita.github.io/link-budget/#perche-la-portata-non-si-stima-in-chilometri",
+    "text": "Un collegamento radio funziona se, sommando guadagni e perdite in dB, il segnale arriva al ricevitore sopra la sua soglia minima di sensibilità. Il link budget di un collegamento wireless è la somma algebrica di tutti i guadagni e le perdite tra il trasmettitore e il ricevitore. Nella forma generale usata dalle note applicative Semtech per LoRa 1 è: P_rx = P_tx + G_sistema − L_sistema − L_canale − M dove M è un margine di fading aggiuntivo. Per un collegamento punto-punto con antenna e cavo distinti su entrambi i lati, la stessa equazione si riscrive nella forma pratica usata in questa pagina: P_tx + G_tx − L_cavo_tx + G_rx − L_cavo_rx − L_path ≥ sensibilità del ricevitore Se il risultato…"
+  },
+  {
+    "id": "link-budget--sensibilita-del-chip-sx1262-sul-preset-italiano",
+    "page": "Portata e link budget",
+    "title": "Sensibilità del chip SX1262 sul preset italiano",
+    "url": "https://meshcore-ita.github.io/link-budget/#sensibilita-del-chip-sx1262-sul-preset-italiano",
+    "text": "Il datasheet non tabula direttamente SF8 a 62.5 kHz: la sensibilità del preset condiviso va ricavata per interpolazione. La Tabella 3-8 \"Receive Mode Specifications\" del datasheet Semtech SX1261/2 (pagina 19 di 111) riporta la sensibilità LoRa a guadagno boosted solo per gli estremi SF7 e SF12, alle bande 10.4, 125, 250 e 500 kHz 2 . Né SF8 né la banda 62.5 kHz del preset italiano compaiono come riga propria. Il valore più vicino tabulato è la banda 125 kHz: -124 dBm a SF7, -137 dBm a SF12. Interpolando linearmente tra i due estremi (passo di circa 2.6 dB per spreading factor) e poi scalando di -3 dB per il dimezzamento della banda da 125 a 62.5 kHz — dimezzare la banda dimezza la potenza…"
+  },
+  {
+    "id": "link-budget--perdita-di-spazio-libero-a-869-mhz",
+    "page": "Portata e link budget",
+    "title": "Perdita di spazio libero a 869 MHz",
+    "url": "https://meshcore-ita.github.io/link-budget/#perdita-di-spazio-libero-a-869-mhz",
+    "text": "La FSPL da sola lascia margini enormi anche a 50 km: quasi mai è lei a fermare un collegamento MeshCore in Italia. La perdita di spazio libero (free space path loss, FSPL) in decibel è FSPL = 20·log₁₀(d_km) + 20·log₁₀(f_MHz) + 32.44 . Applicandola a 869.618 MHz, con il limite di potenza di 500 mW ERP (27 dBm ERP) della sub-banda 869.4-869.65 MHz 3 — limiti approfonditi nella pagina sulla normativa delle sub-bande libere — e la sensibilità stimata di circa -129.6 dBm per SF8/BW62.5 kHz: FSPL e margine teorico a 869.618 MHz, 27 dBm ERP, sensibilità -129.6 dBm Distanza FSPL Margine (antenne unitarie, no ostacoli) 1 km 91.2 dB +65.4 dB 5 km 105.2 dB +51.4 dB 10 km 111.2 dB +45.4 dB 20 km 117.3…"
+  },
+  {
+    "id": "link-budget--quanto-costa-in-db-il-cavo-coassiale",
+    "page": "Portata e link budget",
+    "title": "Quanto costa in dB il cavo coassiale",
+    "url": "https://meshcore-ita.github.io/link-budget/#quanto-costa-in-db-il-cavo-coassiale",
+    "text": "Un cavo economico può vanificare in pochi metri il guadagno di un'antenna migliore. Perdita indicativa per 10 m di cavo coassiale a ~869-900 MHz Cavo Perdita / 10 m Fonte RG-58 ≈4.3 dB Crown Electronics, 13 dB/100 ft a 900 MHz (valore tabulato più vicino) 7 RG-213 ≈2.5 dB FeedFlex RG213/U, 24.9 dB/100 m a 900 MHz (valore tabulato più vicino) 6 LMR-400 ≈1.3 dB Times Microwave, formula datasheet a 869.618 MHz 5 4.3 dB persi in soli 10 m di RG-58 equivalgono a lasciare a terra più di due terzi della potenza trasmessa. La regola pratica resta la stessa: tenere il cavo il più corto possibile, e se la distanza tra radio e antenna è superiore a qualche metro conviene un cavo a bassa perdita come…"
+  },
+  {
+    "id": "link-budget--strumenti-gratuiti-per-simulare-la-copertura",
+    "page": "Portata e link budget",
+    "title": "Strumenti gratuiti per simulare la copertura",
+    "url": "https://meshcore-ita.github.io/link-budget/#strumenti-gratuiti-per-simulare-la-copertura",
+    "text": "Simulano il percorso su un modello del terreno, non sostituiscono una verifica sul campo."
+  },
+  {
+    "id": "link-budget--heywhatsthat-8",
+    "page": "Portata e link budget",
+    "title": "HeyWhatsThat 8",
+    "url": "https://meshcore-ita.github.io/link-budget/#heywhatsthat-8",
+    "text": "Calcola il profilo altimetrico e la linea di vista da un punto verso qualsiasi direzione, gratis e senza installazione, usando dati di elevazione globali. Utile per un primo controllo rapido degli ostacoli tra due siti candidati."
+  },
+  {
+    "id": "link-budget--radio-mobile-online-9",
+    "page": "Portata e link budget",
+    "title": "Radio Mobile Online 9",
+    "url": "https://meshcore-ita.github.io/link-budget/#radio-mobile-online-9",
+    "text": "Software dedicato alla radioamatoriale che simula un collegamento punto-punto o la copertura di un repeater su terreno digitale, con parametri di frequenza, potenza e antenna configurabili."
+  },
+  {
+    "id": "link-budget--splat-10",
+    "page": "Portata e link budget",
+    "title": "SPLAT! 10",
+    "url": "https://meshcore-ita.github.io/link-budget/#splat-10",
+    "text": "Strumento open source a riga di comando (Longley-Rice) per l'analisi di percorso e la mappa di copertura di un repeater, tra 20 MHz e 20 GHz. Più tecnico dei precedenti, adatto a chi vuole automatizzare più simulazioni. Questi strumenti stimano la copertura teorica sul modello del terreno: non sanno nulla di un edificio costruito di recente, della vegetazione stagionale o di un'antenna montata più bassa del previsto. Il riscontro definitivo resta il confronto con la mappa pubblica dei nodi effettivamente attivi e, meglio ancora, un test sul campo con neighbors e stats-radio come descritto nella guida all'installazione di un repeater. Alimentazione"
+  },
+  {
+    "id": "link-budget--dimensionare-un-pannello-solare-con-pvgis",
+    "page": "Portata e link budget",
+    "title": "Dimensionare un pannello solare con PVGIS",
+    "url": "https://meshcore-ita.github.io/link-budget/#dimensionare-un-pannello-solare-con-pvgis",
+    "text": "Esempio di calcolo per un nodo nRF52 a basso consumo nel mese più sfavorevole, dicembre nel Nord Italia. Il tool gratuito PVGIS della Commissione Europea 11 fornisce l'irraggiamento medio mensile per qualunque punto, su un piano inclinato a scelta. Esempio di dimensionamento, con ipotesi esplicite: Esempio: nodo nRF52, consumo medio dichiarato 30 mA a 3.7 V, dicembre, Torino Grandezza Valore Ipotesi Consumo medio 30 mA × 3.7 V = 111 mW Valore medio dichiarato dall'utente con powersaving on , non il picco in trasmissione Fabbisogno giornaliero 111 mW × 24 h ≈ 2.7 Wh/giorno Consumo costante nelle 24 ore Irraggiamento dicembre ≈3.6 kWh/m²/giorno Pannello inclinato 60° verso sud, media…"
+  },
+  {
+    "id": "link-budget--faq-su-portata-e-link-budget",
+    "page": "Portata e link budget",
+    "title": "FAQ su portata e link budget",
+    "url": "https://meshcore-ita.github.io/link-budget/#faq-su-portata-e-link-budget",
+    "text": "Riferimenti"
+  },
+  {
+    "id": "link-budget--fonti",
+    "page": "Portata e link budget",
+    "title": "Fonti",
+    "url": "https://meshcore-ita.github.io/link-budget/#fonti",
+    "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
+  },
+  {
     "id": "blog/wiki-e-aggiornamenti--cosa-cambia",
     "page": "Aggiornamenti",
     "title": "Cosa cambia",
