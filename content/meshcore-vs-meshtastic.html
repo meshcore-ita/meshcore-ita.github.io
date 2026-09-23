@@ -83,7 +83,7 @@
         <tr><th scope="row">Chi ripete i pacchetti</th><td>Solo repeater e room server; i client (companion) non ripetono mai</td><td>Ogni nodo può ritrasmettere fino al limite di hop, con priorità maggiore per i ruoli Router/Repeater</td></tr>
         <tr><th scope="row">Messaggi diretti</th><td>Path-discovery: il primo invio usa il flood, la conferma di consegna stabilisce il percorso diretto da riusare</td><td>Dalla v2.6, next-hop routing: il flood iniziale stabilisce un nodo di inoltro successivo, con fallback al flood se il percorso smette di rispondere</td></tr>
         <tr><th scope="row">Traffico broadcast (canali/annunci)</th><td>Sempre in flood, gestito dai repeater; annuncio periodico di un repeater ogni 12 ore per impostazione predefinita</td><td>Sempre in "managed flooding": un nodo ascolta prima di ritrasmettere, con backoff basato sull'SNR per ridurre i duplicati</td></tr>
-        <tr><th scope="row">Limite di hop</th><td>64 hop, limite interno del firmware</td><td>Campo HopLimit di 3 bit nell'header, valore massimo possibile 7</td></tr>
+        <tr><th scope="row">Limite di hop</th><td>64 hop per il flood generico (limite interno del firmware); adverts limitati a 8 hop, meno con path hash multi-byte</td><td>Campo HopLimit di 3 bit nell'header, valore massimo possibile 7</td></tr>
         <tr><th scope="row">Licenza del firmware</th><td>MIT, sviluppato da Scott (Ripple Radios)</td><td>GPL-3.0, sviluppato dal progetto open source Meshtastic</td></tr>
       </tbody>
     </table>

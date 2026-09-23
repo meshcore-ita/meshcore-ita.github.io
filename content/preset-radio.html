@@ -94,6 +94,9 @@
     </tbody>
   </table>
   <div class="prose">
+    <p>Su repeater e room server imposta anche il duty cycle al 10% con <code>set dutycycle 10</code> (fw 1.15+; sulle versioni precedenti usa <code>set af 9</code>), come richiesto dalla sub-banda 869.4-869.65 MHz.</p>
+  </div>
+  <div class="prose">
     <p>Nell'app mobile Android/iOS e nel client web su <a class="link" href="https://app.meshcore.nz/" target="_blank" rel="noopener">app.meshcore.nz<span class="ext-arrow">↗</span></a> lo stesso risultato si ottiene dal menu delle impostazioni radio del nodo, scegliendo il preset <strong>EU/UK (Narrow)</strong> dall'elenco predefinito, senza dover digitare i singoli parametri. Dopo qualsiasi modifica radio il nodo va riavviato prima di riprovare a comunicare con la mesh: se dopo il riavvio non vedi ancora nessun contatto, la pagina <a class="link" href="../problemi/">soluzioni ai problemi più comuni di MeshCore</a> copre anche questo caso. L'elenco completo dei comandi CLI, oltre a <code>set radio</code> e <code>get radio</code>, è nella pagina <a class="link" href="../comandi/">comandi CLI per amministrare un nodo MeshCore</a>. Per la sequenza completa di primo avvio, dal flash del firmware fino al primo advert, vedi la <a class="link" href="../guida/">guida passo passo per configurare un nodo MeshCore</a>.</p>
   </div>
 </section>

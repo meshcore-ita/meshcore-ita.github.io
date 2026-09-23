@@ -39,7 +39,7 @@
         {
           "@type": "Question",
           "name": "Come verifico la copertura reale nella mia zona?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Il modo più affidabile è un test con un secondo nodo: spostati nel punto che vuoi verificare, invia un advert e controlla con neighbors e stats-radio se il tuo repeater lo riceve, leggendo RSSI e SNR. Sentire un advert non basta a garantire che un messaggio venga instradato con successo: conferma la copertura scambiando anche un messaggio di prova con un altro nodo della zona, e confrontati nel topic regionale del gruppo Telegram." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Il modo più affidabile è un test con un secondo nodo: spostati nel punto che vuoi verificare, invia un advert e controlla con neighbors (funziona anche da remoto) se il tuo repeater lo riceve; per leggere RSSI e SNR da remoto usa la richiesta di Status del repeater nell'app, oppure stats-radio se sei collegato via USB (è un comando solo seriale). Sentire un advert non basta a garantire che un messaggio venga instradato con successo: conferma la copertura scambiando anche un messaggio di prova con un altro nodo della zona, e confrontati nel topic regionale del gruppo Telegram." }
         }
       ]
     }
@@ -114,13 +114,13 @@
       <tr><th scope="col">Comando</th><th scope="col">Cosa dice sulla copertura</th></tr>
     </thead>
     <tbody>
-      <tr><th scope="row"><code>neighbors</code></th><td>Elenca i vicini diretti uditi di recente da un repeater: dice chi è effettivamente in portata radio, non chi è sulla mappa.</td></tr>
-      <tr><th scope="row"><code>stats-radio</code></th><td>Mostra RSSI e SNR dell'ultimo pacchetto ricevuto: un RSSI molto basso o un SNR vicino allo zero indicano un collegamento al limite, anche se il pacchetto è arrivato.</td></tr>
+      <tr><th scope="row"><code>neighbors</code></th><td>Elenca i vicini diretti uditi di recente da un repeater: dice chi è effettivamente in portata radio, non chi è sulla mappa. Funziona anche da remoto.</td></tr>
+      <tr><th scope="row"><code>stats-radio</code></th><td>Mostra RSSI e SNR dell'ultimo pacchetto ricevuto, ma è un comando disponibile solo via USB (seriale): non puoi lanciarlo da remoto sull'app. Da remoto, usa la richiesta di Status del repeater nell'app, che riporta comunque l'ultimo RSSI.</td></tr>
       <tr><th scope="row"><code>advert</code></th><td>Forza un annuncio flood immediato, utile per un test rapido con un secondo nodo mentre ti sposti nel punto da verificare.</td></tr>
     </tbody>
   </table>
   <div class="prose">
-    <p>Il test più affidabile resta pratico: prendi un secondo nodo, spostati nel punto da verificare, invia un <code>advert</code> e controlla se il repeater lo riceve con <code>neighbors</code> e <code>stats-radio</code>. Per confermare che la copertura sia utilizzabile, scambia anche un messaggio di prova: un advert ricevuto con SNR basso può non bastare a instradare messaggi in modo affidabile. Sintassi completa nella pagina dei <a class="link" href="../comandi/">comandi CLI di MeshCore</a>; se sospetti un problema di preset, confrontalo con il <a class="link" href="../preset-radio/">preset radio italiano</a>.</p>
+    <p>Il test più affidabile resta pratico: prendi un secondo nodo, spostati nel punto da verificare, invia un <code>advert</code> e controlla se il repeater lo riceve con <code>neighbors</code> (funziona da remoto) o, se lo hai davanti collegato via USB, con <code>stats-radio</code>; da remoto puoi anche usare la richiesta di Status del repeater nell'app per leggere l'ultimo RSSI. Per confermare che la copertura sia utilizzabile, scambia anche un messaggio di prova: un advert ricevuto con SNR basso può non bastare a instradare messaggi in modo affidabile. Sintassi completa nella pagina dei <a class="link" href="../comandi/">comandi CLI di MeshCore</a>; se sospetti un problema di preset, confrontalo con il <a class="link" href="../preset-radio/">preset radio italiano</a>.</p>
     <p>Condividi i dati raccolti nel topic regionale del gruppo Telegram: cresce così la conoscenza collettiva della copertura reale, più affidabile della sola mappa. Chi valuta di <a class="link" href="../installare-repeater/">installare un repeater</a> troverà quei riscontri più utili di qualsiasi puntino sulla mappa.</p>
   </div>
 </section>
@@ -144,7 +144,7 @@
   </details>
   <details class="faq">
     <summary class="faq__q">Come verifico la copertura reale nella mia zona?</summary>
-    <p class="faq__a">Il modo più affidabile è un test con un secondo nodo: spostati nel punto che vuoi verificare, invia un advert e controlla con neighbors e stats-radio se il tuo repeater lo riceve, leggendo RSSI e SNR. Sentire un advert non basta a garantire che un messaggio venga instradato con successo: conferma la copertura scambiando anche un messaggio di prova con un altro nodo della zona, e confrontati nel topic regionale del gruppo Telegram.</p>
+    <p class="faq__a">Il modo più affidabile è un test con un secondo nodo: spostati nel punto che vuoi verificare, invia un advert e controlla con <code>neighbors</code> (funziona anche da remoto) se il tuo repeater lo riceve; per leggere RSSI e SNR da remoto usa la richiesta di Status del repeater nell'app, oppure <code>stats-radio</code> se sei collegato via USB (è un comando solo seriale). Sentire un advert non basta a garantire che un messaggio venga instradato con successo: conferma la copertura scambiando anche un messaggio di prova con un altro nodo della zona, e confrontati nel topic regionale del gruppo Telegram.</p>
   </details>
   <p class="section__lede">Per approfondire i termini tecnici usati in questa pagina vedi il <a class="link" href="../glossario/">glossario MeshCore</a>; per confrontarti su copertura e installazioni nella tua zona vedi il <a class="link" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">gruppo Telegram MeshCore ITA<span class="ext-arrow">↗</span></a>.</p>
 </section>

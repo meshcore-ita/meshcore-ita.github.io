@@ -33,7 +33,7 @@
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geist-300-700-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
 
-<link rel="stylesheet" href="../assets/css/style.css?v=6">
+<link rel="stylesheet" href="../assets/css/style.css?v=7">
 
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -117,7 +117,7 @@
     <p class="section__lede">Ogni repeater e room server MeshCore espone una console di comandi testuali, raggiungibile in due modi.</p>
   </div>
   <div class="prose">
-    <p>Il primo è via USB seriale: colleghi il nodo al computer con un cavo dati (non solo di ricarica) e apri una console seriale, ad esempio il web flasher ufficiale dal browser oppure <code>picocom</code> da terminale su Linux. Questo metodo funziona anche prima di aver mai configurato il nodo, perché non richiede una rete mesh già funzionante. Il secondo è da remoto, tramite un client MeshCore (app o web) già autenticato come amministratore sul nodo target: utile per un repeater o un room server già installato in un punto alto o difficile da raggiungere fisicamente. In entrambi i casi serve la password admin, il cui valore di default è <code>password</code>: cambiala non appena metti in servizio un nodo, con il comando descritto più sotto.</p>
+    <p>Il primo è via USB seriale: colleghi il nodo al computer con un cavo dati (non solo di ricarica) e apri una console seriale, ad esempio il web flasher ufficiale dal browser oppure <code>picocom</code> da terminale su Linux. Questo metodo funziona anche prima di aver mai configurato il nodo, perché non richiede una rete mesh già funzionante. Il secondo è da remoto, tramite un client MeshCore (app o web) già autenticato come amministratore sul nodo target: utile per un repeater o un room server già installato in un punto alto o difficile da raggiungere fisicamente. In entrambi i casi serve la password admin, il cui valore di default è <code>password</code>: cambiala non appena metti in servizio un nodo, con il comando descritto più sotto. Alcuni comandi diagnostici (<code>stats-core</code>, <code>stats-radio</code>, <code>stats-packets</code>, <code>log</code>) funzionano solo via USB seriale, segnati qui sotto con "(solo seriale)": da remoto l'equivalente è la richiesta di stato del repeater nell'app client, che mostra batteria, coda di trasmissione, noise floor, ultimo RSSI, pacchetti inviati/ricevuti e contatori flood/diretti, leggibile anche dagli ospiti senza permessi di amministrazione.</p>
     <p>Per l'elenco delle board supportate e delle differenze tra chip ESP32 e nRF52 (rilevanti per capire quale comando OTA usare) consulta la <a class="link" href="../hardware/">guida hardware alle board LoRa compatibili con MeshCore</a>. Se il flasher o il terminale seriale non vedono la porta su Linux, è quasi sempre un problema di permessi: la pagina <a class="link" href="../problemi/">soluzioni ai problemi più comuni di MeshCore</a> spiega come risolverlo con <code>setfacl</code>.</p>
   </div>
 </section>
@@ -158,11 +158,20 @@
       <tr><th scope="row"><code>get tx</code> / <code>set tx &lt;dbm&gt;</code></th><td>Legge o imposta la potenza di trasmissione in dBm (1–22).</td></tr>
       <tr><th scope="row"><code>set lat &lt;lat&gt;</code> / <code>set lon &lt;lon&gt;</code></th><td>Imposta la posizione GPS del nodo, usata per la mappa pubblica e per l'advert.</td></tr>
       <tr><th scope="row"><code>advert</code></th><td>Invia subito un advert flood, senza aspettare l'intervallo periodico.</td></tr>
-      <tr><th scope="row"><code>set flood.advert.interval &lt;ore&gt;</code></th><td>Cambia l'intervallo dell'advert flood periodico (default 12 ore).</td></tr>
+      <tr><th scope="row"><code>set flood.advert.interval &lt;ore&gt;</code></th><td>Cambia l'intervallo dell'advert flood periodico, 3–168 ore (default 12 sui repeater, 0 sui sensori = disattivato).</td></tr>
+      <tr><th scope="row"><code>set advert.interval &lt;minuti&gt;</code></th><td>Imposta l'intervallo dell'advert "zero-hop" (non ripropagato), 60–240 minuti (default 0 = disattivato).</td></tr>
+      <tr><th scope="row"><code>advert.zerohop</code></th><td>Invia subito un advert zero-hop, udibile solo dai vicini diretti, senza propagazione flood.</td></tr>
+      <tr><th scope="row"><code>discover.neighbors</code></th><td>Avvia una scoperta attiva dei vicini a zero hop, distinta dal semplice ascolto passivo di <code>neighbors</code>.</td></tr>
       <tr><th scope="row"><code>set repeat &lt;on|off&gt;</code></th><td>Attiva o disattiva la ripetizione dei pacchetti altrui su un repeater o room server.</td></tr>
-      <tr><th scope="row"><code>neighbors</code></th><td>Elenca i vicini diretti uditi di recente (solo repeater).</td></tr>
-      <tr><th scope="row"><code>stats-radio</code></th><td>Mostra noise floor, ultimo RSSI/SNR e airtime del radio.</td></tr>
-      <tr><th scope="row"><code>log start</code> / <code>log stop</code></th><td>Avvia o ferma la cattura del log di ricezione radio, utile per diagnosticare la copertura.</td></tr>
+      <tr><th scope="row"><code>set flood.max &lt;hop&gt;</code></th><td>Numero massimo di hop per qualsiasi pacchetto in flood (default 64).</td></tr>
+      <tr><th scope="row"><code>set flood.max.advert &lt;hop&gt;</code></th><td>Numero massimo di hop di propagazione per gli advert su repeater e room server (default 8): oltre questa distanza l'advert non viene più ripetuto.</td></tr>
+      <tr><th scope="row"><code>set dutycycle &lt;1-100&gt;</code></th><td>Limita il duty cycle radio in percentuale (fw ≥ 1.15, default 50%). Nella sotto-banda italiana 869.4–869.65 MHz, dove il limite normativo è 10%, imposta <code>set dutycycle 10</code>.</td></tr>
+      <tr><th scope="row"><code>set af &lt;0-9&gt;</code></th><td>Fattore di limitazione del duty cycle sulle firmware precedenti alla 1.15 (deprecato): duty ≈ 1/(1+af), default 1 (~50%). Per il 10% della sotto-banda italiana usa <code>set af 9</code>.</td></tr>
+      <tr><th scope="row"><code>neighbors</code></th><td>Elenca i vicini diretti uditi di recente: mostra solo gli 8 advert più recenti. Funziona anche da remoto.</td></tr>
+      <tr><th scope="row"><code>stats-radio</code> (solo seriale)</th><td>Mostra noise floor, ultimo RSSI/SNR e airtime del radio. Comando USB seriale, non disponibile da remoto.</td></tr>
+      <tr><th scope="row"><code>stats-packets</code> (solo seriale)</th><td>Mostra i contatori dei pacchetti ricevuti e inviati. Comando USB seriale, non disponibile da remoto.</td></tr>
+      <tr><th scope="row"><code>log start</code> / <code>log stop</code></th><td>Avvia o ferma la cattura del log di ricezione radio, utile per diagnosticare la copertura. Disponibile anche da remoto.</td></tr>
+      <tr><th scope="row"><code>log</code> (solo seriale)</th><td>Stampa il log catturato. Comando USB seriale, non disponibile da remoto.</td></tr>
     </tbody>
   </table>
   <div class="prose">
@@ -182,7 +191,7 @@
     </thead>
     <tbody>
       <tr><th scope="row"><code>powersaving &lt;on|off&gt;</code></th><td>Attiva o disattiva il risparmio energetico: il nodo dorme tra una trasmissione e l'altra.</td></tr>
-      <tr><th scope="row"><code>stats-core</code></th><td>Mostra stato batteria, uptime e coda messaggi del nodo.</td></tr>
+      <tr><th scope="row"><code>stats-core</code> (solo seriale)</th><td>Mostra stato batteria, uptime e coda messaggi del nodo. Comando USB seriale, non disponibile da remoto.</td></tr>
     </tbody>
   </table>
   <div class="prose">
@@ -227,6 +236,31 @@
   </table>
   <div class="prose">
     <p>Su board ESP32 come Heltec V3, <code>start ota</code> apre un hotspot Wi-Fi chiamato "MeshCore OTA": ti colleghi a quell'hotspot dal telefono o dal computer e vai su <code>192.168.4.1/update</code> per caricare il nuovo firmware. Su board nRF52 (RAK4631, Heltec T114, Seeed XIAO) lo stesso comando prepara il nodo, ma il caricamento avviene con l'app nRF DFU dello smartphone. In entrambi i casi non scollegare l'alimentazione del nodo durante il trasferimento: un OTA interrotto a metà può lasciare il nodo in uno stato da recuperare via USB con il web flasher. Nota anche la differenza tra bin "merged" (azzera l'abbinamento Bluetooth esistente ma mantiene nome, chiavi e preset salvati) e bin "non-merged" (mantiene l'abbinamento Bluetooth): la scelta sbagliata costringe a un nuovo pairing BLE non necessario. La domanda "come aggiorno il firmware" è coperta con più dettaglio anche nella pagina <a class="link" href="../faq/">domande frequenti su MeshCore in italiano</a>.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <p class="eyelash">Novità firmware</p>
+    <h2 id="firmware-recenti-path-hash-loop-detect-e-region-scoping" class="section__title">Firmware recenti: path hash, loop detect e region scoping</h2>
+  </div>
+  <table class="spec">
+    <caption>Path hash e loop detect (firmware 1.14+), region scoping (firmware 1.10+)</caption>
+    <thead>
+      <tr><th scope="col">Comando</th><th scope="col">Effetto</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row"><code>set path.hash.mode &lt;0-2&gt;</code></th><td>Dimensione dell'ID/hash con cui il repeater si annuncia negli advert: 0 = 1 byte (default, max 64 hop), 1 = 2 byte (max 32 hop), 2 = 3 byte (max 21 hop). Non cambia cosa il repeater inoltra: dalla 1.14 inoltra tutte le dimensioni.</td></tr>
+      <tr><th scope="row"><code>set loop.detect &lt;off|minimal|moderate|strict&gt;</code></th><td>Scarta i pacchetti flood in cui l'ID del repeater compare già troppe volte nel percorso, per fermare le tempeste di pacchetti causate da firmware difettosi (default <code>off</code>).</td></tr>
+      <tr><th scope="row"><code>set flood.max.unscoped &lt;hop&gt;</code></th><td>Numero massimo di hop per i pacchetti in flood non associati a una region (default 64).</td></tr>
+      <tr><th scope="row"><code>region home</code></th><td>Imposta la region "di casa" del nodo, usata come riferimento per lo scoping del traffico.</td></tr>
+      <tr><th scope="row"><code>region put &lt;nome&gt;</code></th><td>Aggiunge o aggiorna una region nella tabella locale del nodo.</td></tr>
+      <tr><th scope="row"><code>region allowf &lt;nome&gt;</code> / <code>region denyf &lt;nome&gt;</code></th><td>Consente o nega esplicitamente il flood verso/da una region.</td></tr>
+      <tr><th scope="row"><code>region save</code></th><td>Salva la configurazione delle region in memoria persistente.</td></tr>
+    </tbody>
+  </table>
+  <div class="prose">
+    <p><code>path.hash.mode</code> e <code>loop.detect</code> sono stati introdotti in firmware 1.14: un repeater con firmware 1.13 o precedente scarta silenziosamente i pacchetti con hash di percorso a 2 o 3 byte, senza segnalare errore. Prima di impostare <code>path.hash.mode 1</code> o <code>2</code> su un nodo condiviso, verifica che i repeater della zona siano aggiornati almeno alla 1.14 (release repeater corrente: v1.17.1), altrimenti i tuoi advert arriveranno meno lontano. Lo scoping per region (<code>region home</code>, <code>region put</code>, <code>region allowf</code>/<code>denyf</code>, <code>region save</code>, disponibile dalla 1.10) e <code>flood.max.unscoped</code> permettono di limitare la propagazione flood a un sottoinsieme di nodi, utile per reti molto estese dove non tutto il traffico deve raggiungere tutti gli hop.</p>
   </div>
 </section>
 <section class="section related" data-reveal>
@@ -317,7 +351,7 @@
   <ul class="search__results" id="search-results"></ul>
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
-<script type="module" src="../assets/js/main.js?v=3" defer></script>
+<script type="module" src="../assets/js/main.js?v=5" defer></script>
 <script type="module" src="../assets/js/search.js?v=2" defer></script>
 <script type="module" src="../assets/js/widgets.js?v=2" defer></script>
 </body>

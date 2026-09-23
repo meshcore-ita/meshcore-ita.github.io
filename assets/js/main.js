@@ -293,6 +293,135 @@ function initBackground() {
   let glow = null;
   let inView = true, raf = null;
 
+  // Rete mesh simulata, fedele al comportamento di MeshCore:
+  // - LoRa è broadcast: una trasmissione è un'onda che raggiunge insieme
+  //   tutti i nodi in portata, non un pacchetto su un filo;
+  // - solo i repeater ritrasmettono, una volta sola per pacchetto, dopo un
+  //   ritardo casuale (txdelay); i companion ricevono ma non ripetono;
+  // - gli advert si fermano a 8 hop (flood.max.advert), gli altri flood a 64;
+  // - un messaggio privato va in flood, la conferma torna al mittente lungo
+  //   il percorso registrato, e i messaggi successivi usano solo quel
+  //   percorso (routing diretto).
+  let nodes = [];
+  const ripples = [];
+  const trails = [];
+  const events = [];
+  let simT = 0, pktId = 0, nextEvent = 900, lastTime = 0, cycle = 0;
+  const pointer = { x: -9999, y: -9999, on: false };
+  let parallax = 0;
+  const AIRTIME = 600; // ms, ~50 byte a SF8/BW62.5 col preambolo MeshCore
+  const COLORS = {
+    advert: '74,222,128',
+    msg: '187,247,208',
+    ack: '251,113,133',
+    direct: '226,232,240',
+  };
+
+  const nodePos = (n) => {
+    const r = radius + n.dist;
+    return [cx + Math.cos(n.angle) * r, cy + Math.sin(n.angle) * r];
+  };
+
+  const later = (delay, fn) => events.push({ at: simT + delay, fn });
+
+  const seedNodes = () => {
+    nodes = [];
+    const want = lowPower ? 14 : 26;
+    for (let tries = 0; nodes.length < want && tries < 4000; tries += 1) {
+      const n = {
+        angle: Math.PI * 0.92 + Math.random() * Math.PI * 0.62,
+        // sulla superficie del pianeta, appena dentro il bordo luminoso
+        dist: -band * (0.08 + Math.random() * 1.6),
+        links: [], seen: new Set(), pulse: 0, color: COLORS.advert,
+      };
+      const r = radius + n.dist;
+      const x = cx + Math.cos(n.angle) * r, y = cy + Math.sin(n.angle) * r;
+      if (x < 30 || y < 30 || x > width - 30 || y > height - 30) continue;
+      if (nodes.some((m) => Math.hypot(m.x0 - x, m.y0 - y) < 60)) continue;
+      n.x0 = x; n.y0 = y;
+      nodes.push(n);
+    }
+    // circa un nodo su tre è un companion (il telefono di qualcuno)
+    nodes.forEach((n, i) => { n.repeater = i % 3 !== 0; });
+    // portata radio: chi è entro range si sente, in entrambe le direzioni
+    const range = Math.max(150, Math.min(width, height) * 0.3);
+    nodes.forEach((n, i) => {
+      n.links = nodes
+        .map((m, j) => ({ j, d: Math.hypot(m.x0 - n.x0, m.y0 - n.y0) }))
+        .filter((o) => o.j !== i && o.d < range)
+        .sort((a, b) => a.d - b.d)
+        .slice(0, 5)
+        .map((o) => o.j);
+    });
+    nodes.forEach((n, i) => n.links.forEach((j) => {
+      if (!nodes[j].links.includes(i)) nodes[j].links.push(i);
+    }));
+    ripples.length = 0; trails.length = 0; events.length = 0;
+  };
+
+  // Un nodo trasmette: onda visibile, e dopo l'airtime tutti i vicini ricevono.
+  const transmit = (idx, pkt) => {
+    const n = nodes[idx];
+    n.pulse = 1; n.color = COLORS[pkt.kind];
+    ripples.push({ idx, age: 0, color: COLORS[pkt.kind] });
+    later(AIRTIME, () => n.links.forEach((j) => receive(j, idx, pkt)));
+  };
+
+  const receive = (idx, from, pkt) => {
+    const n = nodes[idx];
+    if (pkt.route) {
+      // routing diretto: agisce solo il prossimo nodo del percorso
+      if (pkt.route[pkt.hop + 1] !== idx || pkt.route[pkt.hop] !== from) return;
+      trails.push({ a: from, b: idx, age: 0, color: COLORS[pkt.kind] });
+      const next = { ...pkt, hop: pkt.hop + 1 };
+      if (next.hop === pkt.route.length - 1) { n.pulse = 1; n.color = COLORS[pkt.kind]; pkt.onArrive?.(); return; }
+      later(150 + Math.random() * 350, () => transmit(idx, next));
+      return;
+    }
+    // flood: ogni nodo tiene traccia dei pacchetti già visti
+    if (n.seen.has(pkt.id)) return;
+    n.seen.add(pkt.id);
+    const path = [...pkt.path, idx];
+    if (pkt.dest === idx) { n.pulse = 1; n.color = COLORS[pkt.kind]; pkt.onArrive?.(path); return; }
+    if (!n.repeater || path.length - 1 >= pkt.maxHops) { n.pulse = Math.max(n.pulse, 0.5); return; }
+    later(150 + Math.random() * 550, () => transmit(idx, { ...pkt, path }));
+  };
+
+  const flood = (src, kind, extra = {}) => {
+    pktId += 1;
+    nodes[src].seen.add(pktId);
+    transmit(src, { id: pktId, kind, path: [src], maxHops: kind === 'advert' ? 8 : 64, ...extra });
+  };
+
+  const direct = (route, kind, onArrive) => {
+    pktId += 1;
+    transmit(route[0], { id: pktId, kind, route, hop: 0, onArrive });
+  };
+
+  // Scambio completo tra due companion: flood, conferma sul percorso, diretto.
+  const conversation = () => {
+    const companions = nodes.map((n, i) => i).filter((i) => !nodes[i].repeater);
+    if (companions.length < 2) return false;
+    const a = companions[Math.floor(Math.random() * companions.length)];
+    const others = companions.filter((i) => i !== a);
+    const b = others[Math.floor(Math.random() * others.length)];
+    flood(a, 'msg', {
+      dest: b,
+      onArrive: (path) => later(500, () => direct([...path].reverse(), 'ack', () => {
+        later(1800, () => direct(path, 'direct'));
+      })),
+    });
+    return true;
+  };
+
+  const tick = () => {
+    cycle += 1;
+    if (cycle % 3 === 0 && conversation()) return 9000;
+    const reps = nodes.map((n, i) => i).filter((i) => nodes[i].repeater);
+    if (reps.length) flood(reps[Math.floor(Math.random() * reps.length)], 'advert');
+    return 4500 + Math.random() * 2500;
+  };
+
   const seed = () => {
     count = Math.min(MAX, Math.max(400, Math.round((width * height) / 420)));
     cx = width * 1.46; cy = height * 1.86;
@@ -322,10 +451,83 @@ function initBackground() {
     canvas.height = Math.round(height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     seed();
+    seedNodes();
+  };
+
+  const drawMesh = (dt) => {
+    if (!nodes.length) return;
+    simT += dt;
+    for (let k = events.length - 1; k >= 0; k -= 1) {
+      if (events[k].at <= simT) { const { fn } = events[k]; events.splice(k, 1); fn(); }
+    }
+
+    // portata radio tra i nodi
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(74,222,128,0.09)';
+    ctx.beginPath();
+    nodes.forEach((n, i) => n.links.forEach((j) => {
+      if (j < i) return;
+      const [ax, ay] = nodePos(n), [bx, by] = nodePos(nodes[j]);
+      ctx.moveTo(ax, ay); ctx.lineTo(bx, by);
+    }));
+    ctx.stroke();
+
+    // tratte del routing diretto: si accende solo il percorso usato
+    ctx.lineWidth = 1.5;
+    for (let k = trails.length - 1; k >= 0; k -= 1) {
+      const tr = trails[k];
+      tr.age += dt / 2600;
+      if (tr.age >= 1) { trails.splice(k, 1); continue; }
+      const [ax, ay] = nodePos(nodes[tr.a]), [bx, by] = nodePos(nodes[tr.b]);
+      ctx.strokeStyle = `rgba(${tr.color},${(0.55 * (1 - tr.age)).toFixed(3)})`;
+      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke();
+    }
+
+    // onde di trasmissione: raggiungono tutti i vicini nello stesso istante
+    ctx.lineWidth = 1;
+    for (let k = ripples.length - 1; k >= 0; k -= 1) {
+      const rp = ripples[k];
+      rp.age += dt / AIRTIME;
+      if (rp.age >= 1.6) { ripples.splice(k, 1); continue; }
+      const n = nodes[rp.idx];
+      const [x, y] = nodePos(n);
+      const reach = Math.min(110, n.links.reduce((m, j) => Math.max(m, Math.hypot(nodes[j].x0 - n.x0, nodes[j].y0 - n.y0)), 40));
+      const t = Math.min(1, rp.age);
+      const fade = rp.age < 1 ? 0.22 : 0.22 * (1.6 - rp.age) / 0.6;
+      ctx.strokeStyle = `rgba(${rp.color},${fade.toFixed(3)})`;
+      ctx.beginPath();
+      ctx.arc(x, y, 3 + t * reach, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    // nodi: repeater pieni, companion ad anello
+    nodes.forEach((n) => {
+      const [x, y] = nodePos(n);
+      n.pulse = Math.max(0, n.pulse - dt / 900);
+      if (n.pulse > 0) {
+        ctx.fillStyle = `rgba(${n.color},${(n.pulse * 0.2).toFixed(3)})`;
+        ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill();
+      }
+      const a = (0.4 + n.pulse * 0.6).toFixed(3);
+      if (n.repeater) {
+        ctx.fillStyle = `rgba(187,247,208,${a})`;
+        ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI * 2); ctx.fill();
+      } else {
+        ctx.strokeStyle = `rgba(226,232,240,${a})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(x, y, 2.6, 0, Math.PI * 2); ctx.stroke();
+      }
+    });
   };
 
   const draw = (time) => {
+    // draw(0) viene chiamato anche fuori dal loop (resize): niente dt negativi
+    const dt = time > lastTime ? Math.min(64, lastTime ? time - lastTime : 16) : 0;
+    if (time) lastTime = time;
+    parallax = reduceMotion ? 0 : Math.min(window.scrollY * 0.06, height * 0.15);
     ctx.clearRect(0, 0, width, height);
+    ctx.save();
+    ctx.translate(0, -parallax);
 
     // corpo dell'arco: gradiente radiale ritagliato sul cerchio
     ctx.save();
@@ -333,7 +535,7 @@ function initBackground() {
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
     ctx.clip();
     ctx.fillStyle = glow;
-    ctx.fillRect(0, 0, width, height);
+    ctx.fillRect(0, parallax, width, height);
     ctx.restore();
 
     // bordo luminoso
@@ -343,17 +545,34 @@ function initBackground() {
     ctx.arc(cx, cy, radius, Math.PI * 0.9, Math.PI * 1.6);
     ctx.stroke();
 
+    const px = pointer.x, py = pointer.y + parallax, pr = 140;
+    const top = parallax - 4, bottom = height + parallax + 4;
     for (let i = 0; i < count; i += 1) {
       if (!reduceMotion) angle[i] += drift[i];
       const r = radius + dist[i];
       const x = cx + Math.cos(angle[i]) * r, y = cy + Math.sin(angle[i]) * r;
-      if (x < -4 || y < -4 || x > width + 4 || y > height + 4) continue;
+      if (x < -4 || y < top || x > width + 4 || y > bottom) continue;
       const twinkle = reduceMotion ? 0.8 : 0.55 + 0.45 * Math.sin(time * 0.0014 + phase[i]);
       const edge = 1 - Math.min(1, Math.abs(dist[i]) / band);
-      const alpha = (0.18 + twinkle * 0.62) * (0.22 + edge * 0.78);
-      ctx.fillStyle = edge > 0.55 ? shade(GREEN, alpha) : shade(WHITE, alpha * 0.6);
+      let alpha = (0.18 + twinkle * 0.62) * (0.22 + edge * 0.78);
+      // alone attorno al puntatore: le particelle vicine si accendono
+      let near = 0;
+      if (pointer.on) {
+        const dx = x - px, dy = y - py;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < pr * pr) near = 1 - Math.sqrt(d2) / pr;
+      }
+      alpha = Math.min(1, alpha + near * 0.7);
+      ctx.fillStyle = edge > 0.55 || near > 0.3 ? shade(GREEN, alpha) : shade(WHITE, alpha * 0.6);
       ctx.fillRect(x, y, size[i], size[i]);
     }
+
+    if (!reduceMotion && nodes.length) {
+      nextEvent -= dt;
+      if (nextEvent <= 0) nextEvent = tick();
+    }
+    drawMesh(reduceMotion ? 0 : dt);
+    ctx.restore();
   };
 
   const loop = (time) => { draw(time); raf = requestAnimationFrame(loop); };
@@ -368,6 +587,10 @@ function initBackground() {
   if (reduceMotion) return;
 
   let resizeTimer = null;
+  if (window.matchMedia('(pointer: fine)').matches) {
+    window.addEventListener('pointermove', (e) => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.on = true; }, { passive: true });
+    document.addEventListener('pointerleave', () => { pointer.on = false; });
+  }
   window.addEventListener('resize', () => {
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => { resize(); draw(0); }, 150);

@@ -33,7 +33,7 @@
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geist-300-700-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
 
-<link rel="stylesheet" href="../assets/css/style.css?v=6">
+<link rel="stylesheet" href="../assets/css/style.css?v=7">
 
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -87,7 +87,7 @@
         {
           "@type": "DefinedTerm",
           "name": "RSSI",
-          "description": "Indicatore della potenza del segnale ricevuto, in dBm; visibile su un repeater col comando stats-radio."
+          "description": "Indicatore della potenza del segnale ricevuto, in dBm; visibile su un repeater col comando stats-radio (solo via seriale)."
         },
         {
           "@type": "DefinedTerm",
@@ -132,7 +132,7 @@
         {
           "@type": "DefinedTerm",
           "name": "Hop",
-          "description": "Ogni passaggio di un pacchetto attraverso un repeater; MeshCore applica un limite interno di 64 hop."
+          "description": "Ogni passaggio di un pacchetto attraverso un repeater; il flood generico ha un limite di 64 hop, gli advert dei repeater si fermano a 8, meno con path hash multi-byte."
         },
         {
           "@type": "DefinedTerm",
@@ -213,6 +213,31 @@
           "@type": "DefinedTerm",
           "name": "Bin merged / non-merged",
           "description": "Due varianti del firmware compilato: il bin merged azzera l'abbinamento Bluetooth ma mantiene nome, chiavi e preset; il non-merged mantiene il pairing esistente."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Preset radio",
+          "description": "Combinazione condivisa di frequenza, banda, SF e CR che deve essere identica su tutti i nodi per potersi sentire tra loro."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "CLI",
+          "description": "Interfaccia a riga di comando del firmware MeshCore, usata via seriale o remoto per leggere stato e impostare parametri."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Pairing",
+          "description": "Accoppiamento Bluetooth tra un nodo companion e un'app o client, protetto da un PIN numerico (default 123456)."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Routing ibrido",
+          "description": "Strategia di MeshCore che combina flood per advert e canali con path-discovery e instradamento diretto per i messaggi privati."
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Path hash",
+          "description": "Codifica del percorso appreso in un pacchetto: 1, 2 o 3 byte per hop (path.hash.mode 0/1/2), che riduce il limite massimo di hop rispettivamente a 64, 32 o 21."
         }
       ],
       "dateModified": "2026-09-10"
@@ -290,13 +315,13 @@
     <h3 id="lorawan">LoRaWAN</h3>
     <p>Protocollo di rete a stella costruito sopra LoRa, con gateway e server centrali a cui i dispositivi si collegano. È un'architettura diversa da MeshCore, che è invece una mesh peer-to-peer senza gateway obbligatorio né backend internet.</p>
     <h3 id="frequenza-e-banda-bandwidth">Frequenza e banda (bandwidth)</h3>
-    <p>La frequenza è il canale su cui opera un nodo; il preset condiviso dalla community italiana usa 869.618 MHz. La banda è la larghezza di spettro occupata da ogni trasmissione, 62.5 kHz nello stesso preset. Tutti i dettagli sono nella pagina dedicata al <a class="link" href="../preset-radio/">preset radio italiano per MeshCore</a>.</p>
+    <p>La frequenza è il canale su cui opera un nodo; il preset condiviso dalla community italiana usa 869.618 MHz. La banda è la larghezza di spettro occupata da ogni trasmissione, 62.5 kHz nello stesso preset. Il preset radio è la combinazione condivisa di frequenza, banda, SF e CR: deve essere identica su tutti i nodi per potersi sentire tra loro. Tutti i dettagli sono nella pagina dedicata al <a class="link" href="../preset-radio/">preset radio italiano per MeshCore</a>.</p>
     <h3 id="spreading-factor-sf-e-coding-rate-cr">Spreading Factor (SF) e Coding Rate (CR)</h3>
     <p>Lo spreading factor allunga o accorcia la durata di ogni simbolo radio, scambiando portata con velocità e airtime: più alto è l'SF, più lontano arriva il segnale ma più a lungo occupa il canale. Il coding rate aggiunge ridondanza per la correzione d'errore. Il preset italiano usa SF8 e CR8.</p>
     <h3 id="erp-e-duty-cycle">ERP e duty cycle</h3>
     <p>L'ERP è la potenza radiata effettiva dall'antenna: nella sotto-banda usata in Italia il limite è 500 mW ERP. Il duty cycle è la percentuale di tempo per cui un nodo può trasmettere in un'ora: il limite di banda è il 10%, cioè al massimo 6 minuti di trasmissione ogni ora.</p>
     <h3 id="rssi-snr-e-airtime">RSSI, SNR e airtime</h3>
-    <p>L'RSSI misura la potenza del segnale ricevuto in dBm; l'SNR misura quanto quel segnale sia pulito rispetto al rumore di fondo. L'airtime è il tempo effettivo che il radio passa in trasmissione, il valore che conta ai fini del duty cycle. Entrambi RSSI e SNR dell'ultimo pacchetto ricevuto, insieme all'airtime, si leggono su un repeater con il comando <code>stats-radio</code>, descritto nella pagina dei <a class="link" href="../comandi/">comandi CLI per amministrare un nodo MeshCore</a>.</p>
+    <p>L'RSSI misura la potenza del segnale ricevuto in dBm; l'SNR misura quanto quel segnale sia pulito rispetto al rumore di fondo. L'airtime è il tempo effettivo che il radio passa in trasmissione, il valore che conta ai fini del duty cycle. Entrambi RSSI e SNR dell'ultimo pacchetto ricevuto, insieme all'airtime, si leggono su un repeater con il comando <code>stats-radio</code> (disponibile solo via seriale, non da remoto), descritto nella pagina dei <a class="link" href="../comandi/">comandi CLI per amministrare un nodo MeshCore</a>.</p>
     <h3 id="antenna-guadagno-e-ros-swr">Antenna, guadagno e ROS/SWR</h3>
     <p>L'antenna irradia e riceve il segnale: la sua altezza e posizione contano spesso più della potenza di trasmissione. Il guadagno, in dBi, indica quanto un'antenna concentra l'energia in una direzione. Il ROS (o SWR) misura quanto bene antenna e cavo siano adattati al radio: valori alti indicano energia riflessa e sprecata, e nel tempo possono danneggiare lo stadio di uscita.</p>
   </div>
@@ -312,9 +337,11 @@
     <h3 id="mesh-flood-e-path-discovery">Mesh, flood e path discovery</h3>
     <p>La mesh è la topologia in cui i nodi si scambiano e ripetono pacchetti tra loro senza infrastruttura centrale. Il flood è la modalità con cui un pacchetto viene ritrasmesso verso tutti i vicini, usata da MeshCore per advert e messaggi di canale. Il path discovery è invece il meccanismo con cui MeshCore scopre un percorso diretto tra due nodi per i messaggi privati, evitando di inondare l'intera rete.</p>
     <h3 id="hop-e-advert">Hop e advert</h3>
-    <p>Un hop è ogni passaggio di un pacchetto attraverso un repeater: MeshCore applica un limite interno di 64 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 12 ore), un companion solo su richiesta esplicita dell'utente o con il comando <code>advert</code>.</p>
+    <p>Un hop è ogni passaggio di un pacchetto attraverso un repeater: il flood generico ha un limite interno di 64 hop, ma gli advert dei repeater/room server non vengono rilanciati oltre 8 hop, e con path hash multi-byte il tetto scende a 32 o 21 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 12 ore), un companion solo su richiesta esplicita dell'utente o con il comando <code>advert</code>.</p>
     <h3 id="nodo-repeater-room-server-companion-sensor">Nodo, repeater, room server, companion, sensor</h3>
     <p>Nodo è il termine generico per qualsiasi dispositivo che esegue il firmware MeshCore. Un repeater estende la copertura inoltrando i pacchetti sui percorsi appresi. Un room server funziona come una bacheca condivisa, conservando fino a 32 messaggi non letti per ogni utente. Un companion è collegato via BLE o USB a un'app o a un client web e non ripete i pacchetti altrui. Un sensor trasmette telemetria o payload personalizzati sulla mesh. I dettagli su hardware e configurazione di ciascun ruolo sono nella <a class="link" href="../guida/">guida passo passo a MeshCore in italiano</a>.</p>
+    <h3 id="routing-ibrido-e-path-hash">Routing ibrido e path hash</h3>
+    <p>Il routing ibrido è la strategia che MeshCore usa per instradare i pacchetti: flood per advert e messaggi di canale, path-discovery con instradamento diretto per i messaggi privati. Il percorso appreso viene codificato con un path hash da 1, 2 o 3 byte per hop (<code>path.hash.mode 0/1/2</code>), che riduce il limite massimo di hop rispettivamente a 64, 32 o 21.</p>
     <h3 id="mappa-pubblica">Mappa pubblica</h3>
     <p>La mappa pubblica, consultabile su map.meshcore.io, mostra i nodi che i loro proprietari hanno scelto volontariamente di condividere.</p>
   </div>
@@ -333,6 +360,8 @@
     <p>X25519 (ECDH su curva ellittica) è lo scambio di chiavi con cui due nodi derivano una chiave condivisa senza mai trasmetterla in chiaro. Quella chiave viene poi usata con AES-128 per cifrare il contenuto dei messaggi, che restano privati anche senza rete internet o cellulare.</p>
     <h3 id="pin-di-pairing">PIN di pairing</h3>
     <p>Il PIN di pairing è il codice numerico richiesto per accoppiare via Bluetooth un nodo companion; il valore di default è <code>123456</code>. Se l'accoppiamento fallisce, la pagina <a class="link" href="../problemi/">soluzioni ai problemi più comuni di MeshCore</a> elenca le cause più frequenti.</p>
+    <h3 id="cli-e-pairing">CLI e pairing</h3>
+    <p>La CLI è l'interfaccia a riga di comando del firmware, usata via seriale o da remoto per leggere lo stato e impostare i parametri di un nodo. Il pairing è l'accoppiamento Bluetooth tra un nodo companion e un'app o client, protetto da un PIN numerico (default <code>123456</code>).</p>
   </div>
 </section>
 
@@ -439,7 +468,7 @@
   <ul class="search__results" id="search-results"></ul>
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
-<script type="module" src="../assets/js/main.js?v=3" defer></script>
+<script type="module" src="../assets/js/main.js?v=5" defer></script>
 <script type="module" src="../assets/js/search.js?v=2" defer></script>
 <script type="module" src="../assets/js/widgets.js?v=2" defer></script>
 </body>

@@ -21,9 +21,10 @@ export const fresnelRadius = (d1Km, dKm, fGHz) =>
 export const sensitivity = (sf, bwKHz) =>
   -124 - (sf - 7) * (13 / 5) - 10 * Math.log10(125 / bwKHz);
 
-// Time-on-air (ms), datasheet SX1262 §6.1.4. Header esplicito, CRC on, preambolo 8.
+// Time-on-air (ms), datasheet SX1262 §6.1.4. Header esplicito, CRC on, preambolo
+// MeshCore: 32 simboli per SF<=8, 16 per SF>=9 (RadioLibWrappers.h).
 // LDRO attivo quando T_sym > 16.38 ms (SF11/12 @125, SF10+ @62.5).
-export function timeOnAir(payloadBytes, sf, bwKHz, cr = PRESET.cr, preamble = 8) {
+export function timeOnAir(payloadBytes, sf, bwKHz, cr = PRESET.cr, preamble = sf <= 8 ? 32 : 16) {
   const tSym = 2 ** sf / bwKHz; // ms
   const de = tSym > 16.38 ? 1 : 0;
   const num = 8 * payloadBytes - 4 * sf + 28 + 16 - 20 * 0;

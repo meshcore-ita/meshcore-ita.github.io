@@ -78,7 +78,7 @@ export const REPLIES = {
     '<b>Repeater</b>: inoltra i messaggi per estendere la copertura della mesh\n' +
     '<b>Room Server</b>: punto di ritrovo per canali/gruppi, conserva fino a 32 messaggi non letti per utente\n' +
     '<b>Sensor</b>: nodo che pubblica dati di sensori sulla mesh\n\n' +
-    'Routing: ibrido, flood per advert e canali ogni 12 ore, path-discovery per i messaggi diretti, limite interno di 64 hop.\n' +
+    'Routing: ibrido, flood per advert e canali ogni 12 ore, path-discovery per i messaggi diretti, limite interno di 64 hop per il flood (8 hop per gli advert dei repeater, meno con path hash multi-byte).\n' +
     'Crittografia: Ed25519 + X25519 + AES-128.',
 
   nomi:
@@ -144,7 +144,7 @@ export const REPLIES = {
     '<b>Il BLE non si accoppia</b>: verifica di aver flashato il firmware Companion BLE (non quello USB-only); il codice di pairing predefinito è <code>123456</code>.\n\n' +
     '<b>Il flasher non vede la scheda (Linux)</b>: è quasi sempre un problema di permessi sulla porta seriale, risolvibile con <code>sudo setfacl -m u:$USER:rw /dev/ttyUSB0</code>.\n\n' +
     '<b>Nessun nodo raggiungibile</b>: la causa più comune è un preset radio diverso tra i nodi. Verifica che tutti usino il preset attuale (vedi /preset) — un nodo ancora sul preset deprecato non sente la rete.\n\n' +
-    '<b>Batteria</b>: controlla lo stato con <code>stats-core</code> in console seriale (batteria, uptime e coda); se si scarica troppo in fretta rivedi il case/la coibentazione o valuta un pannello solare per i repeater in esterna.\n\n' +
+    '<b>Batteria</b>: controlla lo stato con <code>stats-core</code> in console seriale (batteria, uptime e coda) — comando disponibile solo via seriale; se si scarica troppo in fretta rivedi il case/la coibentazione o valuta un pannello solare per i repeater in esterna.\n\n' +
     'Per altri casi consulta la <a href="https://docs.meshcore.io/faq/">FAQ ufficiale</a> o il topic Supporto e troubleshooting.',
 
   app:

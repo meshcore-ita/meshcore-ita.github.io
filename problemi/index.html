@@ -33,7 +33,7 @@
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geist-300-700-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
 
-<link rel="stylesheet" href="../assets/css/style.css?v=6">
+<link rel="stylesheet" href="../assets/css/style.css?v=7">
 
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -262,7 +262,7 @@
       <h2 id="se-il-problema-persiste" class="section__title">Se il problema persiste</h2>
       <p class="section__lede">Non tutti i problemi rientrano in uno schema fisso: a volte serve ispezionare lo stato del nodo o confrontarsi con chi ha già affrontato lo stesso caso.</p>
     </div>
-    <p class="prose">Il <a class="link" href="../comandi/">riferimento completo dei comandi CLI</a> ti permette di ispezionare lo stato del nodo con <code>stats-radio</code> (noise floor, RSSI/SNR, airtime) e <code>neighbors</code> (vicini diretti uditi di recente). Le <a class="link" href="../faq/">domande frequenti su MeshCore</a> coprono altri dubbi comuni su portata, preset e mappa pubblica, mentre la <a class="link" href="../hardware/">pagina hardware</a> elenca le board supportate se il problema dipende dal modello specifico che usi. Chi arriva da altri sistemi mesh può trovare utile il confronto in <a class="link" href="../meshcore-vs-meshtastic/">MeshCore vs Meshtastic</a> per capire le differenze di routing prima di aprire una segnalazione. Se non risolvi comunque, chiedi nel gruppo Telegram: la community risponde spesso in pochi minuti.</p>
+    <p class="prose">Il <a class="link" href="../comandi/">riferimento completo dei comandi CLI</a> ti permette di ispezionare lo stato del nodo con <code>neighbors</code> (vicini diretti uditi di recente, funziona anche da remoto) e, se sei collegato via USB, con <code>stats-radio</code> (noise floor, RSSI/SNR, airtime; è un comando solo seriale, non disponibile da remoto — da remoto usa la richiesta di Status del repeater nell'app). Le <a class="link" href="../faq/">domande frequenti su MeshCore</a> coprono altri dubbi comuni su portata, preset e mappa pubblica, mentre la <a class="link" href="../hardware/">pagina hardware</a> elenca le board supportate se il problema dipende dal modello specifico che usi. Chi arriva da altri sistemi mesh può trovare utile il confronto in <a class="link" href="../meshcore-vs-meshtastic/">MeshCore vs Meshtastic</a> per capire le differenze di routing prima di aprire una segnalazione. Se non risolvi da solo, chiedi nel gruppo Telegram indicando modello di board, versione firmware e cosa hai già provato.</p>
     <a class="btn btn--primary" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">CHIEDI NEL GRUPPO<span class="ext-arrow">↗</span></a>
   </section>
 <section class="section related" data-reveal>
@@ -353,7 +353,7 @@
   <ul class="search__results" id="search-results"></ul>
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
-<script type="module" src="../assets/js/main.js?v=3" defer></script>
+<script type="module" src="../assets/js/main.js?v=5" defer></script>
 <script type="module" src="../assets/js/search.js?v=2" defer></script>
 <script type="module" src="../assets/js/widgets.js?v=2" defer></script>
 </body>

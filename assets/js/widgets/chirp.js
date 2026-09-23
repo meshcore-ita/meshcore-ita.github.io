@@ -3,14 +3,14 @@ import { PRESET, sensitivity, timeOnAir, bitrate, fmt, el, reducedMotion } from 
 const SF_MIN = 7, SF_MAX = 12;
 const BW_OPTS = [62.5, 125, 250];
 const SLOWDOWN = 20; // ms di segnale reale per 1 s di animazione (~50x più lenta, altrimenti invisibile)
-const PREAMBLE_SYM = 8 + 4.25;
+function preambleSym(sf) { return (sf <= 8 ? 32 : 16) + 4.25; }
 const HEADER_SYM = 8; // simboli fissi di overhead header esplicito nella formula di rf.timeOnAir
 
 function state(sfSel, bwSel, plRange) {
   const sf = Number(sfSel.value), bw = Number(bwSel.value), payload = Number(plRange.value);
   const tSym = 2 ** sf / bw;
   const total = timeOnAir(payload, sf, bw);
-  const preambleMs = tSym * PREAMBLE_SYM;
+  const preambleMs = tSym * preambleSym(sf);
   const headerMs = tSym * HEADER_SYM;
   const payloadMs = Math.max(total - preambleMs - headerMs, 0);
   return { sf, bw, payload, tSym, total, preambleMs, headerMs, payloadMs, br: bitrate(sf, bw), sens: sensitivity(sf, bw) };
@@ -101,7 +101,7 @@ export default function mount(root) {
   root.append(out);
   root.append(el('p', {
     class: 'widget__note',
-    text: `Animazione rallentata di circa 50×: 1 s mostrato ≈ ${SLOWDOWN} ms di segnale reale, altrimenti il chirp sarebbe troppo veloce per essere visto. Preambolo 8+4.25 simboli, header esplicito, CRC on — vedi rf.timeOnAir.`,
+    text: `Animazione rallentata di circa 50×: 1 s mostrato ≈ ${SLOWDOWN} ms di segnale reale, altrimenti il chirp sarebbe troppo veloce per essere visto. Preambolo MeshCore 32 simboli (SF≤8) o 16 (SF≥9), +4.25 simboli fissi, header esplicito, CRC on — vedi rf.timeOnAir.`,
   }));
   const ctx = canvas.getContext('2d');
   const css = getComputedStyle(document.documentElement);

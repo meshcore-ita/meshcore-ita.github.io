@@ -136,7 +136,7 @@ export const KB_CHUNKS = [
     "page": "Preset radio",
     "title": "Come impostarlo",
     "url": "https://meshcore-ita.github.io/preset-radio/#come-impostarlo",
-    "text": "Il modo più diretto è da riga di comando, via USB seriale o da un client MeshCore autenticato come admin su repeater e room server: Comandi CLI Comando Cosa fa set radio 869.618,62.5,8,8 Imposta frequenza, banda, SF e CR in un colpo solo. Richiede reboot per applicarsi. get radio Legge i parametri radio correnti, per verificare che il preset sia stato applicato. Nell'app mobile Android/iOS e nel client web su app.meshcore.nz ↗ lo stesso risultato si ottiene dal menu delle impostazioni radio del nodo, scegliendo il preset EU/UK (Narrow) dall'elenco predefinito, senza dover digitare i singoli parametri. Dopo qualsiasi modifica radio il nodo va riavviato prima di riprovare a comunicare con la…"
+    "text": "Il modo più diretto è da riga di comando, via USB seriale o da un client MeshCore autenticato come admin su repeater e room server: Comandi CLI Comando Cosa fa set radio 869.618,62.5,8,8 Imposta frequenza, banda, SF e CR in un colpo solo. Richiede reboot per applicarsi. get radio Legge i parametri radio correnti, per verificare che il preset sia stato applicato. Su repeater e room server imposta anche il duty cycle al 10% con set dutycycle 10 (fw 1.15+; sulle versioni precedenti usa set af 9 ), come richiesto dalla sub-banda 869.4-869.65 MHz. Nell'app mobile Android/iOS e nel client web su app.meshcore.nz ↗ lo stesso risultato si ottiene dal menu delle impostazioni radio del nodo,…"
   },
   {
     "id": "preset-radio--il-vecchio-preset-e-deprecato",
@@ -269,14 +269,14 @@ export const KB_CHUNKS = [
     "page": "Comandi",
     "title": "Preset, potenza e diagnostica radio",
     "url": "https://meshcore-ita.github.io/comandi/#preset-potenza-e-diagnostica-radio",
-    "text": "Configurazione e diagnostica radio Comando Effetto get radio / set radio <freq>,<bw>,<sf>,<cr> Legge o imposta frequenza, banda, spreading factor e coding rate in un solo comando. Richiede reboot per applicarsi. get freq / set freq <MHz> Legge o cambia la sola frequenza, senza toccare banda, SF o CR. get tx / set tx <dbm> Legge o imposta la potenza di trasmissione in dBm (1–22). set lat <lat> / set lon <lon> Imposta la posizione GPS del nodo, usata per la mappa pubblica e per l'advert. advert Invia subito un advert flood, senza aspettare l'intervallo periodico. set flood.advert.interval <ore> Cambia l'intervallo dell'advert flood periodico (default 12 ore). set repeat <on|off> Attiva o…"
+    "text": "Configurazione e diagnostica radio Comando Effetto get radio / set radio <freq>,<bw>,<sf>,<cr> Legge o imposta frequenza, banda, spreading factor e coding rate in un solo comando. Richiede reboot per applicarsi. get freq / set freq <MHz> Legge o cambia la sola frequenza, senza toccare banda, SF o CR. get tx / set tx <dbm> Legge o imposta la potenza di trasmissione in dBm (1–22). set lat <lat> / set lon <lon> Imposta la posizione GPS del nodo, usata per la mappa pubblica e per l'advert. advert Invia subito un advert flood, senza aspettare l'intervallo periodico. set flood.advert.interval <ore> Cambia l'intervallo dell'advert flood periodico, 3–168 ore (default 12 sui repeater, 0 sui sensori…"
   },
   {
     "id": "comandi--risparmio-energetico-e-stato-del-nodo",
     "page": "Comandi",
     "title": "Risparmio energetico e stato del nodo",
     "url": "https://meshcore-ita.github.io/comandi/#risparmio-energetico-e-stato-del-nodo",
-    "text": "Alimentazione e risparmio Comando Effetto powersaving <on|off> Attiva o disattiva il risparmio energetico: il nodo dorme tra una trasmissione e l'altra. stats-core Mostra stato batteria, uptime e coda messaggi del nodo. Su un repeater alimentato a batteria o pannello solare, powersaving on è spesso la prima leva da usare se l'autonomia non basta, insieme a una potenza TX ( set tx ) non più alta del necessario per la copertura richiesta. Se la batteria si scarica comunque troppo in fretta, stats-core aiuta a capire se il problema è di consumo o se il nodo si sta riavviando in loop: la pagina soluzioni ai problemi più comuni di MeshCore copre anche questo caso insieme ad altri sintomi…"
+    "text": "Alimentazione e risparmio Comando Effetto powersaving <on|off> Attiva o disattiva il risparmio energetico: il nodo dorme tra una trasmissione e l'altra. stats-core (solo seriale) Mostra stato batteria, uptime e coda messaggi del nodo. Comando USB seriale, non disponibile da remoto. Su un repeater alimentato a batteria o pannello solare, powersaving on è spesso la prima leva da usare se l'autonomia non basta, insieme a una potenza TX ( set tx ) non più alta del necessario per la copertura richiesta. Se la batteria si scarica comunque troppo in fretta, stats-core aiuta a capire se il problema è di consumo o se il nodo si sta riavviando in loop: la pagina soluzioni ai problemi più comuni di…"
   },
   {
     "id": "comandi--sincronizzazione-dell-ora",
@@ -291,6 +291,13 @@ export const KB_CHUNKS = [
     "title": "Riavvio e aggiornamento firmware",
     "url": "https://meshcore-ita.github.io/comandi/#riavvio-e-aggiornamento-firmware",
     "text": "Amministrazione e OTA Comando Effetto reboot Riavvia il nodo: necessario dopo aver cambiato parametri radio o nome. start ota Avvia l'aggiornamento firmware via OTA (Wi-Fi su ESP32, DFU su nRF52). Su board ESP32 come Heltec V3, start ota apre un hotspot Wi-Fi chiamato \"MeshCore OTA\": ti colleghi a quell'hotspot dal telefono o dal computer e vai su 192.168.4.1/update per caricare il nuovo firmware. Su board nRF52 (RAK4631, Heltec T114, Seeed XIAO) lo stesso comando prepara il nodo, ma il caricamento avviene con l'app nRF DFU dello smartphone. In entrambi i casi non scollegare l'alimentazione del nodo durante il trasferimento: un OTA interrotto a metà può lasciare il nodo in uno stato da…"
+  },
+  {
+    "id": "comandi--firmware-recenti-path-hash-loop-detect-e-region-scoping",
+    "page": "Comandi",
+    "title": "Firmware recenti: path hash, loop detect e region scoping",
+    "url": "https://meshcore-ita.github.io/comandi/#firmware-recenti-path-hash-loop-detect-e-region-scoping",
+    "text": "Path hash e loop detect (firmware 1.14+), region scoping (firmware 1.10+) Comando Effetto set path.hash.mode <0-2> Dimensione dell'ID/hash con cui il repeater si annuncia negli advert: 0 = 1 byte (default, max 64 hop), 1 = 2 byte (max 32 hop), 2 = 3 byte (max 21 hop). Non cambia cosa il repeater inoltra: dalla 1.14 inoltra tutte le dimensioni. set loop.detect <off|minimal|moderate|strict> Scarta i pacchetti flood in cui l'ID del repeater compare già troppe volte nel percorso, per fermare le tempeste di pacchetti causate da firmware difettosi (default off ). set flood.max.unscoped <hop> Numero massimo di hop per i pacchetti in flood non associati a una region (default 64). region home…"
   },
   {
     "id": "problemi--il-metodo-veloce-in-tre-passaggi",
@@ -395,7 +402,7 @@ export const KB_CHUNKS = [
     "page": "Problemi",
     "title": "Se il problema persiste",
     "url": "https://meshcore-ita.github.io/problemi/#se-il-problema-persiste",
-    "text": "Non tutti i problemi rientrano in uno schema fisso: a volte serve ispezionare lo stato del nodo o confrontarsi con chi ha già affrontato lo stesso caso. Il riferimento completo dei comandi CLI ti permette di ispezionare lo stato del nodo con stats-radio (noise floor, RSSI/SNR, airtime) e neighbors (vicini diretti uditi di recente). Le domande frequenti su MeshCore coprono altri dubbi comuni su portata, preset e mappa pubblica, mentre la pagina hardware elenca le board supportate se il problema dipende dal modello specifico che usi. Chi arriva da altri sistemi mesh può trovare utile il confronto in MeshCore vs Meshtastic per capire le differenze di routing prima di aprire una segnalazione.…"
+    "text": "Non tutti i problemi rientrano in uno schema fisso: a volte serve ispezionare lo stato del nodo o confrontarsi con chi ha già affrontato lo stesso caso. Il riferimento completo dei comandi CLI ti permette di ispezionare lo stato del nodo con neighbors (vicini diretti uditi di recente, funziona anche da remoto) e, se sei collegato via USB, con stats-radio (noise floor, RSSI/SNR, airtime; è un comando solo seriale, non disponibile da remoto — da remoto usa la richiesta di Status del repeater nell'app). Le domande frequenti su MeshCore coprono altri dubbi comuni su portata, preset e mappa pubblica, mentre la pagina hardware elenca le board supportate se il problema dipende dal modello…"
   },
   {
     "id": "faq--quanto-costa-iniziare-con-meshcore",
@@ -451,14 +458,14 @@ export const KB_CHUNKS = [
     "page": "FAQ",
     "title": "Quanti hop può percorrere un messaggio su MeshCore?",
     "url": "https://meshcore-ita.github.io/faq/#quanti-hop-puo-percorrere-un-messaggio-su-meshcore",
-    "text": "Il firmware impone un limite interno di 64 hop per pacchetto. In condizioni reali è raro avvicinarsi a questo limite: orografia, densità di repeater e tempi di trasmissione rendono già significativo un percorso di pochi hop. Il limite esiste come tetto di sicurezza del protocollo, non come obiettivo da raggiungere."
+    "text": "Il firmware limita a 64 hop il flood generico per pacchetto ( flood.max , default). Gli advert dei repeater/room server non vengono però rilanciati oltre 8 hop ( flood.max.advert ). Se si abilitano path hash multi-byte il limite scende ulteriormente: 32 hop con path.hash.mode 1 , 21 hop con path.hash.mode 2 (il default è path.hash.mode 0 , a 1 byte, con il tetto di 64). In condizioni reali è raro avvicinarsi a questi limiti: orografia, densità di repeater e tempi di trasmissione rendono già significativo un percorso di pochi hop."
   },
   {
     "id": "faq--ogni-quanto-un-nodo-manda-il-proprio-advert",
     "page": "FAQ",
     "title": "Ogni quanto un nodo manda il proprio advert?",
     "url": "https://meshcore-ita.github.io/faq/#ogni-quanto-un-nodo-manda-il-proprio-advert",
-    "text": "Un repeater manda un advert flood ogni 12 ore per impostazione predefinita, un intervallo regolabile con il comando set flood.advert.interval <ore> . Un companion, invece, si annuncia solo quando l'utente lo richiede esplicitamente dall'app o dal client web: non c'è un annuncio periodico automatico lato client."
+    "text": "Ci sono due timer distinti. Il flood advert ( flood.advert.interval ) è quello dei repeater/room server, di default ogni 12 ore, regolabile con set flood.advert.interval <ore> (3-168). Esiste anche un advert a zero hop ( advert.interval ), non rilanciato dagli altri nodi, disattivato di default e regolabile in minuti (60-240) quando abilitato. Un companion, invece, si annuncia solo quando l'utente lo richiede esplicitamente dall'app o dal client web: non c'è un annuncio periodico automatico lato client."
   },
   {
     "id": "faq--il-preset-radio-e-obbligatorio",
@@ -479,7 +486,7 @@ export const KB_CHUNKS = [
     "page": "FAQ",
     "title": "Posso lasciare un nodo acceso H24?",
     "url": "https://meshcore-ita.github.io/faq/#posso-lasciare-un-nodo-acceso-h24",
-    "text": "Sì, ed è anzi consigliato per repeater e room server: sono utili alla mesh solo se restano sempre accesi e raggiungibili dagli altri nodi. Va comunque rispettato il limite di duty cycle della banda usata — 10%, massimo 6 minuti di trasmissione per ora — che riguarda il tempo di trasmissione e non il tempo di accensione del dispositivo."
+    "text": "Sì, ed è anzi consigliato per repeater e room server: sono utili alla mesh solo se restano sempre accesi e raggiungibili dagli altri nodi. Il limite di duty cycle è per-dispositivo, non aggregato sulla mesh: la sub-banda usata in Italia impone il 10%, massimo 6 minuti di trasmissione per ora per ciascun nodo. Sui repeater e room server con firmware >= 1.15 si imposta con set dutycycle 10 (sulle versioni precedenti con set af 9 ); i companion via app non espongono questo comando via CLI."
   },
   {
     "id": "faq--come-entro-nel-gruppo-telegram",
@@ -626,7 +633,7 @@ export const KB_CHUNKS = [
     "page": "Glossario",
     "title": "Frequenza e banda (bandwidth)",
     "url": "https://meshcore-ita.github.io/glossario/#frequenza-e-banda-bandwidth",
-    "text": "La frequenza è il canale su cui opera un nodo; il preset condiviso dalla community italiana usa 869.618 MHz. La banda è la larghezza di spettro occupata da ogni trasmissione, 62.5 kHz nello stesso preset. Tutti i dettagli sono nella pagina dedicata al preset radio italiano per MeshCore ."
+    "text": "La frequenza è il canale su cui opera un nodo; il preset condiviso dalla community italiana usa 869.618 MHz. La banda è la larghezza di spettro occupata da ogni trasmissione, 62.5 kHz nello stesso preset. Il preset radio è la combinazione condivisa di frequenza, banda, SF e CR: deve essere identica su tutti i nodi per potersi sentire tra loro. Tutti i dettagli sono nella pagina dedicata al preset radio italiano per MeshCore ."
   },
   {
     "id": "glossario--spreading-factor-sf-e-coding-rate-cr",
@@ -647,7 +654,7 @@ export const KB_CHUNKS = [
     "page": "Glossario",
     "title": "RSSI, SNR e airtime",
     "url": "https://meshcore-ita.github.io/glossario/#rssi-snr-e-airtime",
-    "text": "L'RSSI misura la potenza del segnale ricevuto in dBm; l'SNR misura quanto quel segnale sia pulito rispetto al rumore di fondo. L'airtime è il tempo effettivo che il radio passa in trasmissione, il valore che conta ai fini del duty cycle. Entrambi RSSI e SNR dell'ultimo pacchetto ricevuto, insieme all'airtime, si leggono su un repeater con il comando stats-radio , descritto nella pagina dei comandi CLI per amministrare un nodo MeshCore ."
+    "text": "L'RSSI misura la potenza del segnale ricevuto in dBm; l'SNR misura quanto quel segnale sia pulito rispetto al rumore di fondo. L'airtime è il tempo effettivo che il radio passa in trasmissione, il valore che conta ai fini del duty cycle. Entrambi RSSI e SNR dell'ultimo pacchetto ricevuto, insieme all'airtime, si leggono su un repeater con il comando stats-radio (disponibile solo via seriale, non da remoto), descritto nella pagina dei comandi CLI per amministrare un nodo MeshCore ."
   },
   {
     "id": "glossario--antenna-guadagno-e-ros-swr",
@@ -675,7 +682,7 @@ export const KB_CHUNKS = [
     "page": "Glossario",
     "title": "Hop e advert",
     "url": "https://meshcore-ita.github.io/glossario/#hop-e-advert",
-    "text": "Un hop è ogni passaggio di un pacchetto attraverso un repeater: MeshCore applica un limite interno di 64 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 12 ore), un companion solo su richiesta esplicita dell'utente o con il comando advert ."
+    "text": "Un hop è ogni passaggio di un pacchetto attraverso un repeater: il flood generico ha un limite interno di 64 hop, ma gli advert dei repeater/room server non vengono rilanciati oltre 8 hop, e con path hash multi-byte il tetto scende a 32 o 21 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 12 ore), un companion solo su richiesta esplicita dell'utente o con il comando advert ."
   },
   {
     "id": "glossario--nodo-repeater-room-server-companion-sensor",
@@ -683,6 +690,13 @@ export const KB_CHUNKS = [
     "title": "Nodo, repeater, room server, companion, sensor",
     "url": "https://meshcore-ita.github.io/glossario/#nodo-repeater-room-server-companion-sensor",
     "text": "Nodo è il termine generico per qualsiasi dispositivo che esegue il firmware MeshCore. Un repeater estende la copertura inoltrando i pacchetti sui percorsi appresi. Un room server funziona come una bacheca condivisa, conservando fino a 32 messaggi non letti per ogni utente. Un companion è collegato via BLE o USB a un'app o a un client web e non ripete i pacchetti altrui. Un sensor trasmette telemetria o payload personalizzati sulla mesh. I dettagli su hardware e configurazione di ciascun ruolo sono nella guida passo passo a MeshCore in italiano ."
+  },
+  {
+    "id": "glossario--routing-ibrido-e-path-hash",
+    "page": "Glossario",
+    "title": "Routing ibrido e path hash",
+    "url": "https://meshcore-ita.github.io/glossario/#routing-ibrido-e-path-hash",
+    "text": "Il routing ibrido è la strategia che MeshCore usa per instradare i pacchetti: flood per advert e messaggi di canale, path-discovery con instradamento diretto per i messaggi privati. Il percorso appreso viene codificato con un path hash da 1, 2 o 3 byte per hop ( path.hash.mode 0/1/2 ), che riduce il limite massimo di hop rispettivamente a 64, 32 o 21."
   },
   {
     "id": "glossario--mappa-pubblica",
@@ -717,7 +731,14 @@ export const KB_CHUNKS = [
     "page": "Glossario",
     "title": "PIN di pairing",
     "url": "https://meshcore-ita.github.io/glossario/#pin-di-pairing",
-    "text": "Il PIN di pairing è il codice numerico richiesto per accoppiare via Bluetooth un nodo companion; il valore di default è 123456 . Se l'accoppiamento fallisce, la pagina soluzioni ai problemi più comuni di MeshCore elenca le cause più frequenti. Terminologia"
+    "text": "Il PIN di pairing è il codice numerico richiesto per accoppiare via Bluetooth un nodo companion; il valore di default è 123456 . Se l'accoppiamento fallisce, la pagina soluzioni ai problemi più comuni di MeshCore elenca le cause più frequenti."
+  },
+  {
+    "id": "glossario--cli-e-pairing",
+    "page": "Glossario",
+    "title": "CLI e pairing",
+    "url": "https://meshcore-ita.github.io/glossario/#cli-e-pairing",
+    "text": "La CLI è l'interfaccia a riga di comando del firmware, usata via seriale o da remoto per leggere lo stato e impostare i parametri di un nodo. Il pairing è l'accoppiamento Bluetooth tra un nodo companion e un'app o client, protetto da un PIN numerico (default 123456 ). Terminologia"
   },
   {
     "id": "glossario--firmware-e-aggiornamenti",
@@ -927,14 +948,14 @@ export const KB_CHUNKS = [
     "page": "Repeater",
     "title": "Configura il nodo come repeater",
     "url": "https://meshcore-ita.github.io/installare-repeater/#configura-il-nodo-come-repeater",
-    "text": "Collegati alla console via USB o da un client admin e imposta un nome coerente con la convenzione della community, ad esempio set name IT-Torino-RPT-01 . Allinea il preset radio con set radio 869.618,62.5,8,8 , regola la potenza con set tx <dbm> senza eccedere il necessario, attiva powersaving on se il nodo è a batteria o solare, e se serve cambia l'intervallo di annuncio con set flood.advert.interval <ore> . Applica tutto con reboot e invia un advert per farti vedere dai vicini. Sintassi completa nella pagina comandi CLI per amministrare un nodo MeshCore ."
+    "text": "Collegati alla console via USB o da un client admin e imposta un nome coerente con la convenzione della community, ad esempio set name IT-Torino-RPT-01 . Allinea il preset radio con set radio 869.618,62.5,8,8 , regola la potenza con set tx <dbm> senza eccedere il necessario, attiva powersaving on se il nodo è a batteria o solare, e limita il duty cycle al 10% con set dutycycle 10 (sui firmware precedenti alla 1.15 usa set af 9 ), come richiesto dalla sub-banda 869.4-869.65 MHz. Se serve cambia l'intervallo di annuncio con set flood.advert.interval <ore> . Aggiorna il repeater a un firmware recente (almeno 1.14, idealmente l'ultima release) prima di metterlo in servizio: le versioni…"
   },
   {
     "id": "installare-repeater--verifica-sul-campo",
     "page": "Repeater",
     "title": "Verifica sul campo",
     "url": "https://meshcore-ita.github.io/installare-repeater/#verifica-sul-campo",
-    "text": "Dopo il riavvio, usa neighbors per controllare quali nodi il tuo repeater sente direttamente e stats-radio per leggere noise floor, RSSI/SNR e airtime dell'ultima ricezione. Il riscontro più affidabile resta però quello umano: chiedi nel gruppo Telegram a chi ha un nodo nella tua zona di confermare che il tuo repeater compare tra i suoi contatti dopo l'advert."
+    "text": "Dopo il riavvio, se hai accesso fisico usa neighbors via USB per controllare quali nodi il tuo repeater sente direttamente (mostra solo gli ultimi 8 advert ricevuti). stats-radio e stats-core funzionano solo da collegamento seriale diretto: da remoto, tramite app o client admin, usa invece la richiesta di stato del repeater, che restituisce batteria, coda di trasmissione, noise floor, RSSI dell'ultimo pacchetto e contatori dei pacchetti inviati/ricevuti. Il riscontro più affidabile resta però quello umano: chiedi nel gruppo Telegram a chi ha un nodo nella tua zona di confermare che il tuo repeater compare tra i suoi contatti dopo l'advert."
   },
   {
     "id": "installare-repeater--pianifica-la-manutenzione",
@@ -962,7 +983,7 @@ export const KB_CHUNKS = [
     "page": "Repeater",
     "title": "Cosa succede se sparisce",
     "url": "https://meshcore-ita.github.io/installare-repeater/#cosa-succede-se-sparisce",
-    "text": "Un repeater che smette di comparire negli advert altrui non è necessariamente guasto: spesso è alimentazione esaurita o orologio disallineato. Controllalo con stats-core e get radio . Scelte di alimentazione"
+    "text": "Un repeater che smette di comparire negli advert altrui non è necessariamente guasto: spesso è alimentazione esaurita o orologio disallineato. Da remoto controlla con la richiesta di stato del repeater da app; da collegamento USB diretto puoi usare anche stats-core e get radio . Scelte di alimentazione"
   },
   {
     "id": "installare-repeater--rete-poe-o-solare-quando-usarli",
@@ -1004,7 +1025,7 @@ export const KB_CHUNKS = [
     "page": "Mappa",
     "title": "Come verifico la copertura reale nella mia zona?",
     "url": "https://meshcore-ita.github.io/mappa-copertura/#come-verifico-la-copertura-reale-nella-mia-zona",
-    "text": "Il modo più affidabile è un test con un secondo nodo: spostati nel punto che vuoi verificare, invia un advert e controlla con neighbors e stats-radio se il tuo repeater lo riceve, leggendo RSSI e SNR. Sentire un advert non basta a garantire che un messaggio venga instradato con successo: conferma la copertura scambiando anche un messaggio di prova con un altro nodo della zona, e confrontati nel topic regionale del gruppo Telegram."
+    "text": "Il modo più affidabile è un test con un secondo nodo: spostati nel punto che vuoi verificare, invia un advert e controlla con neighbors (funziona anche da remoto) se il tuo repeater lo riceve; per leggere RSSI e SNR da remoto usa la richiesta di Status del repeater nell'app, oppure stats-radio se sei collegato via USB (è un comando solo seriale). Sentire un advert non basta a garantire che un messaggio venga instradato con successo: conferma la copertura scambiando anche un messaggio di prova con un altro nodo della zona, e confrontati nel topic regionale del gruppo Telegram."
   },
   {
     "id": "mappa-copertura--la-internet-map-di-meshcore",
@@ -1046,7 +1067,7 @@ export const KB_CHUNKS = [
     "page": "Mappa",
     "title": "Come stimare la copertura reale",
     "url": "https://meshcore-ita.github.io/mappa-copertura/#come-stimare-la-copertura-reale",
-    "text": "Segnali da controllare per stimare la copertura Comando Cosa dice sulla copertura neighbors Elenca i vicini diretti uditi di recente da un repeater: dice chi è effettivamente in portata radio, non chi è sulla mappa. stats-radio Mostra RSSI e SNR dell'ultimo pacchetto ricevuto: un RSSI molto basso o un SNR vicino allo zero indicano un collegamento al limite, anche se il pacchetto è arrivato. advert Forza un annuncio flood immediato, utile per un test rapido con un secondo nodo mentre ti sposti nel punto da verificare. Il test più affidabile resta pratico: prendi un secondo nodo, spostati nel punto da verificare, invia un advert e controlla se il repeater lo riceve con neighbors e stats-radio…"
+    "text": "Segnali da controllare per stimare la copertura Comando Cosa dice sulla copertura neighbors Elenca i vicini diretti uditi di recente da un repeater: dice chi è effettivamente in portata radio, non chi è sulla mappa. Funziona anche da remoto. stats-radio Mostra RSSI e SNR dell'ultimo pacchetto ricevuto, ma è un comando disponibile solo via USB (seriale): non puoi lanciarlo da remoto sull'app. Da remoto, usa la richiesta di Status del repeater nell'app, che riporta comunque l'ultimo RSSI. advert Forza un annuncio flood immediato, utile per un test rapido con un secondo nodo mentre ti sposti nel punto da verificare. Il test più affidabile resta pratico: prendi un secondo nodo, spostati nel…"
   },
   {
     "id": "mappa-copertura--faq-sulla-mappa-e-la-copertura",
@@ -1256,7 +1277,7 @@ export const KB_CHUNKS = [
     "page": "Normativa",
     "title": "Cosa conta per il 10% di duty cycle",
     "url": "https://meshcore-ita.github.io/normativa/#cosa-conta-per-il-10-di-duty-cycle",
-    "text": "Il duty cycle del 10% nella sub-banda 869.4–869.65 MHz 1 è una frazione di tempo, non di pacchetti: significa al massimo 6 minuti di trasmissione effettiva ogni ora, per singolo dispositivo, indipendentemente da quanti pacchetti vengono inviati in quella finestra. Un pacchetto LoRa più lungo (SF alto, banda stretta, CR alto) consuma più duty cycle di uno breve a parità di dati trasmessi, perché il limite è sul tempo che il trasmettitore resta acceso, non sui byte inviati. MeshCore non applica un contatore di duty cycle lato firmware: il rispetto del limite dipende dai parametri del preset condiviso (che tengono l'airtime di un singolo pacchetto di 50 byte intorno al mezzo secondo, vedi…"
+    "text": "Il duty cycle del 10% nella sub-banda 869.4–869.65 MHz 1 è una frazione di tempo, non di pacchetti: significa al massimo 6 minuti di trasmissione effettiva ogni ora, per singolo dispositivo, indipendentemente da quanti pacchetti vengono inviati in quella finestra. Un pacchetto LoRa più lungo (SF alto, banda stretta, CR alto) consuma più duty cycle di uno breve a parità di dati trasmessi, perché il limite è sul tempo che il trasmettitore resta acceso, non sui byte inviati. Il firmware limita il duty cycle lato repeater/room server: set dutycycle <1-100> (default 50%, firmware ≥ 1.15) o il parametro deprecato set af <0-9> sulle versioni precedenti. Il default supera ampiamente il 10%…"
   },
   {
     "id": "normativa--perche-queste-frequenze-sono-ad-uso-libero",
@@ -1291,7 +1312,7 @@ export const KB_CHUNKS = [
     "page": "Normativa",
     "title": "Fonti",
     "url": "https://meshcore-ita.github.io/normativa/#fonti",
-    "text": "ETSI, EN 300 220-2 V3.2.1 — Short Range Devices (SRD) operating in the frequency range 25 MHz to 1 000 MHz; Part 2 , Annex B, 2018-06. etsi.org ↗ ETSI, EN 300 220-1 V3.1.1 — Short Range Devices (SRD) operating in the frequency range 25 MHz to 1 000 MHz; Part 1 , clausola 5.2.1-5.2.2, 2017-02. etsi.org ↗ Ministero dello Sviluppo Economico, decreto 31 agosto 2022, Piano nazionale di ripartizione delle frequenze tra 0 e 3000 GHz , Gazzetta Ufficiale n. 214 del 13 settembre 2022, Supplemento ordinario n. 35. gazzettaufficiale.it ↗ Decreto legislativo 1° agosto 2003, n. 259, Codice delle comunicazioni elettroniche . bosettiegatti.eu ↗ Ministro delle comunicazioni, decreto 21 luglio 2005,…"
+    "text": "ETSI, EN 300 220-2 V3.2.1 — Short Range Devices (SRD) operating in the frequency range 25 MHz to 1 000 MHz; Part 2 , Annex B, 2018-06. etsi.org ↗ ETSI, EN 300 220-1 V3.1.1 — Short Range Devices (SRD) operating in the frequency range 25 MHz to 1 000 MHz; Part 1 , clausola 5.2.1-5.2.2, 2017-02. etsi.org ↗ Ministero dello Sviluppo Economico, decreto 31 agosto 2022, Piano nazionale di ripartizione delle frequenze tra 0 e 3000 GHz , Gazzetta Ufficiale n. 214 del 13 settembre 2022, Supplemento ordinario n. 35. gazzettaufficiale.it ↗ Decreto legislativo 1° agosto 2003, n. 259, Codice delle comunicazioni elettroniche . normattiva.it ↗ Ministro delle comunicazioni, decreto 21 luglio 2005, Modifiche…"
   },
   {
     "id": "link-budget--perche-due-nodi-con-margine-di-segnale-abbondante-a-volte-non-si-sentono-comunque",
@@ -1375,7 +1396,7 @@ export const KB_CHUNKS = [
     "page": "Portata e link budget",
     "title": "SPLAT! 10",
     "url": "https://meshcore-ita.github.io/link-budget/#splat-10",
-    "text": "Strumento open source a riga di comando (Longley-Rice) per l'analisi di percorso e la mappa di copertura di un repeater, tra 20 MHz e 20 GHz. Più tecnico dei precedenti, adatto a chi vuole automatizzare più simulazioni. Questi strumenti stimano la copertura teorica sul modello del terreno: non sanno nulla di un edificio costruito di recente, della vegetazione stagionale o di un'antenna montata più bassa del previsto. Il riscontro definitivo resta il confronto con la mappa pubblica dei nodi effettivamente attivi e, meglio ancora, un test sul campo con neighbors e stats-radio come descritto nella guida all'installazione di un repeater. Alimentazione"
+    "text": "Strumento open source a riga di comando (Longley-Rice) per l'analisi di percorso e la mappa di copertura di un repeater, tra 20 MHz e 20 GHz. Più tecnico dei precedenti, adatto a chi vuole automatizzare più simulazioni. Questi strumenti stimano la copertura teorica sul modello del terreno: non sanno nulla di un edificio costruito di recente, della vegetazione stagionale o di un'antenna montata più bassa del previsto. Il riscontro definitivo resta il confronto con la mappa pubblica dei nodi effettivamente attivi e, meglio ancora, un test sul campo con neighbors (funziona anche da remoto, ma mostra solo gli 8 annunci più recenti) e stats-radio , comando disponibile solo via collegamento USB…"
   },
   {
     "id": "link-budget--dimensionare-un-pannello-solare-con-pvgis",

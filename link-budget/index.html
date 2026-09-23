@@ -33,7 +33,7 @@
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geist-300-700-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
 
-<link rel="stylesheet" href="../assets/css/style.css?v=6">
+<link rel="stylesheet" href="../assets/css/style.css?v=7">
 
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -167,27 +167,26 @@
   </div>
   <div class="prose">
     <p>La Tabella 3-8 "Receive Mode Specifications" del datasheet Semtech SX1261/2 (pagina 19 di 111) riporta la sensibilità LoRa a guadagno boosted solo per gli estremi SF7 e SF12, alle bande 10.4, 125, 250 e 500 kHz<sup class="cit"><a href="#f2">2</a></sup>. Né SF8 né la banda 62.5 kHz del preset italiano compaiono come riga propria. Il valore più vicino tabulato è la banda 125 kHz: -124 dBm a SF7, -137 dBm a SF12. Interpolando linearmente tra i due estremi (passo di circa 2.6 dB per spreading factor) e poi scalando di -3 dB per il dimezzamento della banda da 125 a 62.5 kHz — dimezzare la banda dimezza la potenza di rumore integrata, quindi migliora la sensibilità di circa 3 dB — si ottiene una sensibilità stimata di circa <strong>-129.6 dBm</strong> per SF8/BW62.5 kHz, il preset condiviso dalla community italiana.</p>
-    <p>Lo stesso datasheet definisce, alla sezione 6.1.4 "LoRa Time-on-Air" (pagina 41), la formula per il tempo in aria di un pacchetto<sup class="cit"><a href="#f2">2</a></sup>: tempo di simbolo <code>T_sym = 2^SF / BW</code>; preambolo <code>T_preambolo = (n_preambolo + 4.25) × T_sym</code>; numero di simboli di payload <code>n_payload = 8 + max(⌈(8·PL − 4·SF + 28 + 16·CRC − 20·H) / (4·(SF − 2·DE))⌉ × (CR+4), 0)</code>, con <code>DE=1</code> quando è attiva la low data rate optimization (LDRO). Lo stesso documento (pagina 39) fissa la soglia per attivare la LDRO: simbolo ≥ 16.38 ms, condizione che scatta a partire da SF10 sulla banda 62.5 kHz e da SF11 sulla banda 125 kHz. La tabella seguente usa un pacchetto da 50 byte, preambolo di 8 simboli, coding rate 4/8 (CR8 del preset), header esplicito e CRC attivo:</p>
+    <p>Lo stesso datasheet definisce, alla sezione 6.1.4 "LoRa Time-on-Air" (pagina 41), la formula per il tempo in aria di un pacchetto<sup class="cit"><a href="#f2">2</a></sup>: tempo di simbolo <code>T_sym = 2^SF / BW</code>; preambolo <code>T_preambolo = (n_preambolo + 4.25) × T_sym</code>; numero di simboli di payload <code>n_payload = 8 + max(⌈(8·PL − 4·SF + 28 + 16·CRC − 20·H) / (4·(SF − 2·DE))⌉ × (CR+4), 0)</code>, con <code>DE=1</code> quando è attiva la low data rate optimization (LDRO). Lo stesso documento (pagina 39) fissa la soglia per attivare la LDRO: simbolo ≥ 16.38 ms, condizione che scatta a partire da SF10 sulla banda 62.5 kHz e da SF11 sulla banda 125 kHz. Il firmware MeshCore non usa il preambolo minimo: imposta 32 simboli per SF7-SF8 e 16 simboli per SF9-SF12<sup class="cit"><a href="#f15">15</a></sup>. La tabella seguente usa un pacchetto da 50 byte, preambolo reale del firmware, coding rate 4/8, header esplicito, CRC on.</p>
   </div>
   <table class="spec">
-    <caption>Bitrate e tempo in aria stimati, pacchetto da 50 byte (SX1262, CR8, preambolo 8, header esplicito, CRC on)</caption>
+    <caption>Bitrate nominale e tempo in aria stimati, pacchetto da 50 byte (SX1262, CR8, preambolo 32 simboli per SF7-SF8 / 16 simboli per SF9-SF12, header esplicito, CRC on)</caption>
     <thead>
-      <tr><th scope="col">BW</th><th scope="col">SF</th><th scope="col">Sensibilità stimata</th><th scope="col">Bitrate</th><th scope="col">Tempo in aria</th></tr>
+      <tr><th scope="col">BW</th><th scope="col">SF</th><th scope="col">Sensibilità stimata</th><th scope="col">Bitrate nominale</th><th scope="col">Tempo in aria</th></tr>
     </thead>
     <tbody>
-      <tr><th scope="row">62.5 kHz</th><td>SF7</td><td>-127.0 dBm</td><td>≈1709 bit/s</td><td>≈287 ms</td></tr>
-      <tr><th scope="row">62.5 kHz</th><td>SF8 (preset ITA)</td><td>≈-129.6 dBm</td><td>≈977 bit/s</td><td>≈509 ms</td></tr>
-      <tr><th scope="row">62.5 kHz</th><td>SF9</td><td>-132.2 dBm</td><td>≈549 bit/s</td><td>≈952 ms</td></tr>
-      <tr><th scope="row">62.5 kHz</th><td>SF10</td><td>-134.8 dBm</td><td>≈305 bit/s</td><td>≈2036 ms</td></tr>
-      <tr><th scope="row">62.5 kHz</th><td>SF11</td><td>-137.4 dBm</td><td>≈168 bit/s</td><td>≈3809 ms</td></tr>
-      <tr><th scope="row">62.5 kHz</th><td>SF12</td><td>-140.0 dBm</td><td>≈92 bit/s</td><td>≈6570 ms</td></tr>
-      <tr><th scope="row">125 kHz</th><td>SF7</td><td>-124.0 dBm</td><td>≈3418 bit/s</td><td>≈144 ms</td></tr>
-      <tr><th scope="row">125 kHz</th><td>SF8</td><td>-126.6 dBm</td><td>≈1953 bit/s</td><td>≈255 ms</td></tr>
-      <tr><th scope="row">125 kHz</th><td>SF9</td><td>-129.2 dBm</td><td>≈1099 bit/s</td><td>≈476 ms</td></tr>
-      <tr><th scope="row">125 kHz</th><td>SF10</td><td>-131.8 dBm</td><td>≈610 bit/s</td><td>≈887 ms</td></tr>
-      <tr><th scope="row">125 kHz</th><td>SF11</td><td>-134.4 dBm</td><td>≈336 bit/s</td><td>≈1905 ms</td></tr>
-      <tr><th scope="row">125 kHz</th><td>SF12</td><td>-137.0 dBm</td><td>≈183 bit/s</td><td>≈3285 ms</td></tr>
-    </tbody>
+      <tr><th scope="row">62.5 kHz</th><td>SF7</td><td>-127.0 dBm</td><td>≈1709 bit/s</td><td>≈336 ms</td></tr>
+      <tr><th scope="row">62.5 kHz</th><td>SF8 (preset ITA)</td><td>≈-129.6 dBm</td><td>≈977 bit/s</td><td>≈607 ms</td></tr>
+      <tr><th scope="row">62.5 kHz</th><td>SF9</td><td>-132.2 dBm</td><td>≈549 bit/s</td><td>≈1018 ms</td></tr>
+      <tr><th scope="row">62.5 kHz</th><td>SF10</td><td>-134.8 dBm</td><td>≈305 bit/s</td><td>≈2167 ms</td></tr>
+      <tr><th scope="row">62.5 kHz</th><td>SF11</td><td>-137.4 dBm</td><td>≈168 bit/s</td><td>≈4071 ms</td></tr>
+      <tr><th scope="row">62.5 kHz</th><td>SF12</td><td>-140.0 dBm</td><td>≈92 bit/s</td><td>≈7094 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF7</td><td>-124.0 dBm</td><td>≈3418 bit/s</td><td>≈169 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF8</td><td>-126.6 dBm</td><td>≈1953 bit/s</td><td>≈304 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF9</td><td>-129.2 dBm</td><td>≈1099 bit/s</td><td>≈509 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF10</td><td>-131.8 dBm</td><td>≈610 bit/s</td><td>≈953 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF11</td><td>-134.4 dBm</td><td>≈336 bit/s</td><td>≈2036 ms</td></tr>
+      <tr><th scope="row">125 kHz</th><td>SF12</td><td>-137.0 dBm</td><td>≈183 bit/s</td><td>≈3547 ms</td></tr>
   </table>
   <p class="note">Righe SF7/SF12 a 10.4, 125, 250 e 500 kHz: valori tabulati direttamente dal datasheet. Le altre righe (incluso l'intero blocco 62.5 kHz) sono stime per interpolazione/scalatura, non specifiche garantite dal produttore.</p>
   <div class="widget" data-widget="chirp" aria-label="Animazione del chirp LoRa e del tempo in aria"></div>
@@ -265,7 +264,7 @@
     </article>
   </div>
   <div class="prose">
-    <p>Questi strumenti stimano la copertura teorica sul modello del terreno: non sanno nulla di un edificio costruito di recente, della vegetazione stagionale o di un'antenna montata più bassa del previsto. Il riscontro definitivo resta il confronto con la <a class="link" href="../mappa-copertura/">mappa pubblica dei nodi effettivamente attivi</a> e, meglio ancora, un test sul campo con <code>neighbors</code> e <code>stats-radio</code> come descritto nella guida all'installazione di un repeater.</p>
+    <p>Questi strumenti stimano la copertura teorica sul modello del terreno: non sanno nulla di un edificio costruito di recente, della vegetazione stagionale o di un'antenna montata più bassa del previsto. Il riscontro definitivo resta il confronto con la <a class="link" href="../mappa-copertura/">mappa pubblica dei nodi effettivamente attivi</a> e, meglio ancora, un test sul campo con <code>neighbors</code> (funziona anche da remoto, ma mostra solo gli 8 annunci più recenti) e <code>stats-radio</code>, comando disponibile solo via collegamento USB seriale diretto al nodo, come descritto nella guida all'installazione di un repeater.</p>
   </div>
 </section>
 
@@ -367,6 +366,7 @@
     <li id="f12">Antenna-Theory.com, <em>The Half-Wave Dipole Antenna</em> (guadagno 2.15 dBi, diagramma di radiazione, HPBW 78°). <a href="https://www.antenna-theory.com/antennas/halfwave.php" target="_blank" rel="noopener">antenna-theory.com/antennas/halfwave.php</a></li>
     <li id="f13">Constantine A. Balanis, <em>Antenna Theory: Analysis and Design</em>, 4ª ed., Wiley, 2016 (§2.4-2.6 direttività e approssimazione di Kraus; §15.4 guadagno di apertura delle parabole).</li>
     <li id="f14">Antenna-Theory.com, <em>VSWR (Voltage Standing Wave Ratio)</em> (relazione tra SWR, coefficiente di riflessione e potenza riflessa). <a href="https://www.antenna-theory.com/definitions/vswr.php" target="_blank" rel="noopener">antenna-theory.com/definitions/vswr.php</a></li>
+    <li id="f15">MeshCore firmware, <code>src/helpers/radiolib/RadioLibWrappers.h</code> (costante del numero di simboli di preambolo: 32 per SF≤8, 16 per SF≥9). <a href="https://github.com/meshcore-dev/MeshCore" target="_blank" rel="noopener">github.com/meshcore-dev/MeshCore</a></li>
   </ol>
 </section>
 <section class="section related" data-reveal>
@@ -457,7 +457,7 @@
   <ul class="search__results" id="search-results"></ul>
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
-<script type="module" src="../assets/js/main.js?v=3" defer></script>
+<script type="module" src="../assets/js/main.js?v=5" defer></script>
 <script type="module" src="../assets/js/search.js?v=2" defer></script>
 <script type="module" src="../assets/js/widgets.js?v=2" defer></script>
 </body>

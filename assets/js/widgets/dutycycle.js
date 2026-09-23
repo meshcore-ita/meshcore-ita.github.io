@@ -45,7 +45,7 @@ export default function mount(root) {
       <div><dt>Duty cycle</dt><dd id="dc-duty">–</dd></div>
       <div><dt>Pacchetti max/ora (10%)</dt><dd id="dc-max">–</dd></div>
     </dl>
-    <p class="widget__note">Time-on-air stimato per SX1262 (CR 4/8, preambolo 8, LDRO automatico). Il limite del 10% è normativo (EN 300 220-2): il firmware non lo conteggia, il rispetto è a carico dell'operatore.</p>
+    <p class="widget__note">Time-on-air stimato per SX1262 (CR 4/8, preambolo MeshCore 32/16 simboli, LDRO automatico). Il limite del 10% è normativo (EN 300 220-2); il firmware limita il duty cycle lato repeater/room server con <code>set dutycycle</code> (default 50%, oltre il 10% consentito), quindi va abbassato esplicitamente — il rispetto resta comunque a carico dell'operatore.</p>
   `;
 
   const pktEl = root.querySelector('#dc-pkt');

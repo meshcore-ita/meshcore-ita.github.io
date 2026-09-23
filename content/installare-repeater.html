@@ -22,8 +22,8 @@
         { "@type": "HowToStep", "name": "Dimensiona l'alimentazione", "text": "Scegli tra rete elettrica, PoE o pannello solare con batteria, dimensionando il consumo con powersaving on.", "url": "https://meshcore-ita.github.io/installare-repeater/#alimentazione" },
         { "@type": "HowToStep", "name": "Prepara il contenitore stagno", "text": "Usa una custodia con grado di protezione adeguato, passacavi sigillati e uno sfogo per l'umidità.", "url": "https://meshcore-ita.github.io/installare-repeater/#contenitore" },
         { "@type": "HowToStep", "name": "Metti a terra e proteggi dalle scariche", "text": "Valuta una messa a terra e uno scaricatore sulla linea d'antenna; il lavoro in quota è responsabilità dell'installatore.", "url": "https://meshcore-ita.github.io/installare-repeater/#messa-a-terra" },
-        { "@type": "HowToStep", "name": "Configura il nodo come repeater", "text": "Imposta nome, preset radio, potenza e risparmio energetico da CLI, poi invia un advert.", "url": "https://meshcore-ita.github.io/installare-repeater/#configurazione" },
-        { "@type": "HowToStep", "name": "Verifica sul campo", "text": "Controlla neighbors e stats-radio e fatti confermare la ricezione da un altro nodo nel gruppo Telegram.", "url": "https://meshcore-ita.github.io/installare-repeater/#verifica" },
+        { "@type": "HowToStep", "name": "Configura il nodo come repeater", "text": "Imposta nome, preset radio, potenza, duty cycle e risparmio energetico da CLI, poi invia un advert.", "url": "https://meshcore-ita.github.io/installare-repeater/#configurazione" },
+        { "@type": "HowToStep", "name": "Verifica sul campo", "text": "Controlla neighbors e usa da app la richiesta di stato del repeater, poi fatti confermare la ricezione da un altro nodo nel gruppo Telegram.", "url": "https://meshcore-ita.github.io/installare-repeater/#verifica" },
         { "@type": "HowToStep", "name": "Pianifica la manutenzione", "text": "Aggiorna il firmware periodicamente e verifica che il nodo continui a comparire negli advert altrui.", "url": "https://meshcore-ita.github.io/installare-repeater/#manutenzione" }
       ]
     },
@@ -95,12 +95,12 @@
     <li class="step" id="configurazione">
       <p class="step__num">07</p>
       <h3 class="step__title">Configura il nodo come repeater</h3>
-      <p class="step__body">Collegati alla console via USB o da un client admin e imposta un nome coerente con la convenzione della community, ad esempio <code>set name IT-Torino-RPT-01</code>. Allinea il preset radio con <code>set radio 869.618,62.5,8,8</code>, regola la potenza con <code>set tx &lt;dbm&gt;</code> senza eccedere il necessario, attiva <code>powersaving on</code> se il nodo è a batteria o solare, e se serve cambia l'intervallo di annuncio con <code>set flood.advert.interval &lt;ore&gt;</code>. Applica tutto con <code>reboot</code> e invia un <code>advert</code> per farti vedere dai vicini. Sintassi completa nella pagina <a class="link" href="../comandi/">comandi CLI per amministrare un nodo MeshCore</a>.</p>
+      <p class="step__body">Collegati alla console via USB o da un client admin e imposta un nome coerente con la convenzione della community, ad esempio <code>set name IT-Torino-RPT-01</code>. Allinea il preset radio con <code>set radio 869.618,62.5,8,8</code>, regola la potenza con <code>set tx &lt;dbm&gt;</code> senza eccedere il necessario, attiva <code>powersaving on</code> se il nodo è a batteria o solare, e limita il duty cycle al 10% con <code>set dutycycle 10</code> (sui firmware precedenti alla 1.15 usa <code>set af 9</code>), come richiesto dalla sub-banda 869.4-869.65 MHz. Se serve cambia l'intervallo di annuncio con <code>set flood.advert.interval &lt;ore&gt;</code>. Aggiorna il repeater a un firmware recente (almeno 1.14, idealmente l'ultima release) prima di metterlo in servizio: le versioni precedenti scartano in silenzio i pacchetti con hash di percorso a 2/3 byte usati dai nodi più aggiornati. Applica tutto con <code>reboot</code> e invia un <code>advert</code> per farti vedere dai vicini. Sintassi completa nella pagina <a class="link" href="../comandi/">comandi CLI per amministrare un nodo MeshCore</a>.</p>
     </li>
     <li class="step" id="verifica">
       <p class="step__num">08</p>
       <h3 class="step__title">Verifica sul campo</h3>
-      <p class="step__body">Dopo il riavvio, usa <code>neighbors</code> per controllare quali nodi il tuo repeater sente direttamente e <code>stats-radio</code> per leggere noise floor, RSSI/SNR e airtime dell'ultima ricezione. Il riscontro più affidabile resta però quello umano: chiedi nel gruppo Telegram a chi ha un nodo nella tua zona di confermare che il tuo repeater compare tra i suoi contatti dopo l'advert.</p>
+      <p class="step__body">Dopo il riavvio, se hai accesso fisico usa <code>neighbors</code> via USB per controllare quali nodi il tuo repeater sente direttamente (mostra solo gli ultimi 8 advert ricevuti). <code>stats-radio</code> e <code>stats-core</code> funzionano solo da collegamento seriale diretto: da remoto, tramite app o client admin, usa invece la richiesta di stato del repeater, che restituisce batteria, coda di trasmissione, noise floor, RSSI dell'ultimo pacchetto e contatori dei pacchetti inviati/ricevuti. Il riscontro più affidabile resta però quello umano: chiedi nel gruppo Telegram a chi ha un nodo nella tua zona di confermare che il tuo repeater compare tra i suoi contatti dopo l'advert.</p>
     </li>
     <li class="step" id="manutenzione">
       <p class="step__num">09</p>
@@ -129,7 +129,7 @@
     <article class="card">
       <p class="card__num">03</p>
       <h3 class="card__title">Cosa succede se sparisce</h3>
-      <p class="card__body">Un repeater che smette di comparire negli advert altrui non è necessariamente guasto: spesso è alimentazione esaurita o orologio disallineato. Controllalo con <code>stats-core</code> e <code>get radio</code>.</p>
+      <p class="card__body">Un repeater che smette di comparire negli advert altrui non è necessariamente guasto: spesso è alimentazione esaurita o orologio disallineato. Da remoto controlla con la richiesta di stato del repeater da app; da collegamento USB diretto puoi usare anche <code>stats-core</code> e <code>get radio</code>.</p>
     </article>
   </div>
 </section>
