@@ -35,7 +35,7 @@
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/geist-300-700-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
 
-<link rel="stylesheet" href="assets/css/style.css?v=6">
+<link rel="stylesheet" href="assets/css/style.css?v=8">
 
 <script type="application/ld+json">
 {
@@ -130,62 +130,72 @@
 <main id="main">
 
   <section id="top" class="hero">
-    <p class="eyelash">Community italiana · LoRa mesh off-grid</p>
-    <h1 class="hero__title"><span class="t-fg">La rete mesh</span> <span class="t-accent">LoRa</span> <span class="t-muted">italiana.</span></h1>
-    <p class="hero__lede">MeshCore ITA raccoglie chi usa MeshCore in Italia: un preset radio condiviso, guide in italiano, coordinamento tra repeater e room server e un gruppo Telegram aperto a tutti.</p>
+    <p class="eyelash">MeshCore ITA · Community italiana</p>
+    <h1 class="hero__title"><span class="t-fg">Messaggi via radio,</span> <span class="t-accent">senza internet</span> <span class="t-muted">né rete cellulare.</span></h1>
+    <p class="hero__lede"><strong>MeshCore</strong> è un progetto open source che trasforma piccole radio LoRa a basso costo in una rete di messaggistica cifrata. Ogni radio inoltra i messaggi alle altre, così la rete sta in piedi da sola: funziona dove il telefono non prende, in montagna o durante un blackout. <strong>MeshCore ITA</strong> è la community di chi la sta costruendo in Italia.</p>
 
-    <div class="cmdbox">
-      <div class="cmdbox__tabs" role="tablist">
-        <button class="cmdbox__tab" role="tab" id="tab-flash" aria-selected="true" aria-controls="cmd-flash" data-panel="cmd-flash">FLASH</button>
-        <button class="cmdbox__tab" role="tab" id="tab-radio" aria-selected="false" aria-controls="cmd-radio" data-panel="cmd-radio">RADIO</button>
-        <button class="cmdbox__tab" role="tab" id="tab-repeater" aria-selected="false" aria-controls="cmd-repeater" data-panel="cmd-repeater">REPEATER</button>
-      </div>
-      <div class="cmdbox__panels">
-        <div class="cmdbox__panel" id="cmd-flash" role="tabpanel" aria-labelledby="tab-flash">
-          <code class="cmdbox__code">flasher.meshcore.io &rarr; board via USB &rarr; firmware Companion</code>
-          <button class="cmdbox__copy" data-copy-target="cmd-flash"><span class="cmdbox__copy-label">Copia</span></button>
-        </div>
-        <div class="cmdbox__panel" id="cmd-radio" role="tabpanel" aria-labelledby="tab-radio" hidden>
-          <code class="cmdbox__code">set radio 869.618,62.5,8,8</code>
-          <button class="cmdbox__copy" data-copy-target="cmd-radio"><span class="cmdbox__copy-label">Copia</span></button>
-        </div>
-        <div class="cmdbox__panel" id="cmd-repeater" role="tabpanel" aria-labelledby="tab-repeater" hidden>
-          <code class="cmdbox__code">set name IT-&lt;citta&gt;-01 ; set flood.advert.interval 12 ; set tx 20</code>
-          <button class="cmdbox__copy" data-copy-target="cmd-repeater"><span class="cmdbox__copy-label">Copia</span></button>
-        </div>
-      </div>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="#inizia">Come iniziare</a>
+      <a class="btn" href="#cos-e">Come funziona</a>
+      <a class="btn" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Gruppo Telegram<span class="ext-arrow">↗</span></a>
     </div>
 
-    <div class="hero__meta">
-      <span class="chip">Licenza MIT</span>
-      <span class="chip">869.618 MHz · SF8</span>
-      <span class="chip">Open source</span>
-    </div>
+    <dl class="terms">
+      <div class="term">
+        <dt class="term__name">Mesh</dt>
+        <dd class="term__def">Rete “a maglie”: ogni nodo ripete i messaggi agli altri, senza antenna né server centrale.</dd>
+      </div>
+      <div class="term">
+        <dt class="term__name">LoRa</dt>
+        <dd class="term__def">Tecnologia radio a lunga portata e bassissimo consumo, fatta per messaggi brevi.</dd>
+      </div>
+      <div class="term">
+        <dt class="term__name">Off-grid</dt>
+        <dd class="term__def">Fuori dalle reti: niente internet, niente SIM, e con batteria o pannello solare nemmeno la corrente.</dd>
+      </div>
+      <div class="term">
+        <dt class="term__name">MeshCore</dt>
+        <dd class="term__def">Il firmware che fa di una board LoRa un nodo della rete. Si usa dal telefono, via Bluetooth.</dd>
+      </div>
+    </dl>
   </section>
 
   <section id="cos-e" class="section" data-reveal>
     <div class="section__head">
       <p class="eyelash">Cos'è MeshCore</p>
-      <h2 class="section__title">Comunicazione off-grid, senza compromessi</h2>
-      <p class="section__lede">MeshCore è un sistema di comunicazione mesh, cifrato, che funziona su radio LoRa: nessuna SIM, nessun internet, nessuna infrastruttura centrale.</p>
+      <h2 class="section__title">Come funziona, in trenta secondi</h2>
+      <p class="section__lede">Scrivi un messaggio nell'app sul telefono. Il telefono lo passa via Bluetooth alla tua radio, che lo trasmette. Le radio che fanno da ripetitore lo rilanciano, un salto alla volta, finché arriva alla radio del destinatario e da lì al suo telefono. Nessun operatore, nessun abbonamento, nessun server centrale.</p>
     </div>
+    <ol class="flow" aria-label="Il percorso di un messaggio">
+      <li class="flow__step"><span class="flow__name">Il tuo telefono</span><span class="flow__hint">scrivi nell'app MeshCore</span></li>
+      <li class="flow__step"><span class="flow__name">La tua radio</span><span class="flow__hint">collegata via Bluetooth o USB</span></li>
+      <li class="flow__step flow__step--hop"><span class="flow__name">Ripetitori</span><span class="flow__hint">su tetti e colline, rilanciano il messaggio</span></li>
+      <li class="flow__step"><span class="flow__name">La sua radio</span><span class="flow__hint">riceve, anche lontano</span></li>
+      <li class="flow__step"><span class="flow__name">Il suo telefono</span><span class="flow__hint">legge il messaggio</span></li>
+    </ol>
     <div class="grid grid--3">
       <article class="card" data-reveal>
-        <p class="card__num">01</p>
-        <h3 class="card__title">Off-grid e cifrata</h3>
-        <p class="card__body">Identità Ed25519, chiavi condivise via ECDH/X25519 e cifratura simmetrica AES-128: i messaggi restano privati anche senza rete internet o cellulare.</p>
+        <p class="card__num">A cosa serve</p>
+        <h3 class="card__title">Comunicare quando le reti non ci sono</h3>
+        <p class="card__body">Escursioni e zone senza campo, contatti tra paesi e quartieri, un piano B quando la rete cellulare cade. E per chi ama la radio, un terreno di sperimentazione aperto.</p>
       </article>
       <article class="card" data-reveal>
-        <p class="card__num">02</p>
-        <h3 class="card__title">Routing ibrido</h3>
-        <p class="card__body">Advert e messaggi di canale viaggiano in flood; i repeater annunciano di default ogni 12 ore, i companion solo su richiesta. I messaggi privati usano path-discovery e routing diretto, con un limite interno di 64 hop per il flood generico (8 hop per gli advert dei repeater, meno con path hash multi-byte): non tutti i nodi ripetono tutto.</p>
+        <p class="card__num">Cosa ti serve</p>
+        <h3 class="card__title">Una board LoRa e uno smartphone</h3>
+        <p class="card__body">Le board compatibili sono economiche e diffuse. In banda 869 MHz non serve una licenza radio, entro i limiti di potenza previsti. Ti aiutiamo a scegliere nella pagina <a class="link" href="hardware/">hardware</a>.</p>
       </article>
       <article class="card" data-reveal>
-        <p class="card__num">03</p>
-        <h3 class="card__title">Hardware economico</h3>
-        <p class="card__body">Gira su board LoRa diffuse e a basso costo, dalle Heltec V3 alle RAK4631. Firmware MIT di Scott (Ripple Radios), client mobile e web di Liam Cottle.</p>
+        <p class="card__num">Cosa non è</p>
+        <h3 class="card__title">Non è internet, né un telefono</h3>
+        <p class="card__body">Passano solo brevi messaggi di testo: niente voce, foto o video. La copertura dipende da quanti nodi ci sono nella tua zona, perché è una rete costruita dalla community, nodo dopo nodo.</p>
       </article>
     </div>
+    <details class="faq faq--tech">
+      <summary class="faq__q">Per chi vuole i dettagli tecnici</summary>
+      <p class="faq__a"><strong>Cifratura.</strong> Identità Ed25519, chiavi condivise via ECDH/X25519 e cifratura simmetrica AES-128: i messaggi restano privati anche senza rete internet o cellulare.</p>
+      <p class="faq__a"><strong>Routing ibrido.</strong> Advert e messaggi di canale viaggiano in flood; i repeater annunciano di default ogni 12 ore, i companion solo su richiesta. I messaggi privati usano path-discovery e routing diretto, con un limite interno di 64 hop per il flood generico (8 hop per gli advert dei repeater, meno con path hash multi-byte): non tutti i nodi ripetono tutto.</p>
+      <p class="faq__a"><strong>Hardware e software.</strong> Gira su board LoRa diffuse e a basso costo, dalle Heltec V3 alle RAK4631. Firmware MIT di Scott (Ripple Radios), client mobile e web di Liam Cottle.</p>
+    </details>
     <p class="section__lede">Per capire le differenze rispetto ad altri sistemi mesh leggi il confronto <a class="link" href="meshcore-vs-meshtastic/">MeshCore vs Meshtastic</a>, oppure consulta il <a class="link" href="glossario/">glossario dei termini MeshCore</a>.</p>
   </section>
 
@@ -225,6 +235,28 @@
         <a class="link" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Entra nel gruppo Telegram<span class="ext-arrow">↗</span></a>
       </li>
     </ol>
+    <p class="note cmdbox__intro">Hai già la board in mano? Le tre operazioni essenziali, pronte da copiare:</p>
+    <div class="cmdbox">
+      <div class="cmdbox__tabs" role="tablist">
+        <button class="cmdbox__tab" role="tab" id="tab-flash" aria-selected="true" aria-controls="cmd-flash" data-panel="cmd-flash">FLASH</button>
+        <button class="cmdbox__tab" role="tab" id="tab-radio" aria-selected="false" aria-controls="cmd-radio" data-panel="cmd-radio">RADIO</button>
+        <button class="cmdbox__tab" role="tab" id="tab-repeater" aria-selected="false" aria-controls="cmd-repeater" data-panel="cmd-repeater">REPEATER</button>
+      </div>
+      <div class="cmdbox__panels">
+        <div class="cmdbox__panel" id="cmd-flash" role="tabpanel" aria-labelledby="tab-flash">
+          <code class="cmdbox__code">flasher.meshcore.io &rarr; board via USB &rarr; firmware Companion</code>
+          <button class="cmdbox__copy" data-copy-target="cmd-flash"><span class="cmdbox__copy-label">Copia</span></button>
+        </div>
+        <div class="cmdbox__panel" id="cmd-radio" role="tabpanel" aria-labelledby="tab-radio" hidden>
+          <code class="cmdbox__code">set radio 869.618,62.5,8,8</code>
+          <button class="cmdbox__copy" data-copy-target="cmd-radio"><span class="cmdbox__copy-label">Copia</span></button>
+        </div>
+        <div class="cmdbox__panel" id="cmd-repeater" role="tabpanel" aria-labelledby="tab-repeater" hidden>
+          <code class="cmdbox__code">set name IT-&lt;citta&gt;-01 ; set flood.advert.interval 12 ; set tx 20</code>
+          <button class="cmdbox__copy" data-copy-target="cmd-repeater"><span class="cmdbox__copy-label">Copia</span></button>
+        </div>
+      </div>
+    </div>
     <p class="section__lede">Guida completa passo passo: <a class="link" href="guida/">guida a MeshCore in italiano</a>, dal firmware al primo nodo.</p>
   </section>
 
@@ -274,41 +306,6 @@
     </ul>
     <p class="section__lede"><a class="link" href="https://flasher.meshcore.io/" target="_blank" rel="noopener">Elenco aggiornato delle board sul web flasher<span class="ext-arrow">↗</span></a></p>
     <p class="section__lede">Guida dettagliata: <a class="link" href="hardware/">hardware e board compatibili con MeshCore</a>, con consigli per scegliere quella giusta.</p>
-  </section>
-
-  <section id="cli" class="section" data-reveal>
-    <div class="section__head">
-      <p class="eyelash">Amministrazione</p>
-      <h2 class="section__title">Comandi essenziali</h2>
-      <p class="section__lede">Comandi CLI da usare via USB seriale (web flasher, picocom) o, per la maggior parte, da remoto con un client MeshCore autenticato come admin su repeater e room server; alcuni comandi (stats-core, stats-radio, stats-packets, log) funzionano solo via seriale.</p>
-    </div>
-    <table class="spec">
-      <caption>CLI repeater / room server</caption>
-      <thead>
-        <tr>
-          <th scope="col">Comando</th>
-          <th scope="col">Cosa fa</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><th scope="row"><code>get radio</code> / <code>set radio &lt;freq&gt;,&lt;bw&gt;,&lt;sf&gt;,&lt;cr&gt;</code></th><td>Legge o imposta frequenza, banda, SF e CR in un colpo solo. Richiede reboot.</td></tr>
-        <tr><th scope="row"><code>set name &lt;nome&gt;</code></th><td>Cambia il nome del nodo negli advert.</td></tr>
-        <tr><th scope="row"><code>password &lt;nuova-password&gt;</code></th><td>Cambia la password admin (default <code>password</code>).</td></tr>
-        <tr><th scope="row"><code>get tx</code> / <code>set tx &lt;dbm&gt;</code></th><td>Legge o imposta la potenza TX in dBm (1–22).</td></tr>
-        <tr><th scope="row"><code>advert</code></th><td>Invia subito un advert flood.</td></tr>
-        <tr><th scope="row"><code>set flood.advert.interval &lt;ore&gt;</code></th><td>Intervallo dell'advert flood periodico (default 12h).</td></tr>
-        <tr><th scope="row"><code>time &lt;epoch&gt;</code></th><td>Imposta l'orologio, utile senza GPS.</td></tr>
-        <tr><th scope="row"><code>clock sync</code></th><td>Sincronizza l'orologio col dispositivo collegato.</td></tr>
-        <tr><th scope="row"><code>neighbors</code></th><td>Vicini diretti uditi di recente (solo repeater).</td></tr>
-        <tr><th scope="row"><code>stats-radio</code> (solo seriale)</th><td>Noise floor, ultimo RSSI/SNR, airtime.</td></tr>
-        <tr><th scope="row"><code>log start</code> / <code>log stop</code></th><td>Avvia o ferma la cattura del log di ricezione.</td></tr>
-        <tr><th scope="row"><code>set repeat &lt;on|off&gt;</code></th><td>Attiva o disattiva la ripetizione dei pacchetti.</td></tr>
-        <tr><th scope="row"><code>reboot</code></th><td>Riavvia il nodo (necessario dopo modifiche radio/nome).</td></tr>
-        <tr><th scope="row"><code>start ota</code></th><td>Avvia l'aggiornamento firmware via OTA.</td></tr>
-      </tbody>
-    </table>
-    <p class="note">Riferimento completo dei comandi CLI: <a class="link" href="https://docs.meshcore.io/cli_commands/" target="_blank" rel="noopener">docs.meshcore.io/cli_commands<span class="ext-arrow">↗</span></a></p>
-    <p class="note">Approfondimento con esempi pratici: <a class="link" href="comandi/">comandi CLI MeshCore spiegati</a>.</p>
   </section>
 
   <section id="radio" class="section" data-reveal>
@@ -417,6 +414,41 @@
       </article>
     </div>
     <p class="section__lede">Guida estesa alla risoluzione dei problemi: <a class="link" href="problemi/">problemi comuni MeshCore e soluzioni</a>.</p>
+  </section>
+
+  <section id="cli" class="section" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Amministrazione</p>
+      <h2 class="section__title">Comandi essenziali</h2>
+      <p class="section__lede">Comandi CLI da usare via USB seriale (web flasher, picocom) o, per la maggior parte, da remoto con un client MeshCore autenticato come admin su repeater e room server; alcuni comandi (stats-core, stats-radio, stats-packets, log) funzionano solo via seriale.</p>
+    </div>
+    <table class="spec">
+      <caption>CLI repeater / room server</caption>
+      <thead>
+        <tr>
+          <th scope="col">Comando</th>
+          <th scope="col">Cosa fa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row"><code>get radio</code> / <code>set radio &lt;freq&gt;,&lt;bw&gt;,&lt;sf&gt;,&lt;cr&gt;</code></th><td>Legge o imposta frequenza, banda, SF e CR in un colpo solo. Richiede reboot.</td></tr>
+        <tr><th scope="row"><code>set name &lt;nome&gt;</code></th><td>Cambia il nome del nodo negli advert.</td></tr>
+        <tr><th scope="row"><code>password &lt;nuova-password&gt;</code></th><td>Cambia la password admin (default <code>password</code>).</td></tr>
+        <tr><th scope="row"><code>get tx</code> / <code>set tx &lt;dbm&gt;</code></th><td>Legge o imposta la potenza TX in dBm (1–22).</td></tr>
+        <tr><th scope="row"><code>advert</code></th><td>Invia subito un advert flood.</td></tr>
+        <tr><th scope="row"><code>set flood.advert.interval &lt;ore&gt;</code></th><td>Intervallo dell'advert flood periodico (default 12h).</td></tr>
+        <tr><th scope="row"><code>time &lt;epoch&gt;</code></th><td>Imposta l'orologio, utile senza GPS.</td></tr>
+        <tr><th scope="row"><code>clock sync</code></th><td>Sincronizza l'orologio col dispositivo collegato.</td></tr>
+        <tr><th scope="row"><code>neighbors</code></th><td>Vicini diretti uditi di recente (solo repeater).</td></tr>
+        <tr><th scope="row"><code>stats-radio</code> (solo seriale)</th><td>Noise floor, ultimo RSSI/SNR, airtime.</td></tr>
+        <tr><th scope="row"><code>log start</code> / <code>log stop</code></th><td>Avvia o ferma la cattura del log di ricezione.</td></tr>
+        <tr><th scope="row"><code>set repeat &lt;on|off&gt;</code></th><td>Attiva o disattiva la ripetizione dei pacchetti.</td></tr>
+        <tr><th scope="row"><code>reboot</code></th><td>Riavvia il nodo (necessario dopo modifiche radio/nome).</td></tr>
+        <tr><th scope="row"><code>start ota</code></th><td>Avvia l'aggiornamento firmware via OTA.</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Riferimento completo dei comandi CLI: <a class="link" href="https://docs.meshcore.io/cli_commands/" target="_blank" rel="noopener">docs.meshcore.io/cli_commands<span class="ext-arrow">↗</span></a></p>
+    <p class="note">Approfondimento con esempi pratici: <a class="link" href="comandi/">comandi CLI MeshCore spiegati</a>.</p>
   </section>
 
   <section id="gruppo" class="section" data-reveal>

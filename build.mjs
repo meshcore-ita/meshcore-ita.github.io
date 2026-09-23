@@ -434,17 +434,21 @@ function buildSearchIndex(chunks) {
 // "../" servono per risalire alla radice (pagine content = depth 1, post
 // blog = depth 2). absoluteHref serve invece a 404.html, servito da GitHub
 // Pages a profondità arbitraria.
-const relativeHref = (depth) => (slug) => `${'../'.repeat(depth)}${slug}/`;
-const absoluteHref = (slug) => `${SITE_BASE}${slug}/`;
+// Slug vuoto = home (serve al link "Cos'è", che punta a un'ancora della home).
+const relativeHref = (depth) => (slug) => (slug ? `${'../'.repeat(depth)}${slug}/` : '../'.repeat(depth));
+const absoluteHref = (slug) => (slug ? `${SITE_BASE}${slug}/` : SITE_BASE);
 
 function buildNav(pages, currentSlug, hrefFor) {
   const sorted = pages
     .filter(({ meta }) => meta.primary)
     .sort((a, b) => a.meta.order - b.meta.order);
-  const lines = sorted.map(({ meta }) => {
+  // "Cos'è" apre la nav anche sulle pagine interne, come nella home: senza,
+  // la voce spariva appena si lasciava la pagina principale.
+  const lines = [`      <a class="nav__link" href="${hrefFor('')}#cos-e">Cos'è</a>`];
+  lines.push(...sorted.map(({ meta }) => {
     const current = meta.slug === currentSlug ? ' aria-current="true"' : '';
     return `      <a class="nav__link" href="${hrefFor(meta.slug)}"${current}>${escape(meta.nav)}</a>`;
-  });
+  }));
   const blogCurrent = currentSlug === BLOG_SLUG ? ' aria-current="true"' : '';
   lines.push(`      <a class="nav__link" href="${hrefFor(BLOG_SLUG)}"${blogCurrent}>Aggiornamenti</a>`);
   for (const ext of EXTERNAL_NAV_LINKS) {

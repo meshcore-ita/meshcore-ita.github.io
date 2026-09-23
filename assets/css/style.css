@@ -389,6 +389,121 @@ body[data-nav-open] .nav-toggle::after { transform: rotate(-45deg); }
   padding: .4rem .85rem;
 }
 
+.hero__lede strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+
+/* Glossario minimo nella cover: chi arriva da fuori legge subito cosa
+   significano le quattro parole che il resto del sito dà per scontate. */
+.terms {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 1rem 0 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .55)), var(--panel);
+  overflow: hidden;
+}
+
+.term {
+  padding: 1.1rem 1.25rem;
+  border-left: 1px solid var(--line);
+}
+
+.term:first-child {
+  border-left: none;
+}
+
+.term__name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--accent);
+  margin-bottom: .45rem;
+}
+
+.term__def {
+  margin: 0;
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.55;
+}
+
+/* Percorso di un messaggio: telefono -> radio -> ripetitori -> radio -> telefono. */
+.flow {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  counter-reset: flow;
+}
+
+.flow__step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .55)), var(--panel);
+}
+
+.flow__step--hop {
+  border-color: rgba(34, 197, 94, .45);
+}
+
+.flow__step + .flow__step::before {
+  content: '→';
+  position: absolute;
+  left: -1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+
+.flow__name {
+  color: var(--fg);
+  font-weight: 600;
+  font-size: .95rem;
+}
+
+.flow__hint {
+  color: var(--muted);
+  font-size: .85rem;
+  line-height: 1.45;
+}
+
+.faq--tech {
+  margin-top: 1.75rem;
+  padding-inline: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.cmdbox__intro {
+  margin: 2rem 0 .75rem;
+}
+
+.cmdbox__intro + .cmdbox {
+  margin-bottom: 1.5rem;
+}
+
+.faq--tech + .section__lede {
+  margin-top: 1.5rem;
+}
+
 /* -----------------------------------------------------------
    Command box
    ----------------------------------------------------------- */
@@ -1027,6 +1142,31 @@ table.spec caption {
   .cmdbox__tabs {
     -webkit-overflow-scrolling: touch;
   }
+
+  .terms {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .term:nth-child(odd) {
+    border-left: none;
+  }
+
+  .term:nth-child(n+3) {
+    border-top: 1px solid var(--line);
+  }
+
+  .flow {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+  .flow__step + .flow__step::before {
+    content: '↓';
+    left: 1.1rem;
+    top: -1.05rem;
+    transform: none;
+    line-height: 1;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1094,6 +1234,18 @@ table.spec caption {
 
   .hw__note {
     text-align: left;
+  }
+
+  .terms {
+    grid-template-columns: 1fr;
+  }
+
+  .term {
+    border-left: none;
+  }
+
+  .term:nth-child(n+2) {
+    border-top: 1px solid var(--line);
   }
 }
 
