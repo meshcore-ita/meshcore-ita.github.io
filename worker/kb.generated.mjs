@@ -1406,6 +1406,27 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/mesh-america-awesome-meshcore--l-articolo",
+    "page": "Aggiornamenti",
+    "title": "L'articolo",
+    "url": "https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/#l-articolo",
+    "text": "Il 23 settembre 2026 Mesh America , testata dedicata alle reti mesh off-grid negli Stati Uniti, ha pubblicato A Comprehensive MeshCore Directory Built by the Community , un articolo su awesome-meshcore , l'elenco curato che abbiamo presentato qualche giorno fa . L'articolo ci presenta come «il gruppo italiano dietro meshcore-ita.github.io e il preset radio italiano condiviso» e descrive l'elenco come una risorsa che mancava: MeshCore è cresciuto in fretta, e trovare un punto di partenza unico non era semplice."
+  },
+  {
+    "id": "blog/mesh-america-awesome-meshcore--cosa-hanno-notato",
+    "page": "Aggiornamenti",
+    "title": "Cosa hanno notato",
+    "url": "https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/#cosa-hanno-notato",
+    "text": "I client : oltre 30 app open source, scritte in Electron, Flutter, Qt, Swift, Rust — fino a un client da terminale per Commodore 64. Librerie e SDK : i binding ufficiali Python, JavaScript e CLI, accanto ai port della community in Go, Rust, TypeScript, Java e MicroPython. L'infrastruttura : integrazione con Home Assistant, bridge Discord e Telegram, gateway MQTT ed email, una BBS store-and-forward, analizzatori di pacchetti, un dissector per Wireshark e diverse dashboard self-hosted. Hardware e firmware : dispositivi supportati, radio pronte, autocostruzioni con distinta dei materiali, case stampabili in 3D e decine di fork del firmware. Le community : la sezione più ampia, paese per paese…"
+  },
+  {
+    "id": "blog/mesh-america-awesome-meshcore--grazie-e-avanti",
+    "page": "Aggiornamenti",
+    "title": "Grazie, e avanti",
+    "url": "https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/#grazie-e-avanti",
+    "text": "Ringraziamo Mesh America per la segnalazione. Per noi è la conferma che tenere l'elenco in inglese e aperto a tutti è stata la scelta giusta: serve anche fuori dall'Italia. L'elenco è sotto licenza CC0 e cresce con le pull request. Se conosci un progetto o una community che manca, apri una PR o una issue sul repository , oppure segnalacelo nel gruppo Telegram MeshCore ITA ."
+  },
+  {
     "id": "blog/awesome-meshcore--cos-e",
     "page": "Aggiornamenti",
     "title": "Cos'è",
