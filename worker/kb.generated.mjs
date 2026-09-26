@@ -1483,6 +1483,34 @@ export const KB_CHUNKS = [
     "text": "Il tutorial originale di Paolo su Lora Italia La documentazione di xnec2c Il manuale di NEC-2 con il significato di ogni scheda Se simulate un'antenna per un nodo MeshCore, condividete il file .nec nel gruppo Telegram MeshCore ITA : è di testo, si legge e si modifica facilmente."
   },
   {
+    "id": "blog/galleria-antenne--com-e-nata",
+    "page": "Aggiornamenti",
+    "title": "Com'è nata",
+    "url": "https://meshcore-ita.github.io/blog/galleria-antenne/#com-e-nata",
+    "text": "Nell'articolo Simulare antenne senza Windows abbiamo mostrato come simulare un dipolo a 869 MHz con strumenti open source. Poche ore dopo Fabrizio ha risposto nel gruppo con la foto di una Yagi a 2 elementi in tubo di rame, montata sul tetto accanto al suo nodo solare pybot , e con i file .nec dei suoi modelli. Simulandoli ci siamo accorti che valeva la pena raccoglierli in un posto solo, insieme ad altre antenne, e spiegare bene cosa dice ogni numero. Così è nata la galleria delle antenne ."
+  },
+  {
+    "id": "blog/galleria-antenne--cosa-trovi-in-ogni-scheda",
+    "page": "Aggiornamenti",
+    "title": "Cosa trovi in ogni scheda",
+    "url": "https://meshcore-ita.github.io/blog/galleria-antenne/#cosa-trovi-in-ogni-scheda",
+    "text": "I numeri principali , calcolati a 869,618 MHz, la frequenza del preset italiano : guadagno, rapporto avanti/dietro, ROS, impedenza e frequenza di risonanza. Cosa dicono questi numeri , in parole semplici: quante volte l'antenna concentra la potenza rispetto a un dipolo, quanta potenza torna indietro per il ROS, se l'antenna è lunga o corta e va quindi accorciata o allungata. La potenza massima da impostare sul nodo per restare entro i 500 mW ERP della sub-banda 869,4–869,65 MHz, con 0, 1 o 2 dB di perdita nel cavo. I limiti sono spiegati nella pagina sulla normativa . Una vista 3D del diagramma di irradiazione con l'antenna dentro, da ruotare col mouse o col dito, e i grafici di ROS e…"
+  },
+  {
+    "id": "blog/galleria-antenne--le-antenne-di-oggi",
+    "page": "Aggiornamenti",
+    "title": "Le antenne di oggi",
+    "url": "https://meshcore-ita.github.io/blog/galleria-antenne/#le-antenne-di-oggi",
+    "text": "Antenna Guadagno ROS a 869,618 MHz Yagi 2 elementi con riflettore, di Fabrizio (in uso su pybot) 6,4 dBi 1,09 Yagi 2 elementi con direttore, di Fabrizio 5,3 dBi 1,02 Yagi 10 elementi, progetto da 432 MHz riscalato, di Fabrizio 12,4 dBi 1,91 Dipolo a mezz'onda 2,1 dBi 1,44 Ground plane λ/4 con 4 radiali a 45° 2,2 dBi 1,01 Yagi 3 elementi 8,1 dBi 1,23 Le ultime tre sono progetti di riferimento accordati da noi. Il dipolo risuona a 160,6 mm , gli stessi 161 mm a cui arriva il tutorial di Paolo su Lora Italia . Qualche numero è diverso da quello che si legge spesso in giro. Un esempio: con quattro radiali orizzontali una ground plane non sta a 36 Ω ma intorno a 25 Ω. Piegando i radiali a 45° si…"
+  },
+  {
+    "id": "blog/galleria-antenne--aggiungi-la-tua-antenna",
+    "page": "Aggiornamenti",
+    "title": "Aggiungi la tua antenna",
+    "url": "https://meshcore-ita.github.io/blog/galleria-antenne/#aggiungi-la-tua-antenna",
+    "text": "La galleria vive su GitHub nel repository meshcore-ita/antenne . Per aggiungere un'antenna bastano una cartella con il file .nec , un piccolo meta.json con titolo e autore e, se vuoi, qualche foto e le note di costruzione. Le istruzioni sono in CONTRIBUTING.md . A ogni modifica il sito rifà da solo le simulazioni e rigenera le pagine. Se non usi GitHub, manda il file .nec e una foto nel gruppo Telegram MeshCore ITA : lo aggiungiamo noi, citandoti. Grazie a Fabrizio per aver aperto la strada."
+  },
+  {
     "id": "blog/mesh-america-awesome-meshcore--l-articolo",
     "page": "Aggiornamenti",
     "title": "L'articolo",

@@ -158,6 +158,111 @@ legge e si modifica facilmente.&lt;/p&gt;
 &lt;/section&gt;</content>
   </entry>
   <entry>
+    <id>https://meshcore-ita.github.io/blog/galleria-antenne/</id>
+    <title>Nasce la galleria delle antenne della community</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/galleria-antenne/"/>
+    <published>2026-09-26T00:00:00Z</published>
+    <updated>2026-09-26T00:00:00Z</updated>
+    <summary type="text">Dopo l'articolo su xnec2c, Fabrizio ci ha mandato la Yagi che usa sul suo nodo. Da lì è nata una galleria aperta: si condivide il file .nec, e il sito simula l'antenna e spiega cosa significano i numeri.</summary>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-26&quot;&gt;26 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt;&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;antenne&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;software&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;autocostruzione&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;community&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;com-e-nata&quot;&gt;Com&amp;#39;è nata&lt;/h2&gt;
+&lt;p&gt;Nell&amp;#39;articolo &lt;a href=&quot;../antenne-nec-senza-windows/&quot;&gt;Simulare antenne senza Windows&lt;/a&gt;
+abbiamo mostrato come simulare un dipolo a 869 MHz con strumenti open source.
+Poche ore dopo Fabrizio ha risposto nel gruppo con la foto di una &lt;strong&gt;Yagi a 2
+elementi&lt;/strong&gt; in tubo di rame, montata sul tetto accanto al suo nodo solare
+&lt;em&gt;pybot&lt;/em&gt;, e con i file &lt;code&gt;.nec&lt;/code&gt; dei suoi modelli.&lt;/p&gt;
+&lt;p&gt;Simulandoli ci siamo accorti che valeva la pena raccoglierli in un posto solo,
+insieme ad altre antenne, e spiegare bene cosa dice ogni numero. Così è nata
+la &lt;a href=&quot;https://meshcore-ita.github.io/antenne/&quot;&gt;galleria delle antenne&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-trovi-in-ogni-scheda&quot;&gt;Cosa trovi in ogni scheda&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;I numeri principali&lt;/strong&gt;, calcolati a 869,618 MHz, la frequenza del
+&lt;a href=&quot;../../preset-radio/&quot;&gt;preset italiano&lt;/a&gt;: guadagno, rapporto avanti/dietro,
+ROS, impedenza e frequenza di risonanza.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cosa dicono questi numeri&lt;/strong&gt;, in parole semplici: quante volte l&amp;#39;antenna
+concentra la potenza rispetto a un dipolo, quanta potenza torna indietro
+per il ROS, se l&amp;#39;antenna è lunga o corta e va quindi accorciata o allungata.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La potenza massima da impostare sul nodo&lt;/strong&gt; per restare entro i 500 mW
+ERP della sub-banda 869,4–869,65 MHz, con 0, 1 o 2 dB di perdita nel cavo.
+I limiti sono spiegati nella pagina sulla &lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Una vista 3D&lt;/strong&gt; del diagramma di irradiazione con l&amp;#39;antenna dentro, da
+ruotare col mouse o col dito, e i grafici di ROS e impedenza da 855 a
+885 MHz.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Il file &lt;code&gt;.nec&lt;/code&gt; spiegato riga per riga&lt;/strong&gt;, da scaricare e aprire con
+xnec2c, 4nec2 o EZNEC.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Costruzione, esperimenti ed errori comuni&lt;/strong&gt;: misure, lista di taglio,
+materiali e cosa succede se si cambia qualcosa.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;C&amp;#39;è anche una &lt;a href=&quot;https://meshcore-ita.github.io/antenne/guida/&quot;&gt;guida&lt;/a&gt; per chi
+parte da zero: lunghezza d&amp;#39;onda, dBi e dBd, polarizzazione, ROS, adattamento
+a 50 Ω, ERP e come si scrive un file NEC.&lt;/p&gt;
+&lt;h2 id=&quot;le-antenne-di-oggi&quot;&gt;Le antenne di oggi&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Antenna&lt;/th&gt;
+&lt;th&gt;Guadagno&lt;/th&gt;
+&lt;th&gt;ROS a 869,618 MHz&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Yagi 2 elementi con riflettore, di Fabrizio (in uso su pybot)&lt;/td&gt;
+&lt;td&gt;6,4 dBi&lt;/td&gt;
+&lt;td&gt;1,09&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 2 elementi con direttore, di Fabrizio&lt;/td&gt;
+&lt;td&gt;5,3 dBi&lt;/td&gt;
+&lt;td&gt;1,02&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 10 elementi, progetto da 432 MHz riscalato, di Fabrizio&lt;/td&gt;
+&lt;td&gt;12,4 dBi&lt;/td&gt;
+&lt;td&gt;1,91&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Dipolo a mezz&amp;#39;onda&lt;/td&gt;
+&lt;td&gt;2,1 dBi&lt;/td&gt;
+&lt;td&gt;1,44&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ground plane λ/4 con 4 radiali a 45°&lt;/td&gt;
+&lt;td&gt;2,2 dBi&lt;/td&gt;
+&lt;td&gt;1,01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 3 elementi&lt;/td&gt;
+&lt;td&gt;8,1 dBi&lt;/td&gt;
+&lt;td&gt;1,23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Le ultime tre sono progetti di riferimento accordati da noi. Il dipolo
+risuona a &lt;strong&gt;160,6 mm&lt;/strong&gt;, gli stessi 161 mm a cui arriva il
+&lt;a href=&quot;https://www.loraitalia.it/eznec-chi-era-costui/&quot;&gt;tutorial di Paolo su Lora Italia&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Qualche numero è diverso da quello che si legge spesso in giro. Un esempio:
+con quattro radiali orizzontali una ground plane non sta a 36 Ω ma intorno a
+25 Ω. Piegando i radiali a 45° si arriva a 50 Ω. La scheda spiega il perché.&lt;/p&gt;
+&lt;p&gt;Sono simulazioni in spazio libero: indicano la tendenza, ma non
+sostituiscono una misura con un NanoVNA sull&amp;#39;antenna montata.&lt;/p&gt;
+&lt;h2 id=&quot;aggiungi-la-tua-antenna&quot;&gt;Aggiungi la tua antenna&lt;/h2&gt;
+&lt;p&gt;La galleria vive su GitHub nel repository
+&lt;a href=&quot;https://github.com/meshcore-ita/antenne&quot;&gt;meshcore-ita/antenne&lt;/a&gt;. Per
+aggiungere un&amp;#39;antenna bastano una cartella con il file &lt;code&gt;.nec&lt;/code&gt;, un piccolo
+&lt;code&gt;meta.json&lt;/code&gt; con titolo e autore e, se vuoi, qualche foto e le note di
+costruzione. Le istruzioni sono in
+&lt;a href=&quot;https://github.com/meshcore-ita/antenne/blob/main/CONTRIBUTING.md&quot;&gt;CONTRIBUTING.md&lt;/a&gt;.
+A ogni modifica il sito rifà da solo le simulazioni e rigenera le pagine.&lt;/p&gt;
+&lt;p&gt;Se non usi GitHub, manda il file &lt;code&gt;.nec&lt;/code&gt; e una foto nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;: lo aggiungiamo noi, citandoti.&lt;/p&gt;
+&lt;p&gt;Grazie a Fabrizio per aver aperto la strada.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+  <entry>
     <id>https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/</id>
     <title>Mesh America parla di Awesome MeshCore</title>
     <link rel="alternate" href="https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/"/>
