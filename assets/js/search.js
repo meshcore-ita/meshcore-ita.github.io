@@ -150,13 +150,18 @@ function initSearch() {
   function loadIndex() {
     if (chunks) return Promise.resolve(chunks);
     if (indexPromise) return indexPromise;
+    // Indici aggiuntivi (es. la galleria antenne, pubblicata da un altro repo):
+    // facoltativi, se non si caricano la ricerca resta sull'indice principale.
+    const extras = (dialog.dataset.searchExtra || '').split(/\s+/).filter(Boolean)
+      .map((url) => fetch(url).then((r) => (r.ok ? r.json() : [])).catch(() => []));
     indexPromise = fetch(dialog.dataset.searchIndex)
       .then((res) => {
         if (!res.ok) throw new Error('risposta non ok');
         return res.json();
       })
-      .then((data) => {
-        chunks = Array.isArray(data) ? data : [];
+      .then(async (data) => {
+        const more = await Promise.all(extras);
+        chunks = (Array.isArray(data) ? data : []).concat(...more.filter(Array.isArray));
         return chunks;
       })
       .catch((err) => {
