@@ -94,6 +94,13 @@ pertinenti alla domanda:
   frammento supera la soglia minima, il prompt resta solo la base dei comandi
 - il modello può chiudere la risposta con l'URL della pagina d'origine solo
   se l'ha davvero usata, e non può mai inventarne uno
+- in più, alla prima domanda e poi al massimo una volta l'ora, il Worker
+  scarica l'indice della [galleria antenne](https://meshcore-ita.github.io/antenne/)
+  (`/antenne/search-index.json`, generato dal repo `meshcore-ita/antenne`) e
+  lo unisce ai frammenti del sito: le nuove antenne arrivano al bot senza
+  ridistribuire il Worker. Si accettano solo frammenti ben formati con URL
+  `https://meshcore-ita.github.io/`, al massimo 400 da 1200 caratteri; se il
+  download fallisce il bot usa solo `kb.generated.mjs`
 
 `node build.mjs --check` fallisce se `worker/kb.generated.mjs` non è
 aggiornato rispetto a `content/*.html`, quindi è coperto dallo stesso

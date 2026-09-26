@@ -99,7 +99,7 @@ function ngrams(tokens, n) {
 
 // Indice minimo pre-tokenizzato, costruito una sola volta all'avvio del
 // Worker: nessuna struttura derivata più pesante dei chunk stessi.
-const KB_INDEX = KB_CHUNKS.map((chunk) => {
+function toEntry(chunk) {
   const titleTokens = tokenize(chunk.title);
   const textTokens = tokenize(chunk.text);
   return {
@@ -109,7 +109,37 @@ const KB_INDEX = KB_CHUNKS.map((chunk) => {
     titleTokenSet: new Set(titleTokens),
     textTokenSet: new Set(textTokens),
   };
-});
+}
+
+const KB_INDEX = KB_CHUNKS.map(toEntry);
+
+// Indici aggiuntivi pubblicati da altri repo della community (oggi la galleria
+// antenne). Caricati a runtime, così il bot vede le nuove antenne senza
+// ridistribuire il Worker. Facoltativi: se il fetch fallisce si usa solo
+// KB_CHUNKS. Si accettano solo chunk ben formati con URL del sito.
+const EXTRA_KB_URLS = ['https://meshcore-ita.github.io/antenne/search-index.json'];
+const EXTRA_KB_TTL_MS = 60 * 60 * 1000;
+const EXTRA_KB_MAX = 400;
+const EXTRA_KB_TEXT_MAX = 1200;
+let extraIndex = [];
+let extraLoadedAt = 0;
+
+function validExtraChunk(c) {
+  return c && ['id', 'page', 'title', 'url', 'text'].every((k) => typeof c[k] === 'string')
+    && c.url.startsWith('https://meshcore-ita.github.io/');
+}
+
+async function refreshExtraIndex() {
+  if (Date.now() - extraLoadedAt < EXTRA_KB_TTL_MS) return;
+  extraLoadedAt = Date.now();
+  const lists = await Promise.all(EXTRA_KB_URLS.map((url) =>
+    fetch(url, { signal: AbortSignal.timeout(2000), cf: { cacheTtl: 3600 } })
+      .then((r) => (r.ok ? r.json() : []))
+      .catch(() => [])));
+  const chunks = lists.flat().filter(validExtraChunk).slice(0, EXTRA_KB_MAX)
+    .map((c) => ({ ...c, text: c.text.slice(0, EXTRA_KB_TEXT_MAX) }));
+  if (chunks.length) extraIndex = chunks.map(toEntry);
+}
 
 function phraseBonus(queryTokens, chunkTokens) {
   if (chunkTokens.length === 0) return 0;
@@ -140,12 +170,12 @@ const KB_CHAR_BUDGET = 4000;
 
 // Top 3-4 chunk pertinenti alla domanda, entro un budget di caratteri.
 // Nessun risultato sopra soglia -> array vuoto: niente contenuto irrilevante.
-function retrieveChunks(question) {
+function retrieveChunks(question, index = KB_INDEX.concat(extraIndex)) {
   const queryTokens = tokenize(question);
   if (queryTokens.length === 0) return [];
   const queryTokenSet = new Set(queryTokens);
 
-  const scored = KB_INDEX.map((entry) => ({ entry, score: scoreEntry(entry, queryTokens, queryTokenSet) }))
+  const scored = index.map((entry) => ({ entry, score: scoreEntry(entry, queryTokens, queryTokenSet) }))
     .filter((s) => s.score >= KB_MIN_SCORE)
     .sort((a, b) => b.score - a.score);
 
@@ -188,7 +218,7 @@ function buildSystemPrompt(question) {
 
 // Esportate solo per test/tooling (es. script di verifica della retrieval,
 // dei test di parsing e della guardia URL sotto).
-export { retrieveChunks, buildSystemPrompt, parseQuestion, aiQuotaOk, containsDisallowedUrl, isAllowedUrl };
+export { retrieveChunks, buildSystemPrompt, parseQuestion, aiQuotaOk, containsDisallowedUrl, isAllowedUrl, refreshExtraIndex };
 
 // Messaggi di fallback: stesso testo sia per una risposta AI vuota sia per
 // una bloccata dalla guardia URL, così l'utente non nota la differenza.
@@ -230,6 +260,7 @@ function containsDisallowedUrl(text) {
 }
 
 async function answerWithAI(env, question) {
+  await refreshExtraIndex();
   const res = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
     messages: [
       { role: 'system', content: buildSystemPrompt(question) },
