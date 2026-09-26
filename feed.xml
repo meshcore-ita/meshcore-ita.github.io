@@ -150,9 +150,10 @@ aperto è più comodo.&lt;/p&gt;
 &lt;li&gt;Il &lt;a href=&quot;https://www.nec2.org/&quot;&gt;manuale di NEC-2&lt;/a&gt; con il significato di ogni
 scheda&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Se simulate un&amp;#39;antenna per un nodo MeshCore, condividete il file &lt;code&gt;.nec&lt;/code&gt; nel
-gruppo Telegram &lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;: è di testo, si
-legge e si modifica facilmente.&lt;/p&gt;
+&lt;p&gt;Se simulate un&amp;#39;antenna per un nodo MeshCore, aggiungetela alla
+&lt;a href=&quot;../../antenne/&quot;&gt;galleria delle antenne&lt;/a&gt;: il file &lt;code&gt;.nec&lt;/code&gt; è di testo, si legge
+e si modifica facilmente, e la galleria lo simula e lo spiega da sola. Come
+è nata lo raccontiamo in &lt;a href=&quot;../galleria-antenne/&quot;&gt;questo post&lt;/a&gt;.&lt;/p&gt;
 
   &lt;/div&gt;
 &lt;/section&gt;</content>

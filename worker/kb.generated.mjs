@@ -227,7 +227,7 @@ export const KB_CHUNKS = [
     "page": "Hardware",
     "title": "Antenne e connettori",
     "url": "https://meshcore-ita.github.io/hardware/#antenne-e-connettori",
-    "text": "La maggior parte delle board monta un connettore SMA o U.FL/IPEX per l'antenna LoRa in sub-banda 868 MHz. Un'antenna esterna correttamente accordata sulla banda 869 MHz incide sulla portata più della potenza di trasmissione: prima di aumentare il tx conviene verificare che l'antenna in dotazione sia adatta all'uso outdoor previsto."
+    "text": "La maggior parte delle board monta un connettore SMA o U.FL/IPEX per l'antenna LoRa in sub-banda 868 MHz. Un'antenna esterna correttamente accordata sulla banda 869 MHz incide sulla portata più della potenza di trasmissione: prima di aumentare il tx conviene verificare che l'antenna in dotazione sia adatta all'uso outdoor previsto. Se vuoi autocostruirla, la galleria delle antenne raccoglie modelli simulati a 869.618 MHz con misure, istruzioni e una guida per chi inizia."
   },
   {
     "id": "hardware--alimentazione-e-installazione-outdoor",
@@ -1480,7 +1480,7 @@ export const KB_CHUNKS = [
     "page": "Aggiornamenti",
     "title": "Per saperne di più",
     "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#per-saperne-di-piu",
-    "text": "Il tutorial originale di Paolo su Lora Italia La documentazione di xnec2c Il manuale di NEC-2 con il significato di ogni scheda Se simulate un'antenna per un nodo MeshCore, condividete il file .nec nel gruppo Telegram MeshCore ITA : è di testo, si legge e si modifica facilmente."
+    "text": "Il tutorial originale di Paolo su Lora Italia La documentazione di xnec2c Il manuale di NEC-2 con il significato di ogni scheda Se simulate un'antenna per un nodo MeshCore, aggiungetela alla galleria delle antenne : il file .nec è di testo, si legge e si modifica facilmente, e la galleria lo simula e lo spiega da sola. Come è nata lo raccontiamo in questo post ."
   },
   {
     "id": "blog/galleria-antenne--com-e-nata",

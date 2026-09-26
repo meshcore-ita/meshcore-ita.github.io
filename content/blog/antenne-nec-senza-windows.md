@@ -144,6 +144,7 @@ aperto è più comodo.
 - Il [manuale di NEC-2](https://www.nec2.org/) con il significato di ogni
   scheda
 
-Se simulate un'antenna per un nodo MeshCore, condividete il file `.nec` nel
-gruppo Telegram [MeshCore ITA](https://t.me/meshcore_ita): è di testo, si
-legge e si modifica facilmente.
+Se simulate un'antenna per un nodo MeshCore, aggiungetela alla
+[galleria delle antenne](../../antenne/): il file `.nec` è di testo, si legge
+e si modifica facilmente, e la galleria lo simula e lo spiega da sola. Come
+è nata lo raccontiamo in [questo post](../galleria-antenne/).
