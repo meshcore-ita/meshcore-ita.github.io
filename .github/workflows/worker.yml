@@ -40,6 +40,8 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_WEBHOOK_SECRET: ${{ secrets.TELEGRAM_WEBHOOK_SECRET }}
         run: |
+          : "${TELEGRAM_BOT_TOKEN:?missing}"
+          : "${TELEGRAM_WEBHOOK_SECRET:?missing}"
           printf '%s' "$TELEGRAM_BOT_TOKEN" | npx --yes wrangler@4.131.2 secret put TELEGRAM_BOT_TOKEN
           printf '%s' "$TELEGRAM_WEBHOOK_SECRET" | npx --yes wrangler@4.131.2 secret put TELEGRAM_WEBHOOK_SECRET
 

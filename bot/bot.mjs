@@ -7,8 +7,9 @@
 
 import { readFileSync } from 'node:fs';
 import process from 'node:process';
+import { setTimeout as delay } from 'node:timers/promises';
 import { REPLIES } from './content.mjs';
-import { DEFAULT_HELP_TOPIC_ID, isAllowedThread, parseCommand, sendWithRetry } from './routing.mjs';
+import { DEFAULT_HELP_TOPIC_ID, isAllowedChat, isAllowedThread, parseCommand, sendWithRetry } from './routing.mjs';
 
 const COMMANDS = new Set(Object.keys(REPLIES));
 
@@ -38,6 +39,10 @@ const TOKEN = getToken();
 const API = `https://api.telegram.org/bot${TOKEN}`;
 const ALLOWED_CHAT_ID = process.env.TELEGRAM_CHAT_ID ? String(process.env.TELEGRAM_CHAT_ID) : null;
 const HELP_TOPIC_ID = Number(process.env.TELEGRAM_HELP_TOPIC_ID ?? DEFAULT_HELP_TOPIC_ID);
+// Un update recapitato in ritardo (bot fermo, riavvio, backlog dopo un
+// incidente) non deve generare una risposta fuori contesto: oltre questa
+// soglia il messaggio viene scartato invece che gestito.
+const STALE_MESSAGE_MS = 10 * 60 * 1000;
 
 // Ritorna il risultato Telegram; su risposta non ok solleva, tranne quando il
 // chiamante chiede l'esito grezzo (raw) per decidere se ritentare.
@@ -68,8 +73,8 @@ function sleep(ms) {
 }
 
 async function handleMessage(message) {
+  if (!isAllowedChat(message, ALLOWED_CHAT_ID)) return;
   const chatId = message.chat && message.chat.id;
-  if (ALLOWED_CHAT_ID && String(chatId) !== ALLOWED_CHAT_ID) return;
 
   const cmd = parseCommand(message.text, COMMANDS);
   if (!cmd) return;
@@ -124,7 +129,13 @@ async function pollLoop() {
     } catch (err) {
       if (err.name === 'AbortError' || !running) break;
       console.error(`${new Date().toISOString()} errore getUpdates: ${err.message}`);
-      await sleep(backoff);
+      try {
+        // Abortabile: allo shutdown non si aspetta il backoff residuo.
+        await delay(backoff, undefined, { signal: abortController.signal });
+      } catch (sleepErr) {
+        if (sleepErr.name === 'AbortError' || !running) break;
+        throw sleepErr;
+      }
       backoff = Math.min(backoff * 2, 60000);
       continue;
     }
@@ -132,6 +143,12 @@ async function pollLoop() {
     for (const update of updates) {
       offset = update.update_id + 1;
       if (!update.message) continue;
+      // Un update di un messaggio troppo vecchio (bot rimasto fermo a lungo)
+      // non va gestito: risponderebbe fuori contesto molto tempo dopo.
+      if (typeof update.message.date === 'number' && Date.now() - update.message.date * 1000 > STALE_MESSAGE_MS) {
+        console.log(`${new Date().toISOString()} messaggio scartato (troppo vecchio) chat=${update.message.chat?.id}`);
+        continue;
+      }
       try {
         await handleMessage(update.message);
       } catch (err) {
@@ -140,6 +157,14 @@ async function pollLoop() {
     }
   }
   console.log(`${new Date().toISOString()} loop di polling terminato`);
+  // Conferma a Telegram l'ultimo offset gestito, così i messaggi già
+  // processati non vengono riconsegnati al prossimo avvio: best-effort, non
+  // deve bloccare né far fallire lo shutdown.
+  try {
+    await tg('getUpdates', { offset, timeout: 0, limit: 1 });
+  } catch (err) {
+    console.error(`${new Date().toISOString()} conferma offset finale fallita: ${err.message}`);
+  }
 }
 
 function shutdown(signal) {

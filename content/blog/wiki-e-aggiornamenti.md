@@ -2,7 +2,7 @@
 {
   "slug": "wiki-e-aggiornamenti",
   "title": "Aggiornamenti, ricerca e feed: cosa cambia sul sito MeshCore ITA",
-  "description": "Il sito MeshCore ITA aggiunge una sezione Aggiornamenti, un feed Atom, la ricerca interna e la documentazione raggruppata per sezione. Gli URL esistenti non cambiano.",
+  "description": "Il sito MeshCore ITA aggiunge Aggiornamenti, feed Atom, ricerca interna e documentazione raggruppata per sezione. Gli URL esistenti non cambiano.",
   "h1": "Aggiornamenti, ricerca e feed: cosa cambia sul sito",
   "lede": "Una sezione Aggiornamenti, un feed Atom, la ricerca interna e il footer raggruppato per sezione. Nessun URL esistente è cambiato.",
   "published": "2026-09-14",

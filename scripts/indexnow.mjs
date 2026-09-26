@@ -40,6 +40,8 @@ function allUrls() {
 }
 
 function changedUrls(before, after) {
+  // Primo push su un branch: GitHub passa uno sha di soli zeri, non diffabile.
+  if (!before || !after || /^0+$/.test(before)) return [];
   const out = execFileSync('git', ['diff', '--name-only', before, after], {
     encoding: 'utf8',
   });

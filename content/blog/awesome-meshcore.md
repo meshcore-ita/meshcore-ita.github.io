@@ -2,7 +2,7 @@
 {
   "slug": "awesome-meshcore",
   "title": "Awesome MeshCore: l'elenco curato delle risorse MeshCore",
-  "description": "La community MeshCore ITA pubblica awesome-meshcore: oltre 160 risorse MeshCore verificate — client, SDK, bot, mappe, firmware, guide e community di tutto il mondo — in un unico elenco su GitHub.",
+  "description": "La community MeshCore ITA pubblica awesome-meshcore: oltre 160 risorse verificate (client, SDK, bot, mappe, firmware, guide) in un elenco su GitHub.",
   "h1": "Awesome MeshCore: l'elenco curato delle risorse",
   "lede": "Oltre 160 risorse MeshCore in un solo posto: client, librerie, bot, mappe, strumenti di analisi e community di tutto il mondo. Licenza CC0, pull request aperte.",
   "published": "2026-09-14",

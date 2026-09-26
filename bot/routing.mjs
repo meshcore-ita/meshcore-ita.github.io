@@ -27,6 +27,15 @@ export function isAllowedThread(message, helpTopicId = DEFAULT_HELP_TOPIC_ID) {
   return message?.message_thread_id === helpTopicId;
 }
 
+// Le chat private sono sempre ammesse (comandi soltanto, l'AI resta solo di
+// gruppo); nei gruppi la chat deve coincidere con quella configurata, quando
+// impostata — altrimenti il bot risponderebbe anche in gruppi non ufficiali.
+export function isAllowedChat(message, allowedChatId) {
+  if (message?.chat?.type === 'private') return true;
+  if (!allowedChatId) return true;
+  return String(message?.chat?.id) === String(allowedChatId);
+}
+
 // Un invio fallito per motivi transitori (429, 5xx, rete) va ritentato: senza,
 // la risposta va persa e Telegram non la richiede mai più.
 export async function sendWithRetry(send, { attempts = 3, sleep } = {}) {

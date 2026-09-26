@@ -57,7 +57,11 @@ if (arg === '--info') {
     url: arg,
     secret_token: secret,
     allowed_updates: ['message'],
-    max_connections: 40,
+    // Basso apposta: il rate limiting AI del Worker (aiHits) vive in memoria
+    // per isolate, non condiviso. Troppe connessioni concorrenti farebbero
+    // girare più isolate in parallelo, ognuno con il proprio contatore, e la
+    // quota oraria per chat/utente diventerebbe facilmente aggirabile.
+    max_connections: 5,
   });
   console.log(JSON.stringify(res));
 } else {

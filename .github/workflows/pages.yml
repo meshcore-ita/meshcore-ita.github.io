@@ -86,9 +86,10 @@ jobs:
       # e topic Annunci (15) sono i default, sovrascrivibili con le variabili
       # TELEGRAM_CHAT_ID e TELEGRAM_ANNOUNCE_TOPIC_ID del repo.
       - name: Announce new blog posts on Telegram
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.run_attempt == 1
         continue-on-error: true
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          TELEGRAM_ANNOUNCE_TOPIC_ID: ${{ vars.TELEGRAM_ANNOUNCE_TOPIC_ID }}
         run: node scripts/announce-post.mjs "${{ github.event.before }}" "${{ github.sha }}"

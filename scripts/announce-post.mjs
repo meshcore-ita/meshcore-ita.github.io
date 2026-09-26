@@ -15,7 +15,7 @@ import { SITE_BASE } from './site-base.mjs';
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID || '-1003711129218';
-const TOPIC_ID = Number(process.env.TELEGRAM_ANNOUNCE_TOPIC_ID ?? 15);
+const TOPIC_ID = Number(process.env.TELEGRAM_ANNOUNCE_TOPIC_ID || 15);
 
 if (!TOKEN) {
   console.log('Annuncio saltato: TELEGRAM_BOT_TOKEN non impostato.');

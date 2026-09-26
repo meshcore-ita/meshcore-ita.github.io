@@ -33,7 +33,7 @@ Questo sito è documentazione tecnica, non divulgazione approssimativa.
 
 1. Crea `content/<slug>.html`. Il file inizia con un blocco `<!--meta {...}-->`
    JSON con le chiavi: `slug`, `nav`, `order`, `primary`, `title`,
-   `description`, `h1`, `lede`, `updated`, `jsonld`.
+   `description`, `h1`, `lede`, `updated`. Opzionale: `jsonld`.
 2. Il corpo contiene solo `<section class="section">`: niente `<h1>`,
    `<head>`, `<nav>`, `<main>` o `<footer>` (li mette il layout).
 3. `primary: true` mette la pagina nell'header; `false` la lascia solo nel

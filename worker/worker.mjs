@@ -7,32 +7,51 @@
 // Variabile opzionale:
 //   TELEGRAM_CHAT_ID       se impostata, il bot risponde solo in quella chat
 import { REPLIES } from '../bot/content.mjs';
-import { BOT_USERNAME, DEFAULT_HELP_TOPIC_ID, isAllowedThread, parseCommand, sendWithRetry } from '../bot/routing.mjs';
+import { BOT_USERNAME, DEFAULT_HELP_TOPIC_ID, isAllowedChat, isAllowedThread, parseCommand, sendWithRetry } from '../bot/routing.mjs';
 import { KB_CHUNKS } from './kb.generated.mjs';
 
 const COMMANDS = new Set(Object.keys(REPLIES));
 
-// Testo libero rivolto al bot: "/chiedi <domanda>" oppure una menzione
-// @meshcore_ita_bot. Con privacy mode attiva sono gli unici messaggi che il
-// bot riceve, quindi non serve altro filtro.
+// Testo libero rivolto al bot: "/chiedi <domanda>" oppure un messaggio che
+// INIZIA con la menzione @meshcore_ita_bot. Il bot è amministratore del
+// gruppo: la privacy mode di Telegram non si applica agli admin, quindi
+// riceve comunque tutti i messaggi. Il filtro qui sotto (non la privacy
+// mode) decide quali testi diventano una domanda per l'AI.
+const CHIEDI_RE = new RegExp(`^/chiedi(?:@${BOT_USERNAME})?(?:\\s|$)`, 'i');
+const MENTION_RE = new RegExp(`^@${BOT_USERNAME}\\b`, 'i');
+
 function parseQuestion(text) {
   if (typeof text !== 'string') return null;
-  const asked = /^\/chiedi(@meshcore_ita_bot)?\b/i.test(text)
-    ? text.replace(/^\/chiedi(@meshcore_ita_bot)?\s*/i, '')
-    : text.includes(`@${BOT_USERNAME}`)
-      ? text.replaceAll(`@${BOT_USERNAME}`, ' ').trim()
-      : null;
-  if (!asked) return null;
+  let asked = null;
+  if (CHIEDI_RE.test(text)) {
+    asked = text.replace(CHIEDI_RE, '');
+  } else if (MENTION_RE.test(text)) {
+    asked = text.replace(MENTION_RE, '');
+  }
+  if (asked === null) return null;
   const q = asked.trim();
   return q.length >= 3 && q.length <= 400 ? q : null;
 }
 
+const ANCHOR_RE = /<a href="([^"]*)">([^<]*)<\/a>/g;
 const stripTags = (s) => s.replace(/<[^>]+>/g, '');
+// "<a href=\"U\">T</a>" -> "T (U)": il modello vede l'URL come testo semplice
+// invece di perderlo insieme al tag quando i tag HTML vengono ripuliti.
+const linkify = (s) => s.replace(ANCHOR_RE, '$2 ($1)');
+// Ordine fisso: &amp; va decodificato per ultimo, altrimenti una sequenza
+// come "&amp;lt;" diventerebbe "<" invece di restare "&lt;" fino al giro dopo.
+const decodeEntities = (s) =>
+  s
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&');
 
 // La base di conoscenza sempre presente è quella dei comandi: il modello non
 // deve sapere niente che non sia già stato verificato e pubblicato.
 const BASE_KB = Object.entries(REPLIES)
-  .map(([k, v]) => `### /${k}\n${stripTags(v)}`)
+  .map(([k, v]) => `### /${k}\n${decodeEntities(stripTags(linkify(v)))}`)
   .join('\n\n');
 
 // --- retrieval sulle pagine del sito (worker/kb.generated.mjs) ----------
@@ -167,9 +186,48 @@ function buildSystemPrompt(question) {
   return `${SYSTEM_BASE}${formatRetrievedSection(retrieveChunks(question))}`;
 }
 
-// Esportate solo per test/tooling (es. script di verifica della retrieval);
-// il Worker in produzione usa esclusivamente l'export default sotto.
-export { retrieveChunks, buildSystemPrompt };
+// Esportate solo per test/tooling (es. script di verifica della retrieval,
+// dei test di parsing e della guardia URL sotto).
+export { retrieveChunks, buildSystemPrompt, parseQuestion, aiQuotaOk, containsDisallowedUrl, isAllowedUrl };
+
+// Messaggi di fallback: stesso testo sia per una risposta AI vuota sia per
+// una bloccata dalla guardia URL, così l'utente non nota la differenza.
+const AI_FALLBACK_TEXT =
+  'Non ho una risposta affidabile. Prova con /link oppure scrivi nel topic Supporto e troubleshooting.';
+const AI_ERROR_TEXT = 'Al momento non riesco a rispondere. Usa /link o scrivi nel topic Supporto e troubleshooting.';
+
+// --- guardia URL sulla risposta AI ---------------------------------------
+// Il modello non deve MAI citare un URL non verificato: gli unici ammessi
+// sono quelli nelle risposte dei comandi, quelli dei chunk della base di
+// conoscenza del sito, o quelli sotto i due prefissi ufficiali.
+function extractHrefs(html) {
+  const urls = new Set();
+  for (const m of html.matchAll(/href="([^"]+)"/g)) urls.add(m[1]);
+  return urls;
+}
+
+const ALLOWED_URLS = new Set(KB_CHUNKS.map((chunk) => chunk.url));
+for (const html of Object.values(REPLIES)) {
+  for (const url of extractHrefs(html)) ALLOWED_URLS.add(url);
+}
+
+const ALLOWED_URL_PREFIXES = ['https://docs.meshcore.io/', 'https://meshcore-ita.github.io/'];
+
+function isAllowedUrl(url) {
+  return ALLOWED_URLS.has(url) || ALLOWED_URL_PREFIXES.some((prefix) => url.startsWith(prefix));
+}
+
+const URL_RE = /https?:\/\/[^\s<>"')]+/g;
+
+// Toglie la punteggiatura di fine frase che spesso resta attaccata a un URL
+// dentro un testo semplice (es. "...vedi https://docs.meshcore.io/.").
+function extractUrls(text) {
+  return [...text.matchAll(URL_RE)].map((m) => m[0].replace(/[.,;:!?]+$/, ''));
+}
+
+function containsDisallowedUrl(text) {
+  return extractUrls(text).some((url) => !isAllowedUrl(url));
+}
 
 async function answerWithAI(env, question) {
   const res = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
@@ -181,7 +239,7 @@ async function answerWithAI(env, question) {
     temperature: 0.2,
   });
   const text = (res?.response ?? '').trim();
-  return text || 'Non ho una risposta affidabile. Prova con /link oppure scrivi nel topic Supporto e troubleshooting.';
+  return text || AI_FALLBACK_TEXT;
 }
 
 // Quota Workers AI: senza limiti, un singolo utente può bruciare i neuron
@@ -193,22 +251,46 @@ const AI_CHAT_PER_HOUR = 30;
 const AI_HOUR_MS = 3600_000;
 const aiHits = new Map(); // chiave -> array di timestamp
 
-function allowAi(key, limit, now) {
+// Rimuove gli hit più vecchi di un'ora; se il bucket resta vuoto elimina la
+// chiave invece di lasciare un array vuoto ad occupare memoria all'infinito.
+function pruneHits(key, now) {
   const hits = (aiHits.get(key) ?? []).filter((t) => now - t < AI_HOUR_MS);
-  if (hits.length >= limit) {
-    aiHits.set(key, hits);
-    return false;
-  }
-  hits.push(now);
-  aiHits.set(key, hits);
-  return true;
+  if (hits.length === 0) aiHits.delete(key);
+  else aiHits.set(key, hits);
+  return hits;
 }
 
+// Se il bucket chat O quello utente è già pieno la richiesta va rifiutata
+// SENZA registrare comunque l'hit nell'altro bucket: altrimenti un utente
+// bloccato dal proprio limite continuerebbe a consumare la quota condivisa
+// della chat ad ogni tentativo.
 function aiQuotaOk(message) {
   const now = Date.now();
   const chatKey = `c:${message.chat.id}`;
   const userKey = `u:${message.from?.id ?? 'anon'}`;
-  return allowAi(chatKey, AI_CHAT_PER_HOUR, now) && allowAi(userKey, AI_USER_PER_HOUR, now);
+
+  const chatHits = pruneHits(chatKey, now);
+  const userHits = pruneHits(userKey, now);
+  if (chatHits.length >= AI_CHAT_PER_HOUR || userHits.length >= AI_USER_PER_HOUR) return false;
+
+  chatHits.push(now);
+  userHits.push(now);
+  aiHits.set(chatKey, chatHits);
+  aiHits.set(userKey, userHits);
+  return true;
+}
+
+// Senza questo, un utente sopra quota per un'ora intera riceverebbe l'avviso
+// "troppe domande" ad ogni messaggio: lo mandiamo una sola volta per utente
+// ogni ora, poi la domanda viene scartata in silenzio.
+const aiQuotaNotified = new Map(); // userKey -> timestamp ultimo avviso
+
+function shouldNotifyQuotaExceeded(message, now) {
+  const userKey = `u:${message.from?.id ?? 'anon'}`;
+  const last = aiQuotaNotified.get(userKey);
+  if (last !== undefined && now - last < AI_HOUR_MS) return false;
+  aiQuotaNotified.set(userKey, now);
+  return true;
 }
 
 // Invio con ritentativi: il Worker risponde 200 subito, quindi Telegram non
@@ -232,10 +314,36 @@ async function sendMessage(token, payload) {
   return sent.ok;
 }
 
+// Confronto a tempo costante fra l'header del webhook e il secret: un
+// confronto con !== uscirebbe al primo carattere diverso, rendendo il secret
+// enumerabile bit per bit tramite un timing attack.
+function constantTimeEqual(a, b) {
+  const enc = new TextEncoder();
+  const bufA = enc.encode(a);
+  const bufB = enc.encode(b);
+  if (bufA.length !== bufB.length) return false;
+  if (typeof crypto?.subtle?.timingSafeEqual === 'function') {
+    return crypto.subtle.timingSafeEqual(bufA, bufB);
+  }
+  let diff = 0;
+  for (let i = 0; i < bufA.length; i += 1) diff |= bufA[i] ^ bufB[i];
+  return diff === 0;
+}
+
 export default {
   async fetch(request, env, ctx) {
     if (request.method !== 'POST') return new Response('ok', { status: 200 });
-    if (request.headers.get('x-telegram-bot-api-secret-token') !== env.TELEGRAM_WEBHOOK_SECRET) {
+
+    // Fail closed: senza un secret di lunghezza sufficiente non c'è modo di
+    // autenticare Telegram, quindi il Worker deve rifiutare tutto invece di
+    // accettare qualunque richiesta come se il controllo non esistesse.
+    const secret = env.TELEGRAM_WEBHOOK_SECRET;
+    if (!secret || secret.length < 16) {
+      console.error('TELEGRAM_WEBHOOK_SECRET mancante o troppo corto: rifiuto per fail-safe.');
+      return new Response('misconfigured', { status: 500 });
+    }
+    const header = request.headers.get('x-telegram-bot-api-secret-token') ?? '';
+    if (!constantTimeEqual(header, secret)) {
       return new Response('forbidden', { status: 403 });
     }
 
@@ -243,8 +351,9 @@ export default {
     const message = update?.message;
     if (!message?.chat) return new Response('ok');
 
-    const chatId = String(message.chat.id);
-    if (env.TELEGRAM_CHAT_ID && chatId !== String(env.TELEGRAM_CHAT_ID)) return new Response('ok');
+    // Stesso confine del runtime long polling: chat privata sempre ammessa,
+    // gruppo solo se coincide con TELEGRAM_CHAT_ID (quando impostata).
+    if (!isAllowedChat(message, env.TELEGRAM_CHAT_ID)) return new Response('ok');
 
     // Stesso confine del runtime long polling: fuori dal topic di supporto
     // (e fuori dalla chat privata) il bot non risponde.
@@ -252,7 +361,9 @@ export default {
     if (!isAllowedThread(message, helpTopicId)) return new Response('ok');
 
     const command = parseCommand(message.text, COMMANDS);
-    const question = command ? null : parseQuestion(message.text);
+    // In chat privata solo comandi: l'AI resta riservata al gruppo per tenere
+    // sotto controllo il costo delle chiamate a Workers AI.
+    const question = !command && message.chat.type !== 'private' ? parseQuestion(message.text) : null;
     if (!command && !question) return new Response('ok');
 
     const base = {
@@ -268,26 +379,41 @@ export default {
     }
 
     if (!aiQuotaOk(message)) {
-      ctx.waitUntil(
-        sendMessage(env.TELEGRAM_BOT_TOKEN, {
-          ...base,
-          text: 'Troppe domande di fila: riprova tra qualche minuto. Nel frattempo usa /link o i comandi del bot.',
-          parse_mode: undefined,
-        })
-      );
+      if (shouldNotifyQuotaExceeded(message, Date.now())) {
+        ctx.waitUntil(
+          sendMessage(env.TELEGRAM_BOT_TOKEN, {
+            ...base,
+            text: 'Troppe domande di fila: riprova tra qualche minuto. Nel frattempo usa /link o i comandi del bot.',
+            parse_mode: undefined,
+          })
+        );
+      }
       return new Response('ok');
     }
 
-    // Risposta AI: testo semplice, nessun tag da escapare.
+    // Risposta AI: testo semplice, nessun tag da escapare. In reply al
+    // messaggio originale e marcata come automatica.
+    const replyBase = {
+      ...base,
+      parse_mode: undefined,
+      reply_parameters: { message_id: message.message_id, allow_sending_without_reply: true },
+    };
     ctx.waitUntil(
       answerWithAI(env, question)
-        .then((text) => sendMessage(env.TELEGRAM_BOT_TOKEN, { ...base, text, parse_mode: undefined }))
+        .then((text) => {
+          // Il modello non deve MAI far uscire un URL non verificato: se
+          // succede si sostituisce l'intera risposta col fallback fisso.
+          const safeText = containsDisallowedUrl(text) ? AI_FALLBACK_TEXT : text;
+          return sendMessage(env.TELEGRAM_BOT_TOKEN, {
+            ...replyBase,
+            text: `Risposta automatica (AI):\n${safeText}`,
+          });
+        })
         .catch(async (err) => {
           console.error(`AI error: ${err.message}`);
           await sendMessage(env.TELEGRAM_BOT_TOKEN, {
-            ...base,
-            text: 'Al momento non riesco a rispondere. Usa /link o scrivi nel topic Supporto e troubleshooting.',
-            parse_mode: undefined,
+            ...replyBase,
+            text: `Risposta automatica (AI):\n${AI_ERROR_TEXT}`,
           });
         }),
     );

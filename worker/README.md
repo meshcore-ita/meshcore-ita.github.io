@@ -51,15 +51,26 @@ systemctl --user enable --now meshcore-ita-bot   # torna al long-polling
 Oltre ai comandi fissi, il Worker risponde al testo libero con Workers AI
 (`@cf/meta/llama-3.3-70b-instruct-fp8-fast`, binding `AI` in `wrangler.toml`):
 
-- `/chiedi <domanda>` oppure un messaggio che menziona `@meshcore_ita_bot`
+- `/chiedi <domanda>` oppure un messaggio che INIZIA con la menzione
+  `@meshcore_ita_bot` — solo nel Worker: il runtime long-polling `bot/bot.mjs`
+  gestisce solo i comandi fissi
+- solo nel gruppo: in chat privata il Worker esegue solo i comandi, mai l'AI,
+  per tenere sotto controllo il costo delle chiamate a Workers AI
 - la domanda deve stare fra 3 e 400 caratteri, altrimenti viene ignorata
-- il modello riceve i testi di `bot/content.mjs` (ripuliti dai tag) come base
-  sempre presente, più eventuali frammenti pertinenti delle pagine del sito
-  (vedi sotto): non può citare comandi, frequenze o URL che non siano già
-  stati verificati e pubblicati
+- il modello riceve i testi di `bot/content.mjs` (ripuliti dai tag, i link
+  trasformati in "testo (url)") come base sempre presente, più eventuali
+  frammenti pertinenti delle pagine del sito (vedi sotto): non può citare
+  comandi, frequenze o URL che non siano già stati verificati e pubblicati
 - il preset corretto è ripetuto nel system prompt come vincolo esplicito
-- se il modello o la quota falliscono, il bot manda un messaggio di fallback e
-  i comandi statici continuano a funzionare
+- prima dell'invio il Worker ricontrolla ogni URL citato nella risposta: se
+  non è tra quelli delle risposte dei comandi, dei chunk della base di
+  conoscenza o sotto `https://docs.meshcore.io/` / `https://meshcore-ita.github.io/`,
+  l'intera risposta viene sostituita dal messaggio di fallback
+- la risposta viene inviata in reply al messaggio originale
+  (`reply_parameters`), con il prefisso `Risposta automatica (AI):`, per
+  distinguerla da un comando
+- se il modello, la quota o la guardia URL falliscono, il bot manda un
+  messaggio di fallback e i comandi statici continuano a funzionare
 
 Il free tier di Workers AI include 10.000 neuron al giorno; superata la quota
 le chiamate AI falliscono ma i comandi restano operativi. Per disattivare la
@@ -90,17 +101,26 @@ controllo CI degli altri file generati.
 
 ## Note
 
-- Il Worker accetta solo POST con header `x-telegram-bot-api-secret-token`
-  corrispondente al secret: senza, risponde 403.
-- Comandi e risposte AI valgono solo nel topic "Supporto e troubleshooting"
-  (`TELEGRAM_HELP_TOPIC_ID`, default 17) e in chat privata: la regola è
-  condivisa con il runtime long polling in `bot/routing.mjs`.
+- Il Worker accetta solo POST. Senza `TELEGRAM_WEBHOOK_SECRET` configurato (o
+  più corto di 16 caratteri) risponde sempre `500` — fail-safe: nega tutto
+  invece di accettare senza un controllo efficace. L'header
+  `x-telegram-bot-api-secret-token` è confrontato col secret a tempo costante;
+  se non corrisponde, `403`.
+- I comandi funzionano nel topic "Supporto e troubleshooting"
+  (`TELEGRAM_HELP_TOPIC_ID`, default 17) e sempre in chat privata — regola
+  condivisa con il runtime long polling in `bot/routing.mjs`. Le risposte AI
+  restano invece riservate al gruppo: in chat privata il Worker esegue solo
+  comandi.
+- Con `TELEGRAM_CHAT_ID` impostata il gruppo consentito è solo quello
+  configurato; le chat private restano sempre ammesse (`isAllowedChat` in
+  `bot/routing.mjs`, condivisa col runtime long polling).
 - Le domande AI sono limitate a 6 all'ora per utente e 30 all'ora per chat:
   senza limite un solo utente può esaurire la quota giornaliera di Workers AI
-  per tutto il gruppo. Il contatore vive nell'isolate del Worker.
+  per tutto il gruppo. Il contatore vive nell'isolate del Worker; l'avviso
+  "troppe domande" viene inviato al massimo una volta all'ora per utente, poi
+  le domande in eccesso vengono scartate in silenzio.
 - Risponde subito `200` e invia il messaggio in `ctx.waitUntil`, con 3 tentativi
   su 429/5xx/errori di rete: Telegram non riconsegna l'update, quindi un invio
   perso sarebbe perso per sempre.
-- Con `TELEGRAM_CHAT_ID` impostata gli update di altre chat vengono ignorati.
 - Il piano free copre 100.000 richieste al giorno: per un gruppo di community
   è ampiamente sufficiente.

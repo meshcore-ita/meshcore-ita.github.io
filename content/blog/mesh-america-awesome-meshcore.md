@@ -2,7 +2,7 @@
 {
   "slug": "mesh-america-awesome-meshcore",
   "title": "Mesh America parla di Awesome MeshCore",
-  "description": "Mesh America dedica un articolo ad awesome-meshcore, l'elenco curato della community MeshCore ITA: una directory aperta di client, SDK, integrazioni, hardware, firmware e community di tutto il mondo.",
+  "description": "Mesh America dedica un articolo ad awesome-meshcore, l'elenco della community MeshCore ITA: client, SDK, integrazioni, hardware e firmware nel mondo.",
   "h1": "Mesh America parla di Awesome MeshCore",
   "lede": "Il sito statunitense Mesh America ha recensito awesome-meshcore, l'elenco di risorse che manteniamo su GitHub, definendolo «più una rubrica dell'intero ecosistema che un normale readme».",
   "published": "2026-09-23",
