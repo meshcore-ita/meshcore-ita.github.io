@@ -4,8 +4,159 @@
   <id>https://meshcore-ita.github.io/blog/</id>
   <link rel="self" href="https://meshcore-ita.github.io/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/"/>
-  <updated>2026-09-23T00:00:00Z</updated>
+  <updated>2026-09-26T00:00:00Z</updated>
   <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/</id>
+    <title>Simulare antenne senza Windows: xnec2c e il dipolo a 869 MHz</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/"/>
+    <published>2026-09-26T00:00:00Z</published>
+    <updated>2026-09-26T00:00:00Z</updated>
+    <summary type="text">Avendo letto che EZNEC e 4nec2 girano solo su Windows, ci siamo chiesti: chi usa Linux o macOS come simula un'antenna LoRa? La risposta è che il motore di calcolo è pubblico, e attorno a lui esistono strumenti open source.</summary>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-26&quot;&gt;26 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt;&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;antenne&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;software&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;autocostruzione&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;da-dove-partiamo&quot;&gt;Da dove partiamo&lt;/h2&gt;
+&lt;p&gt;Su Lora Italia Paolo ha pubblicato
+&lt;a href=&quot;https://www.loraitalia.it/eznec-chi-era-costui/&quot;&gt;&lt;em&gt;Eznec! Chi era costui?&lt;/em&gt;&lt;/a&gt;,
+un ottimo tutorial in italiano: un dipolo verticale a 869 MHz, prima nello
+spazio libero e poi sopra un terreno reale, simulato con EZNEC. Vi consigliamo
+di leggerlo: qui rifacciamo gli stessi passi con altri strumenti.&lt;/p&gt;
+&lt;p&gt;L&amp;#39;articolo spiega che i due programmi più usati, EZNEC e 4nec2, sono gratuiti
+ma &lt;strong&gt;girano solo su Windows&lt;/strong&gt;. E sono gratuiti, non open source: il codice non
+è disponibile.&lt;/p&gt;
+&lt;p&gt;Entrambi però sono interfacce grafiche costruite sopra lo stesso motore,
+il &lt;a href=&quot;https://en.wikipedia.org/wiki/Numerical_Electromagnetics_Code&quot;&gt;Numerical Electromagnetics Code&lt;/a&gt;.
+La versione NEC-2 è di pubblico dominio, e da lì sono nati diversi progetti
+aperti.&lt;/p&gt;
+&lt;h2 id=&quot;le-alternative-open-source&quot;&gt;Le alternative open source&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Strumento&lt;/th&gt;
+&lt;th&gt;Cos&amp;#39;è&lt;/th&gt;
+&lt;th&gt;Piattaforme&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://www.xnec2c.org/&quot;&gt;xnec2c&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;NEC-2 con interfaccia grafica: geometria, diagrammi, impedenza, ROS. Legge i file &lt;code&gt;.nec&lt;/code&gt; di 4nec2.&lt;/td&gt;
+&lt;td&gt;Linux, BSD, macOS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;nec2c&lt;/td&gt;
+&lt;td&gt;Il motore NEC-2 tradotto in C, da riga di comando&lt;/td&gt;
+&lt;td&gt;Ovunque&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/tmolteno/necpp&quot;&gt;necpp / PyNEC&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;NEC-2 in C++ con binding Python, per simulazioni e ottimizzazioni via script&lt;/td&gt;
+&lt;td&gt;Ovunque&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://www.openems.de/&quot;&gt;openEMS&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Solutore 3D a elementi finiti nel tempo (FDTD)&lt;/td&gt;
+&lt;td&gt;Linux, Windows, macOS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Per rifare il tutorial serve &lt;strong&gt;xnec2c&lt;/strong&gt;, che è quello più vicino a EZNEC.
+PyNEC è utile se volete l&amp;#39;equivalente dell&amp;#39;ottimizzatore di 4nec2 scritto in
+Python. openEMS è un altro mondo: serve per antenne su circuito stampato e
+piani di massa, dove NEC fatica. Ci torneremo.&lt;/p&gt;
+&lt;h2 id=&quot;installare-xnec2c&quot;&gt;Installare xnec2c&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Debian, Ubuntu, Raspberry Pi OS: &lt;code&gt;sudo apt install xnec2c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Arch e derivate: &lt;code&gt;sudo pacman -S xnec2c&lt;/code&gt; (o dall&amp;#39;AUR)&lt;/li&gt;
+&lt;li&gt;Fedora: &lt;code&gt;sudo dnf install xnec2c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;macOS: &lt;code&gt;sudo port install xnec2c&lt;/code&gt; con MacPorts&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;il-dipolo-a-869-mhz&quot;&gt;Il dipolo a 869 MHz&lt;/h2&gt;
+&lt;p&gt;A differenza di EZNEC, xnec2c descrive l&amp;#39;antenna con un file di testo a
+&amp;quot;schede&amp;quot;, il formato originale di NEC. Sembra ostico, ma per un dipolo sono
+poche righe. Le misure sono &lt;strong&gt;in metri&lt;/strong&gt;. Salvate questo come
+&lt;code&gt;dipolo-869.nec&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CM Dipolo verticale 869 MHz, spazio libero
+CE
+GW 1 11 0 0 -0.0805 0 0 0.0805 0.001
+GE 0
+EX 0 1 6 0 1 0
+FR 0 1 0 0 869 0
+RP 0 37 73 1000 0 0 5 5
+EN
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Riga per riga:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GW&lt;/code&gt;: un filo (&lt;em&gt;wire&lt;/em&gt;) numero 1, diviso in &lt;strong&gt;11 segmenti&lt;/strong&gt;, da z = −80,5 mm
+a z = +80,5 mm, quindi lungo &lt;strong&gt;161 mm&lt;/strong&gt;, con raggio 1 mm (diametro 2 mm).
+Sono le misure a cui arriva il tutorial originale dopo aver accorciato da
+172 mm.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GE 0&lt;/code&gt;: fine della geometria, nessun terreno (spazio libero).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;EX&lt;/code&gt;: alimentazione in tensione sul filo 1, segmento 6, cioè al centro.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FR&lt;/code&gt;: una sola frequenza, 869 MHz.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RP&lt;/code&gt;: calcola il diagramma di irradiazione su tutta la sfera, a passi di 5°.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Aprite il file con &lt;code&gt;xnec2c dipolo-869.nec&lt;/code&gt;. Nella finestra principale
+troverete l&amp;#39;antenna; dal menu &lt;strong&gt;View&lt;/strong&gt; aprite il diagramma di irradiazione
+e il grafico della frequenza, dove leggere impedenza e ROS. Dovreste trovare
+un&amp;#39;impedenza vicina ai 73 Ω con reattanza piccola, e il classico diagramma
+a ciambella del dipolo a mezz&amp;#39;onda.&lt;/p&gt;
+&lt;p&gt;Per ripetere l&amp;#39;esperimento sul diametro, cambiate l&amp;#39;ultimo numero di &lt;code&gt;GW&lt;/code&gt;
+in &lt;code&gt;0.005&lt;/code&gt; (diametro 10 mm): la reattanza torna induttiva e, come nel
+tutorial, bisogna accorciare verso i 153 mm.&lt;/p&gt;
+&lt;h3 id=&quot;piu-frequenze-in-un-colpo&quot;&gt;Più frequenze in un colpo&lt;/h3&gt;
+&lt;p&gt;Qui xnec2c ha un vantaggio comodo: con una scheda &lt;code&gt;FR&lt;/code&gt; a più passi calcola
+una spazzata, e il grafico mostra subito dove l&amp;#39;antenna risuona.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FR 0 41 0 0 849 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Sono 41 frequenze da 849 a 889 MHz, a passi di 1 MHz. Il minimo del ROS vi
+dice se il dipolo è corto o lungo, senza tentativi.&lt;/p&gt;
+&lt;h2 id=&quot;sopra-un-terreno-reale&quot;&gt;Sopra un terreno reale&lt;/h2&gt;
+&lt;p&gt;Come nel tutorial, alziamo l&amp;#39;antenna di 1 metro e aggiungiamo il terreno.
+Il centro del dipolo va a 1,0805 m, così l&amp;#39;estremità bassa sta a 1 m:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CM Dipolo verticale 869 MHz, 1 m sopra terreno reale
+CE
+GW 1 11 0 0 1.0 0 0 1.161 0.001
+GE 1
+GN 2 0 0 0 13 0.005
+EX 0 1 6 0 1 0
+FR 0 1 0 0 869 0
+RP 0 19 73 1000 0 0 5 5
+EN
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GE 1&lt;/code&gt;: c&amp;#39;è un terreno.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GN 2&lt;/code&gt;: terreno reale calcolato con il metodo di Sommerfeld, il più
+accurato, con costante dielettrica 13 e conducibilità 0,005 S/m (un
+terreno &amp;quot;medio&amp;quot;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RP&lt;/code&gt; ora calcola solo la mezza sfera sopra il suolo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Vale lo stesso limite spiegato nell&amp;#39;articolo: NEC-2 non gestisce fili che
+toccano il terreno o finiscono sotto. Non è un difetto di xnec2c, è il
+motore: lo hanno anche EZNEC e 4nec2 nella versione gratuita.&lt;/p&gt;
+&lt;p&gt;Nel diagramma di elevazione vedrete i lobi che si formano per la riflessione
+sul suolo e l&amp;#39;angolo di irradiazione principale che si abbassa, come nel
+tutorial.&lt;/p&gt;
+&lt;h2 id=&quot;e-se-proprio-volete-eznec&quot;&gt;E se proprio volete EZNEC&lt;/h2&gt;
+&lt;p&gt;EZNEC e 4nec2 funzionano in genere anche sotto
+&lt;a href=&quot;https://www.winehq.org/&quot;&gt;Wine&lt;/a&gt;. Può bastare se dovete aprire un modello che
+vi ha passato qualcuno. Per iniziare da zero, però, un programma nativo e
+aperto è più comodo.&lt;/p&gt;
+&lt;h2 id=&quot;per-saperne-di-piu&quot;&gt;Per saperne di più&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Il tutorial originale di Paolo su
+&lt;a href=&quot;https://www.loraitalia.it/eznec-chi-era-costui/&quot;&gt;Lora Italia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;La &lt;a href=&quot;https://www.xnec2c.org/&quot;&gt;documentazione di xnec2c&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Il &lt;a href=&quot;https://www.nec2.org/&quot;&gt;manuale di NEC-2&lt;/a&gt; con il significato di ogni
+scheda&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se simulate un&amp;#39;antenna per un nodo MeshCore, condividete il file &lt;code&gt;.nec&lt;/code&gt; nel
+gruppo Telegram &lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;: è di testo, si
+legge e si modifica facilmente.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
   <entry>
     <id>https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/</id>
     <title>Mesh America parla di Awesome MeshCore</title>

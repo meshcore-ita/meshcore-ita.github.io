@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+
+<title>Simulare antenne senza Windows: xnec2c e il dipolo a 869 MHz</title>
+<meta name="description" content="EZNEC e 4nec2 girano solo su Windows. Con xnec2c, open source per Linux e macOS, si rifà lo stesso tutorial del dipolo a 869 MHz con il motore NEC-2.">
+<link rel="canonical" href="https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MeshCore ITA">
+<meta property="og:title" content="Simulare antenne senza Windows: xnec2c e il dipolo a 869 MHz">
+<meta property="og:description" content="EZNEC e 4nec2 girano solo su Windows. Con xnec2c, open source per Linux e macOS, si rifà lo stesso tutorial del dipolo a 869 MHz con il motore NEC-2.">
+<meta property="og:url" content="https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/">
+<meta property="og:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="it_IT">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Simulare antenne senza Windows: xnec2c e il dipolo a 869 MHz">
+<meta name="twitter:description" content="EZNEC e 4nec2 girano solo su Windows. Con xnec2c, open source per Linux e macOS, si rifà lo stesso tutorial del dipolo a 869 MHz con il motore NEC-2.">
+<meta name="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="mask-icon" href="../../assets/img/favicon.svg" color="#22c55e">
+
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geist-300-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
+
+<link rel="stylesheet" href="../../assets/css/style.css?v=8">
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Simulare antenne senza Windows: xnec2c e il dipolo a 869 MHz",
+      "description": "EZNEC e 4nec2 girano solo su Windows. Con xnec2c, open source per Linux e macOS, si rifà lo stesso tutorial del dipolo a 869 MHz con il motore NEC-2.",
+      "datePublished": "2026-09-26",
+      "dateModified": "2026-09-26",
+      "author": {
+        "@type": "Organization",
+        "name": "MeshCore ITA"
+      },
+      "inLanguage": "it",
+      "mainEntityOfPage": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://meshcore-ita.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Aggiornamenti",
+          "item": "https://meshcore-ita.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Simulare antenne senza Windows",
+          "item": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Vai al contenuto</a>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<header class="site-header" data-scrolled="false">
+  <div class="site-header__inner">
+    <a class="brand" href="../../">
+      <img class="brand__mark" src="../../assets/img/logo.svg" alt="" width="28" height="28">
+      <span class="brand__text">MeshCore <em>ITA</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a class="nav__link" href="../../#cos-e">Cos'è</a>
+      <a class="nav__link" href="../../guida/">Guida</a>
+      <a class="nav__link" href="../../preset-radio/">Preset radio</a>
+      <a class="nav__link" href="../../hardware/">Hardware</a>
+      <a class="nav__link" href="../../faq/">FAQ</a>
+      <a class="nav__link" href="../../community/">Community</a>
+      <a class="nav__link" href="../../blog/" aria-current="true">Aggiornamenti</a>
+      <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
+      <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
+    </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="sr-only">Apri il menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero hero--page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="../../">Home</a></li>
+        <li><a href="../">Aggiornamenti</a></li>
+        <li aria-current="page">Simulare antenne senza Windows</li>
+      </ol>
+    </nav>
+    <p class="eyelash">Aggiornamenti</p>
+    <h1 class="hero__title">Simulare antenne senza Windows</h1>
+    <p class="hero__lede">Avendo letto che EZNEC e 4nec2 girano solo su Windows, ci siamo chiesti: chi usa Linux o macOS come simula un'antenna LoRa? La risposta è che il motore di calcolo è pubblico, e attorno a lui esistono strumenti open source.</p>
+  </section>
+
+<section class="section">
+  <p class="post-meta"><time datetime="2026-09-26">26 settembre 2026</time> · <span class="post-meta__author">MeshCore ITA</span></p>
+  <ul class="tags"><li class="tag">antenne</li><li class="tag">software</li><li class="tag">autocostruzione</li></ul>
+  <div class="prose">
+<h2 id="da-dove-partiamo">Da dove partiamo</h2>
+<p>Su Lora Italia Paolo ha pubblicato
+<a href="https://www.loraitalia.it/eznec-chi-era-costui/"><em>Eznec! Chi era costui?</em></a>,
+un ottimo tutorial in italiano: un dipolo verticale a 869 MHz, prima nello
+spazio libero e poi sopra un terreno reale, simulato con EZNEC. Vi consigliamo
+di leggerlo: qui rifacciamo gli stessi passi con altri strumenti.</p>
+<p>L&#39;articolo spiega che i due programmi più usati, EZNEC e 4nec2, sono gratuiti
+ma <strong>girano solo su Windows</strong>. E sono gratuiti, non open source: il codice non
+è disponibile.</p>
+<p>Entrambi però sono interfacce grafiche costruite sopra lo stesso motore,
+il <a href="https://en.wikipedia.org/wiki/Numerical_Electromagnetics_Code">Numerical Electromagnetics Code</a>.
+La versione NEC-2 è di pubblico dominio, e da lì sono nati diversi progetti
+aperti.</p>
+<h2 id="le-alternative-open-source">Le alternative open source</h2>
+<table>
+<thead>
+<tr>
+<th>Strumento</th>
+<th>Cos&#39;è</th>
+<th>Piattaforme</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.xnec2c.org/">xnec2c</a></td>
+<td>NEC-2 con interfaccia grafica: geometria, diagrammi, impedenza, ROS. Legge i file <code>.nec</code> di 4nec2.</td>
+<td>Linux, BSD, macOS</td>
+</tr>
+<tr>
+<td>nec2c</td>
+<td>Il motore NEC-2 tradotto in C, da riga di comando</td>
+<td>Ovunque</td>
+</tr>
+<tr>
+<td><a href="https://github.com/tmolteno/necpp">necpp / PyNEC</a></td>
+<td>NEC-2 in C++ con binding Python, per simulazioni e ottimizzazioni via script</td>
+<td>Ovunque</td>
+</tr>
+<tr>
+<td><a href="https://www.openems.de/">openEMS</a></td>
+<td>Solutore 3D a elementi finiti nel tempo (FDTD)</td>
+<td>Linux, Windows, macOS</td>
+</tr>
+</tbody></table>
+<p>Per rifare il tutorial serve <strong>xnec2c</strong>, che è quello più vicino a EZNEC.
+PyNEC è utile se volete l&#39;equivalente dell&#39;ottimizzatore di 4nec2 scritto in
+Python. openEMS è un altro mondo: serve per antenne su circuito stampato e
+piani di massa, dove NEC fatica. Ci torneremo.</p>
+<h2 id="installare-xnec2c">Installare xnec2c</h2>
+<ul>
+<li>Debian, Ubuntu, Raspberry Pi OS: <code>sudo apt install xnec2c</code></li>
+<li>Arch e derivate: <code>sudo pacman -S xnec2c</code> (o dall&#39;AUR)</li>
+<li>Fedora: <code>sudo dnf install xnec2c</code></li>
+<li>macOS: <code>sudo port install xnec2c</code> con MacPorts</li>
+</ul>
+<h2 id="il-dipolo-a-869-mhz">Il dipolo a 869 MHz</h2>
+<p>A differenza di EZNEC, xnec2c descrive l&#39;antenna con un file di testo a
+&quot;schede&quot;, il formato originale di NEC. Sembra ostico, ma per un dipolo sono
+poche righe. Le misure sono <strong>in metri</strong>. Salvate questo come
+<code>dipolo-869.nec</code>:</p>
+<pre><code>CM Dipolo verticale 869 MHz, spazio libero
+CE
+GW 1 11 0 0 -0.0805 0 0 0.0805 0.001
+GE 0
+EX 0 1 6 0 1 0
+FR 0 1 0 0 869 0
+RP 0 37 73 1000 0 0 5 5
+EN
+</code></pre>
+<p>Riga per riga:</p>
+<ul>
+<li><code>GW</code>: un filo (<em>wire</em>) numero 1, diviso in <strong>11 segmenti</strong>, da z = −80,5 mm
+a z = +80,5 mm, quindi lungo <strong>161 mm</strong>, con raggio 1 mm (diametro 2 mm).
+Sono le misure a cui arriva il tutorial originale dopo aver accorciato da
+172 mm.</li>
+<li><code>GE 0</code>: fine della geometria, nessun terreno (spazio libero).</li>
+<li><code>EX</code>: alimentazione in tensione sul filo 1, segmento 6, cioè al centro.</li>
+<li><code>FR</code>: una sola frequenza, 869 MHz.</li>
+<li><code>RP</code>: calcola il diagramma di irradiazione su tutta la sfera, a passi di 5°.</li>
+</ul>
+<p>Aprite il file con <code>xnec2c dipolo-869.nec</code>. Nella finestra principale
+troverete l&#39;antenna; dal menu <strong>View</strong> aprite il diagramma di irradiazione
+e il grafico della frequenza, dove leggere impedenza e ROS. Dovreste trovare
+un&#39;impedenza vicina ai 73 Ω con reattanza piccola, e il classico diagramma
+a ciambella del dipolo a mezz&#39;onda.</p>
+<p>Per ripetere l&#39;esperimento sul diametro, cambiate l&#39;ultimo numero di <code>GW</code>
+in <code>0.005</code> (diametro 10 mm): la reattanza torna induttiva e, come nel
+tutorial, bisogna accorciare verso i 153 mm.</p>
+<h3 id="piu-frequenze-in-un-colpo">Più frequenze in un colpo</h3>
+<p>Qui xnec2c ha un vantaggio comodo: con una scheda <code>FR</code> a più passi calcola
+una spazzata, e il grafico mostra subito dove l&#39;antenna risuona.</p>
+<pre><code>FR 0 41 0 0 849 1
+</code></pre>
+<p>Sono 41 frequenze da 849 a 889 MHz, a passi di 1 MHz. Il minimo del ROS vi
+dice se il dipolo è corto o lungo, senza tentativi.</p>
+<h2 id="sopra-un-terreno-reale">Sopra un terreno reale</h2>
+<p>Come nel tutorial, alziamo l&#39;antenna di 1 metro e aggiungiamo il terreno.
+Il centro del dipolo va a 1,0805 m, così l&#39;estremità bassa sta a 1 m:</p>
+<pre><code>CM Dipolo verticale 869 MHz, 1 m sopra terreno reale
+CE
+GW 1 11 0 0 1.0 0 0 1.161 0.001
+GE 1
+GN 2 0 0 0 13 0.005
+EX 0 1 6 0 1 0
+FR 0 1 0 0 869 0
+RP 0 19 73 1000 0 0 5 5
+EN
+</code></pre>
+<ul>
+<li><code>GE 1</code>: c&#39;è un terreno.</li>
+<li><code>GN 2</code>: terreno reale calcolato con il metodo di Sommerfeld, il più
+accurato, con costante dielettrica 13 e conducibilità 0,005 S/m (un
+terreno &quot;medio&quot;).</li>
+<li><code>RP</code> ora calcola solo la mezza sfera sopra il suolo.</li>
+</ul>
+<p>Vale lo stesso limite spiegato nell&#39;articolo: NEC-2 non gestisce fili che
+toccano il terreno o finiscono sotto. Non è un difetto di xnec2c, è il
+motore: lo hanno anche EZNEC e 4nec2 nella versione gratuita.</p>
+<p>Nel diagramma di elevazione vedrete i lobi che si formano per la riflessione
+sul suolo e l&#39;angolo di irradiazione principale che si abbassa, come nel
+tutorial.</p>
+<h2 id="e-se-proprio-volete-eznec">E se proprio volete EZNEC</h2>
+<p>EZNEC e 4nec2 funzionano in genere anche sotto
+<a href="https://www.winehq.org/">Wine</a>. Può bastare se dovete aprire un modello che
+vi ha passato qualcuno. Per iniziare da zero, però, un programma nativo e
+aperto è più comodo.</p>
+<h2 id="per-saperne-di-piu">Per saperne di più</h2>
+<ul>
+<li>Il tutorial originale di Paolo su
+<a href="https://www.loraitalia.it/eznec-chi-era-costui/">Lora Italia</a></li>
+<li>La <a href="https://www.xnec2c.org/">documentazione di xnec2c</a></li>
+<li>Il <a href="https://www.nec2.org/">manuale di NEC-2</a> con il significato di ogni
+scheda</li>
+</ul>
+<p>Se simulate un&#39;antenna per un nodo MeshCore, condividete il file <code>.nec</code> nel
+gruppo Telegram <a href="https://t.me/meshcore_ita">MeshCore ITA</a>: è di testo, si
+legge e si modifica facilmente.</p>
+
+  </div>
+</section>
+<section class="section related" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Continua a leggere</p>
+      <h2 class="section__title">Altri contenuti MeshCore ITA</h2>
+    </div>
+    <div class="grid grid--2">
+      <a class="card" href="../../guida/">
+        <h3 class="card__title">Guida</h3>
+        <p class="card__body">Tutti i passaggi, in italiano, per configurare il tuo primo nodo MeshCore e agganciarlo alla mesh italiana.</p>
+      </a>
+      <a class="card" href="../../preset-radio/">
+        <h3 class="card__title">Preset radio</h3>
+        <p class="card__body">Frequenza, banda, spreading factor e coding rate che permettono a tutti i nodi MeshCore italiani di sentirsi tra loro.</p>
+      </a>
+      <a class="card" href="../../hardware/">
+        <h3 class="card__title">Hardware</h3>
+        <p class="card__body">Le board LoRa supportate dal firmware Companion, confrontate per chip, connettività e uso tipico.</p>
+      </a>
+      <a class="card" href="../">
+        <h3 class="card__title">Aggiornamenti</h3>
+        <p class="card__body">Tutti gli articoli e le novità di MeshCore ITA.</p>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="foot__nav">
+      <p class="foot__nav-label">Inizia</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../guida/">Guida</a></li>
+        <li><a href="../../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../preset-radio/">Preset radio</a></li>
+        <li><a href="../../hardware/">Hardware</a></li>
+        <li><a href="../../installare-repeater/">Repeater</a></li>
+        <li><a href="../../link-budget/">Portata e link budget</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../mappa-copertura/">Mappa</a></li>
+        <li><a href="../../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../comandi/">Comandi</a></li>
+        <li><a href="../../problemi/">Problemi</a></li>
+        <li><a href="../../faq/">FAQ</a></li>
+        <li><a href="../../meshcore-vs-meshtastic/">Confronti</a></li>
+        <li><a href="../../glossario/">Glossario</a></li>
+        <li><a href="../../normativa/">Normativa</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../community/">Community</a></li>
+      </ul>
+      <p class="foot__nav-label">Aggiornamenti</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../blog/" aria-current="true">Aggiornamenti</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
+    <p class="site-footer__note">Contenuti sotto licenza CC BY 4.0, codice del sito sotto licenza MIT.</p>
+    <p class="foot__meta">Aggiornato il 26 settembre 2026</p>
+    <p class="foot__meta">Trovato un errore o vuoi aggiungere qualcosa? <a class="link" href="https://github.com/meshcore-ita/meshcore-ita.github.io/edit/main/content/blog/antenne-nec-senza-windows.md" target="_blank" rel="noopener">Modifica questa pagina su GitHub<span class="ext-arrow">↗</span></a> — la modifica diventa una pull request.</p>
+    <ul class="site-footer__links">
+      <li><a href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Telegram<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://meshcore.io/" target="_blank" rel="noopener">MeshCore<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://docs.meshcore.io/" target="_blank" rel="noopener">Docs<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">Flasher<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://map.meshcore.io/" target="_blank" rel="noopener">Mappa pubblica<span class="ext-arrow">↗</span></a></li>
+    </ul>
+  </div>
+</footer>
+
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="../../search-index.json">
+  <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+<script type="module" src="../../assets/js/main.js?v=5" defer></script>
+<script type="module" src="../../assets/js/search.js?v=2" defer></script>
+<script type="module" src="../../assets/js/widgets.js?v=2" defer></script>
+</body>
+</html>

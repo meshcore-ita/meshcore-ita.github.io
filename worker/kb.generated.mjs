@@ -1427,6 +1427,62 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/antenne-nec-senza-windows--da-dove-partiamo",
+    "page": "Aggiornamenti",
+    "title": "Da dove partiamo",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#da-dove-partiamo",
+    "text": "Su Lora Italia Paolo ha pubblicato Eznec! Chi era costui? , un ottimo tutorial in italiano: un dipolo verticale a 869 MHz, prima nello spazio libero e poi sopra un terreno reale, simulato con EZNEC. Vi consigliamo di leggerlo: qui rifacciamo gli stessi passi con altri strumenti. L'articolo spiega che i due programmi più usati, EZNEC e 4nec2, sono gratuiti ma girano solo su Windows . E sono gratuiti, non open source: il codice non è disponibile. Entrambi però sono interfacce grafiche costruite sopra lo stesso motore, il Numerical Electromagnetics Code . La versione NEC-2 è di pubblico dominio, e da lì sono nati diversi progetti aperti."
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--le-alternative-open-source",
+    "page": "Aggiornamenti",
+    "title": "Le alternative open source",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#le-alternative-open-source",
+    "text": "Strumento Cos'è Piattaforme xnec2c NEC-2 con interfaccia grafica: geometria, diagrammi, impedenza, ROS. Legge i file .nec di 4nec2. Linux, BSD, macOS nec2c Il motore NEC-2 tradotto in C, da riga di comando Ovunque necpp / PyNEC NEC-2 in C++ con binding Python, per simulazioni e ottimizzazioni via script Ovunque openEMS Solutore 3D a elementi finiti nel tempo (FDTD) Linux, Windows, macOS Per rifare il tutorial serve xnec2c , che è quello più vicino a EZNEC. PyNEC è utile se volete l'equivalente dell'ottimizzatore di 4nec2 scritto in Python. openEMS è un altro mondo: serve per antenne su circuito stampato e piani di massa, dove NEC fatica. Ci torneremo."
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--installare-xnec2c",
+    "page": "Aggiornamenti",
+    "title": "Installare xnec2c",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#installare-xnec2c",
+    "text": "Debian, Ubuntu, Raspberry Pi OS: sudo apt install xnec2c Arch e derivate: sudo pacman -S xnec2c (o dall'AUR) Fedora: sudo dnf install xnec2c macOS: sudo port install xnec2c con MacPorts"
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--il-dipolo-a-869-mhz",
+    "page": "Aggiornamenti",
+    "title": "Il dipolo a 869 MHz",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#il-dipolo-a-869-mhz",
+    "text": "A differenza di EZNEC, xnec2c descrive l'antenna con un file di testo a \"schede\", il formato originale di NEC. Sembra ostico, ma per un dipolo sono poche righe. Le misure sono in metri . Salvate questo come dipolo-869.nec : CM Dipolo verticale 869 MHz, spazio libero CE GW 1 11 0 0 -0.0805 0 0 0.0805 0.001 GE 0 EX 0 1 6 0 1 0 FR 0 1 0 0 869 0 RP 0 37 73 1000 0 0 5 5 EN Riga per riga: GW : un filo ( wire ) numero 1, diviso in 11 segmenti , da z = −80,5 mm a z = +80,5 mm, quindi lungo 161 mm , con raggio 1 mm (diametro 2 mm). Sono le misure a cui arriva il tutorial originale dopo aver accorciato da 172 mm. GE 0 : fine della geometria, nessun terreno (spazio libero). EX : alimentazione in…"
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--piu-frequenze-in-un-colpo",
+    "page": "Aggiornamenti",
+    "title": "Più frequenze in un colpo",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#piu-frequenze-in-un-colpo",
+    "text": "Qui xnec2c ha un vantaggio comodo: con una scheda FR a più passi calcola una spazzata, e il grafico mostra subito dove l'antenna risuona. FR 0 41 0 0 849 1 Sono 41 frequenze da 849 a 889 MHz, a passi di 1 MHz. Il minimo del ROS vi dice se il dipolo è corto o lungo, senza tentativi."
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--sopra-un-terreno-reale",
+    "page": "Aggiornamenti",
+    "title": "Sopra un terreno reale",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#sopra-un-terreno-reale",
+    "text": "Come nel tutorial, alziamo l'antenna di 1 metro e aggiungiamo il terreno. Il centro del dipolo va a 1,0805 m, così l'estremità bassa sta a 1 m: CM Dipolo verticale 869 MHz, 1 m sopra terreno reale CE GW 1 11 0 0 1.0 0 0 1.161 0.001 GE 1 GN 2 0 0 0 13 0.005 EX 0 1 6 0 1 0 FR 0 1 0 0 869 0 RP 0 19 73 1000 0 0 5 5 EN GE 1 : c'è un terreno. GN 2 : terreno reale calcolato con il metodo di Sommerfeld, il più accurato, con costante dielettrica 13 e conducibilità 0,005 S/m (un terreno \"medio\"). RP ora calcola solo la mezza sfera sopra il suolo. Vale lo stesso limite spiegato nell'articolo: NEC-2 non gestisce fili che toccano il terreno o finiscono sotto. Non è un difetto di xnec2c, è il motore: lo…"
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--e-se-proprio-volete-eznec",
+    "page": "Aggiornamenti",
+    "title": "E se proprio volete EZNEC",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#e-se-proprio-volete-eznec",
+    "text": "EZNEC e 4nec2 funzionano in genere anche sotto Wine . Può bastare se dovete aprire un modello che vi ha passato qualcuno. Per iniziare da zero, però, un programma nativo e aperto è più comodo."
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--per-saperne-di-piu",
+    "page": "Aggiornamenti",
+    "title": "Per saperne di più",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#per-saperne-di-piu",
+    "text": "Il tutorial originale di Paolo su Lora Italia La documentazione di xnec2c Il manuale di NEC-2 con il significato di ogni scheda Se simulate un'antenna per un nodo MeshCore, condividete il file .nec nel gruppo Telegram MeshCore ITA : è di testo, si legge e si modifica facilmente."
+  },
+  {
     "id": "blog/mesh-america-awesome-meshcore--l-articolo",
     "page": "Aggiornamenti",
     "title": "L'articolo",
