@@ -864,8 +864,14 @@ function buildSitemap(pages, posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
 }
 
+// Sitemap aggiuntive pubblicate da altri repo sotto lo stesso dominio: una
+// sitemap in /antenne/ può elencare solo URL sotto /antenne/, quindi la
+// galleria ha la sua e qui la dichiariamo accanto a quella del sito.
+const EXTRA_SITEMAPS = ['antenne/sitemap.xml'];
+
 function buildRobots() {
-  return `User-agent: *\nAllow: /\n\nSitemap: ${SITE_BASE}sitemap.xml\n`;
+  const maps = ['sitemap.xml', ...EXTRA_SITEMAPS].map((p) => `Sitemap: ${SITE_BASE}${p}`).join('\n');
+  return `User-agent: *\nAllow: /\n\n${maps}\n`;
 }
 
 // RFC 3339 a partire da una data YYYY-MM-DD: sempre mezzanotte UTC, mai
