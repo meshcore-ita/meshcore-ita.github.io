@@ -1427,6 +1427,48 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/yagi-lfa-fabrizio--un-anello-al-posto-del-dipolo",
+    "page": "Aggiornamenti",
+    "title": "Un anello al posto del dipolo",
+    "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#un-anello-al-posto-del-dipolo",
+    "text": "In una Yagi classica l'elemento alimentato è un dipolo, cioè un filo tagliato a metà. Quando ci si mettono vicino riflettore e direttore, però, la sua impedenza scende ben sotto i 50 Ω, e di solito per collegarlo al cavo serve un adattatore: un gamma match, un hairpin o un balun. La LFA ( Loop Fed Array , ideata dal radioamatore inglese Justin Johnson, G0KSC) fa diversamente. L'elemento alimentato è un anello rettangolare chiuso , lungo e basso, messo tra riflettore e direttore. Allungando o schiacciando l'anello si porta l'impedenza a 50 Ω, e il cavo si collega direttamente, senza altro in mezzo."
+  },
+  {
+    "id": "blog/yagi-lfa-fabrizio--come-e-fatta",
+    "page": "Aggiornamenti",
+    "title": "Come è fatta",
+    "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#come-e-fatta",
+    "text": "Il modello che Fabrizio ha caricato nella galleria è piccolo: Elemento Lunghezza Distanza dal riflettore Riflettore 162 mm 0 Anello alimentato 141 × 28 mm da 47 a 75 mm Direttore 147 mm 124 mm Tutto in filo da 4 mm, su un boom di appena 12,4 cm . Il connettore va al centro del lato dell'anello più lontano dal riflettore."
+  },
+  {
+    "id": "blog/yagi-lfa-fabrizio--cosa-dice-il-simulatore",
+    "page": "Aggiornamenti",
+    "title": "Cosa dice il simulatore",
+    "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#cosa-dice-il-simulatore",
+    "text": "A 869,618 MHz, la frequenza del preset italiano : Guadagno 8,8 dBi , cioè 6,6 dB più di un dipolo: nella direzione giusta arriva circa 4,6 volte la potenza. Rapporto avanti/dietro 15 dB : quello che arriva da dietro è attenuato di circa 30 volte. È utile se alle spalle del nodo c'è una città piena di disturbi. Impedenza 49,8 + j0,2 Ω, ROS 1,00. Più vicino di così ai 50 Ω non si può, e senza adattatore. ROS sotto 2 da meno di 855 fino a circa 881 MHz : resta un buon margine anche se in costruzione le misure non vengono perfette. Messa accanto alle altre Yagi della galleria: Antenna Guadagno Avanti/dietro ROS Yagi LFA 3 elementi, di Fabrizio 8,8 dBi 15,2 dB 1,00 Yagi 3 elementi di riferimento…"
+  },
+  {
+    "id": "blog/yagi-lfa-fabrizio--attenzione-alla-potenza",
+    "page": "Aggiornamenti",
+    "title": "Attenzione alla potenza",
+    "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#attenzione-alla-potenza",
+    "text": "Più guadagno vuol dire meno potenza da impostare sul nodo. Per restare nei 500 mW ERP della sub-banda 869,4–869,65 MHz (vedi la pagina sulla normativa ): Perdita del cavo Potenza massima sul nodo 0 dB 20,4 dBm (109 mW) 1 dB 21,4 dBm (138 mW) 2 dB 22,4 dBm (173 mW) Con il cavo corto, i 22 dBm di molte schede sono già troppi."
+  },
+  {
+    "id": "blog/yagi-lfa-fabrizio--solo-una-simulazione-per-ora",
+    "page": "Aggiornamenti",
+    "title": "Solo una simulazione, per ora",
+    "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#solo-una-simulazione-per-ora",
+    "text": "Questi numeri vengono da una simulazione in spazio libero: indicano la tendenza, ma la verifica vera si fa con un NanoVNA sull'antenna montata."
+  },
+  {
+    "id": "blog/yagi-lfa-fabrizio--e-ora",
+    "page": "Aggiornamenti",
+    "title": "E ora?",
+    "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#e-ora",
+    "text": "Aspettiamo le foto della costruzione e, se Fabrizio ha voglia, la misura del ROS reale. Nel frattempo la scheda con la vista 3D, i grafici e il file spiegato riga per riga è qui: Yagi LFA 3 elementi . Hai una tua antenna? Le istruzioni sono nell'articolo sulla galleria , oppure mandala nel gruppo Telegram MeshCore ITA . Grazie ancora a Fabrizio."
+  },
+  {
     "id": "blog/antenne-nec-senza-windows--da-dove-partiamo",
     "page": "Aggiornamenti",
     "title": "Da dove partiamo",

@@ -4,8 +4,145 @@
   <id>https://meshcore-ita.github.io/blog/</id>
   <link rel="self" href="https://meshcore-ita.github.io/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/"/>
-  <updated>2026-09-26T00:00:00Z</updated>
+  <updated>2026-09-27T00:00:00Z</updated>
   <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/</id>
+    <title>La Yagi LFA di Fabrizio: 50 Ω senza adattatore</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/"/>
+    <published>2026-09-27T00:00:00Z</published>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary type="text">Il giorno dopo l'apertura della galleria, Fabrizio ci ha mandato una Yagi a 3 elementi un po' speciale: l'elemento alimentato è un anello chiuso. Il simulatore ha risposto con un ROS di 1,00.</summary>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-27&quot;&gt;27 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt;&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;antenne&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;autocostruzione&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;community&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;un-anello-al-posto-del-dipolo&quot;&gt;Un anello al posto del dipolo&lt;/h2&gt;
+&lt;p&gt;In una Yagi classica l&amp;#39;elemento alimentato è un dipolo, cioè un filo tagliato
+a metà. Quando ci si mettono vicino riflettore e direttore, però, la sua
+impedenza scende ben sotto i 50 Ω, e di solito per collegarlo al cavo serve un
+adattatore: un gamma match, un hairpin o un balun.&lt;/p&gt;
+&lt;p&gt;La &lt;strong&gt;LFA&lt;/strong&gt; (&lt;em&gt;Loop Fed Array&lt;/em&gt;, ideata dal radioamatore inglese Justin Johnson,
+G0KSC) fa diversamente. L&amp;#39;elemento alimentato è un &lt;strong&gt;anello rettangolare
+chiuso&lt;/strong&gt;, lungo e basso, messo tra riflettore e direttore. Allungando o
+schiacciando l&amp;#39;anello si porta l&amp;#39;impedenza a 50 Ω, e il cavo si collega
+direttamente, senza altro in mezzo.&lt;/p&gt;
+&lt;h2 id=&quot;come-e-fatta&quot;&gt;Come è fatta&lt;/h2&gt;
+&lt;p&gt;Il modello che Fabrizio ha caricato nella
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/fabrizio-yagi-lfa-3el/&quot;&gt;galleria&lt;/a&gt;
+è piccolo:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Elemento&lt;/th&gt;
+&lt;th&gt;Lunghezza&lt;/th&gt;
+&lt;th&gt;Distanza dal riflettore&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Riflettore&lt;/td&gt;
+&lt;td&gt;162 mm&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Anello alimentato&lt;/td&gt;
+&lt;td&gt;141 × 28 mm&lt;/td&gt;
+&lt;td&gt;da 47 a 75 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Direttore&lt;/td&gt;
+&lt;td&gt;147 mm&lt;/td&gt;
+&lt;td&gt;124 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Tutto in filo da 4 mm, su un boom di &lt;strong&gt;appena 12,4 cm&lt;/strong&gt;. Il connettore va al
+centro del lato dell&amp;#39;anello più lontano dal riflettore.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-dice-il-simulatore&quot;&gt;Cosa dice il simulatore&lt;/h2&gt;
+&lt;p&gt;A 869,618 MHz, la frequenza del &lt;a href=&quot;../../preset-radio/&quot;&gt;preset italiano&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Guadagno 8,8 dBi&lt;/strong&gt;, cioè 6,6 dB più di un dipolo: nella direzione
+giusta arriva circa 4,6 volte la potenza.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rapporto avanti/dietro 15 dB&lt;/strong&gt;: quello che arriva da dietro è attenuato
+di circa 30 volte. È utile se alle spalle del nodo c&amp;#39;è una città piena di
+disturbi.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Impedenza 49,8 + j0,2 Ω, ROS 1,00.&lt;/strong&gt; Più vicino di così ai 50 Ω non si
+può, e senza adattatore.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ROS sotto 2 da meno di 855 fino a circa 881 MHz&lt;/strong&gt;: resta un buon margine
+anche se in costruzione le misure non vengono perfette.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Messa accanto alle altre Yagi della galleria:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Antenna&lt;/th&gt;
+&lt;th&gt;Guadagno&lt;/th&gt;
+&lt;th&gt;Avanti/dietro&lt;/th&gt;
+&lt;th&gt;ROS&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Yagi LFA 3 elementi, di Fabrizio&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;8,8 dBi&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;15,2 dB&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;1,00&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 3 elementi di riferimento&lt;/td&gt;
+&lt;td&gt;8,1 dBi&lt;/td&gt;
+&lt;td&gt;5,9 dB&lt;/td&gt;
+&lt;td&gt;1,23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 2 elementi con riflettore, di Fabrizio&lt;/td&gt;
+&lt;td&gt;6,4 dBi&lt;/td&gt;
+&lt;td&gt;8,5 dB&lt;/td&gt;
+&lt;td&gt;1,09&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Con lo stesso numero di elementi, la LFA batte la nostra Yagi di riferimento
+su tutti e tre i numeri. Il rapporto avanti/dietro, in particolare, è più che
+doppio in dB.&lt;/p&gt;
+&lt;h2 id=&quot;attenzione-alla-potenza&quot;&gt;Attenzione alla potenza&lt;/h2&gt;
+&lt;p&gt;Più guadagno vuol dire meno potenza da impostare sul nodo. Per restare nei
+500 mW ERP della sub-banda 869,4–869,65 MHz (vedi la pagina sulla
+&lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt;):&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Perdita del cavo&lt;/th&gt;
+&lt;th&gt;Potenza massima sul nodo&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;0 dB&lt;/td&gt;
+&lt;td&gt;20,4 dBm (109 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1 dB&lt;/td&gt;
+&lt;td&gt;21,4 dBm (138 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2 dB&lt;/td&gt;
+&lt;td&gt;22,4 dBm (173 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Con il cavo corto, i 22 dBm di molte schede sono già troppi.&lt;/p&gt;
+&lt;h2 id=&quot;solo-una-simulazione-per-ora&quot;&gt;Solo una simulazione, per ora&lt;/h2&gt;
+&lt;p&gt;Questi numeri vengono da una simulazione in spazio libero: indicano la
+tendenza, ma la verifica vera si fa con un NanoVNA sull&amp;#39;antenna montata.&lt;/p&gt;
+&lt;h2 id=&quot;e-ora&quot;&gt;E ora?&lt;/h2&gt;
+&lt;p&gt;Aspettiamo le foto della costruzione e, se Fabrizio ha voglia, la misura
+del ROS reale. Nel frattempo la scheda con la vista 3D, i grafici e il file
+spiegato riga per riga è qui:
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/fabrizio-yagi-lfa-3el/&quot;&gt;Yagi LFA 3 elementi&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Hai una tua antenna? Le istruzioni sono nell&amp;#39;articolo sulla
+&lt;a href=&quot;../galleria-antenne/&quot;&gt;galleria&lt;/a&gt;, oppure mandala nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Grazie ancora a Fabrizio.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
   <entry>
     <id>https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/</id>
     <title>Simulare antenne senza Windows: xnec2c e il dipolo a 869 MHz</title>
