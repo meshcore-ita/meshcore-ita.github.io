@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+
+<title>Autocostruzione — Blog — MeshCore ITA</title>
+<meta name="description" content="Progetti da costruire in casa: antenne, nodi e accessori, con misure, materiali e risultati.">
+<link rel="canonical" href="https://meshcore-ita.github.io/blog/tag/autocostruzione/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Blog: Autocostruzione" href="../../../blog/tag/autocostruzione/feed.xml">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MeshCore ITA">
+<meta property="og:title" content="Autocostruzione — Blog — MeshCore ITA">
+<meta property="og:description" content="Progetti da costruire in casa: antenne, nodi e accessori, con misure, materiali e risultati.">
+<meta property="og:url" content="https://meshcore-ita.github.io/blog/tag/autocostruzione/">
+<meta property="og:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="it_IT">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Autocostruzione — Blog — MeshCore ITA">
+<meta name="twitter:description" content="Progetti da costruire in casa: antenne, nodi e accessori, con misure, materiali e risultati.">
+<meta name="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+
+<link rel="icon" type="image/svg+xml" href="../../../assets/img/favicon.svg">
+<link rel="mask-icon" href="../../../assets/img/favicon.svg" color="#22c55e">
+
+<link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/geist-300-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
+
+<link rel="stylesheet" href="../../../assets/css/style.css?v=9">
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "name": "Autocostruzione",
+      "description": "Progetti da costruire in casa: antenne, nodi e accessori, con misure, materiali e risultati.",
+      "url": "https://meshcore-ita.github.io/blog/tag/autocostruzione/",
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "https://meshcore-ita.github.io/blog/"
+      },
+      "mainEntity": [
+        {
+          "@type": "BlogPosting",
+          "headline": "La Yagi LFA di Fabrizio: 50 Ω senza adattatore",
+          "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/",
+          "datePublished": "2026-09-27"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Nasce la galleria delle antenne della community",
+          "url": "https://meshcore-ita.github.io/blog/galleria-antenne/",
+          "datePublished": "2026-09-26"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Simulare antenne senza Windows: xnec2c e il dipolo a 869 MHz",
+          "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/",
+          "datePublished": "2026-09-26"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://meshcore-ita.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://meshcore-ita.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Autocostruzione",
+          "item": "https://meshcore-ita.github.io/blog/tag/autocostruzione/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Vai al contenuto</a>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<header class="site-header" data-scrolled="false">
+  <div class="site-header__inner">
+    <a class="brand" href="../../../">
+      <img class="brand__mark" src="../../../assets/img/logo.svg" alt="" width="28" height="28">
+      <span class="brand__text">MeshCore <em>ITA</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a class="nav__link" href="../../../#cos-e">Cos'è</a>
+      <a class="nav__link" href="../../../guida/">Guida</a>
+      <a class="nav__link" href="../../../preset-radio/">Preset radio</a>
+      <a class="nav__link" href="../../../hardware/">Hardware</a>
+      <a class="nav__link" href="../../../faq/">FAQ</a>
+      <a class="nav__link" href="../../../community/">Community</a>
+      <a class="nav__link" href="../../../blog/" aria-current="true">Blog</a>
+      <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
+      <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
+    </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="sr-only">Apri il menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero hero--page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="../../../">Home</a></li>
+        <li><a href="../../../blog/">Blog</a></li>
+        <li aria-current="page">Autocostruzione</li>
+      </ol>
+    </nav>
+    <p class="eyelash">Blog</p>
+    <h1 class="hero__title">Autocostruzione</h1>
+    <p class="hero__lede">Progetti da costruire in casa: antenne, nodi e accessori, con misure, materiali e risultati.</p>
+  </section>
+
+<section class="section">
+  <ul class="posts">
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-27">27 settembre 2026</time> · 3 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../../blog/yagi-lfa-fabrizio/">La Yagi LFA di Fabrizio: 50 Ω senza adattatore</a></h3>
+        <p class="post-card__body">Il giorno dopo l'apertura della galleria, Fabrizio ci ha mandato una Yagi a 3 elementi un po' speciale: l'elemento alimentato è un anello chiuso. Il simulatore ha risposto con un ROS di 1,00.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-26">26 settembre 2026</time> · 3 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../../blog/galleria-antenne/">Nasce la galleria delle antenne della community</a></h3>
+        <p class="post-card__body">Dopo l'articolo su xnec2c, Fabrizio ci ha mandato la Yagi che usa sul suo nodo. Da lì è nata una galleria aperta: si condivide il file .nec, e il sito simula l'antenna e spiega cosa significano i numeri.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../../blog/tag/software/">Software</a></li><li class="tag"><a class="tag__link" href="../../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-26">26 settembre 2026</time> · 5 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../../blog/antenne-nec-senza-windows/">Simulare antenne senza Windows: xnec2c e il dipolo a 869 MHz</a></h3>
+        <p class="post-card__body">Avendo letto che EZNEC e 4nec2 girano solo su Windows, ci siamo chiesti: chi usa Linux o macOS come simula un'antenna LoRa? La risposta è che il motore di calcolo è pubblico, e attorno a lui esistono strumenti open source.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../../blog/tag/software/">Software</a></li><li class="tag"><a class="tag__link" href="../../../blog/tag/autocostruzione/">Autocostruzione</a></li></ul>
+      </article>
+    </li>
+  </ul>
+</section>
+<section class="section related" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Continua a leggere</p>
+      <h2 class="section__title">Altri contenuti MeshCore ITA</h2>
+    </div>
+    <div class="grid grid--2">
+      <a class="card" href="../../../guida/">
+        <h3 class="card__title">Guida</h3>
+        <p class="card__body">Tutti i passaggi, in italiano, per configurare il tuo primo nodo MeshCore e agganciarlo alla mesh italiana.</p>
+      </a>
+      <a class="card" href="../../../preset-radio/">
+        <h3 class="card__title">Preset radio</h3>
+        <p class="card__body">Frequenza, banda, spreading factor e coding rate che permettono a tutti i nodi MeshCore italiani di sentirsi tra loro.</p>
+      </a>
+      <a class="card" href="../../../hardware/">
+        <h3 class="card__title">Hardware</h3>
+        <p class="card__body">Le board LoRa supportate dal firmware Companion, confrontate per chip, connettività e uso tipico.</p>
+      </a>
+      <a class="card" href="../../../blog/">
+        <h3 class="card__title">Blog</h3>
+        <p class="card__body">Tutti gli articoli e le novità di MeshCore ITA.</p>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="foot__nav">
+      <p class="foot__nav-label">Inizia</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../../guida/">Guida</a></li>
+        <li><a href="../../../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../../preset-radio/">Preset radio</a></li>
+        <li><a href="../../../hardware/">Hardware</a></li>
+        <li><a href="../../../installare-repeater/">Repeater</a></li>
+        <li><a href="../../../link-budget/">Portata e link budget</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../../mappa-copertura/">Mappa</a></li>
+        <li><a href="../../../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../../comandi/">Comandi</a></li>
+        <li><a href="../../../problemi/">Problemi</a></li>
+        <li><a href="../../../faq/">FAQ</a></li>
+        <li><a href="../../../meshcore-vs-meshtastic/">Confronti</a></li>
+        <li><a href="../../../glossario/">Glossario</a></li>
+        <li><a href="../../../normativa/">Normativa</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../../community/">Community</a></li>
+      </ul>
+      <p class="foot__nav-label">Blog</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../../blog/" aria-current="true">Blog</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
+    <p class="site-footer__note">Contenuti sotto licenza CC BY 4.0, codice del sito sotto licenza MIT.</p>
+    <p class="foot__meta">Aggiornato il 27 settembre 2026</p>
+    <p class="foot__meta">Trovato un errore o vuoi aggiungere qualcosa? <a class="link" href="https://github.com/meshcore-ita/meshcore-ita.github.io/tree/main/content/blog" target="_blank" rel="noopener">Modifica questa pagina su GitHub<span class="ext-arrow">↗</span></a> — la modifica diventa una pull request.</p>
+    <ul class="site-footer__links">
+      <li><a href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Telegram<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://meshcore.io/" target="_blank" rel="noopener">MeshCore<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://docs.meshcore.io/" target="_blank" rel="noopener">Docs<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">Flasher<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://map.meshcore.io/" target="_blank" rel="noopener">Mappa pubblica<span class="ext-arrow">↗</span></a></li>
+    </ul>
+  </div>
+</footer>
+
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="../../../search-index.json" data-search-extra="../../../antenne/search-index.json">
+  <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+<script type="module" src="../../../assets/js/main.js?v=6" defer></script>
+<script type="module" src="../../../assets/js/search.js?v=2" defer></script>
+<script type="module" src="../../../assets/js/widgets.js?v=2" defer></script>
+</body>
+</html>

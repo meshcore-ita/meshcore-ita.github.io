@@ -6,6 +6,7 @@
   "h1": "La galleria delle antenne della community",
   "lede": "Dopo l'articolo su xnec2c, Fabrizio ci ha mandato la Yagi che usa sul suo nodo. Da lì è nata una galleria aperta: si condivide il file .nec, e il sito simula l'antenna e spiega cosa significano i numeri.",
   "published": "2026-09-26",
+  "time": "20:04",
   "tags": ["antenne", "software", "autocostruzione", "community"]
 }
 -->

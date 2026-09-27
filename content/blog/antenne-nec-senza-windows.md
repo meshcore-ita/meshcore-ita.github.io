@@ -6,6 +6,7 @@
   "h1": "Simulare antenne senza Windows",
   "lede": "Avendo letto che EZNEC e 4nec2 girano solo su Windows, ci siamo chiesti: chi usa Linux o macOS come simula un'antenna LoRa? La risposta è che il motore di calcolo è pubblico, e attorno a lui esistono strumenti open source.",
   "published": "2026-09-26",
+  "time": "11:13",
   "tags": ["antenne", "software", "autocostruzione"]
 }
 -->

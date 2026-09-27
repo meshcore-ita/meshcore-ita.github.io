@@ -60,10 +60,13 @@ if (!slugs.length) {
 for (const slug of slugs) {
   const meta = readPost(slug);
   const url = `${SITE_BASE}blog/${slug}/`;
+  const tags = Array.isArray(meta.tags) ? meta.tags : [];
+  const hashtags = tags.map((t) => `#${String(t).replaceAll('-', '_')}`).join(' ');
   const text =
     `<b>${escapeHtml(meta.h1 ?? meta.title)}</b>\n\n` +
     `${escapeHtml(meta.lede ?? meta.description)}\n\n` +
-    `<a href="${url}">${url}</a>`;
+    `<a href="${url}">${url}</a>` +
+    (hashtags ? `\n\n${hashtags}` : '');
 
   const res = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
     method: 'POST',

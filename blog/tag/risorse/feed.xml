@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MeshCore ITA — Blog: Risorse</title>
+  <id>https://meshcore-ita.github.io/blog/tag/risorse/</id>
+  <link rel="self" href="https://meshcore-ita.github.io/blog/tag/risorse/feed.xml"/>
+  <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/risorse/"/>
+  <updated>2026-09-23T00:00:00Z</updated>
+  <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/</id>
+    <title>Mesh America parla di Awesome MeshCore</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/"/>
+    <published>2026-09-23T00:00:00Z</published>
+    <updated>2026-09-23T00:00:00Z</updated>
+    <summary type="text">Il sito statunitense Mesh America ha recensito awesome-meshcore, l'elenco di risorse che manteniamo su GitHub, definendolo «più una rubrica dell'intero ecosistema che un normale readme».</summary>
+    <category term="community" label="Community"/>
+    <category term="risorse" label="Risorse"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-23&quot;&gt;23 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 2 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/risorse/&quot;&gt;Risorse&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;l-articolo&quot;&gt;L&amp;#39;articolo&lt;/h2&gt;
+&lt;p&gt;Il 23 settembre 2026 &lt;a href=&quot;https://meshamerica.com/&quot;&gt;Mesh America&lt;/a&gt;, testata
+dedicata alle reti mesh off-grid negli Stati Uniti, ha pubblicato
+&lt;a href=&quot;https://meshamerica.com/2026/09/23/community-meshcore-directory/&quot;&gt;&lt;em&gt;A Comprehensive MeshCore Directory Built by the Community&lt;/em&gt;&lt;/a&gt;,
+un articolo su &lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;awesome-meshcore&lt;/a&gt;,
+l&amp;#39;elenco curato che abbiamo &lt;a href=&quot;../awesome-meshcore/&quot;&gt;presentato qualche giorno fa&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;L&amp;#39;articolo ci presenta come «il gruppo italiano dietro meshcore-ita.github.io
+e il preset radio italiano condiviso» e descrive l&amp;#39;elenco come una risorsa
+che mancava: MeshCore è cresciuto in fretta, e trovare un punto di partenza
+unico non era semplice.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-hanno-notato&quot;&gt;Cosa hanno notato&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;I client&lt;/strong&gt;: oltre 30 app open source, scritte in Electron, Flutter, Qt,
+Swift, Rust — fino a un client da terminale per Commodore 64.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Librerie e SDK&lt;/strong&gt;: i binding ufficiali Python, JavaScript e CLI, accanto
+ai port della community in Go, Rust, TypeScript, Java e MicroPython.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;L&amp;#39;infrastruttura&lt;/strong&gt;: integrazione con Home Assistant, bridge Discord e
+Telegram, gateway MQTT ed email, una BBS store-and-forward, analizzatori
+di pacchetti, un dissector per Wireshark e diverse dashboard self-hosted.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hardware e firmware&lt;/strong&gt;: dispositivi supportati, radio pronte, autocostruzioni
+con distinta dei materiali, case stampabili in 3D e decine di fork del
+firmware.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Le community&lt;/strong&gt;: la sezione più ampia, paese per paese dall&amp;#39;Australia
+all&amp;#39;Ucraina, con più di venti reti locali solo negli Stati Uniti.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;L&amp;#39;articolo sottolinea anche un punto che per noi è importante: si tratta di
+un catalogo mantenuto dalla community, &lt;strong&gt;non di una pagina ufficiale del
+progetto MeshCore&lt;/strong&gt;, anche se in cima rimanda alle risorse ufficiali (sito,
+documentazione, blog, web flasher e repository del firmware).&lt;/p&gt;
+&lt;h2 id=&quot;grazie-e-avanti&quot;&gt;Grazie, e avanti&lt;/h2&gt;
+&lt;p&gt;Ringraziamo Mesh America per la segnalazione. Per noi è la conferma che
+tenere l&amp;#39;elenco in inglese e aperto a tutti è stata la scelta giusta: serve
+anche fuori dall&amp;#39;Italia.&lt;/p&gt;
+&lt;p&gt;L&amp;#39;elenco è sotto licenza CC0 e cresce con le pull request. Se conosci un
+progetto o una community che manca, apri una PR o una issue sul
+&lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;repository&lt;/a&gt;, oppure
+segnalacelo nel gruppo Telegram &lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/awesome-meshcore/</id>
+    <title>Awesome MeshCore: l'elenco curato delle risorse MeshCore</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/awesome-meshcore/"/>
+    <published>2026-09-14T15:37:00+02:00</published>
+    <updated>2026-09-14T15:37:00+02:00</updated>
+    <summary type="text">Oltre 160 risorse MeshCore in un solo posto: client, librerie, bot, mappe, strumenti di analisi e community di tutto il mondo. Licenza CC0, pull request aperte.</summary>
+    <category term="community" label="Community"/>
+    <category term="risorse" label="Risorse"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-14&quot;&gt;14 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/risorse/&quot;&gt;Risorse&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;cos-e&quot;&gt;Cos&amp;#39;è&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;awesome-meshcore&lt;/a&gt; è un
+elenco curato di risorse su MeshCore, nel formato delle
+&lt;a href=&quot;https://awesome.re&quot;&gt;awesome list&lt;/a&gt;: una pagina sola, voci brevi, ogni link
+verificato prima di entrare. Lo manteniamo noi della community italiana, ma
+è scritto in inglese e copre il progetto a livello internazionale: serve a
+chi cerca uno strumento e non sa da dove partire.&lt;/p&gt;
+&lt;p&gt;Al momento raccoglie oltre 160 voci. Il repository è sotto licenza CC0: puoi
+riusarlo come vuoi, anche senza citarci.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-ci-trovi&quot;&gt;Cosa ci trovi&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Risorse ufficiali&lt;/strong&gt;: sito, documentazione, blog, web flasher, mappa,
+FAQ e repository del firmware del progetto MeshCore.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Client&lt;/strong&gt;, divisi tra open source e closed source, per Android, iOS,
+desktop e browser.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Librerie e SDK&lt;/strong&gt; per chi vuole scriverci sopra qualcosa, in particolare
+in Python e JavaScript.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Integrazioni e bot&lt;/strong&gt;, incluse quelle verso altri sistemi di messaggistica.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Dashboard self-hosted&lt;/strong&gt; e &lt;strong&gt;strumenti di analisi dei pacchetti&lt;/strong&gt;, utili
+per chi gestisce un repeater e vuole vedere cosa passa davvero sulla rete.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Firmware e flashing&lt;/strong&gt;: alternative e strumenti oltre al flasher ufficiale.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mappe, diagnostica e pianificazione RF&lt;/strong&gt;, compresi i tool per stimare
+una tratta prima di salire sul tetto — lo stesso tema della nostra pagina
+su &lt;a href=&quot;../../link-budget/&quot;&gt;portata e link budget&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Guide e materiale didattico&lt;/strong&gt;: corsi, canali YouTube, wiki regionali e
+podcast, in diverse lingue.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Community&lt;/strong&gt;, raggruppate per paese: dall&amp;#39;Australia agli Stati Uniti,
+passando per l&amp;#39;Italia. Nella sezione italiana ci sono questo sito e il
+gruppo Telegram.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;perche-un-elenco-separato-dal-sito&quot;&gt;Perché un elenco separato dal sito&lt;/h2&gt;
+&lt;p&gt;Questo sito è documentazione in italiano: spiega come si configura un nodo,
+qual è il preset condiviso, cosa fare quando qualcosa non funziona. Ogni
+dato che pubblichiamo deve essere verificabile su una fonte upstream, e le
+pagine restano poche e stabili.&lt;/p&gt;
+&lt;p&gt;L&amp;#39;elenco awesome risponde a una domanda diversa — &amp;quot;esiste già uno strumento
+per X?&amp;quot; — ed è per sua natura in movimento: nascono client nuovi, alcuni
+progetti si fermano, le community regionali cambiano indirizzo. Tenerlo in
+un repository a parte, in inglese, permette di aggiornarlo spesso senza
+toccare la documentazione, e lo rende utile anche fuori dall&amp;#39;Italia.&lt;/p&gt;
+&lt;h2 id=&quot;come-contribuire&quot;&gt;Come contribuire&lt;/h2&gt;
+&lt;p&gt;Manca un progetto? Un link non risponde più? Apri una pull request o una
+issue sul &lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;repository&lt;/a&gt;.
+Le regole sono quelle classiche delle awesome list:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;una riga per voce, con una descrizione breve di cosa fa, non di quanto è
+bello;&lt;/li&gt;
+&lt;li&gt;niente link affiliati, niente progetti abbandonati senza dirlo;&lt;/li&gt;
+&lt;li&gt;la voce va nella sezione giusta, e le community vanno sotto il proprio
+paese.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se preferisci, segnalacelo anche solo nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;: a inserirlo nell&amp;#39;elenco ci
+pensiamo noi.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+</feed>

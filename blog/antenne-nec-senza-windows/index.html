@@ -10,7 +10,7 @@
 <meta name="description" content="EZNEC e 4nec2 girano solo su Windows. Con xnec2c, open source per Linux e macOS, si rifà lo stesso tutorial del dipolo a 869 MHz con il motore NEC-2.">
 <link rel="canonical" href="https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Aggiornamenti" href="https://meshcore-ita.github.io/feed.xml">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Blog" href="https://meshcore-ita.github.io/feed.xml">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="MeshCore ITA">
@@ -33,7 +33,7 @@
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geist-300-700-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
 
-<link rel="stylesheet" href="../../assets/css/style.css?v=8">
+<link rel="stylesheet" href="../../assets/css/style.css?v=9">
 
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -49,7 +49,11 @@
         "name": "MeshCore ITA"
       },
       "inLanguage": "it",
-      "mainEntityOfPage": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/"
+      "mainEntityOfPage": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/",
+      "keywords": "Antenne, Software, Autocostruzione",
+      "wordCount": 880,
+      "timeRequired": "PT5M",
+      "articleSection": "Blog"
     },
     {
       "@type": "BreadcrumbList",
@@ -63,7 +67,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Aggiornamenti",
+          "name": "Blog",
           "item": "https://meshcore-ita.github.io/blog/"
         },
         {
@@ -94,7 +98,7 @@
       <a class="nav__link" href="../../hardware/">Hardware</a>
       <a class="nav__link" href="../../faq/">FAQ</a>
       <a class="nav__link" href="../../community/">Community</a>
-      <a class="nav__link" href="../../blog/" aria-current="true">Aggiornamenti</a>
+      <a class="nav__link" href="../../blog/" aria-current="true">Blog</a>
       <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
       <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
     </nav>
@@ -111,18 +115,23 @@
     <nav class="crumbs" aria-label="Breadcrumb">
       <ol>
         <li><a href="../../">Home</a></li>
-        <li><a href="../">Aggiornamenti</a></li>
+        <li><a href="../">Blog</a></li>
         <li aria-current="page">Simulare antenne senza Windows</li>
       </ol>
     </nav>
-    <p class="eyelash">Aggiornamenti</p>
+    <p class="eyelash">Blog</p>
     <h1 class="hero__title">Simulare antenne senza Windows</h1>
     <p class="hero__lede">Avendo letto che EZNEC e 4nec2 girano solo su Windows, ci siamo chiesti: chi usa Linux o macOS come simula un'antenna LoRa? La risposta è che il motore di calcolo è pubblico, e attorno a lui esistono strumenti open source.</p>
   </section>
 
 <section class="section">
-  <p class="post-meta"><time datetime="2026-09-26">26 settembre 2026</time> · <span class="post-meta__author">MeshCore ITA</span></p>
-  <ul class="tags"><li class="tag">antenne</li><li class="tag">software</li><li class="tag">autocostruzione</li></ul>
+  <p class="post-meta"><time datetime="2026-09-26">26 settembre 2026</time> · <span class="post-meta__author">MeshCore ITA</span> · 5 min di lettura</p>
+  <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/software/">Software</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li></ul>
+
+<nav class="toc" aria-label="In questo articolo">
+  <p class="toc__label">In questo articolo</p>
+  <ol class="toc__list"><li><a href="#da-dove-partiamo">Da dove partiamo</a></li><li><a href="#le-alternative-open-source">Le alternative open source</a></li><li><a href="#installare-xnec2c">Installare xnec2c</a></li><li><a href="#il-dipolo-a-869-mhz">Il dipolo a 869 MHz</a></li><li><a href="#sopra-un-terreno-reale">Sopra un terreno reale</a></li><li><a href="#e-se-proprio-volete-eznec">E se proprio volete EZNEC</a></li><li><a href="#per-saperne-di-piu">Per saperne di più</a></li></ol>
+</nav>
   <div class="prose">
 <h2 id="da-dove-partiamo">Da dove partiamo</h2>
 <p>Su Lora Italia Paolo ha pubblicato
@@ -264,6 +273,42 @@ e si modifica facilmente, e la galleria lo simula e lo spiega da sola. Come
 
   </div>
 </section>
+<nav class="post-nav" aria-label="Articoli adiacenti">
+<a class="post-nav__link post-nav__link--prev" href="../../blog/mesh-america-awesome-meshcore/"><span class="post-nav__label">Articolo precedente</span><span class="post-nav__title">Mesh America parla di Awesome MeshCore</span></a>
+<a class="post-nav__link post-nav__link--next" href="../../blog/galleria-antenne/"><span class="post-nav__label">Articolo successivo</span><span class="post-nav__title">Nasce la galleria delle antenne della community</span></a>
+</nav>
+
+<div class="share">
+  <p class="share__label">Condividi</p>
+  <a class="share__btn" href="https://t.me/share/url?url=https%3A%2F%2Fmeshcore-ita.github.io%2Fblog%2Fantenne-nec-senza-windows%2F&text=Simulare%20antenne%20senza%20Windows%3A%20xnec2c%20e%20il%20dipolo%20a%20869%20MHz" target="_blank" rel="noopener">Telegram</a>
+  <button class="share__btn share__copy" type="button" data-copy-link="https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/" hidden>Copia link</button>
+  <span class="share__status" role="status" aria-live="polite"></span>
+</div>
+
+<section class="section related-posts" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Correlati</p>
+      <h2 class="section__title">Articoli correlati</h2>
+    </div>
+    <ul class="posts">
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-26">26 settembre 2026</time> · 3 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/galleria-antenne/">Nasce la galleria delle antenne della community</a></h3>
+        <p class="post-card__body">Dopo l'articolo su xnec2c, Fabrizio ci ha mandato la Yagi che usa sul suo nodo. Da lì è nata una galleria aperta: si condivide il file .nec, e il sito simula l'antenna e spiega cosa significano i numeri.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/software/">Software</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-27">27 settembre 2026</time> · 3 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/yagi-lfa-fabrizio/">La Yagi LFA di Fabrizio: 50 Ω senza adattatore</a></h3>
+        <p class="post-card__body">Il giorno dopo l'apertura della galleria, Fabrizio ci ha mandato una Yagi a 3 elementi un po' speciale: l'elemento alimentato è un anello chiuso. Il simulatore ha risposto con un ROS di 1,00.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    </ul>
+  </section>
 <section class="section related" data-reveal>
     <div class="section__head">
       <p class="eyelash">Continua a leggere</p>
@@ -283,7 +328,7 @@ e si modifica facilmente, e la galleria lo simula e lo spiega da sola. Come
         <p class="card__body">Le board LoRa supportate dal firmware Companion, confrontate per chip, connettività e uso tipico.</p>
       </a>
       <a class="card" href="../">
-        <h3 class="card__title">Aggiornamenti</h3>
+        <h3 class="card__title">Blog</h3>
         <p class="card__body">Tutti gli articoli e le novità di MeshCore ITA.</p>
       </a>
     </div>
@@ -324,9 +369,9 @@ e si modifica facilmente, e la galleria lo simula e lo spiega da sola. Come
       <ul class="foot__nav-list">
         <li><a href="../../community/">Community</a></li>
       </ul>
-      <p class="foot__nav-label">Aggiornamenti</p>
+      <p class="foot__nav-label">Blog</p>
       <ul class="foot__nav-list">
-        <li><a href="../../blog/" aria-current="true">Aggiornamenti</a></li>
+        <li><a href="../../blog/" aria-current="true">Blog</a></li>
       </ul>
     </div>
     <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
@@ -353,7 +398,7 @@ e si modifica facilmente, e la galleria lo simula e lo spiega da sola. Come
   <ul class="search__results" id="search-results"></ul>
   <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
 </dialog>
-<script type="module" src="../../assets/js/main.js?v=5" defer></script>
+<script type="module" src="../../assets/js/main.js?v=6" defer></script>
 <script type="module" src="../../assets/js/search.js?v=2" defer></script>
 <script type="module" src="../../assets/js/widgets.js?v=2" defer></script>
 </body>

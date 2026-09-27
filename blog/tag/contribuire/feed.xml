@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MeshCore ITA — Blog: Contribuire</title>
+  <id>https://meshcore-ita.github.io/blog/tag/contribuire/</id>
+  <link rel="self" href="https://meshcore-ita.github.io/blog/tag/contribuire/feed.xml"/>
+  <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/contribuire/"/>
+  <updated>2026-09-27T00:00:00Z</updated>
+  <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/come-scrivere-un-post/</id>
+    <title>Come scrivere un post per il blog di MeshCore ITA</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/come-scrivere-un-post/"/>
+    <published>2026-09-13T00:00:00Z</published>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary type="text">Dove sta il file, quali chiavi meta servono e come pubblicare un nuovo post nel blog.</summary>
+    <category term="contribuire" label="Contribuire"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-13&quot;&gt;13 settembre 2026&lt;/time&gt; · aggiornato il 27 settembre 2026 · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/contribuire/&quot;&gt;Contribuire&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;dove-sta-il-file&quot;&gt;Dove sta il file&lt;/h2&gt;
+&lt;p&gt;Ogni post del blog è un file markdown dentro
+&lt;code&gt;content/blog/&lt;/code&gt;. Il nome del file diventa l&amp;#39;URL del post: un file
+&lt;code&gt;content/blog/mio-post.md&lt;/code&gt; finisce pubblicato su &lt;code&gt;/blog/mio-post/&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Per scriverne uno nuovo:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Crea un file &lt;code&gt;content/blog/&amp;lt;slug&amp;gt;.md&lt;/code&gt;, dove &lt;code&gt;&amp;lt;slug&amp;gt;&lt;/code&gt; è il nome che
+vuoi dare al post (minuscolo, parole separate da trattino).&lt;/li&gt;
+&lt;li&gt;Il file inizia con un blocco di meta dati, poi il corpo in markdown.&lt;/li&gt;
+&lt;li&gt;Rigenera il sito e committa l&amp;#39;output.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;il-blocco-meta&quot;&gt;Il blocco meta&lt;/h2&gt;
+&lt;p&gt;Come per le pagine di documentazione, il file inizia con un commento
+&lt;code&gt;&amp;lt;!--meta { ... } --&amp;gt;&lt;/code&gt; contenente un oggetto JSON. Per un post servono
+queste chiavi:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;slug&lt;/code&gt;: &lt;strong&gt;deve essere identico al nome del file&lt;/strong&gt;, senza estensione. Se
+il file è &lt;code&gt;come-scrivere-un-post.md&lt;/code&gt;, &lt;code&gt;slug&lt;/code&gt; deve valere
+&lt;code&gt;&amp;quot;come-scrivere-un-post&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;title&lt;/code&gt;: titolo per il tag &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; e per i motori di ricerca.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;description&lt;/code&gt;: riassunto breve, usato come meta description.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;h1&lt;/code&gt;: titolo mostrato in cima al post.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lede&lt;/code&gt;: sottotitolo/riassunto mostrato sotto l&amp;#39;&lt;code&gt;h1&lt;/code&gt; e nella lista dei
+post.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;published&lt;/code&gt;: data di pubblicazione, formato &lt;code&gt;AAAA-MM-GG&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sono opzionali:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;updated&lt;/code&gt;: data di ultimo aggiornamento, se diversa da &lt;code&gt;published&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;time&lt;/code&gt;: ora di pubblicazione in formato &lt;code&gt;&amp;quot;HH:MM&amp;quot;&lt;/code&gt;, ora italiana
+(es. &lt;code&gt;&amp;quot;18:30&amp;quot;&lt;/code&gt;). Serve quando esce più di un post nello stesso giorno:
+in quel caso va messa in tutti, e decide quale compare per primo.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;author&lt;/code&gt;: di default è &lt;code&gt;&amp;quot;MeshCore ITA&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tags&lt;/code&gt;: un array di slug scelti tra quelli definiti in
+&lt;code&gt;content/blog/tags.json&lt;/code&gt; (vedi sezione &amp;quot;I tag&amp;quot; più sotto).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;i-tag&quot;&gt;I tag&lt;/h2&gt;
+&lt;p&gt;Ogni voce di &lt;code&gt;tags&lt;/code&gt; deve essere uno slug già presente in
+&lt;code&gt;content/blog/tags.json&lt;/code&gt;: un tag non registrato fa fallire la build. Gli
+slug attuali sono: &lt;code&gt;antenne&lt;/code&gt;, &lt;code&gt;autocostruzione&lt;/code&gt;, &lt;code&gt;software&lt;/code&gt;, &lt;code&gt;community&lt;/code&gt;,
+&lt;code&gt;risorse&lt;/code&gt;, &lt;code&gt;sito&lt;/code&gt;, &lt;code&gt;contribuire&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Per ogni tag usato da almeno un post la build genera una pagina
+&lt;code&gt;/blog/tag/&amp;lt;slug&amp;gt;/&lt;/code&gt; (con paginazione e feed Atom propri), usando &lt;code&gt;label&lt;/code&gt;
+e &lt;code&gt;description&lt;/code&gt; del registro come titolo e testo introduttivo.&lt;/p&gt;
+&lt;p&gt;Per aggiungere un tag nuovo: aggiungi una voce a &lt;code&gt;tags.json&lt;/code&gt; con &lt;code&gt;label&lt;/code&gt;
+e &lt;code&gt;description&lt;/code&gt;, poi usane lo slug nell&amp;#39;array &lt;code&gt;tags&lt;/code&gt; del post.&lt;/p&gt;
+&lt;h2 id=&quot;il-corpo&quot;&gt;Il corpo&lt;/h2&gt;
+&lt;p&gt;Dopo il blocco meta, il resto del file è markdown normale (GFM: titoli,
+liste, tabelle, link, blocchi di codice, grassetto/corsivo). Niente HTML
+grezzo: il markdown viene convertito automaticamente in HTML dalla build,
+seguendo lo stile del sito.&lt;/p&gt;
+&lt;p&gt;Usa &lt;code&gt;##&lt;/code&gt; per i titoli di sezione (l&amp;#39;&lt;code&gt;h1&lt;/code&gt; lo genera già il layout dal campo
+&lt;code&gt;h1&lt;/code&gt; del meta). Mantieni lo stesso registro delle altre pagine del sito:
+italiano tecnico, diretto, frasi brevi, niente marketing.&lt;/p&gt;
+&lt;h2 id=&quot;pubblicare-il-post&quot;&gt;Pubblicare il post&lt;/h2&gt;
+&lt;p&gt;Dopo aver scritto il file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;node build.mjs          # rigenera il sito, incluso /blog/ e il feed
+node build.mjs --check  # deve uscire 0: è lo stesso gate della CI
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Committa sia il file sorgente in &lt;code&gt;content/blog/&lt;/code&gt; sia tutti i file generati
+che cambiano (&lt;code&gt;blog/&lt;/code&gt;, &lt;code&gt;feed.xml&lt;/code&gt;, &lt;code&gt;search-index.json&lt;/code&gt; e l&amp;#39;eventuale
+sitemap). La CI esegue &lt;code&gt;node build.mjs --check&lt;/code&gt; su ogni pull request e la
+rifiuta se i file generati non corrispondono ai sorgenti.&lt;/p&gt;
+&lt;p&gt;Se preferisci non usare la riga di comando, il link &lt;strong&gt;&amp;quot;Modifica questa
+pagina su GitHub&amp;quot;&lt;/strong&gt; in fondo a ogni pagina apre comunque l&amp;#39;editor web e
+produce una pull request: in quel caso è chi revisiona la PR a rigenerare
+e verificare i file di output.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+</feed>

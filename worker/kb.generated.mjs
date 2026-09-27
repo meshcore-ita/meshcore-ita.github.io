@@ -1428,231 +1428,238 @@ export const KB_CHUNKS = [
   },
   {
     "id": "blog/yagi-lfa-fabrizio--un-anello-al-posto-del-dipolo",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Un anello al posto del dipolo",
     "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#un-anello-al-posto-del-dipolo",
     "text": "In una Yagi classica l'elemento alimentato è un dipolo, cioè un filo tagliato a metà. Quando ci si mettono vicino riflettore e direttore, però, la sua impedenza scende ben sotto i 50 Ω, e di solito per collegarlo al cavo serve un adattatore: un gamma match, un hairpin o un balun. La LFA ( Loop Fed Array , ideata dal radioamatore inglese Justin Johnson, G0KSC) fa diversamente. L'elemento alimentato è un anello rettangolare chiuso , lungo e basso, messo tra riflettore e direttore. Allungando o schiacciando l'anello si porta l'impedenza a 50 Ω, e il cavo si collega direttamente, senza altro in mezzo."
   },
   {
     "id": "blog/yagi-lfa-fabrizio--come-e-fatta",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Come è fatta",
     "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#come-e-fatta",
     "text": "Il modello che Fabrizio ha caricato nella galleria è piccolo: Elemento Lunghezza Distanza dal riflettore Riflettore 162 mm 0 Anello alimentato 141 × 28 mm da 47 a 75 mm Direttore 147 mm 124 mm Tutto in filo da 4 mm, su un boom di appena 12,4 cm . Il connettore va al centro del lato dell'anello più lontano dal riflettore."
   },
   {
     "id": "blog/yagi-lfa-fabrizio--cosa-dice-il-simulatore",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Cosa dice il simulatore",
     "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#cosa-dice-il-simulatore",
     "text": "A 869,618 MHz, la frequenza del preset italiano : Guadagno 8,8 dBi , cioè 6,6 dB più di un dipolo: nella direzione giusta arriva circa 4,6 volte la potenza. Rapporto avanti/dietro 15 dB : quello che arriva da dietro è attenuato di circa 30 volte. È utile se alle spalle del nodo c'è una città piena di disturbi. Impedenza 49,8 + j0,2 Ω, ROS 1,00. Più vicino di così ai 50 Ω non si può, e senza adattatore. ROS sotto 2 da meno di 855 fino a circa 881 MHz : resta un buon margine anche se in costruzione le misure non vengono perfette. Messa accanto alle altre Yagi della galleria: Antenna Guadagno Avanti/dietro ROS Yagi LFA 3 elementi, di Fabrizio 8,8 dBi 15,2 dB 1,00 Yagi 3 elementi di riferimento…"
   },
   {
     "id": "blog/yagi-lfa-fabrizio--attenzione-alla-potenza",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Attenzione alla potenza",
     "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#attenzione-alla-potenza",
     "text": "Più guadagno vuol dire meno potenza da impostare sul nodo. Per restare nei 500 mW ERP della sub-banda 869,4–869,65 MHz (vedi la pagina sulla normativa ): Perdita del cavo Potenza massima sul nodo 0 dB 20,4 dBm (109 mW) 1 dB 21,4 dBm (138 mW) 2 dB 22,4 dBm (173 mW) Con il cavo corto, i 22 dBm di molte schede sono già troppi."
   },
   {
     "id": "blog/yagi-lfa-fabrizio--solo-una-simulazione-per-ora",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Solo una simulazione, per ora",
     "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#solo-una-simulazione-per-ora",
     "text": "Questi numeri vengono da una simulazione in spazio libero: indicano la tendenza, ma la verifica vera si fa con un NanoVNA sull'antenna montata."
   },
   {
     "id": "blog/yagi-lfa-fabrizio--e-ora",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "E ora?",
     "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#e-ora",
     "text": "Aspettiamo le foto della costruzione e, se Fabrizio ha voglia, la misura del ROS reale. Nel frattempo la scheda con la vista 3D, i grafici e il file spiegato riga per riga è qui: Yagi LFA 3 elementi . Hai una tua antenna? Le istruzioni sono nell'articolo sulla galleria , oppure mandala nel gruppo Telegram MeshCore ITA . Grazie ancora a Fabrizio."
   },
   {
-    "id": "blog/antenne-nec-senza-windows--da-dove-partiamo",
-    "page": "Aggiornamenti",
-    "title": "Da dove partiamo",
-    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#da-dove-partiamo",
-    "text": "Su Lora Italia Paolo ha pubblicato Eznec! Chi era costui? , un ottimo tutorial in italiano: un dipolo verticale a 869 MHz, prima nello spazio libero e poi sopra un terreno reale, simulato con EZNEC. Vi consigliamo di leggerlo: qui rifacciamo gli stessi passi con altri strumenti. L'articolo spiega che i due programmi più usati, EZNEC e 4nec2, sono gratuiti ma girano solo su Windows . E sono gratuiti, non open source: il codice non è disponibile. Entrambi però sono interfacce grafiche costruite sopra lo stesso motore, il Numerical Electromagnetics Code . La versione NEC-2 è di pubblico dominio, e da lì sono nati diversi progetti aperti."
-  },
-  {
-    "id": "blog/antenne-nec-senza-windows--le-alternative-open-source",
-    "page": "Aggiornamenti",
-    "title": "Le alternative open source",
-    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#le-alternative-open-source",
-    "text": "Strumento Cos'è Piattaforme xnec2c NEC-2 con interfaccia grafica: geometria, diagrammi, impedenza, ROS. Legge i file .nec di 4nec2. Linux, BSD, macOS nec2c Il motore NEC-2 tradotto in C, da riga di comando Ovunque necpp / PyNEC NEC-2 in C++ con binding Python, per simulazioni e ottimizzazioni via script Ovunque openEMS Solutore 3D a elementi finiti nel tempo (FDTD) Linux, Windows, macOS Per rifare il tutorial serve xnec2c , che è quello più vicino a EZNEC. PyNEC è utile se volete l'equivalente dell'ottimizzatore di 4nec2 scritto in Python. openEMS è un altro mondo: serve per antenne su circuito stampato e piani di massa, dove NEC fatica. Ci torneremo."
-  },
-  {
-    "id": "blog/antenne-nec-senza-windows--installare-xnec2c",
-    "page": "Aggiornamenti",
-    "title": "Installare xnec2c",
-    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#installare-xnec2c",
-    "text": "Debian, Ubuntu, Raspberry Pi OS: sudo apt install xnec2c Arch e derivate: sudo pacman -S xnec2c (o dall'AUR) Fedora: sudo dnf install xnec2c macOS: sudo port install xnec2c con MacPorts"
-  },
-  {
-    "id": "blog/antenne-nec-senza-windows--il-dipolo-a-869-mhz",
-    "page": "Aggiornamenti",
-    "title": "Il dipolo a 869 MHz",
-    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#il-dipolo-a-869-mhz",
-    "text": "A differenza di EZNEC, xnec2c descrive l'antenna con un file di testo a \"schede\", il formato originale di NEC. Sembra ostico, ma per un dipolo sono poche righe. Le misure sono in metri . Salvate questo come dipolo-869.nec : CM Dipolo verticale 869 MHz, spazio libero CE GW 1 11 0 0 -0.0805 0 0 0.0805 0.001 GE 0 EX 0 1 6 0 1 0 FR 0 1 0 0 869 0 RP 0 37 73 1000 0 0 5 5 EN Riga per riga: GW : un filo ( wire ) numero 1, diviso in 11 segmenti , da z = −80,5 mm a z = +80,5 mm, quindi lungo 161 mm , con raggio 1 mm (diametro 2 mm). Sono le misure a cui arriva il tutorial originale dopo aver accorciato da 172 mm. GE 0 : fine della geometria, nessun terreno (spazio libero). EX : alimentazione in…"
-  },
-  {
-    "id": "blog/antenne-nec-senza-windows--piu-frequenze-in-un-colpo",
-    "page": "Aggiornamenti",
-    "title": "Più frequenze in un colpo",
-    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#piu-frequenze-in-un-colpo",
-    "text": "Qui xnec2c ha un vantaggio comodo: con una scheda FR a più passi calcola una spazzata, e il grafico mostra subito dove l'antenna risuona. FR 0 41 0 0 849 1 Sono 41 frequenze da 849 a 889 MHz, a passi di 1 MHz. Il minimo del ROS vi dice se il dipolo è corto o lungo, senza tentativi."
-  },
-  {
-    "id": "blog/antenne-nec-senza-windows--sopra-un-terreno-reale",
-    "page": "Aggiornamenti",
-    "title": "Sopra un terreno reale",
-    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#sopra-un-terreno-reale",
-    "text": "Come nel tutorial, alziamo l'antenna di 1 metro e aggiungiamo il terreno. Il centro del dipolo va a 1,0805 m, così l'estremità bassa sta a 1 m: CM Dipolo verticale 869 MHz, 1 m sopra terreno reale CE GW 1 11 0 0 1.0 0 0 1.161 0.001 GE 1 GN 2 0 0 0 13 0.005 EX 0 1 6 0 1 0 FR 0 1 0 0 869 0 RP 0 19 73 1000 0 0 5 5 EN GE 1 : c'è un terreno. GN 2 : terreno reale calcolato con il metodo di Sommerfeld, il più accurato, con costante dielettrica 13 e conducibilità 0,005 S/m (un terreno \"medio\"). RP ora calcola solo la mezza sfera sopra il suolo. Vale lo stesso limite spiegato nell'articolo: NEC-2 non gestisce fili che toccano il terreno o finiscono sotto. Non è un difetto di xnec2c, è il motore: lo…"
-  },
-  {
-    "id": "blog/antenne-nec-senza-windows--e-se-proprio-volete-eznec",
-    "page": "Aggiornamenti",
-    "title": "E se proprio volete EZNEC",
-    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#e-se-proprio-volete-eznec",
-    "text": "EZNEC e 4nec2 funzionano in genere anche sotto Wine . Può bastare se dovete aprire un modello che vi ha passato qualcuno. Per iniziare da zero, però, un programma nativo e aperto è più comodo."
-  },
-  {
-    "id": "blog/antenne-nec-senza-windows--per-saperne-di-piu",
-    "page": "Aggiornamenti",
-    "title": "Per saperne di più",
-    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#per-saperne-di-piu",
-    "text": "Il tutorial originale di Paolo su Lora Italia La documentazione di xnec2c Il manuale di NEC-2 con il significato di ogni scheda Se simulate un'antenna per un nodo MeshCore, aggiungetela alla galleria delle antenne : il file .nec è di testo, si legge e si modifica facilmente, e la galleria lo simula e lo spiega da sola. Come è nata lo raccontiamo in questo post ."
-  },
-  {
     "id": "blog/galleria-antenne--com-e-nata",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Com'è nata",
     "url": "https://meshcore-ita.github.io/blog/galleria-antenne/#com-e-nata",
     "text": "Nell'articolo Simulare antenne senza Windows abbiamo mostrato come simulare un dipolo a 869 MHz con strumenti open source. Poche ore dopo Fabrizio ha risposto nel gruppo con la foto di una Yagi a 2 elementi in tubo di rame, montata sul tetto accanto al suo nodo solare pybot , e con i file .nec dei suoi modelli. Simulandoli ci siamo accorti che valeva la pena raccoglierli in un posto solo, insieme ad altre antenne, e spiegare bene cosa dice ogni numero. Così è nata la galleria delle antenne ."
   },
   {
     "id": "blog/galleria-antenne--cosa-trovi-in-ogni-scheda",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Cosa trovi in ogni scheda",
     "url": "https://meshcore-ita.github.io/blog/galleria-antenne/#cosa-trovi-in-ogni-scheda",
     "text": "I numeri principali , calcolati a 869,618 MHz, la frequenza del preset italiano : guadagno, rapporto avanti/dietro, ROS, impedenza e frequenza di risonanza. Cosa dicono questi numeri , in parole semplici: quante volte l'antenna concentra la potenza rispetto a un dipolo, quanta potenza torna indietro per il ROS, se l'antenna è lunga o corta e va quindi accorciata o allungata. La potenza massima da impostare sul nodo per restare entro i 500 mW ERP della sub-banda 869,4–869,65 MHz, con 0, 1 o 2 dB di perdita nel cavo. I limiti sono spiegati nella pagina sulla normativa . Una vista 3D del diagramma di irradiazione con l'antenna dentro, da ruotare col mouse o col dito, e i grafici di ROS e…"
   },
   {
     "id": "blog/galleria-antenne--le-antenne-di-oggi",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Le antenne di oggi",
     "url": "https://meshcore-ita.github.io/blog/galleria-antenne/#le-antenne-di-oggi",
     "text": "Antenna Guadagno ROS a 869,618 MHz Yagi 2 elementi con riflettore, di Fabrizio (in uso su pybot) 6,4 dBi 1,09 Yagi 2 elementi con direttore, di Fabrizio 5,3 dBi 1,02 Yagi 10 elementi, progetto da 432 MHz riscalato, di Fabrizio 12,4 dBi 1,91 Dipolo a mezz'onda 2,1 dBi 1,44 Ground plane λ/4 con 4 radiali a 45° 2,2 dBi 1,01 Yagi 3 elementi 8,1 dBi 1,23 Le ultime tre sono progetti di riferimento accordati da noi. Il dipolo risuona a 160,6 mm , gli stessi 161 mm a cui arriva il tutorial di Paolo su Lora Italia . Qualche numero è diverso da quello che si legge spesso in giro. Un esempio: con quattro radiali orizzontali una ground plane non sta a 36 Ω ma intorno a 25 Ω. Piegando i radiali a 45° si…"
   },
   {
     "id": "blog/galleria-antenne--aggiungi-la-tua-antenna",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Aggiungi la tua antenna",
     "url": "https://meshcore-ita.github.io/blog/galleria-antenne/#aggiungi-la-tua-antenna",
     "text": "La galleria vive su GitHub nel repository meshcore-ita/antenne . Per aggiungere un'antenna bastano una cartella con il file .nec , un piccolo meta.json con titolo e autore e, se vuoi, qualche foto e le note di costruzione. Le istruzioni sono in CONTRIBUTING.md . A ogni modifica il sito rifà da solo le simulazioni e rigenera le pagine. Se non usi GitHub, manda il file .nec e una foto nel gruppo Telegram MeshCore ITA : lo aggiungiamo noi, citandoti. Grazie a Fabrizio per aver aperto la strada."
   },
   {
+    "id": "blog/antenne-nec-senza-windows--da-dove-partiamo",
+    "page": "Blog",
+    "title": "Da dove partiamo",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#da-dove-partiamo",
+    "text": "Su Lora Italia Paolo ha pubblicato Eznec! Chi era costui? , un ottimo tutorial in italiano: un dipolo verticale a 869 MHz, prima nello spazio libero e poi sopra un terreno reale, simulato con EZNEC. Vi consigliamo di leggerlo: qui rifacciamo gli stessi passi con altri strumenti. L'articolo spiega che i due programmi più usati, EZNEC e 4nec2, sono gratuiti ma girano solo su Windows . E sono gratuiti, non open source: il codice non è disponibile. Entrambi però sono interfacce grafiche costruite sopra lo stesso motore, il Numerical Electromagnetics Code . La versione NEC-2 è di pubblico dominio, e da lì sono nati diversi progetti aperti."
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--le-alternative-open-source",
+    "page": "Blog",
+    "title": "Le alternative open source",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#le-alternative-open-source",
+    "text": "Strumento Cos'è Piattaforme xnec2c NEC-2 con interfaccia grafica: geometria, diagrammi, impedenza, ROS. Legge i file .nec di 4nec2. Linux, BSD, macOS nec2c Il motore NEC-2 tradotto in C, da riga di comando Ovunque necpp / PyNEC NEC-2 in C++ con binding Python, per simulazioni e ottimizzazioni via script Ovunque openEMS Solutore 3D a elementi finiti nel tempo (FDTD) Linux, Windows, macOS Per rifare il tutorial serve xnec2c , che è quello più vicino a EZNEC. PyNEC è utile se volete l'equivalente dell'ottimizzatore di 4nec2 scritto in Python. openEMS è un altro mondo: serve per antenne su circuito stampato e piani di massa, dove NEC fatica. Ci torneremo."
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--installare-xnec2c",
+    "page": "Blog",
+    "title": "Installare xnec2c",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#installare-xnec2c",
+    "text": "Debian, Ubuntu, Raspberry Pi OS: sudo apt install xnec2c Arch e derivate: sudo pacman -S xnec2c (o dall'AUR) Fedora: sudo dnf install xnec2c macOS: sudo port install xnec2c con MacPorts"
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--il-dipolo-a-869-mhz",
+    "page": "Blog",
+    "title": "Il dipolo a 869 MHz",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#il-dipolo-a-869-mhz",
+    "text": "A differenza di EZNEC, xnec2c descrive l'antenna con un file di testo a \"schede\", il formato originale di NEC. Sembra ostico, ma per un dipolo sono poche righe. Le misure sono in metri . Salvate questo come dipolo-869.nec : CM Dipolo verticale 869 MHz, spazio libero CE GW 1 11 0 0 -0.0805 0 0 0.0805 0.001 GE 0 EX 0 1 6 0 1 0 FR 0 1 0 0 869 0 RP 0 37 73 1000 0 0 5 5 EN Riga per riga: GW : un filo ( wire ) numero 1, diviso in 11 segmenti , da z = −80,5 mm a z = +80,5 mm, quindi lungo 161 mm , con raggio 1 mm (diametro 2 mm). Sono le misure a cui arriva il tutorial originale dopo aver accorciato da 172 mm. GE 0 : fine della geometria, nessun terreno (spazio libero). EX : alimentazione in…"
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--piu-frequenze-in-un-colpo",
+    "page": "Blog",
+    "title": "Più frequenze in un colpo",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#piu-frequenze-in-un-colpo",
+    "text": "Qui xnec2c ha un vantaggio comodo: con una scheda FR a più passi calcola una spazzata, e il grafico mostra subito dove l'antenna risuona. FR 0 41 0 0 849 1 Sono 41 frequenze da 849 a 889 MHz, a passi di 1 MHz. Il minimo del ROS vi dice se il dipolo è corto o lungo, senza tentativi."
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--sopra-un-terreno-reale",
+    "page": "Blog",
+    "title": "Sopra un terreno reale",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#sopra-un-terreno-reale",
+    "text": "Come nel tutorial, alziamo l'antenna di 1 metro e aggiungiamo il terreno. Il centro del dipolo va a 1,0805 m, così l'estremità bassa sta a 1 m: CM Dipolo verticale 869 MHz, 1 m sopra terreno reale CE GW 1 11 0 0 1.0 0 0 1.161 0.001 GE 1 GN 2 0 0 0 13 0.005 EX 0 1 6 0 1 0 FR 0 1 0 0 869 0 RP 0 19 73 1000 0 0 5 5 EN GE 1 : c'è un terreno. GN 2 : terreno reale calcolato con il metodo di Sommerfeld, il più accurato, con costante dielettrica 13 e conducibilità 0,005 S/m (un terreno \"medio\"). RP ora calcola solo la mezza sfera sopra il suolo. Vale lo stesso limite spiegato nell'articolo: NEC-2 non gestisce fili che toccano il terreno o finiscono sotto. Non è un difetto di xnec2c, è il motore: lo…"
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--e-se-proprio-volete-eznec",
+    "page": "Blog",
+    "title": "E se proprio volete EZNEC",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#e-se-proprio-volete-eznec",
+    "text": "EZNEC e 4nec2 funzionano in genere anche sotto Wine . Può bastare se dovete aprire un modello che vi ha passato qualcuno. Per iniziare da zero, però, un programma nativo e aperto è più comodo."
+  },
+  {
+    "id": "blog/antenne-nec-senza-windows--per-saperne-di-piu",
+    "page": "Blog",
+    "title": "Per saperne di più",
+    "url": "https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/#per-saperne-di-piu",
+    "text": "Il tutorial originale di Paolo su Lora Italia La documentazione di xnec2c Il manuale di NEC-2 con il significato di ogni scheda Se simulate un'antenna per un nodo MeshCore, aggiungetela alla galleria delle antenne : il file .nec è di testo, si legge e si modifica facilmente, e la galleria lo simula e lo spiega da sola. Come è nata lo raccontiamo in questo post ."
+  },
+  {
     "id": "blog/mesh-america-awesome-meshcore--l-articolo",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "L'articolo",
     "url": "https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/#l-articolo",
     "text": "Il 23 settembre 2026 Mesh America , testata dedicata alle reti mesh off-grid negli Stati Uniti, ha pubblicato A Comprehensive MeshCore Directory Built by the Community , un articolo su awesome-meshcore , l'elenco curato che abbiamo presentato qualche giorno fa . L'articolo ci presenta come «il gruppo italiano dietro meshcore-ita.github.io e il preset radio italiano condiviso» e descrive l'elenco come una risorsa che mancava: MeshCore è cresciuto in fretta, e trovare un punto di partenza unico non era semplice."
   },
   {
     "id": "blog/mesh-america-awesome-meshcore--cosa-hanno-notato",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Cosa hanno notato",
     "url": "https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/#cosa-hanno-notato",
     "text": "I client : oltre 30 app open source, scritte in Electron, Flutter, Qt, Swift, Rust — fino a un client da terminale per Commodore 64. Librerie e SDK : i binding ufficiali Python, JavaScript e CLI, accanto ai port della community in Go, Rust, TypeScript, Java e MicroPython. L'infrastruttura : integrazione con Home Assistant, bridge Discord e Telegram, gateway MQTT ed email, una BBS store-and-forward, analizzatori di pacchetti, un dissector per Wireshark e diverse dashboard self-hosted. Hardware e firmware : dispositivi supportati, radio pronte, autocostruzioni con distinta dei materiali, case stampabili in 3D e decine di fork del firmware. Le community : la sezione più ampia, paese per paese…"
   },
   {
     "id": "blog/mesh-america-awesome-meshcore--grazie-e-avanti",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Grazie, e avanti",
     "url": "https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/#grazie-e-avanti",
     "text": "Ringraziamo Mesh America per la segnalazione. Per noi è la conferma che tenere l'elenco in inglese e aperto a tutti è stata la scelta giusta: serve anche fuori dall'Italia. L'elenco è sotto licenza CC0 e cresce con le pull request. Se conosci un progetto o una community che manca, apri una PR o una issue sul repository , oppure segnalacelo nel gruppo Telegram MeshCore ITA ."
   },
   {
     "id": "blog/awesome-meshcore--cos-e",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Cos'è",
     "url": "https://meshcore-ita.github.io/blog/awesome-meshcore/#cos-e",
     "text": "awesome-meshcore è un elenco curato di risorse su MeshCore, nel formato delle awesome list : una pagina sola, voci brevi, ogni link verificato prima di entrare. Lo manteniamo noi della community italiana, ma è scritto in inglese e copre il progetto a livello internazionale: serve a chi cerca uno strumento e non sa da dove partire. Al momento raccoglie oltre 160 voci. Il repository è sotto licenza CC0: puoi riusarlo come vuoi, anche senza citarci."
   },
   {
     "id": "blog/awesome-meshcore--cosa-ci-trovi",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Cosa ci trovi",
     "url": "https://meshcore-ita.github.io/blog/awesome-meshcore/#cosa-ci-trovi",
     "text": "Risorse ufficiali : sito, documentazione, blog, web flasher, mappa, FAQ e repository del firmware del progetto MeshCore. Client , divisi tra open source e closed source, per Android, iOS, desktop e browser. Librerie e SDK per chi vuole scriverci sopra qualcosa, in particolare in Python e JavaScript. Integrazioni e bot , incluse quelle verso altri sistemi di messaggistica. Dashboard self-hosted e strumenti di analisi dei pacchetti , utili per chi gestisce un repeater e vuole vedere cosa passa davvero sulla rete. Firmware e flashing : alternative e strumenti oltre al flasher ufficiale. Mappe, diagnostica e pianificazione RF , compresi i tool per stimare una tratta prima di salire sul tetto —…"
   },
   {
     "id": "blog/awesome-meshcore--perche-un-elenco-separato-dal-sito",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Perché un elenco separato dal sito",
     "url": "https://meshcore-ita.github.io/blog/awesome-meshcore/#perche-un-elenco-separato-dal-sito",
     "text": "Questo sito è documentazione in italiano: spiega come si configura un nodo, qual è il preset condiviso, cosa fare quando qualcosa non funziona. Ogni dato che pubblichiamo deve essere verificabile su una fonte upstream, e le pagine restano poche e stabili. L'elenco awesome risponde a una domanda diversa — \"esiste già uno strumento per X?\" — ed è per sua natura in movimento: nascono client nuovi, alcuni progetti si fermano, le community regionali cambiano indirizzo. Tenerlo in un repository a parte, in inglese, permette di aggiornarlo spesso senza toccare la documentazione, e lo rende utile anche fuori dall'Italia."
   },
   {
     "id": "blog/awesome-meshcore--come-contribuire",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Come contribuire",
     "url": "https://meshcore-ita.github.io/blog/awesome-meshcore/#come-contribuire",
     "text": "Manca un progetto? Un link non risponde più? Apri una pull request o una issue sul repository . Le regole sono quelle classiche delle awesome list: una riga per voce, con una descrizione breve di cosa fa, non di quanto è bello; niente link affiliati, niente progetti abbandonati senza dirlo; la voce va nella sezione giusta, e le community vanno sotto il proprio paese. Se preferisci, segnalacelo anche solo nel gruppo Telegram MeshCore ITA : a inserirlo nell'elenco ci pensiamo noi."
   },
   {
     "id": "blog/wiki-e-aggiornamenti--cosa-cambia",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Cosa cambia",
     "url": "https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/#cosa-cambia",
-    "text": "Da oggi il sito ha una sezione Aggiornamenti (questa che stai leggendo): una serie di post per raccontare novità sul sito, sulla documentazione e sulla community, senza dover infilare tutto nelle pagine di riferimento esistenti. Insieme alla sezione Aggiornamenti arrivano tre cose: Un feed Atom , su /feed.xml . Se usi un lettore RSS/Atom puoi iscriverti lì e sapere quando esce un nuovo post, senza dover controllare il sito a mano. Ogni voce del feed contiene titolo, data di pubblicazione e riassunto del post. La ricerca interna , richiamabile dal pulsante di ricerca nell'header o dalla dialog che si apre in ogni pagina del sito. Cerca nel testo delle pagine di documentazione e dei post,…"
+    "text": "Da oggi il sito ha una sezione Blog (questa che stai leggendo, allora chiamata \"Aggiornamenti\" e in seguito rinominata): una serie di post per raccontare novità sul sito, sulla documentazione e sulla community, senza dover infilare tutto nelle pagine di riferimento esistenti. Insieme al blog arrivano tre cose: Un feed Atom , su /feed.xml . Se usi un lettore RSS/Atom puoi iscriverti lì e sapere quando esce un nuovo post, senza dover controllare il sito a mano. Ogni voce del feed contiene titolo, data di pubblicazione e riassunto del post. La ricerca interna , richiamabile dal pulsante di ricerca nell'header o dalla dialog che si apre in ogni pagina del sito. Cerca nel testo delle pagine di…"
   },
   {
     "id": "blog/wiki-e-aggiornamenti--cosa-non-cambia",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Cosa non cambia",
     "url": "https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/#cosa-non-cambia",
     "text": "Nessun URL esistente è cambiato. /guida/ , /hardware/ , /preset-radio/ , /comandi/ e tutte le altre pagine restano agli stessi indirizzi di sempre. Se hai un link salvato o condiviso da qualche parte, continua a funzionare."
   },
   {
     "id": "blog/wiki-e-aggiornamenti--come-contribuire",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Come contribuire",
     "url": "https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/#come-contribuire",
-    "text": "Il modo per contribuire resta lo stesso di sempre: ogni pagina del sito ha in fondo il link \"Modifica questa pagina su GitHub\" , che apre l'editor GitHub sul file sorgente corretto. Al salvataggio, GitHub propone di aprire una pull request. La novità è che, oltre alle pagine di documentazione esistenti (scritte in HTML), ora è possibile scrivere nuovi contenuti in markdown : sia nuove pagine, sia post come questo. Il markdown è più semplice da scrivere e da revisionare in una pull request rispetto all'HTML, quindi è il formato consigliato per chi vuole proporre qualcosa di nuovo. Se vuoi scrivere un post per gli Aggiornamenti, trovi la guida pratica nel prossimo post di questa sezione."
+    "text": "Il modo per contribuire resta lo stesso di sempre: ogni pagina del sito ha in fondo il link \"Modifica questa pagina su GitHub\" , che apre l'editor GitHub sul file sorgente corretto. Al salvataggio, GitHub propone di aprire una pull request. La novità è che, oltre alle pagine di documentazione esistenti (scritte in HTML), ora è possibile scrivere nuovi contenuti in markdown : sia nuove pagine, sia post come questo. Il markdown è più semplice da scrivere e da revisionare in una pull request rispetto all'HTML, quindi è il formato consigliato per chi vuole proporre qualcosa di nuovo. Se vuoi scrivere un post per il blog, trovi la guida pratica nel prossimo post di questa sezione."
   },
   {
     "id": "blog/wiki-e-aggiornamenti--dove-trovarci",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Dove trovarci",
     "url": "https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/#dove-trovarci",
     "text": "Le discussioni sulla documentazione, sul sito e sulla rete in generale avvengono su GitHub (repository meshcore-ita ) e sul gruppo Telegram pubblico MeshCore ITA , aperto a chiunque senza bisogno di invito. Se hai domande, correzioni o proposte, sono i due posti giusti dove portarle."
   },
   {
     "id": "blog/come-scrivere-un-post--dove-sta-il-file",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Dove sta il file",
     "url": "https://meshcore-ita.github.io/blog/come-scrivere-un-post/#dove-sta-il-file",
-    "text": "Ogni post della sezione Aggiornamenti è un file markdown dentro content/blog/ . Il nome del file diventa l'URL del post: un file content/blog/mio-post.md finisce pubblicato su /blog/mio-post/ . Per scriverne uno nuovo: Crea un file content/blog/<slug>.md , dove <slug> è il nome che vuoi dare al post (minuscolo, parole separate da trattino). Il file inizia con un blocco di meta dati, poi il corpo in markdown. Rigenera il sito e committa l'output."
+    "text": "Ogni post del blog è un file markdown dentro content/blog/ . Il nome del file diventa l'URL del post: un file content/blog/mio-post.md finisce pubblicato su /blog/mio-post/ . Per scriverne uno nuovo: Crea un file content/blog/<slug>.md , dove <slug> è il nome che vuoi dare al post (minuscolo, parole separate da trattino). Il file inizia con un blocco di meta dati, poi il corpo in markdown. Rigenera il sito e committa l'output."
   },
   {
     "id": "blog/come-scrivere-un-post--il-blocco-meta",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Il blocco meta",
     "url": "https://meshcore-ita.github.io/blog/come-scrivere-un-post/#il-blocco-meta",
-    "text": "Come per le pagine di documentazione, il file inizia con un commento <!--meta { ... } --> contenente un oggetto JSON. Per un post servono queste chiavi: slug : deve essere identico al nome del file , senza estensione. Se il file è come-scrivere-un-post.md , slug deve valere \"come-scrivere-un-post\" . title : titolo per il tag <title> e per i motori di ricerca. description : riassunto breve, usato come meta description. h1 : titolo mostrato in cima al post. lede : sottotitolo/riassunto mostrato sotto l' h1 e nella lista dei post. published : data di pubblicazione, formato AAAA-MM-GG . Sono opzionali: updated : data di ultimo aggiornamento, se diversa da published . author : di default è…"
+    "text": "Come per le pagine di documentazione, il file inizia con un commento <!--meta { ... } --> contenente un oggetto JSON. Per un post servono queste chiavi: slug : deve essere identico al nome del file , senza estensione. Se il file è come-scrivere-un-post.md , slug deve valere \"come-scrivere-un-post\" . title : titolo per il tag <title> e per i motori di ricerca. description : riassunto breve, usato come meta description. h1 : titolo mostrato in cima al post. lede : sottotitolo/riassunto mostrato sotto l' h1 e nella lista dei post. published : data di pubblicazione, formato AAAA-MM-GG . Sono opzionali: updated : data di ultimo aggiornamento, se diversa da published . time : ora di pubblicazione…"
+  },
+  {
+    "id": "blog/come-scrivere-un-post--i-tag",
+    "page": "Blog",
+    "title": "I tag",
+    "url": "https://meshcore-ita.github.io/blog/come-scrivere-un-post/#i-tag",
+    "text": "Ogni voce di tags deve essere uno slug già presente in content/blog/tags.json : un tag non registrato fa fallire la build. Gli slug attuali sono: antenne , autocostruzione , software , community , risorse , sito , contribuire . Per ogni tag usato da almeno un post la build genera una pagina /blog/tag/<slug>/ (con paginazione e feed Atom propri), usando label e description del registro come titolo e testo introduttivo. Per aggiungere un tag nuovo: aggiungi una voce a tags.json con label e description , poi usane lo slug nell'array tags del post."
   },
   {
     "id": "blog/come-scrivere-un-post--il-corpo",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Il corpo",
     "url": "https://meshcore-ita.github.io/blog/come-scrivere-un-post/#il-corpo",
     "text": "Dopo il blocco meta, il resto del file è markdown normale (GFM: titoli, liste, tabelle, link, blocchi di codice, grassetto/corsivo). Niente HTML grezzo: il markdown viene convertito automaticamente in HTML dalla build, seguendo lo stile del sito. Usa ## per i titoli di sezione (l' h1 lo genera già il layout dal campo h1 del meta). Mantieni lo stesso registro delle altre pagine del sito: italiano tecnico, diretto, frasi brevi, niente marketing."
   },
   {
     "id": "blog/come-scrivere-un-post--pubblicare-il-post",
-    "page": "Aggiornamenti",
+    "page": "Blog",
     "title": "Pubblicare il post",
     "url": "https://meshcore-ita.github.io/blog/come-scrivere-un-post/#pubblicare-il-post",
     "text": "Dopo aver scritto il file: node build.mjs # rigenera il sito, incluso /blog/ e il feed node build.mjs --check # deve uscire 0: è lo stesso gate della CI Committa sia il file sorgente in content/blog/ sia tutti i file generati che cambiano ( blog/ , feed.xml , search-index.json e l'eventuale sitemap). La CI esegue node build.mjs --check su ogni pull request e la rifiuta se i file generati non corrispondono ai sorgenti. Se preferisci non usare la riga di comando, il link \"Modifica questa pagina su GitHub\" in fondo a ogni pagina apre comunque l'editor web e produce una pull request: in quel caso è chi revisiona la PR a rigenerare e verificare i file di output."

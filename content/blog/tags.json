@@ -1,0 +1,30 @@
+{
+  "antenne": {
+    "label": "Antenne",
+    "description": "Antenne per LoRa a 868 MHz: progetti, simulazioni, misure e confronti tra modelli, dalla Yagi al dipolo."
+  },
+  "autocostruzione": {
+    "label": "Autocostruzione",
+    "description": "Progetti da costruire in casa: antenne, nodi e accessori, con misure, materiali e risultati."
+  },
+  "software": {
+    "label": "Software",
+    "description": "Programmi, simulatori e strumenti open source utili a chi usa MeshCore o costruisce la propria rete."
+  },
+  "community": {
+    "label": "Community",
+    "description": "La vita della community italiana di MeshCore: contributi dei membri, iniziative e novità dal gruppo."
+  },
+  "risorse": {
+    "label": "Risorse",
+    "description": "Elenchi, raccolte e riferimenti per orientarsi nell'ecosistema MeshCore."
+  },
+  "sito": {
+    "label": "Sito",
+    "description": "Novità del sito MeshCore ITA: nuove sezioni, funzioni e cambiamenti di struttura."
+  },
+  "contribuire": {
+    "label": "Contribuire",
+    "description": "Come partecipare al sito e alla documentazione: scrivere un post, correggere una pagina, proporre modifiche."
+  }
+}

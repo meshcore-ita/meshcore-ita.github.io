@@ -1,22 +1,24 @@
 <!--meta
 {
   "slug": "wiki-e-aggiornamenti",
-  "title": "Aggiornamenti, ricerca e feed: cosa cambia sul sito MeshCore ITA",
-  "description": "Il sito MeshCore ITA aggiunge Aggiornamenti, feed Atom, ricerca interna e documentazione raggruppata per sezione. Gli URL esistenti non cambiano.",
-  "h1": "Aggiornamenti, ricerca e feed: cosa cambia sul sito",
-  "lede": "Una sezione Aggiornamenti, un feed Atom, la ricerca interna e il footer raggruppato per sezione. Nessun URL esistente è cambiato.",
+  "title": "Blog, ricerca e feed: cosa cambia sul sito MeshCore ITA",
+  "description": "Il sito MeshCore ITA aggiunge un blog, feed Atom, ricerca interna e documentazione raggruppata per sezione. Gli URL esistenti non cambiano.",
+  "h1": "Blog, ricerca e feed: cosa cambia sul sito",
+  "lede": "Un blog, un feed Atom, la ricerca interna e il footer raggruppato per sezione. Nessun URL esistente è cambiato.",
   "published": "2026-09-14",
+  "time": "12:08",
+  "updated": "2026-09-27",
   "tags": ["sito", "community"]
 }
 -->
 ## Cosa cambia
 
-Da oggi il sito ha una sezione **Aggiornamenti** (questa che stai leggendo):
-una serie di post per raccontare novità sul sito, sulla documentazione e
-sulla community, senza dover infilare tutto nelle pagine di riferimento
-esistenti.
+Da oggi il sito ha una sezione **Blog** (questa che stai leggendo, allora
+chiamata "Aggiornamenti" e in seguito rinominata): una serie di post per
+raccontare novità sul sito, sulla documentazione e sulla community, senza
+dover infilare tutto nelle pagine di riferimento esistenti.
 
-Insieme alla sezione Aggiornamenti arrivano tre cose:
+Insieme al blog arrivano tre cose:
 
 - **Un feed Atom**, su `/feed.xml`. Se usi un lettore RSS/Atom puoi
   iscriverti lì e sapere quando esce un nuovo post, senza dover controllare
@@ -55,7 +57,7 @@ pagine, sia post come questo. Il markdown è più semplice da scrivere e da
 revisionare in una pull request rispetto all'HTML, quindi è il formato
 consigliato per chi vuole proporre qualcosa di nuovo.
 
-Se vuoi scrivere un post per gli Aggiornamenti, trovi la guida pratica nel
+Se vuoi scrivere un post per il blog, trovi la guida pratica nel
 prossimo post di questa sezione.
 
 ## Dove trovarci

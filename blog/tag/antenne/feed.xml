@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MeshCore ITA — Blog: Antenne</title>
+  <id>https://meshcore-ita.github.io/blog/tag/antenne/</id>
+  <link rel="self" href="https://meshcore-ita.github.io/blog/tag/antenne/feed.xml"/>
+  <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/antenne/"/>
+  <updated>2026-09-27T00:00:00Z</updated>
+  <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/</id>
+    <title>La Yagi LFA di Fabrizio: 50 Ω senza adattatore</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/"/>
+    <published>2026-09-27T00:00:00Z</published>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary type="text">Il giorno dopo l'apertura della galleria, Fabrizio ci ha mandato una Yagi a 3 elementi un po' speciale: l'elemento alimentato è un anello chiuso. Il simulatore ha risposto con un ROS di 1,00.</summary>
+    <category term="antenne" label="Antenne"/>
+    <category term="autocostruzione" label="Autocostruzione"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-27&quot;&gt;27 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/autocostruzione/&quot;&gt;Autocostruzione&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;un-anello-al-posto-del-dipolo&quot;&gt;Un anello al posto del dipolo&lt;/h2&gt;
+&lt;p&gt;In una Yagi classica l&amp;#39;elemento alimentato è un dipolo, cioè un filo tagliato
+a metà. Quando ci si mettono vicino riflettore e direttore, però, la sua
+impedenza scende ben sotto i 50 Ω, e di solito per collegarlo al cavo serve un
+adattatore: un gamma match, un hairpin o un balun.&lt;/p&gt;
+&lt;p&gt;La &lt;strong&gt;LFA&lt;/strong&gt; (&lt;em&gt;Loop Fed Array&lt;/em&gt;, ideata dal radioamatore inglese Justin Johnson,
+G0KSC) fa diversamente. L&amp;#39;elemento alimentato è un &lt;strong&gt;anello rettangolare
+chiuso&lt;/strong&gt;, lungo e basso, messo tra riflettore e direttore. Allungando o
+schiacciando l&amp;#39;anello si porta l&amp;#39;impedenza a 50 Ω, e il cavo si collega
+direttamente, senza altro in mezzo.&lt;/p&gt;
+&lt;h2 id=&quot;come-e-fatta&quot;&gt;Come è fatta&lt;/h2&gt;
+&lt;p&gt;Il modello che Fabrizio ha caricato nella
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/fabrizio-yagi-lfa-3el/&quot;&gt;galleria&lt;/a&gt;
+è piccolo:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Elemento&lt;/th&gt;
+&lt;th&gt;Lunghezza&lt;/th&gt;
+&lt;th&gt;Distanza dal riflettore&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Riflettore&lt;/td&gt;
+&lt;td&gt;162 mm&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Anello alimentato&lt;/td&gt;
+&lt;td&gt;141 × 28 mm&lt;/td&gt;
+&lt;td&gt;da 47 a 75 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Direttore&lt;/td&gt;
+&lt;td&gt;147 mm&lt;/td&gt;
+&lt;td&gt;124 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Tutto in filo da 4 mm, su un boom di &lt;strong&gt;appena 12,4 cm&lt;/strong&gt;. Il connettore va al
+centro del lato dell&amp;#39;anello più lontano dal riflettore.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-dice-il-simulatore&quot;&gt;Cosa dice il simulatore&lt;/h2&gt;
+&lt;p&gt;A 869,618 MHz, la frequenza del &lt;a href=&quot;../../preset-radio/&quot;&gt;preset italiano&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Guadagno 8,8 dBi&lt;/strong&gt;, cioè 6,6 dB più di un dipolo: nella direzione
+giusta arriva circa 4,6 volte la potenza.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rapporto avanti/dietro 15 dB&lt;/strong&gt;: quello che arriva da dietro è attenuato
+di circa 30 volte. È utile se alle spalle del nodo c&amp;#39;è una città piena di
+disturbi.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Impedenza 49,8 + j0,2 Ω, ROS 1,00.&lt;/strong&gt; Più vicino di così ai 50 Ω non si
+può, e senza adattatore.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ROS sotto 2 da meno di 855 fino a circa 881 MHz&lt;/strong&gt;: resta un buon margine
+anche se in costruzione le misure non vengono perfette.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Messa accanto alle altre Yagi della galleria:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Antenna&lt;/th&gt;
+&lt;th&gt;Guadagno&lt;/th&gt;
+&lt;th&gt;Avanti/dietro&lt;/th&gt;
+&lt;th&gt;ROS&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Yagi LFA 3 elementi, di Fabrizio&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;8,8 dBi&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;15,2 dB&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;1,00&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 3 elementi di riferimento&lt;/td&gt;
+&lt;td&gt;8,1 dBi&lt;/td&gt;
+&lt;td&gt;5,9 dB&lt;/td&gt;
+&lt;td&gt;1,23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 2 elementi con riflettore, di Fabrizio&lt;/td&gt;
+&lt;td&gt;6,4 dBi&lt;/td&gt;
+&lt;td&gt;8,5 dB&lt;/td&gt;
+&lt;td&gt;1,09&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Con lo stesso numero di elementi, la LFA batte la nostra Yagi di riferimento
+su tutti e tre i numeri. Il rapporto avanti/dietro, in particolare, è più che
+doppio in dB.&lt;/p&gt;
+&lt;h2 id=&quot;attenzione-alla-potenza&quot;&gt;Attenzione alla potenza&lt;/h2&gt;
+&lt;p&gt;Più guadagno vuol dire meno potenza da impostare sul nodo. Per restare nei
+500 mW ERP della sub-banda 869,4–869,65 MHz (vedi la pagina sulla
+&lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt;):&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Perdita del cavo&lt;/th&gt;
+&lt;th&gt;Potenza massima sul nodo&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;0 dB&lt;/td&gt;
+&lt;td&gt;20,4 dBm (109 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1 dB&lt;/td&gt;
+&lt;td&gt;21,4 dBm (138 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2 dB&lt;/td&gt;
+&lt;td&gt;22,4 dBm (173 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Con il cavo corto, i 22 dBm di molte schede sono già troppi.&lt;/p&gt;
+&lt;h2 id=&quot;solo-una-simulazione-per-ora&quot;&gt;Solo una simulazione, per ora&lt;/h2&gt;
+&lt;p&gt;Questi numeri vengono da una simulazione in spazio libero: indicano la
+tendenza, ma la verifica vera si fa con un NanoVNA sull&amp;#39;antenna montata.&lt;/p&gt;
+&lt;h2 id=&quot;e-ora&quot;&gt;E ora?&lt;/h2&gt;
+&lt;p&gt;Aspettiamo le foto della costruzione e, se Fabrizio ha voglia, la misura
+del ROS reale. Nel frattempo la scheda con la vista 3D, i grafici e il file
+spiegato riga per riga è qui:
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/fabrizio-yagi-lfa-3el/&quot;&gt;Yagi LFA 3 elementi&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Hai una tua antenna? Le istruzioni sono nell&amp;#39;articolo sulla
+&lt;a href=&quot;../galleria-antenne/&quot;&gt;galleria&lt;/a&gt;, oppure mandala nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Grazie ancora a Fabrizio.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/galleria-antenne/</id>
+    <title>Nasce la galleria delle antenne della community</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/galleria-antenne/"/>
+    <published>2026-09-26T20:04:00+02:00</published>
+    <updated>2026-09-26T20:04:00+02:00</updated>
+    <summary type="text">Dopo l'articolo su xnec2c, Fabrizio ci ha mandato la Yagi che usa sul suo nodo. Da lì è nata una galleria aperta: si condivide il file .nec, e il sito simula l'antenna e spiega cosa significano i numeri.</summary>
+    <category term="antenne" label="Antenne"/>
+    <category term="software" label="Software"/>
+    <category term="autocostruzione" label="Autocostruzione"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-26&quot;&gt;26 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/software/&quot;&gt;Software&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/autocostruzione/&quot;&gt;Autocostruzione&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;com-e-nata&quot;&gt;Com&amp;#39;è nata&lt;/h2&gt;
+&lt;p&gt;Nell&amp;#39;articolo &lt;a href=&quot;../antenne-nec-senza-windows/&quot;&gt;Simulare antenne senza Windows&lt;/a&gt;
+abbiamo mostrato come simulare un dipolo a 869 MHz con strumenti open source.
+Poche ore dopo Fabrizio ha risposto nel gruppo con la foto di una &lt;strong&gt;Yagi a 2
+elementi&lt;/strong&gt; in tubo di rame, montata sul tetto accanto al suo nodo solare
+&lt;em&gt;pybot&lt;/em&gt;, e con i file &lt;code&gt;.nec&lt;/code&gt; dei suoi modelli.&lt;/p&gt;
+&lt;p&gt;Simulandoli ci siamo accorti che valeva la pena raccoglierli in un posto solo,
+insieme ad altre antenne, e spiegare bene cosa dice ogni numero. Così è nata
+la &lt;a href=&quot;https://meshcore-ita.github.io/antenne/&quot;&gt;galleria delle antenne&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-trovi-in-ogni-scheda&quot;&gt;Cosa trovi in ogni scheda&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;I numeri principali&lt;/strong&gt;, calcolati a 869,618 MHz, la frequenza del
+&lt;a href=&quot;../../preset-radio/&quot;&gt;preset italiano&lt;/a&gt;: guadagno, rapporto avanti/dietro,
+ROS, impedenza e frequenza di risonanza.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cosa dicono questi numeri&lt;/strong&gt;, in parole semplici: quante volte l&amp;#39;antenna
+concentra la potenza rispetto a un dipolo, quanta potenza torna indietro
+per il ROS, se l&amp;#39;antenna è lunga o corta e va quindi accorciata o allungata.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La potenza massima da impostare sul nodo&lt;/strong&gt; per restare entro i 500 mW
+ERP della sub-banda 869,4–869,65 MHz, con 0, 1 o 2 dB di perdita nel cavo.
+I limiti sono spiegati nella pagina sulla &lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Una vista 3D&lt;/strong&gt; del diagramma di irradiazione con l&amp;#39;antenna dentro, da
+ruotare col mouse o col dito, e i grafici di ROS e impedenza da 855 a
+885 MHz.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Il file &lt;code&gt;.nec&lt;/code&gt; spiegato riga per riga&lt;/strong&gt;, da scaricare e aprire con
+xnec2c, 4nec2 o EZNEC.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Costruzione, esperimenti ed errori comuni&lt;/strong&gt;: misure, lista di taglio,
+materiali e cosa succede se si cambia qualcosa.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;C&amp;#39;è anche una &lt;a href=&quot;https://meshcore-ita.github.io/antenne/guida/&quot;&gt;guida&lt;/a&gt; per chi
+parte da zero: lunghezza d&amp;#39;onda, dBi e dBd, polarizzazione, ROS, adattamento
+a 50 Ω, ERP e come si scrive un file NEC.&lt;/p&gt;
+&lt;h2 id=&quot;le-antenne-di-oggi&quot;&gt;Le antenne di oggi&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Antenna&lt;/th&gt;
+&lt;th&gt;Guadagno&lt;/th&gt;
+&lt;th&gt;ROS a 869,618 MHz&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Yagi 2 elementi con riflettore, di Fabrizio (in uso su pybot)&lt;/td&gt;
+&lt;td&gt;6,4 dBi&lt;/td&gt;
+&lt;td&gt;1,09&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 2 elementi con direttore, di Fabrizio&lt;/td&gt;
+&lt;td&gt;5,3 dBi&lt;/td&gt;
+&lt;td&gt;1,02&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 10 elementi, progetto da 432 MHz riscalato, di Fabrizio&lt;/td&gt;
+&lt;td&gt;12,4 dBi&lt;/td&gt;
+&lt;td&gt;1,91&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Dipolo a mezz&amp;#39;onda&lt;/td&gt;
+&lt;td&gt;2,1 dBi&lt;/td&gt;
+&lt;td&gt;1,44&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ground plane λ/4 con 4 radiali a 45°&lt;/td&gt;
+&lt;td&gt;2,2 dBi&lt;/td&gt;
+&lt;td&gt;1,01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 3 elementi&lt;/td&gt;
+&lt;td&gt;8,1 dBi&lt;/td&gt;
+&lt;td&gt;1,23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Le ultime tre sono progetti di riferimento accordati da noi. Il dipolo
+risuona a &lt;strong&gt;160,6 mm&lt;/strong&gt;, gli stessi 161 mm a cui arriva il
+&lt;a href=&quot;https://www.loraitalia.it/eznec-chi-era-costui/&quot;&gt;tutorial di Paolo su Lora Italia&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Qualche numero è diverso da quello che si legge spesso in giro. Un esempio:
+con quattro radiali orizzontali una ground plane non sta a 36 Ω ma intorno a
+25 Ω. Piegando i radiali a 45° si arriva a 50 Ω. La scheda spiega il perché.&lt;/p&gt;
+&lt;p&gt;Sono simulazioni in spazio libero: indicano la tendenza, ma non
+sostituiscono una misura con un NanoVNA sull&amp;#39;antenna montata.&lt;/p&gt;
+&lt;h2 id=&quot;aggiungi-la-tua-antenna&quot;&gt;Aggiungi la tua antenna&lt;/h2&gt;
+&lt;p&gt;La galleria vive su GitHub nel repository
+&lt;a href=&quot;https://github.com/meshcore-ita/antenne&quot;&gt;meshcore-ita/antenne&lt;/a&gt;. Per
+aggiungere un&amp;#39;antenna bastano una cartella con il file &lt;code&gt;.nec&lt;/code&gt;, un piccolo
+&lt;code&gt;meta.json&lt;/code&gt; con titolo e autore e, se vuoi, qualche foto e le note di
+costruzione. Le istruzioni sono in
+&lt;a href=&quot;https://github.com/meshcore-ita/antenne/blob/main/CONTRIBUTING.md&quot;&gt;CONTRIBUTING.md&lt;/a&gt;.
+A ogni modifica il sito rifà da solo le simulazioni e rigenera le pagine.&lt;/p&gt;
+&lt;p&gt;Se non usi GitHub, manda il file &lt;code&gt;.nec&lt;/code&gt; e una foto nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;: lo aggiungiamo noi, citandoti.&lt;/p&gt;
+&lt;p&gt;Grazie a Fabrizio per aver aperto la strada.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/</id>
+    <title>Simulare antenne senza Windows: xnec2c e il dipolo a 869 MHz</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/antenne-nec-senza-windows/"/>
+    <published>2026-09-26T11:13:00+02:00</published>
+    <updated>2026-09-26T11:13:00+02:00</updated>
+    <summary type="text">Avendo letto che EZNEC e 4nec2 girano solo su Windows, ci siamo chiesti: chi usa Linux o macOS come simula un'antenna LoRa? La risposta è che il motore di calcolo è pubblico, e attorno a lui esistono strumenti open source.</summary>
+    <category term="antenne" label="Antenne"/>
+    <category term="software" label="Software"/>
+    <category term="autocostruzione" label="Autocostruzione"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-26&quot;&gt;26 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 5 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/software/&quot;&gt;Software&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/autocostruzione/&quot;&gt;Autocostruzione&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;da-dove-partiamo&quot;&gt;Da dove partiamo&lt;/h2&gt;
+&lt;p&gt;Su Lora Italia Paolo ha pubblicato
+&lt;a href=&quot;https://www.loraitalia.it/eznec-chi-era-costui/&quot;&gt;&lt;em&gt;Eznec! Chi era costui?&lt;/em&gt;&lt;/a&gt;,
+un ottimo tutorial in italiano: un dipolo verticale a 869 MHz, prima nello
+spazio libero e poi sopra un terreno reale, simulato con EZNEC. Vi consigliamo
+di leggerlo: qui rifacciamo gli stessi passi con altri strumenti.&lt;/p&gt;
+&lt;p&gt;L&amp;#39;articolo spiega che i due programmi più usati, EZNEC e 4nec2, sono gratuiti
+ma &lt;strong&gt;girano solo su Windows&lt;/strong&gt;. E sono gratuiti, non open source: il codice non
+è disponibile.&lt;/p&gt;
+&lt;p&gt;Entrambi però sono interfacce grafiche costruite sopra lo stesso motore,
+il &lt;a href=&quot;https://en.wikipedia.org/wiki/Numerical_Electromagnetics_Code&quot;&gt;Numerical Electromagnetics Code&lt;/a&gt;.
+La versione NEC-2 è di pubblico dominio, e da lì sono nati diversi progetti
+aperti.&lt;/p&gt;
+&lt;h2 id=&quot;le-alternative-open-source&quot;&gt;Le alternative open source&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Strumento&lt;/th&gt;
+&lt;th&gt;Cos&amp;#39;è&lt;/th&gt;
+&lt;th&gt;Piattaforme&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://www.xnec2c.org/&quot;&gt;xnec2c&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;NEC-2 con interfaccia grafica: geometria, diagrammi, impedenza, ROS. Legge i file &lt;code&gt;.nec&lt;/code&gt; di 4nec2.&lt;/td&gt;
+&lt;td&gt;Linux, BSD, macOS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;nec2c&lt;/td&gt;
+&lt;td&gt;Il motore NEC-2 tradotto in C, da riga di comando&lt;/td&gt;
+&lt;td&gt;Ovunque&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/tmolteno/necpp&quot;&gt;necpp / PyNEC&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;NEC-2 in C++ con binding Python, per simulazioni e ottimizzazioni via script&lt;/td&gt;
+&lt;td&gt;Ovunque&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://www.openems.de/&quot;&gt;openEMS&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Solutore 3D a elementi finiti nel tempo (FDTD)&lt;/td&gt;
+&lt;td&gt;Linux, Windows, macOS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Per rifare il tutorial serve &lt;strong&gt;xnec2c&lt;/strong&gt;, che è quello più vicino a EZNEC.
+PyNEC è utile se volete l&amp;#39;equivalente dell&amp;#39;ottimizzatore di 4nec2 scritto in
+Python. openEMS è un altro mondo: serve per antenne su circuito stampato e
+piani di massa, dove NEC fatica. Ci torneremo.&lt;/p&gt;
+&lt;h2 id=&quot;installare-xnec2c&quot;&gt;Installare xnec2c&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Debian, Ubuntu, Raspberry Pi OS: &lt;code&gt;sudo apt install xnec2c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Arch e derivate: &lt;code&gt;sudo pacman -S xnec2c&lt;/code&gt; (o dall&amp;#39;AUR)&lt;/li&gt;
+&lt;li&gt;Fedora: &lt;code&gt;sudo dnf install xnec2c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;macOS: &lt;code&gt;sudo port install xnec2c&lt;/code&gt; con MacPorts&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;il-dipolo-a-869-mhz&quot;&gt;Il dipolo a 869 MHz&lt;/h2&gt;
+&lt;p&gt;A differenza di EZNEC, xnec2c descrive l&amp;#39;antenna con un file di testo a
+&amp;quot;schede&amp;quot;, il formato originale di NEC. Sembra ostico, ma per un dipolo sono
+poche righe. Le misure sono &lt;strong&gt;in metri&lt;/strong&gt;. Salvate questo come
+&lt;code&gt;dipolo-869.nec&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CM Dipolo verticale 869 MHz, spazio libero
+CE
+GW 1 11 0 0 -0.0805 0 0 0.0805 0.001
+GE 0
+EX 0 1 6 0 1 0
+FR 0 1 0 0 869 0
+RP 0 37 73 1000 0 0 5 5
+EN
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Riga per riga:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GW&lt;/code&gt;: un filo (&lt;em&gt;wire&lt;/em&gt;) numero 1, diviso in &lt;strong&gt;11 segmenti&lt;/strong&gt;, da z = −80,5 mm
+a z = +80,5 mm, quindi lungo &lt;strong&gt;161 mm&lt;/strong&gt;, con raggio 1 mm (diametro 2 mm).
+Sono le misure a cui arriva il tutorial originale dopo aver accorciato da
+172 mm.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GE 0&lt;/code&gt;: fine della geometria, nessun terreno (spazio libero).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;EX&lt;/code&gt;: alimentazione in tensione sul filo 1, segmento 6, cioè al centro.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FR&lt;/code&gt;: una sola frequenza, 869 MHz.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RP&lt;/code&gt;: calcola il diagramma di irradiazione su tutta la sfera, a passi di 5°.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Aprite il file con &lt;code&gt;xnec2c dipolo-869.nec&lt;/code&gt;. Nella finestra principale
+troverete l&amp;#39;antenna; dal menu &lt;strong&gt;View&lt;/strong&gt; aprite il diagramma di irradiazione
+e il grafico della frequenza, dove leggere impedenza e ROS. Dovreste trovare
+un&amp;#39;impedenza vicina ai 73 Ω con reattanza piccola, e il classico diagramma
+a ciambella del dipolo a mezz&amp;#39;onda.&lt;/p&gt;
+&lt;p&gt;Per ripetere l&amp;#39;esperimento sul diametro, cambiate l&amp;#39;ultimo numero di &lt;code&gt;GW&lt;/code&gt;
+in &lt;code&gt;0.005&lt;/code&gt; (diametro 10 mm): la reattanza torna induttiva e, come nel
+tutorial, bisogna accorciare verso i 153 mm.&lt;/p&gt;
+&lt;h3 id=&quot;piu-frequenze-in-un-colpo&quot;&gt;Più frequenze in un colpo&lt;/h3&gt;
+&lt;p&gt;Qui xnec2c ha un vantaggio comodo: con una scheda &lt;code&gt;FR&lt;/code&gt; a più passi calcola
+una spazzata, e il grafico mostra subito dove l&amp;#39;antenna risuona.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FR 0 41 0 0 849 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Sono 41 frequenze da 849 a 889 MHz, a passi di 1 MHz. Il minimo del ROS vi
+dice se il dipolo è corto o lungo, senza tentativi.&lt;/p&gt;
+&lt;h2 id=&quot;sopra-un-terreno-reale&quot;&gt;Sopra un terreno reale&lt;/h2&gt;
+&lt;p&gt;Come nel tutorial, alziamo l&amp;#39;antenna di 1 metro e aggiungiamo il terreno.
+Il centro del dipolo va a 1,0805 m, così l&amp;#39;estremità bassa sta a 1 m:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CM Dipolo verticale 869 MHz, 1 m sopra terreno reale
+CE
+GW 1 11 0 0 1.0 0 0 1.161 0.001
+GE 1
+GN 2 0 0 0 13 0.005
+EX 0 1 6 0 1 0
+FR 0 1 0 0 869 0
+RP 0 19 73 1000 0 0 5 5
+EN
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GE 1&lt;/code&gt;: c&amp;#39;è un terreno.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GN 2&lt;/code&gt;: terreno reale calcolato con il metodo di Sommerfeld, il più
+accurato, con costante dielettrica 13 e conducibilità 0,005 S/m (un
+terreno &amp;quot;medio&amp;quot;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RP&lt;/code&gt; ora calcola solo la mezza sfera sopra il suolo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Vale lo stesso limite spiegato nell&amp;#39;articolo: NEC-2 non gestisce fili che
+toccano il terreno o finiscono sotto. Non è un difetto di xnec2c, è il
+motore: lo hanno anche EZNEC e 4nec2 nella versione gratuita.&lt;/p&gt;
+&lt;p&gt;Nel diagramma di elevazione vedrete i lobi che si formano per la riflessione
+sul suolo e l&amp;#39;angolo di irradiazione principale che si abbassa, come nel
+tutorial.&lt;/p&gt;
+&lt;h2 id=&quot;e-se-proprio-volete-eznec&quot;&gt;E se proprio volete EZNEC&lt;/h2&gt;
+&lt;p&gt;EZNEC e 4nec2 funzionano in genere anche sotto
+&lt;a href=&quot;https://www.winehq.org/&quot;&gt;Wine&lt;/a&gt;. Può bastare se dovete aprire un modello che
+vi ha passato qualcuno. Per iniziare da zero, però, un programma nativo e
+aperto è più comodo.&lt;/p&gt;
+&lt;h2 id=&quot;per-saperne-di-piu&quot;&gt;Per saperne di più&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Il tutorial originale di Paolo su
+&lt;a href=&quot;https://www.loraitalia.it/eznec-chi-era-costui/&quot;&gt;Lora Italia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;La &lt;a href=&quot;https://www.xnec2c.org/&quot;&gt;documentazione di xnec2c&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Il &lt;a href=&quot;https://www.nec2.org/&quot;&gt;manuale di NEC-2&lt;/a&gt; con il significato di ogni
+scheda&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se simulate un&amp;#39;antenna per un nodo MeshCore, aggiungetela alla
+&lt;a href=&quot;../../antenne/&quot;&gt;galleria delle antenne&lt;/a&gt;: il file &lt;code&gt;.nec&lt;/code&gt; è di testo, si legge
+e si modifica facilmente, e la galleria lo simula e lo spiega da sola. Come
+è nata lo raccontiamo in &lt;a href=&quot;../galleria-antenne/&quot;&gt;questo post&lt;/a&gt;.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+</feed>

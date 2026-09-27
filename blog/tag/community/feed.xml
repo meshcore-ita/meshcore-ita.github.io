@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MeshCore ITA — Blog: Community</title>
+  <id>https://meshcore-ita.github.io/blog/tag/community/</id>
+  <link rel="self" href="https://meshcore-ita.github.io/blog/tag/community/feed.xml"/>
+  <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/community/"/>
+  <updated>2026-09-27T00:00:00Z</updated>
+  <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/</id>
+    <title>La Yagi LFA di Fabrizio: 50 Ω senza adattatore</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/"/>
+    <published>2026-09-27T00:00:00Z</published>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary type="text">Il giorno dopo l'apertura della galleria, Fabrizio ci ha mandato una Yagi a 3 elementi un po' speciale: l'elemento alimentato è un anello chiuso. Il simulatore ha risposto con un ROS di 1,00.</summary>
+    <category term="antenne" label="Antenne"/>
+    <category term="autocostruzione" label="Autocostruzione"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-27&quot;&gt;27 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/autocostruzione/&quot;&gt;Autocostruzione&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;un-anello-al-posto-del-dipolo&quot;&gt;Un anello al posto del dipolo&lt;/h2&gt;
+&lt;p&gt;In una Yagi classica l&amp;#39;elemento alimentato è un dipolo, cioè un filo tagliato
+a metà. Quando ci si mettono vicino riflettore e direttore, però, la sua
+impedenza scende ben sotto i 50 Ω, e di solito per collegarlo al cavo serve un
+adattatore: un gamma match, un hairpin o un balun.&lt;/p&gt;
+&lt;p&gt;La &lt;strong&gt;LFA&lt;/strong&gt; (&lt;em&gt;Loop Fed Array&lt;/em&gt;, ideata dal radioamatore inglese Justin Johnson,
+G0KSC) fa diversamente. L&amp;#39;elemento alimentato è un &lt;strong&gt;anello rettangolare
+chiuso&lt;/strong&gt;, lungo e basso, messo tra riflettore e direttore. Allungando o
+schiacciando l&amp;#39;anello si porta l&amp;#39;impedenza a 50 Ω, e il cavo si collega
+direttamente, senza altro in mezzo.&lt;/p&gt;
+&lt;h2 id=&quot;come-e-fatta&quot;&gt;Come è fatta&lt;/h2&gt;
+&lt;p&gt;Il modello che Fabrizio ha caricato nella
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/fabrizio-yagi-lfa-3el/&quot;&gt;galleria&lt;/a&gt;
+è piccolo:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Elemento&lt;/th&gt;
+&lt;th&gt;Lunghezza&lt;/th&gt;
+&lt;th&gt;Distanza dal riflettore&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Riflettore&lt;/td&gt;
+&lt;td&gt;162 mm&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Anello alimentato&lt;/td&gt;
+&lt;td&gt;141 × 28 mm&lt;/td&gt;
+&lt;td&gt;da 47 a 75 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Direttore&lt;/td&gt;
+&lt;td&gt;147 mm&lt;/td&gt;
+&lt;td&gt;124 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Tutto in filo da 4 mm, su un boom di &lt;strong&gt;appena 12,4 cm&lt;/strong&gt;. Il connettore va al
+centro del lato dell&amp;#39;anello più lontano dal riflettore.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-dice-il-simulatore&quot;&gt;Cosa dice il simulatore&lt;/h2&gt;
+&lt;p&gt;A 869,618 MHz, la frequenza del &lt;a href=&quot;../../preset-radio/&quot;&gt;preset italiano&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Guadagno 8,8 dBi&lt;/strong&gt;, cioè 6,6 dB più di un dipolo: nella direzione
+giusta arriva circa 4,6 volte la potenza.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rapporto avanti/dietro 15 dB&lt;/strong&gt;: quello che arriva da dietro è attenuato
+di circa 30 volte. È utile se alle spalle del nodo c&amp;#39;è una città piena di
+disturbi.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Impedenza 49,8 + j0,2 Ω, ROS 1,00.&lt;/strong&gt; Più vicino di così ai 50 Ω non si
+può, e senza adattatore.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ROS sotto 2 da meno di 855 fino a circa 881 MHz&lt;/strong&gt;: resta un buon margine
+anche se in costruzione le misure non vengono perfette.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Messa accanto alle altre Yagi della galleria:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Antenna&lt;/th&gt;
+&lt;th&gt;Guadagno&lt;/th&gt;
+&lt;th&gt;Avanti/dietro&lt;/th&gt;
+&lt;th&gt;ROS&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Yagi LFA 3 elementi, di Fabrizio&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;8,8 dBi&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;15,2 dB&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;1,00&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 3 elementi di riferimento&lt;/td&gt;
+&lt;td&gt;8,1 dBi&lt;/td&gt;
+&lt;td&gt;5,9 dB&lt;/td&gt;
+&lt;td&gt;1,23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 2 elementi con riflettore, di Fabrizio&lt;/td&gt;
+&lt;td&gt;6,4 dBi&lt;/td&gt;
+&lt;td&gt;8,5 dB&lt;/td&gt;
+&lt;td&gt;1,09&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Con lo stesso numero di elementi, la LFA batte la nostra Yagi di riferimento
+su tutti e tre i numeri. Il rapporto avanti/dietro, in particolare, è più che
+doppio in dB.&lt;/p&gt;
+&lt;h2 id=&quot;attenzione-alla-potenza&quot;&gt;Attenzione alla potenza&lt;/h2&gt;
+&lt;p&gt;Più guadagno vuol dire meno potenza da impostare sul nodo. Per restare nei
+500 mW ERP della sub-banda 869,4–869,65 MHz (vedi la pagina sulla
+&lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt;):&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Perdita del cavo&lt;/th&gt;
+&lt;th&gt;Potenza massima sul nodo&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;0 dB&lt;/td&gt;
+&lt;td&gt;20,4 dBm (109 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1 dB&lt;/td&gt;
+&lt;td&gt;21,4 dBm (138 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2 dB&lt;/td&gt;
+&lt;td&gt;22,4 dBm (173 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Con il cavo corto, i 22 dBm di molte schede sono già troppi.&lt;/p&gt;
+&lt;h2 id=&quot;solo-una-simulazione-per-ora&quot;&gt;Solo una simulazione, per ora&lt;/h2&gt;
+&lt;p&gt;Questi numeri vengono da una simulazione in spazio libero: indicano la
+tendenza, ma la verifica vera si fa con un NanoVNA sull&amp;#39;antenna montata.&lt;/p&gt;
+&lt;h2 id=&quot;e-ora&quot;&gt;E ora?&lt;/h2&gt;
+&lt;p&gt;Aspettiamo le foto della costruzione e, se Fabrizio ha voglia, la misura
+del ROS reale. Nel frattempo la scheda con la vista 3D, i grafici e il file
+spiegato riga per riga è qui:
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/fabrizio-yagi-lfa-3el/&quot;&gt;Yagi LFA 3 elementi&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Hai una tua antenna? Le istruzioni sono nell&amp;#39;articolo sulla
+&lt;a href=&quot;../galleria-antenne/&quot;&gt;galleria&lt;/a&gt;, oppure mandala nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Grazie ancora a Fabrizio.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/galleria-antenne/</id>
+    <title>Nasce la galleria delle antenne della community</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/galleria-antenne/"/>
+    <published>2026-09-26T20:04:00+02:00</published>
+    <updated>2026-09-26T20:04:00+02:00</updated>
+    <summary type="text">Dopo l'articolo su xnec2c, Fabrizio ci ha mandato la Yagi che usa sul suo nodo. Da lì è nata una galleria aperta: si condivide il file .nec, e il sito simula l'antenna e spiega cosa significano i numeri.</summary>
+    <category term="antenne" label="Antenne"/>
+    <category term="software" label="Software"/>
+    <category term="autocostruzione" label="Autocostruzione"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-26&quot;&gt;26 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/software/&quot;&gt;Software&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/autocostruzione/&quot;&gt;Autocostruzione&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;com-e-nata&quot;&gt;Com&amp;#39;è nata&lt;/h2&gt;
+&lt;p&gt;Nell&amp;#39;articolo &lt;a href=&quot;../antenne-nec-senza-windows/&quot;&gt;Simulare antenne senza Windows&lt;/a&gt;
+abbiamo mostrato come simulare un dipolo a 869 MHz con strumenti open source.
+Poche ore dopo Fabrizio ha risposto nel gruppo con la foto di una &lt;strong&gt;Yagi a 2
+elementi&lt;/strong&gt; in tubo di rame, montata sul tetto accanto al suo nodo solare
+&lt;em&gt;pybot&lt;/em&gt;, e con i file &lt;code&gt;.nec&lt;/code&gt; dei suoi modelli.&lt;/p&gt;
+&lt;p&gt;Simulandoli ci siamo accorti che valeva la pena raccoglierli in un posto solo,
+insieme ad altre antenne, e spiegare bene cosa dice ogni numero. Così è nata
+la &lt;a href=&quot;https://meshcore-ita.github.io/antenne/&quot;&gt;galleria delle antenne&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-trovi-in-ogni-scheda&quot;&gt;Cosa trovi in ogni scheda&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;I numeri principali&lt;/strong&gt;, calcolati a 869,618 MHz, la frequenza del
+&lt;a href=&quot;../../preset-radio/&quot;&gt;preset italiano&lt;/a&gt;: guadagno, rapporto avanti/dietro,
+ROS, impedenza e frequenza di risonanza.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cosa dicono questi numeri&lt;/strong&gt;, in parole semplici: quante volte l&amp;#39;antenna
+concentra la potenza rispetto a un dipolo, quanta potenza torna indietro
+per il ROS, se l&amp;#39;antenna è lunga o corta e va quindi accorciata o allungata.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La potenza massima da impostare sul nodo&lt;/strong&gt; per restare entro i 500 mW
+ERP della sub-banda 869,4–869,65 MHz, con 0, 1 o 2 dB di perdita nel cavo.
+I limiti sono spiegati nella pagina sulla &lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Una vista 3D&lt;/strong&gt; del diagramma di irradiazione con l&amp;#39;antenna dentro, da
+ruotare col mouse o col dito, e i grafici di ROS e impedenza da 855 a
+885 MHz.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Il file &lt;code&gt;.nec&lt;/code&gt; spiegato riga per riga&lt;/strong&gt;, da scaricare e aprire con
+xnec2c, 4nec2 o EZNEC.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Costruzione, esperimenti ed errori comuni&lt;/strong&gt;: misure, lista di taglio,
+materiali e cosa succede se si cambia qualcosa.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;C&amp;#39;è anche una &lt;a href=&quot;https://meshcore-ita.github.io/antenne/guida/&quot;&gt;guida&lt;/a&gt; per chi
+parte da zero: lunghezza d&amp;#39;onda, dBi e dBd, polarizzazione, ROS, adattamento
+a 50 Ω, ERP e come si scrive un file NEC.&lt;/p&gt;
+&lt;h2 id=&quot;le-antenne-di-oggi&quot;&gt;Le antenne di oggi&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Antenna&lt;/th&gt;
+&lt;th&gt;Guadagno&lt;/th&gt;
+&lt;th&gt;ROS a 869,618 MHz&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Yagi 2 elementi con riflettore, di Fabrizio (in uso su pybot)&lt;/td&gt;
+&lt;td&gt;6,4 dBi&lt;/td&gt;
+&lt;td&gt;1,09&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 2 elementi con direttore, di Fabrizio&lt;/td&gt;
+&lt;td&gt;5,3 dBi&lt;/td&gt;
+&lt;td&gt;1,02&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 10 elementi, progetto da 432 MHz riscalato, di Fabrizio&lt;/td&gt;
+&lt;td&gt;12,4 dBi&lt;/td&gt;
+&lt;td&gt;1,91&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Dipolo a mezz&amp;#39;onda&lt;/td&gt;
+&lt;td&gt;2,1 dBi&lt;/td&gt;
+&lt;td&gt;1,44&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ground plane λ/4 con 4 radiali a 45°&lt;/td&gt;
+&lt;td&gt;2,2 dBi&lt;/td&gt;
+&lt;td&gt;1,01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Yagi 3 elementi&lt;/td&gt;
+&lt;td&gt;8,1 dBi&lt;/td&gt;
+&lt;td&gt;1,23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Le ultime tre sono progetti di riferimento accordati da noi. Il dipolo
+risuona a &lt;strong&gt;160,6 mm&lt;/strong&gt;, gli stessi 161 mm a cui arriva il
+&lt;a href=&quot;https://www.loraitalia.it/eznec-chi-era-costui/&quot;&gt;tutorial di Paolo su Lora Italia&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Qualche numero è diverso da quello che si legge spesso in giro. Un esempio:
+con quattro radiali orizzontali una ground plane non sta a 36 Ω ma intorno a
+25 Ω. Piegando i radiali a 45° si arriva a 50 Ω. La scheda spiega il perché.&lt;/p&gt;
+&lt;p&gt;Sono simulazioni in spazio libero: indicano la tendenza, ma non
+sostituiscono una misura con un NanoVNA sull&amp;#39;antenna montata.&lt;/p&gt;
+&lt;h2 id=&quot;aggiungi-la-tua-antenna&quot;&gt;Aggiungi la tua antenna&lt;/h2&gt;
+&lt;p&gt;La galleria vive su GitHub nel repository
+&lt;a href=&quot;https://github.com/meshcore-ita/antenne&quot;&gt;meshcore-ita/antenne&lt;/a&gt;. Per
+aggiungere un&amp;#39;antenna bastano una cartella con il file &lt;code&gt;.nec&lt;/code&gt;, un piccolo
+&lt;code&gt;meta.json&lt;/code&gt; con titolo e autore e, se vuoi, qualche foto e le note di
+costruzione. Le istruzioni sono in
+&lt;a href=&quot;https://github.com/meshcore-ita/antenne/blob/main/CONTRIBUTING.md&quot;&gt;CONTRIBUTING.md&lt;/a&gt;.
+A ogni modifica il sito rifà da solo le simulazioni e rigenera le pagine.&lt;/p&gt;
+&lt;p&gt;Se non usi GitHub, manda il file &lt;code&gt;.nec&lt;/code&gt; e una foto nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;: lo aggiungiamo noi, citandoti.&lt;/p&gt;
+&lt;p&gt;Grazie a Fabrizio per aver aperto la strada.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/</id>
+    <title>Mesh America parla di Awesome MeshCore</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/"/>
+    <published>2026-09-23T00:00:00Z</published>
+    <updated>2026-09-23T00:00:00Z</updated>
+    <summary type="text">Il sito statunitense Mesh America ha recensito awesome-meshcore, l'elenco di risorse che manteniamo su GitHub, definendolo «più una rubrica dell'intero ecosistema che un normale readme».</summary>
+    <category term="community" label="Community"/>
+    <category term="risorse" label="Risorse"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-23&quot;&gt;23 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 2 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/risorse/&quot;&gt;Risorse&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;l-articolo&quot;&gt;L&amp;#39;articolo&lt;/h2&gt;
+&lt;p&gt;Il 23 settembre 2026 &lt;a href=&quot;https://meshamerica.com/&quot;&gt;Mesh America&lt;/a&gt;, testata
+dedicata alle reti mesh off-grid negli Stati Uniti, ha pubblicato
+&lt;a href=&quot;https://meshamerica.com/2026/09/23/community-meshcore-directory/&quot;&gt;&lt;em&gt;A Comprehensive MeshCore Directory Built by the Community&lt;/em&gt;&lt;/a&gt;,
+un articolo su &lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;awesome-meshcore&lt;/a&gt;,
+l&amp;#39;elenco curato che abbiamo &lt;a href=&quot;../awesome-meshcore/&quot;&gt;presentato qualche giorno fa&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;L&amp;#39;articolo ci presenta come «il gruppo italiano dietro meshcore-ita.github.io
+e il preset radio italiano condiviso» e descrive l&amp;#39;elenco come una risorsa
+che mancava: MeshCore è cresciuto in fretta, e trovare un punto di partenza
+unico non era semplice.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-hanno-notato&quot;&gt;Cosa hanno notato&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;I client&lt;/strong&gt;: oltre 30 app open source, scritte in Electron, Flutter, Qt,
+Swift, Rust — fino a un client da terminale per Commodore 64.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Librerie e SDK&lt;/strong&gt;: i binding ufficiali Python, JavaScript e CLI, accanto
+ai port della community in Go, Rust, TypeScript, Java e MicroPython.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;L&amp;#39;infrastruttura&lt;/strong&gt;: integrazione con Home Assistant, bridge Discord e
+Telegram, gateway MQTT ed email, una BBS store-and-forward, analizzatori
+di pacchetti, un dissector per Wireshark e diverse dashboard self-hosted.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hardware e firmware&lt;/strong&gt;: dispositivi supportati, radio pronte, autocostruzioni
+con distinta dei materiali, case stampabili in 3D e decine di fork del
+firmware.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Le community&lt;/strong&gt;: la sezione più ampia, paese per paese dall&amp;#39;Australia
+all&amp;#39;Ucraina, con più di venti reti locali solo negli Stati Uniti.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;L&amp;#39;articolo sottolinea anche un punto che per noi è importante: si tratta di
+un catalogo mantenuto dalla community, &lt;strong&gt;non di una pagina ufficiale del
+progetto MeshCore&lt;/strong&gt;, anche se in cima rimanda alle risorse ufficiali (sito,
+documentazione, blog, web flasher e repository del firmware).&lt;/p&gt;
+&lt;h2 id=&quot;grazie-e-avanti&quot;&gt;Grazie, e avanti&lt;/h2&gt;
+&lt;p&gt;Ringraziamo Mesh America per la segnalazione. Per noi è la conferma che
+tenere l&amp;#39;elenco in inglese e aperto a tutti è stata la scelta giusta: serve
+anche fuori dall&amp;#39;Italia.&lt;/p&gt;
+&lt;p&gt;L&amp;#39;elenco è sotto licenza CC0 e cresce con le pull request. Se conosci un
+progetto o una community che manca, apri una PR o una issue sul
+&lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;repository&lt;/a&gt;, oppure
+segnalacelo nel gruppo Telegram &lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/awesome-meshcore/</id>
+    <title>Awesome MeshCore: l'elenco curato delle risorse MeshCore</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/awesome-meshcore/"/>
+    <published>2026-09-14T15:37:00+02:00</published>
+    <updated>2026-09-14T15:37:00+02:00</updated>
+    <summary type="text">Oltre 160 risorse MeshCore in un solo posto: client, librerie, bot, mappe, strumenti di analisi e community di tutto il mondo. Licenza CC0, pull request aperte.</summary>
+    <category term="community" label="Community"/>
+    <category term="risorse" label="Risorse"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-14&quot;&gt;14 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/risorse/&quot;&gt;Risorse&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;cos-e&quot;&gt;Cos&amp;#39;è&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;awesome-meshcore&lt;/a&gt; è un
+elenco curato di risorse su MeshCore, nel formato delle
+&lt;a href=&quot;https://awesome.re&quot;&gt;awesome list&lt;/a&gt;: una pagina sola, voci brevi, ogni link
+verificato prima di entrare. Lo manteniamo noi della community italiana, ma
+è scritto in inglese e copre il progetto a livello internazionale: serve a
+chi cerca uno strumento e non sa da dove partire.&lt;/p&gt;
+&lt;p&gt;Al momento raccoglie oltre 160 voci. Il repository è sotto licenza CC0: puoi
+riusarlo come vuoi, anche senza citarci.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-ci-trovi&quot;&gt;Cosa ci trovi&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Risorse ufficiali&lt;/strong&gt;: sito, documentazione, blog, web flasher, mappa,
+FAQ e repository del firmware del progetto MeshCore.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Client&lt;/strong&gt;, divisi tra open source e closed source, per Android, iOS,
+desktop e browser.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Librerie e SDK&lt;/strong&gt; per chi vuole scriverci sopra qualcosa, in particolare
+in Python e JavaScript.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Integrazioni e bot&lt;/strong&gt;, incluse quelle verso altri sistemi di messaggistica.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Dashboard self-hosted&lt;/strong&gt; e &lt;strong&gt;strumenti di analisi dei pacchetti&lt;/strong&gt;, utili
+per chi gestisce un repeater e vuole vedere cosa passa davvero sulla rete.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Firmware e flashing&lt;/strong&gt;: alternative e strumenti oltre al flasher ufficiale.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mappe, diagnostica e pianificazione RF&lt;/strong&gt;, compresi i tool per stimare
+una tratta prima di salire sul tetto — lo stesso tema della nostra pagina
+su &lt;a href=&quot;../../link-budget/&quot;&gt;portata e link budget&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Guide e materiale didattico&lt;/strong&gt;: corsi, canali YouTube, wiki regionali e
+podcast, in diverse lingue.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Community&lt;/strong&gt;, raggruppate per paese: dall&amp;#39;Australia agli Stati Uniti,
+passando per l&amp;#39;Italia. Nella sezione italiana ci sono questo sito e il
+gruppo Telegram.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;perche-un-elenco-separato-dal-sito&quot;&gt;Perché un elenco separato dal sito&lt;/h2&gt;
+&lt;p&gt;Questo sito è documentazione in italiano: spiega come si configura un nodo,
+qual è il preset condiviso, cosa fare quando qualcosa non funziona. Ogni
+dato che pubblichiamo deve essere verificabile su una fonte upstream, e le
+pagine restano poche e stabili.&lt;/p&gt;
+&lt;p&gt;L&amp;#39;elenco awesome risponde a una domanda diversa — &amp;quot;esiste già uno strumento
+per X?&amp;quot; — ed è per sua natura in movimento: nascono client nuovi, alcuni
+progetti si fermano, le community regionali cambiano indirizzo. Tenerlo in
+un repository a parte, in inglese, permette di aggiornarlo spesso senza
+toccare la documentazione, e lo rende utile anche fuori dall&amp;#39;Italia.&lt;/p&gt;
+&lt;h2 id=&quot;come-contribuire&quot;&gt;Come contribuire&lt;/h2&gt;
+&lt;p&gt;Manca un progetto? Un link non risponde più? Apri una pull request o una
+issue sul &lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;repository&lt;/a&gt;.
+Le regole sono quelle classiche delle awesome list:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;una riga per voce, con una descrizione breve di cosa fa, non di quanto è
+bello;&lt;/li&gt;
+&lt;li&gt;niente link affiliati, niente progetti abbandonati senza dirlo;&lt;/li&gt;
+&lt;li&gt;la voce va nella sezione giusta, e le community vanno sotto il proprio
+paese.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se preferisci, segnalacelo anche solo nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;: a inserirlo nell&amp;#39;elenco ci
+pensiamo noi.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/</id>
+    <title>Blog, ricerca e feed: cosa cambia sul sito MeshCore ITA</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/"/>
+    <published>2026-09-14T12:08:00+02:00</published>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary type="text">Un blog, un feed Atom, la ricerca interna e il footer raggruppato per sezione. Nessun URL esistente è cambiato.</summary>
+    <category term="sito" label="Sito"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-14&quot;&gt;14 settembre 2026&lt;/time&gt; · aggiornato il 27 settembre 2026 · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/sito/&quot;&gt;Sito&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;cosa-cambia&quot;&gt;Cosa cambia&lt;/h2&gt;
+&lt;p&gt;Da oggi il sito ha una sezione &lt;strong&gt;Blog&lt;/strong&gt; (questa che stai leggendo, allora
+chiamata &amp;quot;Aggiornamenti&amp;quot; e in seguito rinominata): una serie di post per
+raccontare novità sul sito, sulla documentazione e sulla community, senza
+dover infilare tutto nelle pagine di riferimento esistenti.&lt;/p&gt;
+&lt;p&gt;Insieme al blog arrivano tre cose:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Un feed Atom&lt;/strong&gt;, su &lt;code&gt;/feed.xml&lt;/code&gt;. Se usi un lettore RSS/Atom puoi
+iscriverti lì e sapere quando esce un nuovo post, senza dover controllare
+il sito a mano. Ogni voce del feed contiene titolo, data di pubblicazione
+e riassunto del post.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La ricerca interna&lt;/strong&gt;, richiamabile dal pulsante di ricerca nell&amp;#39;header
+o dalla dialog che si apre in ogni pagina del sito. Cerca nel testo delle
+pagine di documentazione e dei post, senza uscire dal sito o passare da
+un motore esterno: utile quando sai cosa cerchi ma non ricordi in quale
+pagina si trova.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La documentazione raggruppata per sezione nel footer&lt;/strong&gt;: le pagine come
+Guida, App, Hardware, Preset radio, Comandi, Glossario, FAQ eccetera sono
+ora organizzate in gruppi (Inizia, Hardware, Rete, Riferimento, Community)
+invece che in un elenco piatto. La barra di navigazione in testa alla
+pagina resta invariata: il raggruppamento riguarda solo il footer.
+Trovare la pagina giusta dovrebbe essere più rapido, soprattutto ora che
+il numero di pagine di riferimento è cresciuto.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;cosa-non-cambia&quot;&gt;Cosa non cambia&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Nessun URL esistente è cambiato.&lt;/strong&gt; &lt;code&gt;/guida/&lt;/code&gt;, &lt;code&gt;/hardware/&lt;/code&gt;,
+&lt;code&gt;/preset-radio/&lt;/code&gt;, &lt;code&gt;/comandi/&lt;/code&gt; e tutte le altre pagine restano agli stessi
+indirizzi di sempre. Se hai un link salvato o condiviso da qualche parte,
+continua a funzionare.&lt;/p&gt;
+&lt;h2 id=&quot;come-contribuire&quot;&gt;Come contribuire&lt;/h2&gt;
+&lt;p&gt;Il modo per contribuire resta lo stesso di sempre: ogni pagina del sito ha
+in fondo il link &lt;strong&gt;&amp;quot;Modifica questa pagina su GitHub&amp;quot;&lt;/strong&gt;, che apre l&amp;#39;editor
+GitHub sul file sorgente corretto. Al salvataggio, GitHub propone di aprire
+una pull request.&lt;/p&gt;
+&lt;p&gt;La novità è che, oltre alle pagine di documentazione esistenti (scritte in
+HTML), ora è possibile scrivere &lt;strong&gt;nuovi contenuti in markdown&lt;/strong&gt;: sia nuove
+pagine, sia post come questo. Il markdown è più semplice da scrivere e da
+revisionare in una pull request rispetto all&amp;#39;HTML, quindi è il formato
+consigliato per chi vuole proporre qualcosa di nuovo.&lt;/p&gt;
+&lt;p&gt;Se vuoi scrivere un post per il blog, trovi la guida pratica nel
+prossimo post di questa sezione.&lt;/p&gt;
+&lt;h2 id=&quot;dove-trovarci&quot;&gt;Dove trovarci&lt;/h2&gt;
+&lt;p&gt;Le discussioni sulla documentazione, sul sito e sulla rete in generale
+avvengono su GitHub (repository
+&lt;a href=&quot;https://github.com/meshcore-ita&quot;&gt;meshcore-ita&lt;/a&gt;) e sul gruppo Telegram
+pubblico &lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;, aperto a chiunque senza
+bisogno di invito. Se hai domande, correzioni o proposte, sono i due posti
+giusti dove portarle.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+</feed>

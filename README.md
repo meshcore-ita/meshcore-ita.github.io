@@ -12,13 +12,13 @@ progetto MeshCore upstream né ad altre community italiane.
 ```
 content/<slug>.html      sorgenti pagine di documentazione (meta JSON + fragment HTML)
 content/<slug>.md        sorgenti pagine di documentazione in markdown
-content/blog/<slug>.md   sorgenti dei post della sezione Aggiornamenti (markdown)
+content/blog/<slug>.md   sorgenti dei post della sezione Blog (markdown)
 templates/layout.html    layout condiviso di tutte le pagine generate
 templates/404.html       layout della pagina 404
 build.mjs                generatore statico (Node, dipendenza: marked)
 index.html               home page, scritta a mano
 <slug>/index.html        pagine generate — NON modificare a mano
-blog/                    indice e post generati della sezione Aggiornamenti
+blog/                    indice e post generati della sezione Blog
 feed.xml                 feed Atom dei post, generato
 search-index.json        indice per la ricerca interna, generato
 sitemap.xml robots.txt   generati

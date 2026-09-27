@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MeshCore ITA — Blog: Sito</title>
+  <id>https://meshcore-ita.github.io/blog/tag/sito/</id>
+  <link rel="self" href="https://meshcore-ita.github.io/blog/tag/sito/feed.xml"/>
+  <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/sito/"/>
+  <updated>2026-09-27T00:00:00Z</updated>
+  <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/</id>
+    <title>Blog, ricerca e feed: cosa cambia sul sito MeshCore ITA</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/wiki-e-aggiornamenti/"/>
+    <published>2026-09-14T12:08:00+02:00</published>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary type="text">Un blog, un feed Atom, la ricerca interna e il footer raggruppato per sezione. Nessun URL esistente è cambiato.</summary>
+    <category term="sito" label="Sito"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-14&quot;&gt;14 settembre 2026&lt;/time&gt; · aggiornato il 27 settembre 2026 · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/sito/&quot;&gt;Sito&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;cosa-cambia&quot;&gt;Cosa cambia&lt;/h2&gt;
+&lt;p&gt;Da oggi il sito ha una sezione &lt;strong&gt;Blog&lt;/strong&gt; (questa che stai leggendo, allora
+chiamata &amp;quot;Aggiornamenti&amp;quot; e in seguito rinominata): una serie di post per
+raccontare novità sul sito, sulla documentazione e sulla community, senza
+dover infilare tutto nelle pagine di riferimento esistenti.&lt;/p&gt;
+&lt;p&gt;Insieme al blog arrivano tre cose:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Un feed Atom&lt;/strong&gt;, su &lt;code&gt;/feed.xml&lt;/code&gt;. Se usi un lettore RSS/Atom puoi
+iscriverti lì e sapere quando esce un nuovo post, senza dover controllare
+il sito a mano. Ogni voce del feed contiene titolo, data di pubblicazione
+e riassunto del post.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La ricerca interna&lt;/strong&gt;, richiamabile dal pulsante di ricerca nell&amp;#39;header
+o dalla dialog che si apre in ogni pagina del sito. Cerca nel testo delle
+pagine di documentazione e dei post, senza uscire dal sito o passare da
+un motore esterno: utile quando sai cosa cerchi ma non ricordi in quale
+pagina si trova.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La documentazione raggruppata per sezione nel footer&lt;/strong&gt;: le pagine come
+Guida, App, Hardware, Preset radio, Comandi, Glossario, FAQ eccetera sono
+ora organizzate in gruppi (Inizia, Hardware, Rete, Riferimento, Community)
+invece che in un elenco piatto. La barra di navigazione in testa alla
+pagina resta invariata: il raggruppamento riguarda solo il footer.
+Trovare la pagina giusta dovrebbe essere più rapido, soprattutto ora che
+il numero di pagine di riferimento è cresciuto.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;cosa-non-cambia&quot;&gt;Cosa non cambia&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Nessun URL esistente è cambiato.&lt;/strong&gt; &lt;code&gt;/guida/&lt;/code&gt;, &lt;code&gt;/hardware/&lt;/code&gt;,
+&lt;code&gt;/preset-radio/&lt;/code&gt;, &lt;code&gt;/comandi/&lt;/code&gt; e tutte le altre pagine restano agli stessi
+indirizzi di sempre. Se hai un link salvato o condiviso da qualche parte,
+continua a funzionare.&lt;/p&gt;
+&lt;h2 id=&quot;come-contribuire&quot;&gt;Come contribuire&lt;/h2&gt;
+&lt;p&gt;Il modo per contribuire resta lo stesso di sempre: ogni pagina del sito ha
+in fondo il link &lt;strong&gt;&amp;quot;Modifica questa pagina su GitHub&amp;quot;&lt;/strong&gt;, che apre l&amp;#39;editor
+GitHub sul file sorgente corretto. Al salvataggio, GitHub propone di aprire
+una pull request.&lt;/p&gt;
+&lt;p&gt;La novità è che, oltre alle pagine di documentazione esistenti (scritte in
+HTML), ora è possibile scrivere &lt;strong&gt;nuovi contenuti in markdown&lt;/strong&gt;: sia nuove
+pagine, sia post come questo. Il markdown è più semplice da scrivere e da
+revisionare in una pull request rispetto all&amp;#39;HTML, quindi è il formato
+consigliato per chi vuole proporre qualcosa di nuovo.&lt;/p&gt;
+&lt;p&gt;Se vuoi scrivere un post per il blog, trovi la guida pratica nel
+prossimo post di questa sezione.&lt;/p&gt;
+&lt;h2 id=&quot;dove-trovarci&quot;&gt;Dove trovarci&lt;/h2&gt;
+&lt;p&gt;Le discussioni sulla documentazione, sul sito e sulla rete in generale
+avvengono su GitHub (repository
+&lt;a href=&quot;https://github.com/meshcore-ita&quot;&gt;meshcore-ita&lt;/a&gt;) e sul gruppo Telegram
+pubblico &lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;, aperto a chiunque senza
+bisogno di invito. Se hai domande, correzioni o proposte, sono i due posti
+giusti dove portarle.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
+</feed>

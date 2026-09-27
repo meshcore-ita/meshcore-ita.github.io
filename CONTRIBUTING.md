@@ -49,10 +49,26 @@ contenuti nuovi:
 - **Pagina di documentazione**: `content/<slug>.md`. Stesso blocco meta
   delle pagine `.html` (`slug`, `nav`, `order`, `primary`, `title`,
   `description`, `h1`, `lede`, `updated`).
-- **Post della sezione Aggiornamenti**: `content/blog/<slug>.md`. Chiavi
+- **Post della sezione Blog**: `content/blog/<slug>.md`. Chiavi
   meta obbligatorie: `slug`, `title`, `description`, `h1`, `lede`,
   `published`. Opzionali: `updated` (default: uguale a `published`),
-  `author` (default: `"MeshCore ITA"`), `tags` (array di stringhe).
+  `time` (ora di pubblicazione `"HH:MM"`, ora italiana), `author`
+  (default: `"MeshCore ITA"`), `tags` (array di slug).
+
+  I post escono in ordine di `published`. Se due post hanno la stessa
+  data, entrambi devono avere `time`, altrimenti la build si ferma: senza
+  l'ora non si sa quale sia uscito prima.
+
+  `tags` contiene slug definiti in `content/blog/tags.json`: un oggetto
+  `slug → { label, description }` che dà titolo e testo introduttivo alla
+  relativa pagina `/blog/tag/<slug>/`. Usare uno slug non presente nel
+  registro (o una voce del registro senza `label`/`description`, o con
+  slug non valido) fa fallire la build con un errore in italiano. Per
+  aggiungere un tag nuovo: aggiungi una voce a `tags.json` con `label` e
+  `description`, poi usane lo slug nell'array `tags` del post.
+
+  Gli slug `tag`, `archivio` e `pagina` sono riservati e non si possono
+  usare come `slug` di un post: la build li rifiuta con un errore chiaro.
 
 In entrambi i casi `slug` deve essere identico al nome del file (senza
 estensione) e in forma URL-safe (minuscole, cifre e trattini singoli: la build
@@ -62,14 +78,25 @@ grezzo non è ammesso e fa fallire la build, non viene silenziosamente incluso.
 Chiave meta opzionale `ogType`: cambia `og:type` della pagina (default
 `article`; usa `website` per pagine che non sono articoli).
 
-L'indice degli Aggiornamenti si impagina da solo a 10 post per pagina: la
+L'indice del Blog si impagina da solo a 10 post per pagina: la
 prima resta `/blog/`, le successive diventano `/blog/pagina/2/`,
 `/blog/pagina/3/` e così via. Non c'è niente da configurare, e `/blog/`
 non cambia mai URL.
 
+Dai `tags` dei post la build genera automaticamente, senza intervento
+manuale: la pagina `/blog/tag/<slug>/` per ogni tag usato da almeno un
+post (impaginata come l'indice: `/blog/tag/<slug>/pagina/2/` e così via)
+con il proprio feed Atom `/blog/tag/<slug>/feed.xml`; l'archivio
+`/blog/archivio/` con tutti i post raggruppati per anno e mese; i
+"post correlati" e i link post precedente/successivo in fondo a ogni
+post, calcolati da tag in comune e date; il tempo di lettura stimato
+("N min di lettura"), calcolato sul testo del post; e il blocco degli
+ultimi articoli del blog in home, generato tra due marcatori HTML dentro
+`index.html` — non va scritto a mano.
+
 Per una guida passo passo su come scrivere un post, vedi
 ["Come scrivere un post"](https://meshcore-ita.github.io/blog/come-scrivere-un-post/)
-nella sezione Aggiornamenti del sito.
+nella sezione Blog del sito.
 
 ## Regola SEO: non spostare gli URL esistenti
 

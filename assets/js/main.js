@@ -213,6 +213,38 @@ function initCopyButtons() {
   });
 }
 
+// Copia link del post: progressive enhancement. Il bottone parte "hidden"
+// (funziona anche senza JS: resta nascosto, il link Telegram basta), e
+// viene rivelato solo se il Clipboard API è disponibile.
+function initCopyLink() {
+  const buttons = document.querySelectorAll('.share__copy[data-copy-link]');
+  if (!buttons.length) return;
+  if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+
+  buttons.forEach((button) => {
+    button.hidden = false;
+    const status = button.parentElement && button.parentElement.querySelector('.share__status');
+    let resetTimer = null;
+
+    button.addEventListener('click', () => {
+      const url = button.dataset.copyLink;
+      copyText(url)
+        .then(() => {
+          if (status) status.textContent = 'Link copiato';
+        })
+        .catch(() => {
+          if (status) status.textContent = 'Copia non riuscita';
+        })
+        .finally(() => {
+          if (resetTimer) window.clearTimeout(resetTimer);
+          resetTimer = window.setTimeout(() => {
+            if (status) status.textContent = '';
+          }, 2000);
+        });
+    });
+  });
+}
+
 function initReveal() {
   const targets = document.querySelectorAll('[data-reveal]');
   if (!targets.length) return;
@@ -613,6 +645,7 @@ function init() {
   initMobileNav();
   initCmdbox();
   initCopyButtons();
+  initCopyLink();
   initReveal();
   initScrollSpy();
   initBackground();

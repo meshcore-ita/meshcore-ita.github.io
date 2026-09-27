@@ -1593,7 +1593,7 @@ table.spec caption {
 }
 
 /* -----------------------------------------------------------
-   Ricerca client-side e blog (Aggiornamenti)
+   Ricerca client-side e blog
    Markup emesso da build.mjs, cablato da assets/js/search.js.
    ----------------------------------------------------------- */
 
@@ -1796,7 +1796,7 @@ dialog.search::backdrop {
 }
 
 /* -----------------------------------------------------------
-   Blog (Aggiornamenti) — stessa estetica delle .card esistenti
+   Blog — stessa estetica delle .card esistenti
    ----------------------------------------------------------- */
 
 .posts {
@@ -1809,6 +1809,7 @@ dialog.search::backdrop {
 }
 
 .post-card {
+  position: relative;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .55)), var(--panel);
@@ -1819,22 +1820,26 @@ dialog.search::backdrop {
   border-color: var(--line-strong);
 }
 
-.post-card__link {
+.post-card--featured {
+  grid-column: 1 / -1;
+}
+
+.post-card__inner {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: .6rem;
   height: 100%;
   padding: 1.75rem;
-  color: inherit;
-  text-decoration: none;
 }
 
-.post-card__date {
+.post-card__meta {
   font-family: var(--font-mono);
   font-size: .7rem;
   text-transform: uppercase;
   letter-spacing: .08em;
   color: var(--dim);
+  margin: 0;
 }
 
 .post-card__title {
@@ -1845,6 +1850,25 @@ dialog.search::backdrop {
   margin: 0;
 }
 
+.post-card--featured .post-card__title {
+  font-size: 1.5rem;
+}
+
+/* Il titolo diventa un link "stretched" sull'intera card (::after copre
+   .post-card__inner, che è position:relative): senza, con i tag ora
+   cliccabili, servirebbe un <a> attorno a tutto, con link annidati. */
+.post-card__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-card__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
 .post-card__body {
   color: var(--muted);
   font-size: .95rem;
@@ -1852,8 +1876,17 @@ dialog.search::backdrop {
   margin: 0;
 }
 
+.post-card__cta {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  color: var(--accent);
+}
+
 .post-meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: .5rem;
   font-family: var(--font-mono);
@@ -1867,6 +1900,8 @@ dialog.search::backdrop {
 }
 
 .tags {
+  position: relative;
+  z-index: 1;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -1880,10 +1915,25 @@ dialog.search::backdrop {
   font-size: .7rem;
   text-transform: uppercase;
   letter-spacing: .06em;
-  color: var(--muted);
   border: 1px solid var(--line);
   border-radius: 999px;
+  transition: border-color .2s ease, color .2s ease;
+}
+
+.tag__link {
+  display: block;
   padding: .3rem .75rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.tag:hover,
+.tag:has(.tag__link:focus-visible) {
+  border-color: var(--accent);
+}
+
+.tag:hover .tag__link {
+  color: var(--fg);
 }
 
 /* -----------------------------------------------------------
@@ -1920,7 +1970,7 @@ details.faq[id] {
   scroll-margin-top: calc(var(--header-h) + 1.5rem);
 }
 
-/* Paginazione dell'indice Aggiornamenti. */
+/* Paginazione dell'indice del blog. */
 .pager {
   display: flex;
   align-items: center;
@@ -1955,4 +2005,263 @@ details.faq[id] {
   font-family: var(--font-mono);
   font-size: .8rem;
   color: var(--dim);
+}
+
+/* Barra argomenti dell'indice Blog: chip dei tag con conteggio, più
+   Archivio e Feed Atom. */
+.topicbar {
+  width: min(var(--maxw), 100%);
+  margin: 0 auto clamp(1.5rem, 4vw, 2.5rem);
+  padding-inline: var(--pad);
+}
+
+.topicbar__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin: 0;
+  padding: 0;
+}
+
+.topicbar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: .4rem .9rem;
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: border-color .2s ease, color .2s ease;
+}
+
+.topicbar__link:hover,
+.topicbar__link:focus-visible {
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+.topicbar__count {
+  color: var(--dim);
+}
+
+.topicbar__link--muted {
+  color: var(--dim);
+}
+
+/* Indice "In questo articolo": solo dai 3 <h2> in su. */
+/* Vive dentro la .section del corpo, come riga meta e tag: stessa colonna
+   della .prose, senza padding proprio. */
+.toc {
+  max-width: 72ch;
+  margin: 0;
+}
+
+.toc__label {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--dim);
+  margin: 0 0 .5rem;
+}
+
+.toc__list {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  display: grid;
+  gap: .4rem;
+}
+
+.toc__list a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .92rem;
+}
+
+.toc__list a:hover,
+.toc__list a:focus-visible {
+  color: var(--fg);
+}
+
+/* Navigazione tra post adiacenti, a fine articolo. */
+.post-nav {
+  width: min(var(--maxw), 100%);
+  margin: 0 auto;
+  padding: var(--rhythm) var(--pad) 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.post-nav__link {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.25rem;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color .2s ease;
+}
+
+.post-nav__link:hover,
+.post-nav__link:focus-visible {
+  border-color: var(--accent);
+}
+
+.post-nav__link--next {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.post-nav__link--empty {
+  border-color: transparent;
+  pointer-events: none;
+}
+
+.post-nav__label {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--dim);
+}
+
+.post-nav__title {
+  color: var(--fg);
+  font-size: .95rem;
+}
+
+/* Riga di condivisione: Telegram + Copia link (progressive enhancement). */
+.share {
+  width: min(var(--maxw), 100%);
+  margin: 0 auto;
+  padding: var(--rhythm) var(--pad) 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .75rem;
+}
+
+.share__label {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--dim);
+  margin: 0;
+}
+
+.share__btn {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: .5rem 1.1rem;
+  font-size: .85rem;
+  color: var(--fg);
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+
+.share__btn:hover,
+.share__btn:focus-visible {
+  border-color: var(--accent);
+  background: var(--panel);
+}
+
+.share__status {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  color: var(--dim);
+}
+
+/* Archivio: elenco per anno/mese, più i tag con conteggio. */
+.archive {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3rem);
+}
+
+.archive__year-title {
+  font-size: 1.3rem;
+  margin: 0 0 1rem;
+}
+
+.archive__month {
+  margin: 0 0 1.25rem;
+}
+
+.archive__month-title {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--dim);
+  margin: 0 0 .6rem;
+}
+
+.archive__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: .6rem;
+}
+
+.archive__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  font-size: .95rem;
+  color: var(--muted);
+}
+
+.archive__item time {
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  color: var(--dim);
+}
+
+.archive__item a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.archive__item .tags {
+  margin: 0;
+}
+
+.archive__tags {
+  margin-top: 1rem;
+}
+
+/* Dentro l'archivio la barra argomenti sta già nella .section: niente
+   larghezza e padding propri. */
+.archive__tags .topicbar {
+  width: auto;
+  margin: 0;
+  padding-inline: 0;
+}
+
+@media (max-width: 700px) {
+  .post-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .post-nav__link--next {
+    text-align: left;
+    align-items: flex-start;
+  }
 }

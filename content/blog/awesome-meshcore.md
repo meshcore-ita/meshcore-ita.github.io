@@ -6,6 +6,7 @@
   "h1": "Awesome MeshCore: l'elenco curato delle risorse",
   "lede": "Oltre 160 risorse MeshCore in un solo posto: client, librerie, bot, mappe, strumenti di analisi e community di tutto il mondo. Licenza CC0, pull request aperte.",
   "published": "2026-09-14",
+  "time": "15:37",
   "tags": ["community", "risorse"]
 }
 -->
