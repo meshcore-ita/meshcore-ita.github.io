@@ -1427,6 +1427,62 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/cactus-j-pole-fabrizio--il-problema-della-j-pole-sul-palo",
+    "page": "Blog",
+    "title": "Il problema della J-pole sul palo",
+    "url": "https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/#il-problema-della-j-pole-sul-palo",
+    "text": "La J-pole è una delle verticali più semplici da autocostruire. Un radiatore di circa mezza lunghezza d'onda viene alimentato attraverso una sezione di adattamento di un quarto d'onda, la gamba corta della \"J\". Non servono radiali e il cavo si collega a pochi millimetri dal fondo, nel punto in cui l'impedenza vale 50 Ω. Il difetto si vede al momento di montarla. Se la base tocca un palo metallico, il palo e la calza del cavo coassiale entrano a far parte dell'antenna. Impedenza e diagramma cambiano con la lunghezza del palo e con il percorso del cavo. Per questo di solito la J-pole va montata su un supporto isolante, con un choke sul cavo."
+  },
+  {
+    "id": "blog/cactus-j-pole-fabrizio--uno-stub-che-isola-il-palo",
+    "page": "Blog",
+    "title": "Uno stub che isola il palo",
+    "url": "https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/#uno-stub-che-isola-il-palo",
+    "text": "La Cactus J-Pole , ideata da John S. Huggins, aggiunge sotto la J un secondo stub, lungo circa un quarto d'onda e ripiegato verso l'alto accanto al palo. Alla frequenza di progetto questo stub crea un punto ad alta impedenza RF tra l'antenna e il palo. La corrente che scende verso il supporto si ferma lì, e il palo può essere lungo quanto serve. Nel modello che Fabrizio ha caricato nella galleria le misure sono queste: Parte Misura Elemento lungo (adattamento + radiatore) 238 mm Gamba corta della J 82 mm, a 8 mm dall'elemento lungo Punto di alimentazione 8 mm sopra il fondo della J Stub di disaccoppiamento 82 mm in giù e 82 mm di ritorno, a 8 mm Tutto in filo da 4 mm, per circa 32 cm di…"
+  },
+  {
+    "id": "blog/cactus-j-pole-fabrizio--cosa-dice-il-simulatore",
+    "page": "Blog",
+    "title": "Cosa dice il simulatore",
+    "url": "https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/#cosa-dice-il-simulatore",
+    "text": "A 869,618 MHz, la frequenza del preset italiano , in spazio libero e con 10 cm di palo: Guadagno 3,3 dBi , cioè 1,1 dB più di un dipolo. Il massimo cade circa 20° sopra l'orizzonte; sull'orizzonte si resta fra 2,7 e 3,1 dBi. Impedenza 51,6 − j1,3 Ω, ROS 1,04 , senza nessun adattatore oltre alla J. ROS sotto 2 da 848,5 a 891,5 MHz : 43 MHz di banda, ben oltre il margine che serve per la sub-banda 869,4–869,65 MHz. Omnidirezionale. Tra il lato migliore e quello opposto ci sono 2,9 dB, perché la gamba corta della J rende il diagramma un po' asimmetrico. Messa accanto alle altre verticali omnidirezionali della galleria: Antenna Guadagno ROS Cactus J-Pole, di Fabrizio 3,3 dBi 1,04 Ground plane…"
+  },
+  {
+    "id": "blog/cactus-j-pole-fabrizio--la-prova-del-palo",
+    "page": "Blog",
+    "title": "La prova del palo",
+    "url": "https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/#la-prova-del-palo",
+    "text": "La scheda di Fabrizio dice che variando la lunghezza del palo l'antenna si comporta allo stesso modo. Lo abbiamo verificato con lo stesso motore NEC-2 della galleria. Abbiamo fatto variare il palo da 10 cm a 3 m e ripetuto la prova su una J-pole classica , cioè la stessa J senza lo stub e con il palo attaccato direttamente alla base. In tabella, «orizzonte» è il guadagno sull'orizzonte in dBi. Palo (m) ROS Cactus Orizzonte Cactus ROS classica Orizzonte classica 0,10 1,04 2,7 1,25 1,1 0,25 1,04 3,1 1,41 1,5 0,50 1,04 2,9 1,04 1,5 1,00 1,04 3,1 1,03 3,1 1,50 1,04 2,9 1,06 1,4 2,00 1,04 3,1 1,13 3,0 3,00 1,04 3,1 1,26 1,5 Con la Cactus l'impedenza non si muove: resta tra 51,5 e 51,6 Ω su tutte…"
+  },
+  {
+    "id": "blog/cactus-j-pole-fabrizio--potenza",
+    "page": "Blog",
+    "title": "Potenza",
+    "url": "https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/#potenza",
+    "text": "Con 1,1 dBd di guadagno, per restare nei 500 mW ERP della sub-banda (vedi la normativa ) sul nodo si possono impostare fino a circa 25,9 dBm anche senza perdite nel cavo. Un SX1262 si ferma a 22 dBm: con questa antenna le schede più diffuse restano nel limite anche alla potenza massima."
+  },
+  {
+    "id": "blog/cactus-j-pole-fabrizio--il-brevetto",
+    "page": "Blog",
+    "title": "Il brevetto",
+    "url": "https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/#il-brevetto",
+    "text": "La configurazione mast mountable antenna di Huggins è coperta dal brevetto statunitense US10468743B2 , concesso nel 2019. Fabrizio lo ha segnalato nella scheda. Pubblicare il modello, le foto e le misure di un prototipo non dà una licenza sul brevetto. I brevetti valgono per territorio, e la scheda consultata riporta gli Stati Uniti. Prima di produrre o vendere antenne basate su questo progetto bisogna verificare quali diritti sono in vigore nei paesi interessati. Per gli usi privati non commerciali e per le sperimentazioni la legge può prevedere eccezioni."
+  },
+  {
+    "id": "blog/cactus-j-pole-fabrizio--solo-una-simulazione-per-ora",
+    "page": "Blog",
+    "title": "Solo una simulazione, per ora",
+    "url": "https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/#solo-una-simulazione-per-ora",
+    "text": "Questi numeri vengono da un modello in spazio libero, senza il cavo coassiale. Indicano la tendenza, ma la verifica vera si fa sull'antenna montata. La scheda suggerisce di misurare il ROS con il palo e il cavo nella posizione definitiva e, se possibile, di confrontare la corrente sul palo con e senza lo stub."
+  },
+  {
+    "id": "blog/cactus-j-pole-fabrizio--e-ora",
+    "page": "Blog",
+    "title": "E ora?",
+    "url": "https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/#e-ora",
+    "text": "Il prototipo di Fabrizio, in filo di rame con il cavo che esce da un tubo bianco, è già in funzione sul suo nodo. Se ha voglia, aspettiamo una misura con il NanoVNA. Nel frattempo la scheda con la foto, la vista 3D, i grafici e il file spiegato riga per riga è qui: Cactus J-Pole . Per approfondire il progetto originale c'è l'articolo di John S. Huggins, Mast Mountable J-Pole Antenna . Hai una tua antenna? Le istruzioni sono nell'articolo sulla galleria , oppure mandala nel gruppo Telegram MeshCore ITA . Grazie ancora a Fabrizio."
+  },
+  {
     "id": "blog/yagi-lfa-fabrizio--un-anello-al-posto-del-dipolo",
     "page": "Blog",
     "title": "Un anello al posto del dipolo",
@@ -1445,7 +1501,7 @@ export const KB_CHUNKS = [
     "page": "Blog",
     "title": "Cosa dice il simulatore",
     "url": "https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/#cosa-dice-il-simulatore",
-    "text": "A 869,618 MHz, la frequenza del preset italiano : Guadagno 8,8 dBi , cioè 6,6 dB più di un dipolo: nella direzione giusta arriva circa 4,6 volte la potenza. Rapporto avanti/dietro 15 dB : quello che arriva da dietro è attenuato di circa 30 volte. È utile se alle spalle del nodo c'è una città piena di disturbi. Impedenza 49,8 + j0,2 Ω, ROS 1,00. Più vicino di così ai 50 Ω non si può, e senza adattatore. ROS sotto 2 da meno di 855 fino a circa 881 MHz : resta un buon margine anche se in costruzione le misure non vengono perfette. Messa accanto alle altre Yagi della galleria: Antenna Guadagno Avanti/dietro ROS Yagi LFA 3 elementi, di Fabrizio 8,8 dBi 15,2 dB 1,00 Yagi 3 elementi di riferimento…"
+    "text": "A 869,618 MHz, la frequenza del preset italiano : Guadagno 8,8 dBi , cioè 6,6 dB più di un dipolo: nella direzione giusta arriva circa 4,6 volte la potenza. Rapporto avanti/dietro 15 dB : quello che arriva da dietro è attenuato di circa 30 volte. È utile se alle spalle del nodo c'è una città piena di disturbi. Impedenza 49,3 + j0,5 Ω, ROS 1,02. Praticamente 50 Ω, e senza adattatore. ROS sotto 2 da circa 855 fino a circa 881 MHz : resta un buon margine anche se in costruzione le misure non vengono perfette. Messa accanto alle altre Yagi della galleria: Antenna Guadagno Avanti/dietro ROS Yagi LFA 3 elementi, di Fabrizio 8,8 dBi 15,1 dB 1,02 Yagi 3 elementi di riferimento 8,1 dBi 5,9 dB 1,23…"
   },
   {
     "id": "blog/yagi-lfa-fabrizio--attenzione-alla-potenza",

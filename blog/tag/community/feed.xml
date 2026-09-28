@@ -4,20 +4,241 @@
   <id>https://meshcore-ita.github.io/blog/tag/community/</id>
   <link rel="self" href="https://meshcore-ita.github.io/blog/tag/community/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/community/"/>
-  <updated>2026-09-27T00:00:00Z</updated>
+  <updated>2026-09-28T00:00:00Z</updated>
   <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/</id>
+    <title>La Cactus J-Pole di Fabrizio: una J-pole che ignora il palo</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/"/>
+    <published>2026-09-28T00:00:00Z</published>
+    <updated>2026-09-28T00:00:00Z</updated>
+    <summary type="text">Dopo la Yagi LFA, Fabrizio ha caricato nella galleria una J-pole verticale pensata per il palo metallico. Il primo prototipo è già in funzione sul suo nodo di casa.</summary>
+    <category term="antenne" label="Antenne"/>
+    <category term="autocostruzione" label="Autocostruzione"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-28&quot;&gt;28 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 6 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/autocostruzione/&quot;&gt;Autocostruzione&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;il-problema-della-j-pole-sul-palo&quot;&gt;Il problema della J-pole sul palo&lt;/h2&gt;
+&lt;p&gt;La &lt;strong&gt;J-pole&lt;/strong&gt; è una delle verticali più semplici da autocostruire. Un
+radiatore di circa mezza lunghezza d&amp;#39;onda viene alimentato attraverso una
+sezione di adattamento di un quarto d&amp;#39;onda, la gamba corta della &amp;quot;J&amp;quot;. Non
+servono radiali e il cavo si collega a pochi millimetri dal fondo, nel punto
+in cui l&amp;#39;impedenza vale 50 Ω.&lt;/p&gt;
+&lt;p&gt;Il difetto si vede al momento di montarla. Se la base tocca un palo
+metallico, il palo e la calza del cavo coassiale entrano a far parte
+dell&amp;#39;antenna. Impedenza e diagramma cambiano con la lunghezza del palo e con
+il percorso del cavo. Per questo di solito la J-pole va montata su un
+supporto isolante, con un choke sul cavo.&lt;/p&gt;
+&lt;h2 id=&quot;uno-stub-che-isola-il-palo&quot;&gt;Uno stub che isola il palo&lt;/h2&gt;
+&lt;p&gt;La &lt;strong&gt;Cactus J-Pole&lt;/strong&gt;, ideata da John S. Huggins, aggiunge sotto la J un
+secondo stub, lungo circa un quarto d&amp;#39;onda e ripiegato verso l&amp;#39;alto
+accanto al palo. Alla frequenza di progetto questo stub crea un punto ad
+&lt;strong&gt;alta impedenza RF&lt;/strong&gt; tra l&amp;#39;antenna e il palo. La corrente che scende verso
+il supporto si ferma lì, e il palo può essere lungo quanto serve.&lt;/p&gt;
+&lt;p&gt;Nel modello che Fabrizio ha caricato nella
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/fabrizio-cactus-j-pole/&quot;&gt;galleria&lt;/a&gt;
+le misure sono queste:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parte&lt;/th&gt;
+&lt;th&gt;Misura&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Elemento lungo (adattamento + radiatore)&lt;/td&gt;
+&lt;td&gt;238 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Gamba corta della J&lt;/td&gt;
+&lt;td&gt;82 mm, a 8 mm dall&amp;#39;elemento lungo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Punto di alimentazione&lt;/td&gt;
+&lt;td&gt;8 mm sopra il fondo della J&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Stub di disaccoppiamento&lt;/td&gt;
+&lt;td&gt;82 mm in giù e 82 mm di ritorno, a 8 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Tutto in filo da 4 mm, per circa 32 cm di altezza. Il file ragiona su una
+lunghezza d&amp;#39;onda di 328 mm, circa il 5% in meno dei 345 mm che si hanno in
+aria a 869,6 MHz. È il solito accorciamento che si applica ai dipoli per
+tenere conto dello spessore del filo.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-dice-il-simulatore&quot;&gt;Cosa dice il simulatore&lt;/h2&gt;
+&lt;p&gt;A 869,618 MHz, la frequenza del &lt;a href=&quot;../../preset-radio/&quot;&gt;preset italiano&lt;/a&gt;, in
+spazio libero e con 10 cm di palo:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Guadagno 3,3 dBi&lt;/strong&gt;, cioè 1,1 dB più di un dipolo. Il massimo cade
+circa 20° sopra l&amp;#39;orizzonte; sull&amp;#39;orizzonte si resta fra 2,7 e
+3,1 dBi.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Impedenza 51,6 − j1,3 Ω, ROS 1,04&lt;/strong&gt;, senza nessun adattatore oltre alla J.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ROS sotto 2 da 848,5 a 891,5 MHz&lt;/strong&gt;: 43 MHz di banda, ben oltre il
+margine che serve per la sub-banda 869,4–869,65 MHz.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Omnidirezionale.&lt;/strong&gt; Tra il lato migliore e quello opposto ci sono
+2,9 dB, perché la gamba corta della J rende il diagramma un po&amp;#39;
+asimmetrico.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Messa accanto alle altre verticali omnidirezionali della galleria:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Antenna&lt;/th&gt;
+&lt;th&gt;Guadagno&lt;/th&gt;
+&lt;th&gt;ROS&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Cactus J-Pole, di Fabrizio&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;3,3 dBi&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;1,04&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ground plane di riferimento&lt;/td&gt;
+&lt;td&gt;2,2 dBi&lt;/td&gt;
+&lt;td&gt;1,01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Dipolo di riferimento&lt;/td&gt;
+&lt;td&gt;2,1 dBi&lt;/td&gt;
+&lt;td&gt;1,44&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;la-prova-del-palo&quot;&gt;La prova del palo&lt;/h2&gt;
+&lt;p&gt;La scheda di Fabrizio dice che variando la lunghezza del palo l&amp;#39;antenna si
+comporta allo stesso modo. Lo abbiamo verificato con lo stesso motore NEC-2
+della galleria. Abbiamo fatto variare il palo da 10 cm a 3 m e ripetuto la
+prova su una &lt;strong&gt;J-pole classica&lt;/strong&gt;, cioè la stessa J senza lo stub e con il
+palo attaccato direttamente alla base. In tabella, «orizzonte» è il
+guadagno sull&amp;#39;orizzonte in dBi.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Palo (m)&lt;/th&gt;
+&lt;th&gt;ROS Cactus&lt;/th&gt;
+&lt;th&gt;Orizzonte Cactus&lt;/th&gt;
+&lt;th&gt;ROS classica&lt;/th&gt;
+&lt;th&gt;Orizzonte classica&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;0,10&lt;/td&gt;
+&lt;td&gt;1,04&lt;/td&gt;
+&lt;td&gt;2,7&lt;/td&gt;
+&lt;td&gt;1,25&lt;/td&gt;
+&lt;td&gt;1,1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;0,25&lt;/td&gt;
+&lt;td&gt;1,04&lt;/td&gt;
+&lt;td&gt;3,1&lt;/td&gt;
+&lt;td&gt;1,41&lt;/td&gt;
+&lt;td&gt;1,5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;0,50&lt;/td&gt;
+&lt;td&gt;1,04&lt;/td&gt;
+&lt;td&gt;2,9&lt;/td&gt;
+&lt;td&gt;1,04&lt;/td&gt;
+&lt;td&gt;1,5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1,00&lt;/td&gt;
+&lt;td&gt;1,04&lt;/td&gt;
+&lt;td&gt;3,1&lt;/td&gt;
+&lt;td&gt;1,03&lt;/td&gt;
+&lt;td&gt;3,1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1,50&lt;/td&gt;
+&lt;td&gt;1,04&lt;/td&gt;
+&lt;td&gt;2,9&lt;/td&gt;
+&lt;td&gt;1,06&lt;/td&gt;
+&lt;td&gt;1,4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2,00&lt;/td&gt;
+&lt;td&gt;1,04&lt;/td&gt;
+&lt;td&gt;3,1&lt;/td&gt;
+&lt;td&gt;1,13&lt;/td&gt;
+&lt;td&gt;3,0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3,00&lt;/td&gt;
+&lt;td&gt;1,04&lt;/td&gt;
+&lt;td&gt;3,1&lt;/td&gt;
+&lt;td&gt;1,26&lt;/td&gt;
+&lt;td&gt;1,5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Con la Cactus l&amp;#39;impedenza non si muove: resta tra 51,5 e 51,6 Ω su tutte le
+lunghezze. La J-pole classica oscilla tra 36 e 50 Ω. Il ROS però non è il
+problema più grosso, perché resta comunque sotto 1,5.&lt;/p&gt;
+&lt;p&gt;Il danno si vede nel diagramma. Con molte lunghezze di palo la J-pole
+classica perde 1,5 dB o più &lt;strong&gt;proprio sull&amp;#39;orizzonte&lt;/strong&gt;, cioè nella
+direzione degli altri nodi. Con 2 e 3 m di palo il lobo principale finisce
+addirittura verso il basso, perché a irradiare è il palo stesso. La Cactus
+resta intorno ai 3 dBi sull&amp;#39;orizzonte con qualunque palo.&lt;/p&gt;
+&lt;p&gt;Se volete ripetere la prova, c&amp;#39;è un dettaglio da sapere. Nel file il palo
+(&lt;code&gt;GW 10&lt;/code&gt;) ha sempre 5 segmenti, che bastano per 10 cm ma non per 3 m: ogni
+segmento diventerebbe lungo 60 cm, troppo per NEC. Quando si allunga
+&lt;code&gt;pole&lt;/code&gt; bisogna aumentare anche i segmenti. Noi ne abbiamo usato uno ogni
+1,6 cm circa.&lt;/p&gt;
+&lt;h2 id=&quot;potenza&quot;&gt;Potenza&lt;/h2&gt;
+&lt;p&gt;Con 1,1 dBd di guadagno, per restare nei 500 mW ERP della sub-banda (vedi
+la &lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt;) sul nodo si possono impostare fino a
+circa 25,9 dBm anche senza perdite nel cavo. Un SX1262 si ferma a 22 dBm:
+con questa antenna le schede più diffuse restano nel limite anche alla
+potenza massima.&lt;/p&gt;
+&lt;h2 id=&quot;il-brevetto&quot;&gt;Il brevetto&lt;/h2&gt;
+&lt;p&gt;La configurazione &lt;em&gt;mast mountable antenna&lt;/em&gt; di Huggins è coperta dal
+brevetto statunitense
+&lt;a href=&quot;https://patents.google.com/patent/US10468743B2/en&quot;&gt;US10468743B2&lt;/a&gt;,
+concesso nel 2019. Fabrizio lo ha segnalato nella scheda. Pubblicare il
+modello, le foto e le misure di un prototipo non dà una licenza sul
+brevetto.&lt;/p&gt;
+&lt;p&gt;I brevetti valgono per territorio, e la scheda consultata riporta gli Stati
+Uniti. Prima di produrre o vendere antenne basate su questo progetto
+bisogna verificare quali diritti sono in vigore nei paesi interessati. Per
+gli usi privati non commerciali e per le sperimentazioni la legge può
+prevedere eccezioni.&lt;/p&gt;
+&lt;h2 id=&quot;solo-una-simulazione-per-ora&quot;&gt;Solo una simulazione, per ora&lt;/h2&gt;
+&lt;p&gt;Questi numeri vengono da un modello in spazio libero, senza il cavo
+coassiale. Indicano la tendenza, ma la verifica vera si fa sull&amp;#39;antenna
+montata. La scheda suggerisce di misurare il ROS con il palo e il cavo
+nella posizione definitiva e, se possibile, di confrontare la corrente sul
+palo con e senza lo stub.&lt;/p&gt;
+&lt;h2 id=&quot;e-ora&quot;&gt;E ora?&lt;/h2&gt;
+&lt;p&gt;Il prototipo di Fabrizio, in filo di rame con il cavo che esce da un tubo
+bianco, è già in funzione sul suo nodo. Se ha voglia, aspettiamo una misura
+con il NanoVNA. Nel frattempo la scheda con la foto, la vista 3D, i grafici
+e il file spiegato riga per riga è qui:
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/fabrizio-cactus-j-pole/&quot;&gt;Cactus J-Pole&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Per approfondire il progetto originale c&amp;#39;è l&amp;#39;articolo di John S. Huggins,
+&lt;a href=&quot;https://www.hamradio.me/antennas/mast-mountable-j-pole-antenna.html&quot;&gt;&lt;em&gt;Mast Mountable J-Pole Antenna&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Hai una tua antenna? Le istruzioni sono nell&amp;#39;articolo sulla
+&lt;a href=&quot;../galleria-antenne/&quot;&gt;galleria&lt;/a&gt;, oppure mandala nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Grazie ancora a Fabrizio.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
   <entry>
     <id>https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/</id>
     <title>La Yagi LFA di Fabrizio: 50 Ω senza adattatore</title>
     <link rel="alternate" href="https://meshcore-ita.github.io/blog/yagi-lfa-fabrizio/"/>
     <published>2026-09-27T00:00:00Z</published>
-    <updated>2026-09-27T00:00:00Z</updated>
-    <summary type="text">Il giorno dopo l'apertura della galleria, Fabrizio ci ha mandato una Yagi a 3 elementi un po' speciale: l'elemento alimentato è un anello chiuso. Il simulatore ha risposto con un ROS di 1,00.</summary>
+    <updated>2026-09-28T00:00:00Z</updated>
+    <summary type="text">Il giorno dopo l'apertura della galleria, Fabrizio ci ha mandato una Yagi a 3 elementi un po' speciale: l'elemento alimentato è un anello chiuso. Il simulatore ha risposto con un ROS di 1,02.</summary>
     <category term="antenne" label="Antenne"/>
     <category term="autocostruzione" label="Autocostruzione"/>
     <category term="community" label="Community"/>
     <content type="html">&lt;section class=&quot;section&quot;&gt;
-  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-27&quot;&gt;27 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-27&quot;&gt;27 settembre 2026&lt;/time&gt; · aggiornato il 28 settembre 2026 · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
   &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/autocostruzione/&quot;&gt;Autocostruzione&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
   &lt;div class=&quot;prose&quot;&gt;
 &lt;h2 id=&quot;un-anello-al-posto-del-dipolo&quot;&gt;Un anello al posto del dipolo&lt;/h2&gt;
@@ -68,9 +289,9 @@ giusta arriva circa 4,6 volte la potenza.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Rapporto avanti/dietro 15 dB&lt;/strong&gt;: quello che arriva da dietro è attenuato
 di circa 30 volte. È utile se alle spalle del nodo c&amp;#39;è una città piena di
 disturbi.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Impedenza 49,8 + j0,2 Ω, ROS 1,00.&lt;/strong&gt; Più vicino di così ai 50 Ω non si
-può, e senza adattatore.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ROS sotto 2 da meno di 855 fino a circa 881 MHz&lt;/strong&gt;: resta un buon margine
+&lt;li&gt;&lt;strong&gt;Impedenza 49,3 + j0,5 Ω, ROS 1,02.&lt;/strong&gt; Praticamente 50 Ω, e senza
+adattatore.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ROS sotto 2 da circa 855 fino a circa 881 MHz&lt;/strong&gt;: resta un buon margine
 anche se in costruzione le misure non vengono perfette.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Messa accanto alle altre Yagi della galleria:&lt;/p&gt;
@@ -86,8 +307,8 @@ anche se in costruzione le misure non vengono perfette.&lt;/li&gt;
 &lt;tbody&gt;&lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;Yagi LFA 3 elementi, di Fabrizio&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;&lt;strong&gt;8,8 dBi&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;&lt;strong&gt;15,2 dB&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;&lt;strong&gt;1,00&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;15,1 dB&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;1,02&lt;/strong&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Yagi 3 elementi di riferimento&lt;/td&gt;

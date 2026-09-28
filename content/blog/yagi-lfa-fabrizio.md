@@ -2,10 +2,11 @@
 {
   "slug": "yagi-lfa-fabrizio",
   "title": "La Yagi LFA di Fabrizio: 50 Ω senza adattatore",
-  "description": "Fabrizio aggiunge alla galleria una Yagi LFA a 3 elementi per 868 MHz: 8,8 dBi, rapporto avanti/dietro di 15 dB e ROS 1,00 senza alcuna rete di adattamento, in 12 cm di boom.",
+  "description": "Fabrizio aggiunge alla galleria una Yagi LFA a 3 elementi per 868 MHz: 8,8 dBi, rapporto avanti/dietro di 15 dB e ROS 1,02 senza alcuna rete di adattamento, in 12 cm di boom.",
   "h1": "Una Yagi che si adatta da sola",
-  "lede": "Il giorno dopo l'apertura della galleria, Fabrizio ci ha mandato una Yagi a 3 elementi un po' speciale: l'elemento alimentato è un anello chiuso. Il simulatore ha risposto con un ROS di 1,00.",
+  "lede": "Il giorno dopo l'apertura della galleria, Fabrizio ci ha mandato una Yagi a 3 elementi un po' speciale: l'elemento alimentato è un anello chiuso. Il simulatore ha risposto con un ROS di 1,02.",
   "published": "2026-09-27",
+  "updated": "2026-09-28",
   "tags": ["antenne", "autocostruzione", "community"]
 }
 -->
@@ -46,16 +47,16 @@ A 869,618 MHz, la frequenza del [preset italiano](../../preset-radio/):
 - **Rapporto avanti/dietro 15 dB**: quello che arriva da dietro è attenuato
   di circa 30 volte. È utile se alle spalle del nodo c'è una città piena di
   disturbi.
-- **Impedenza 49,8 + j0,2 Ω, ROS 1,00.** Più vicino di così ai 50 Ω non si
-  può, e senza adattatore.
-- **ROS sotto 2 da meno di 855 fino a circa 881 MHz**: resta un buon margine
+- **Impedenza 49,3 + j0,5 Ω, ROS 1,02.** Praticamente 50 Ω, e senza
+  adattatore.
+- **ROS sotto 2 da circa 855 fino a circa 881 MHz**: resta un buon margine
   anche se in costruzione le misure non vengono perfette.
 
 Messa accanto alle altre Yagi della galleria:
 
 | Antenna | Guadagno | Avanti/dietro | ROS |
 |---|---|---|---|
-| **Yagi LFA 3 elementi, di Fabrizio** | **8,8 dBi** | **15,2 dB** | **1,00** |
+| **Yagi LFA 3 elementi, di Fabrizio** | **8,8 dBi** | **15,1 dB** | **1,02** |
 | Yagi 3 elementi di riferimento | 8,1 dBi | 5,9 dB | 1,23 |
 | Yagi 2 elementi con riflettore, di Fabrizio | 6,4 dBi | 8,5 dB | 1,09 |
 
