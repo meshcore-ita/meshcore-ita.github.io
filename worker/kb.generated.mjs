@@ -1438,14 +1438,14 @@ export const KB_CHUNKS = [
     "page": "Blog",
     "title": "I chip nuovi sentono di più",
     "url": "https://meshcore-ita.github.io/blog/hardware-mesh-nel-passato/#i-chip-nuovi-sentono-di-piu",
-    "text": "I numeri riportati da Beala, tutti a SF12 e 125 kHz per confrontarli alla pari: Chip Generazione LoRa Sensibilità SX1262 2ª (2018) −137 dBm LR1110 3ª −141 dBm LR2021 4ª −141,5 dBm Fra SX1262 e LR2021 ci sono 4,5 dB . Vuol dire che il chip nuovo decodifica un segnale con circa il 35% della potenza che serve al vecchio. In spazio libero sono circa 1,7 volte la distanza , a parità di tutto il resto. Nella realtà, con colline ed edifici in mezzo, il guadagno di portata è minore, ma i dB restano dB. Il nostro preset usa SF8 a 62,5 kHz, non SF12 a 125 kHz. I valori assoluti quindi cambiano (per l'SX1262 li stimiamo nella pagina sul link budget ), ma la differenza fra le generazioni dovrebbe…"
+    "text": "Beala confronta i chip a SF12 e 125 kHz. Abbiamo ricontrollato i datasheet Semtech e aggiunto SF7, l'altro valore che tutti e tre riportano: Chip Generazione LoRa SF7, 125 kHz SF12, 125 kHz SX1262 2ª (2018) −124 dBm −137 dBm LR1110 3ª −127 dBm −141 dBm LR2021 4ª −127,5 dBm −141,5 dBm A SF12 fra SX1262 e LR2021 ci sono 4,5 dB : il chip nuovo decodifica un segnale con circa il 35% della potenza che serve al vecchio, e in spazio libero arriva a circa 1,7 volte la distanza. A SF7 il vantaggio scende a 3,5 dB. Il nostro preset usa SF8 a 62,5 kHz. Per questa combinazione il datasheet dell'LR2021 dà −132 dBm . Quello dell'SX1262 non la riporta: nella pagina sul link budget la stimiamo intorno a…"
   },
   {
     "id": "blog/hardware-mesh-nel-passato--in-italia-la-sensibilita-conta-di-piu",
     "page": "Blog",
     "title": "In Italia la sensibilità conta di più",
     "url": "https://meshcore-ita.github.io/blog/hardware-mesh-nel-passato/#in-italia-la-sensibilita-conta-di-piu",
-    "text": "Qui c'è la prima differenza con gli Stati Uniti, ed è a favore dei chip nuovi. Nella sub-banda 869,4–869,65 MHz il limite è 500 mW ERP , qualunque sia l'antenna (vedi la normativa ). Un'antenna con più guadagno non ci fa trasmettere più lontano: ci obbliga ad abbassare la potenza sul nodo. Lo abbiamo visto con la Yagi LFA di Fabrizio , dove con il cavo corto bastano 109 mW. In trasmissione, quindi, siamo già al tetto. Le leve che restano sono tutte in ricezione : il guadagno dell'antenna che riceve e la sensibilità del chip. Il limite di potenza non tocca nessuna delle due. I 4,5 dB di un LR2021 sono tra i pochi dB \"gratis\" che la legge ci lascia prendere, e un repeater in cima a una…"
+    "text": "Qui c'è la prima differenza con gli Stati Uniti, ed è a favore dei chip nuovi. Nella sub-banda 869,4–869,65 MHz il limite è 500 mW ERP , qualunque sia l'antenna (vedi la normativa ). Un'antenna con più guadagno non ci fa trasmettere più lontano: ci obbliga ad abbassare la potenza sul nodo. Lo abbiamo visto con la Yagi LFA di Fabrizio , dove con il cavo corto bastano 109 mW. In trasmissione, quindi, siamo già al tetto. Le leve che restano sono tutte in ricezione : il guadagno dell'antenna che riceve e la sensibilità del chip. Il limite di potenza non tocca nessuna delle due. I 2,5–4 dB di un LR2021 sono tra i pochi dB \"gratis\" che la legge ci lascia prendere, e un repeater in cima a una…"
   },
   {
     "id": "blog/hardware-mesh-nel-passato--i-2-4-ghz-il-trucco-americano",
@@ -1459,28 +1459,28 @@ export const KB_CHUNKS = [
     "page": "Blog",
     "title": "Da noi il trucco non c'è",
     "url": "https://meshcore-ita.github.io/blog/hardware-mesh-nel-passato/#da-noi-il-trucco-non-c-e",
-    "text": "In Europa la banda 2400–2483,5 MHz segue la raccomandazione CEPT ERC/REC 70-03 e la norma ETSI EN 300 328 per i sistemi a banda larga. Il limite è 100 mW EIRP (20 dBm), antenna compresa. Non esiste un'eccezione per il punto-punto: con un pannello da 18 dBi la potenza sul nodo scende a 2 dBm. Il confronto con Beala è impietoso: Stati Uniti Europa 2,4 GHz, pannello da 18 dBi 44 dBm EIRP (25 W) 20 dBm EIRP (100 mW) 868/915 MHz, limite 36 dBm EIRP (4 W) 27 dBm ERP (500 mW) Sopra i 10 mW la norma europea chiede anche meccanismi di accesso al canale (la cosiddetta adaptivity ), che un nodo mesh dovrebbe rispettare. Un collegamento punto-punto a 2,4 GHz non è comunque inutile. Con due pannelli da…"
+    "text": "In Europa la banda 2400–2483,5 MHz segue la raccomandazione CEPT ERC/REC 70-03 e la norma ETSI EN 300 328 . Il tetto generale per i sistemi a banda larga è 100 mW EIRP (20 dBm), antenna compresa, e non esiste un'eccezione per il punto-punto. Per LoRa c'è un limite più stretto. Per le modulazioni a banda larga diverse dal salto di frequenza, la densità di potenza non può superare 10 mW per MHz . Un segnale LoRa a 2,4 GHz occupa al massimo 1,6 MHz, e con le bande più usate sta dentro un solo MHz: in pratica il limite scende a circa 10 mW EIRP (10 dBm). Con un pannello da 18 dBi la potenza sul nodo dovrebbe scendere a −8 dBm. Il confronto con Beala è impietoso: Stati Uniti Europa LoRa a 2,4…"
   },
   {
     "id": "blog/hardware-mesh-nel-passato--i-radioamatori",
     "page": "Blog",
     "title": "I radioamatori?",
     "url": "https://meshcore-ita.github.io/blog/hardware-mesh-nel-passato/#i-radioamatori",
-    "text": "Chi ha la patente di radioamatore ha accesso alla banda dei 13 cm (2300–2450 MHz), con potenze molto più alte. Il problema è che il servizio di radioamatore non ammette comunicazioni cifrate, e MeshCore cifra i messaggi. Per una rete aperta a tutti non è una strada percorribile. Anche la banda \"personal communication\" a 1,9 GHz citata da Beala è una peculiarità americana: in Europa quella zona dello spettro è occupata dal DECT dei telefoni cordless."
+    "text": "Chi ha la patente di radioamatore ha accesso alla banda dei 13 cm, con potenze molto più alte. Il problema è che il servizio di radioamatore non ammette comunicazioni cifrate, e MeshCore cifra i messaggi. Per una rete aperta a tutti non è una strada percorribile. Anche la banda \"personal communication\" a 1,9 GHz citata da Beala è una peculiarità americana: in Europa quella zona dello spettro è occupata dal DECT dei telefoni cordless."
   },
   {
     "id": "blog/hardware-mesh-nel-passato--e-il-microcontrollore",
     "page": "Blog",
     "title": "E il microcontrollore?",
     "url": "https://meshcore-ita.github.io/blog/hardware-mesh-nel-passato/#e-il-microcontrollore",
-    "text": "Beala chiude con una battuta: usiamo ancora il Nordic nRF52 , quando c'è già l' nRF54 . Qui la storia è simile, ma con qualche freno in più. nRF52840 nRF54L15 Uscita fine 2017 fine 2024 Processore Cortex-M4F, 64 MHz Cortex-M33, 128 MHz Memoria di programma 1 MB flash 1,5 MB RRAM RAM 256 KB 256 KB USB sì no L'nRF54L15 è più veloce e consuma meno, ma per un nodo MeshCore ci sono tre ostacoli: Niente USB. Oggi un nodo nRF52 si aggiorna trascinando un file UF2 sul computer, o si collega via USB all'app. Sull'nRF54L15 serve un convertitore seriale o un programmatore SWD. La documentazione di ZephCore lo dice chiaro: niente UF2, si programma via SWD. Il software. Il firmware MeshCore ufficiale…"
+    "text": "Beala chiude con una battuta: usiamo ancora il Nordic nRF52 , quando c'è già l' nRF54 . Qui la storia è simile, ma con qualche freno in più. nRF52840 nRF54L15 In produzione dal 2018 2024 Processore Cortex-M4F, 64 MHz Cortex-M33, 128 MHz Memoria di programma 1 MB flash 1,5 MB (RRAM) RAM 256 KB 256 KB USB sì no L'nRF54L15 è più veloce e ha più memoria, ma per un nodo MeshCore ci sono tre ostacoli: Niente USB. Oggi un nodo nRF52 si aggiorna trascinando un file UF2 sul computer, o si collega via USB all'app. Sull'nRF54L15 serve un convertitore seriale o un programmatore SWD. La documentazione di ZephCore lo dice chiaro: niente UF2, si programma via SWD. Il software. Il firmware MeshCore…"
   },
   {
     "id": "blog/hardware-mesh-nel-passato--cosa-ci-portiamo-a-casa",
     "page": "Blog",
     "title": "Cosa ci portiamo a casa",
     "url": "https://meshcore-ita.github.io/blog/hardware-mesh-nel-passato/#cosa-ci-portiamo-a-casa",
-    "text": "Sì ai chip nuovi. Con il tetto di 500 mW ERP, la sensibilità in ricezione è una delle poche leve libere, e LR1110 e LR2021 ne danno 4–4,5 dB in più. Vale soprattutto per i repeater. Sì alle antenne con guadagno, per lo stesso motivo: aiutano in ricezione anche se in trasmissione vanno compensate abbassando la potenza. La galleria delle antenne serve proprio a questo. Cautela sui 2,4 GHz: il trucco dei 25 W non esiste in Europa. Resta interessante solo per collegamenti corti ad alta velocità. Nessuna fretta per l'nRF54: senza USB e senza il core Arduino costa più fatica di quanto renda, almeno finché il firmware non lo supporta bene. Da seguire : le modulazioni nuove dell'LR2021 (FLRC,…"
+    "text": "Sì ai chip nuovi. Con il tetto di 500 mW ERP, la sensibilità in ricezione è una delle poche leve libere, e LR1110 e LR2021 ne danno qualche dB in più: da 2,5 a 4 con il nostro preset. Vale soprattutto per i repeater. Sì alle antenne con guadagno, per lo stesso motivo: aiutano in ricezione anche se in trasmissione vanno compensate abbassando la potenza. La galleria delle antenne serve proprio a questo. No , per ora, ai 2,4 GHz per la portata: in Europa LoRa lì resta intorno ai 10 mW. Resta interessante solo per collegamenti corti ad alta velocità. Nessuna fretta per l'nRF54: senza USB e senza il core Arduino costa più fatica di quanto renda, almeno finché il firmware non lo supporta bene. Da…"
   },
   {
     "id": "blog/cactus-j-pole-fabrizio--il-problema-della-j-pole-sul-palo",
