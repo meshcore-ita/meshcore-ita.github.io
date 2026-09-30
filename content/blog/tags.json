@@ -19,6 +19,10 @@
     "label": "Risorse",
     "description": "Elenchi, raccolte e riferimenti per orientarsi nell'ecosistema MeshCore."
   },
+  "hardware": {
+    "label": "Hardware",
+    "description": "Chip radio, schede e moduli per MeshCore: cosa c'è dentro i nodi, cosa cambia fra una generazione e l'altra e cosa conviene comprare."
+  },
   "sito": {
     "label": "Sito",
     "description": "Novità del sito MeshCore ITA: nuove sezioni, funzioni e cambiamenti di struttura."
