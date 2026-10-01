@@ -1877,8 +1877,8 @@ dialog.search::backdrop {
 }
 
 .post-card__cta {
-  position: relative;
-  z-index: 1;
+  /* Decorativo: i click passano al link "stretched" del titolo sotto. */
+  pointer-events: none;
   font-family: var(--font-mono);
   font-size: .8rem;
   color: var(--accent);
