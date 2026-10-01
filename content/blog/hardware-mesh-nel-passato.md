@@ -6,6 +6,7 @@
   "h1": "L'hardware mesh vive nel passato?",
   "lede": "Un articolo americano chiede perché i nodi mesh usino ancora un chip del 2018 e propone di guardare ai 2,4 GHz. Abbiamo rifatto i conti con le regole che valgono in Italia.",
   "published": "2026-09-30",
+  "updated": "2026-10-01",
   "tags": ["hardware", "community"]
 }
 -->
@@ -130,6 +131,30 @@ Per una rete aperta a tutti non è una strada percorribile.
 Anche la banda "personal communication" a 1,9 GHz citata da Beala è una
 peculiarità americana: in Europa quella zona dello spettro è occupata dal DECT
 dei telefoni cordless.
+
+## E i 169 MHz?
+
+Fabrizio ci ha ricordato che in Europa esiste anche una banda più bassa:
+**169,400–169,475 MHz**, con lo stesso limite di **500 mW ERP** ma un duty
+cycle dell'**1%**. Lo prevede la stessa raccomandazione
+[ERC/REC 70-03](https://docdb.cept.org/download/4635), sulla base della
+decisione ECC/DEC/(05)02, e vale anche in Italia.
+
+Sulla carta è interessante. A 169 MHz si perdono circa 14 dB in meno che a
+869 MHz a parità di distanza, e il segnale aggira meglio gli ostacoli: è per
+questo che la usano i contatori del gas. In pratica i limiti sono pesanti:
+
+- **1% di duty cycle** vuol dire 36 secondi di trasmissione all'ora, dieci
+  volte meno che a 869,5 MHz. Un repeater che inoltra i messaggi degli altri
+  li finisce in fretta.
+- **75 kHz di banda**: ci sta un solo canale LoRa da 62,5 kHz, niente di più.
+- **Antenne grandi**: la lunghezza d'onda è di circa 1,77 m, quindi uno stilo
+  a quarto d'onda è lungo 44 cm e un dipolo 88 cm.
+- **Hardware**: l'SX1262 arriva fino a quella frequenza, ma le schede in
+  commercio sono adattate per 868 MHz. Servono moduli fatti apposta.
+
+Va bene per sensori e contatori che trasmettono poco, è troppo stretta per
+una rete mesh.
 
 ## E il microcontrollore?
 

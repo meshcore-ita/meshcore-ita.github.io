@@ -4,19 +4,19 @@
   <id>https://meshcore-ita.github.io/blog/tag/community/</id>
   <link rel="self" href="https://meshcore-ita.github.io/blog/tag/community/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/community/"/>
-  <updated>2026-09-30T00:00:00Z</updated>
+  <updated>2026-10-01T00:00:00Z</updated>
   <author><name>MeshCore ITA</name></author>
   <entry>
     <id>https://meshcore-ita.github.io/blog/hardware-mesh-nel-passato/</id>
     <title>Perché l'hardware mesh vive nel passato? La versione italiana</title>
     <link rel="alternate" href="https://meshcore-ita.github.io/blog/hardware-mesh-nel-passato/"/>
     <published>2026-09-30T00:00:00Z</published>
-    <updated>2026-09-30T00:00:00Z</updated>
+    <updated>2026-10-01T00:00:00Z</updated>
     <summary type="text">Un articolo americano chiede perché i nodi mesh usino ancora un chip del 2018 e propone di guardare ai 2,4 GHz. Abbiamo rifatto i conti con le regole che valgono in Italia.</summary>
     <category term="hardware" label="Hardware"/>
     <category term="community" label="Community"/>
     <content type="html">&lt;section class=&quot;section&quot;&gt;
-  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-30&quot;&gt;30 settembre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 8 min di lettura&lt;/p&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-09-30&quot;&gt;30 settembre 2026&lt;/time&gt; · aggiornato il 1 ottobre 2026 · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 9 min di lettura&lt;/p&gt;
   &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/hardware/&quot;&gt;Hardware&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
   &lt;div class=&quot;prose&quot;&gt;
 &lt;h2 id=&quot;da-dove-partiamo&quot;&gt;Da dove partiamo&lt;/h2&gt;
@@ -153,6 +153,27 @@ Per una rete aperta a tutti non è una strada percorribile.&lt;/p&gt;
 &lt;p&gt;Anche la banda &amp;quot;personal communication&amp;quot; a 1,9 GHz citata da Beala è una
 peculiarità americana: in Europa quella zona dello spettro è occupata dal DECT
 dei telefoni cordless.&lt;/p&gt;
+&lt;h2 id=&quot;e-i-169-mhz&quot;&gt;E i 169 MHz?&lt;/h2&gt;
+&lt;p&gt;Fabrizio ci ha ricordato che in Europa esiste anche una banda più bassa:
+&lt;strong&gt;169,400–169,475 MHz&lt;/strong&gt;, con lo stesso limite di &lt;strong&gt;500 mW ERP&lt;/strong&gt; ma un duty
+cycle dell&amp;#39;&lt;strong&gt;1%&lt;/strong&gt;. Lo prevede la stessa raccomandazione
+&lt;a href=&quot;https://docdb.cept.org/download/4635&quot;&gt;ERC/REC 70-03&lt;/a&gt;, sulla base della
+decisione ECC/DEC/(05)02, e vale anche in Italia.&lt;/p&gt;
+&lt;p&gt;Sulla carta è interessante. A 169 MHz si perdono circa 14 dB in meno che a
+869 MHz a parità di distanza, e il segnale aggira meglio gli ostacoli: è per
+questo che la usano i contatori del gas. In pratica i limiti sono pesanti:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;1% di duty cycle&lt;/strong&gt; vuol dire 36 secondi di trasmissione all&amp;#39;ora, dieci
+volte meno che a 869,5 MHz. Un repeater che inoltra i messaggi degli altri
+li finisce in fretta.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;75 kHz di banda&lt;/strong&gt;: ci sta un solo canale LoRa da 62,5 kHz, niente di più.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Antenne grandi&lt;/strong&gt;: la lunghezza d&amp;#39;onda è di circa 1,77 m, quindi uno stilo
+a quarto d&amp;#39;onda è lungo 44 cm e un dipolo 88 cm.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hardware&lt;/strong&gt;: l&amp;#39;SX1262 arriva fino a quella frequenza, ma le schede in
+commercio sono adattate per 868 MHz. Servono moduli fatti apposta.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Va bene per sensori e contatori che trasmettono poco, è troppo stretta per
+una rete mesh.&lt;/p&gt;
 &lt;h2 id=&quot;e-il-microcontrollore&quot;&gt;E il microcontrollore?&lt;/h2&gt;
 &lt;p&gt;Beala chiude con una battuta: usiamo ancora il Nordic &lt;strong&gt;nRF52&lt;/strong&gt;, quando c&amp;#39;è
 già l&amp;#39;&lt;strong&gt;nRF54&lt;/strong&gt;. Qui la storia è simile, ma con qualche freno in più.&lt;/p&gt;

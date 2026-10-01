@@ -43,7 +43,7 @@
       "headline": "Perché l'hardware mesh vive nel passato? La versione italiana",
       "description": "Alex Beal si chiede perché le schede mesh usino ancora l'SX1262 del 2018 e l'nRF52, e propone i 2,4 GHz. Rifacciamo i conti con le regole europee: i chip LoRa nuovi convengono, i 2,4 GHz no, l'nRF54 può aspettare.",
       "datePublished": "2026-09-30",
-      "dateModified": "2026-09-30",
+      "dateModified": "2026-10-01",
       "author": {
         "@type": "Organization",
         "name": "MeshCore ITA"
@@ -51,8 +51,8 @@
       "inLanguage": "it",
       "mainEntityOfPage": "https://meshcore-ita.github.io/blog/hardware-mesh-nel-passato/",
       "keywords": "Hardware, Community",
-      "wordCount": 1499,
-      "timeRequired": "PT8M",
+      "wordCount": 1708,
+      "timeRequired": "PT9M",
       "articleSection": "Blog"
     },
     {
@@ -125,12 +125,12 @@
   </section>
 
 <section class="section">
-  <p class="post-meta"><time datetime="2026-09-30">30 settembre 2026</time> · <span class="post-meta__author">MeshCore ITA</span> · 8 min di lettura</p>
+  <p class="post-meta"><time datetime="2026-09-30">30 settembre 2026</time> · aggiornato il 1 ottobre 2026 · <span class="post-meta__author">MeshCore ITA</span> · 9 min di lettura</p>
   <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/hardware/">Hardware</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
 
 <nav class="toc" aria-label="In questo articolo">
   <p class="toc__label">In questo articolo</p>
-  <ol class="toc__list"><li><a href="#da-dove-partiamo">Da dove partiamo</a></li><li><a href="#i-chip-nuovi-sentono-di-piu">I chip nuovi sentono di più</a></li><li><a href="#in-italia-la-sensibilita-conta-di-piu">In Italia la sensibilità conta di più</a></li><li><a href="#i-2-4-ghz-il-trucco-americano">I 2,4 GHz: il trucco americano</a></li><li><a href="#da-noi-il-trucco-non-c-e">Da noi il trucco non c'è</a></li><li><a href="#i-radioamatori">I radioamatori?</a></li><li><a href="#e-il-microcontrollore">E il microcontrollore?</a></li><li><a href="#cosa-ci-portiamo-a-casa">Cosa ci portiamo a casa</a></li></ol>
+  <ol class="toc__list"><li><a href="#da-dove-partiamo">Da dove partiamo</a></li><li><a href="#i-chip-nuovi-sentono-di-piu">I chip nuovi sentono di più</a></li><li><a href="#in-italia-la-sensibilita-conta-di-piu">In Italia la sensibilità conta di più</a></li><li><a href="#i-2-4-ghz-il-trucco-americano">I 2,4 GHz: il trucco americano</a></li><li><a href="#da-noi-il-trucco-non-c-e">Da noi il trucco non c'è</a></li><li><a href="#i-radioamatori">I radioamatori?</a></li><li><a href="#e-i-169-mhz">E i 169 MHz?</a></li><li><a href="#e-il-microcontrollore">E il microcontrollore?</a></li><li><a href="#cosa-ci-portiamo-a-casa">Cosa ci portiamo a casa</a></li></ol>
 </nav>
   <div class="prose">
 <h2 id="da-dove-partiamo">Da dove partiamo</h2>
@@ -267,6 +267,27 @@ Per una rete aperta a tutti non è una strada percorribile.</p>
 <p>Anche la banda &quot;personal communication&quot; a 1,9 GHz citata da Beala è una
 peculiarità americana: in Europa quella zona dello spettro è occupata dal DECT
 dei telefoni cordless.</p>
+<h2 id="e-i-169-mhz">E i 169 MHz?</h2>
+<p>Fabrizio ci ha ricordato che in Europa esiste anche una banda più bassa:
+<strong>169,400–169,475 MHz</strong>, con lo stesso limite di <strong>500 mW ERP</strong> ma un duty
+cycle dell&#39;<strong>1%</strong>. Lo prevede la stessa raccomandazione
+<a href="https://docdb.cept.org/download/4635">ERC/REC 70-03</a>, sulla base della
+decisione ECC/DEC/(05)02, e vale anche in Italia.</p>
+<p>Sulla carta è interessante. A 169 MHz si perdono circa 14 dB in meno che a
+869 MHz a parità di distanza, e il segnale aggira meglio gli ostacoli: è per
+questo che la usano i contatori del gas. In pratica i limiti sono pesanti:</p>
+<ul>
+<li><strong>1% di duty cycle</strong> vuol dire 36 secondi di trasmissione all&#39;ora, dieci
+volte meno che a 869,5 MHz. Un repeater che inoltra i messaggi degli altri
+li finisce in fretta.</li>
+<li><strong>75 kHz di banda</strong>: ci sta un solo canale LoRa da 62,5 kHz, niente di più.</li>
+<li><strong>Antenne grandi</strong>: la lunghezza d&#39;onda è di circa 1,77 m, quindi uno stilo
+a quarto d&#39;onda è lungo 44 cm e un dipolo 88 cm.</li>
+<li><strong>Hardware</strong>: l&#39;SX1262 arriva fino a quella frequenza, ma le schede in
+commercio sono adattate per 868 MHz. Servono moduli fatti apposta.</li>
+</ul>
+<p>Va bene per sensori e contatori che trasmettono poco, è troppo stretta per
+una rete mesh.</p>
 <h2 id="e-il-microcontrollore">E il microcontrollore?</h2>
 <p>Beala chiude con una battuta: usiamo ancora il Nordic <strong>nRF52</strong>, quando c&#39;è
 già l&#39;<strong>nRF54</strong>. Qui la storia è simile, ma con qualche freno in più.</p>
@@ -463,7 +484,7 @@ questi conti.</p>
     </div>
     <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
     <p class="site-footer__note">Contenuti sotto licenza CC BY 4.0, codice del sito sotto licenza MIT.</p>
-    <p class="foot__meta">Aggiornato il 30 settembre 2026</p>
+    <p class="foot__meta">Aggiornato il 1 ottobre 2026</p>
     <p class="foot__meta">Trovato un errore o vuoi aggiungere qualcosa? <a class="link" href="https://github.com/meshcore-ita/meshcore-ita.github.io/edit/main/content/blog/hardware-mesh-nel-passato.md" target="_blank" rel="noopener">Modifica questa pagina su GitHub<span class="ext-arrow">↗</span></a> — la modifica diventa una pull request.</p>
     <ul class="site-footer__links">
       <li><a href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Telegram<span class="ext-arrow">↗</span></a></li>
