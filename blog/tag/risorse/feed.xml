@@ -4,8 +4,163 @@
   <id>https://meshcore-ita.github.io/blog/tag/risorse/</id>
   <link rel="self" href="https://meshcore-ita.github.io/blog/tag/risorse/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/risorse/"/>
-  <updated>2026-09-23T00:00:00Z</updated>
+  <updated>2026-10-06T00:00:00Z</updated>
   <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/</id>
+    <title>Da dove partire tra le 470 risorse di awesome-meshcore</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/"/>
+    <published>2026-10-06T00:00:00Z</published>
+    <updated>2026-10-06T00:00:00Z</updated>
+    <summary type="text">L'elenco ha superato le 470 voci. Abbiamo scelto quelle che servono davvero, divise per quello che vuoi fare: usare un nodo, gestire un repeater, pianificare una tratta o scrivere codice.</summary>
+    <category term="risorse" label="Risorse"/>
+    <category term="software" label="Software"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-10-06&quot;&gt;6 ottobre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 6 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/risorse/&quot;&gt;Risorse&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/software/&quot;&gt;Software&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;perche-un-percorso&quot;&gt;Perché un percorso&lt;/h2&gt;
+&lt;p&gt;Quando abbiamo &lt;a href=&quot;../awesome-meshcore/&quot;&gt;presentato awesome-meshcore&lt;/a&gt; le voci
+erano 160. Oggi sono più di 470. Un elenco così lungo risponde bene alla
+domanda «esiste uno strumento per X?», ma non aiuta chi non sa ancora quale
+sia la X.&lt;/p&gt;
+&lt;p&gt;Qui sotto trovi una selezione divisa per profilo. Per ogni progetto abbiamo
+controllato che il repository sia vivo: salvo dove indicato, tutti hanno
+ricevuto commit nelle ultime settimane. Le stelle GitHub sono quelle di
+oggi, 6 ottobre 2026, e servono solo a dare un&amp;#39;idea della diffusione.&lt;/p&gt;
+&lt;h2 id=&quot;hai-appena-comprato-un-nodo&quot;&gt;Hai appena comprato un nodo&lt;/h2&gt;
+&lt;p&gt;Prima di tutto la nostra &lt;a href=&quot;../../guida/&quot;&gt;guida&lt;/a&gt; e il
+&lt;a href=&quot;../../preset-radio/&quot;&gt;preset radio italiano&lt;/a&gt;: senza il preset giusto il nodo
+funziona, ma non sente nessuno.&lt;/p&gt;
+&lt;p&gt;Per il firmware basta il &lt;a href=&quot;https://flasher.meshcore.io/&quot;&gt;web flasher ufficiale&lt;/a&gt;,
+dal browser. Per le app:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;l&amp;#39;&lt;strong&gt;app ufficiale&lt;/strong&gt; è gratuita ma closed source, su Android, iOS e nel
+browser su &lt;a href=&quot;https://app.meshcore.nz/&quot;&gt;app.meshcore.nz&lt;/a&gt;. È quella che
+descriviamo nella pagina &lt;a href=&quot;../../app/&quot;&gt;MeshCore ogni giorno&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/zjs81/meshcore-open&quot;&gt;MeshCore Open&lt;/a&gt; è l&amp;#39;alternativa
+open source più diffusa (licenza MIT, circa 630 stelle): un client Flutter
+per Android, iOS e desktop;&lt;/li&gt;
+&lt;li&gt;su iPhone, iPad e Mac c&amp;#39;è anche
+&lt;a href=&quot;https://github.com/Avi0n/MeshCoreOne&quot;&gt;MeshCore One&lt;/a&gt;, nativo in Swift e
+sotto GPL-3.0.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se preferisci un video,
+&lt;a href=&quot;https://www.youtube.com/watch?v=t1qne8uJBAc&quot;&gt;&lt;em&gt;How to get started with MeshCore&lt;/em&gt;&lt;/a&gt;
+di Andy Kirby fa vedere tutto il primo setup. È in inglese: i parametri
+radio, da noi, vanno presi dalla pagina del preset.&lt;/p&gt;
+&lt;h2 id=&quot;gestisci-un-repeater&quot;&gt;Gestisci un repeater&lt;/h2&gt;
+&lt;p&gt;Per la configurazione via USB c&amp;#39;è lo strumento ufficiale
+&lt;a href=&quot;https://config.meshcore.io/&quot;&gt;config.meshcore.io&lt;/a&gt;, che evita di scrivere a
+mano i comandi della &lt;a href=&quot;../../comandi/&quot;&gt;CLI&lt;/a&gt;. Per aggiornare un repeater senza
+salire sul tetto, la &lt;a href=&quot;https://github.com/Mraanderson/meshcore-ota&quot;&gt;guida OTA di Mraanderson&lt;/a&gt;
+spiega passo per passo l&amp;#39;aggiornamento via Bluetooth di repeater e room
+server.&lt;/p&gt;
+&lt;p&gt;Quando il repeater è davvero irraggiungibile c&amp;#39;è
+&lt;a href=&quot;https://github.com/recrof/drone_meshcore_updater&quot;&gt;Drone MeshCore Updater&lt;/a&gt;:
+un firmware Zephyr per le schede Seeed XIAO che si porta il pacchetto di
+aggiornamento fino al repeater, in volo su un drone o a piedi, e lo flasha
+via BLE DFU. È un progetto giovane, ma risolve un problema che chi ha un
+nodo su un traliccio conosce bene.&lt;/p&gt;
+&lt;p&gt;Per vedere cosa passa davvero sulla rete servono un osservatore e una
+dashboard:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Kpa-clawbot/CoreScope&quot;&gt;CoreScope&lt;/a&gt; (GPL-3.0) riceve i
+pacchetti via MQTT e mostra mappa, chat dei canali, replay e statistiche
+per nodo;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://meshmonitor.org/&quot;&gt;MeshMonitor&lt;/a&gt; (BSD-3-Clause, circa 680 stelle) è
+una dashboard self-hosted che segue sia MeshCore sia Meshtastic;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/yellowcooln/meshcore-health-check&quot;&gt;Mesh Health Check&lt;/a&gt;
+manda messaggi di prova e misura quanti osservatori MQTT li ricevono: è il
+modo più diretto per capire se un messaggio arriva davvero, invece di
+fidarsi della mappa.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A proposito di mappa: la &lt;a href=&quot;https://map.meshcore.io/&quot;&gt;Internet Map&lt;/a&gt; mostra
+solo i nodi che qualcuno ha caricato, non la copertura. Ne parliamo nella
+pagina sulla &lt;a href=&quot;../../mappa-copertura/&quot;&gt;mappa pubblica&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;vuoi-pianificare-una-tratta&quot;&gt;Vuoi pianificare una tratta&lt;/h2&gt;
+&lt;p&gt;La teoria è nella pagina su &lt;a href=&quot;../../link-budget/&quot;&gt;portata e link budget&lt;/a&gt;. Per
+i calcoli sul terreno vero:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://meshkit.app/&quot;&gt;MeshKit&lt;/a&gt; lavora nel browser: profilo del terreno,
+linea di vista e zona di Fresnel fra due punti;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/PapaSierra555/MeshCommunityPlanner&quot;&gt;Mesh Community Planner&lt;/a&gt;
+è un&amp;#39;applicazione desktop che, oltre alla propagazione, aiuta a scegliere
+l&amp;#39;hardware e produce la distinta dei materiali. L&amp;#39;ultimo commit è di
+giugno;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/MeshBench/meshbench&quot;&gt;MeshBench&lt;/a&gt; è il più ambizioso:
+simula una rete facendo girare il firmware vero su un canale LoRa
+simulato a livello di campione, con il terreno reale. È nuovo e ha ancora
+pochi utenti, ma è l&amp;#39;unico che risponde alla domanda «cosa succede alla
+rete se aggiungo questo repeater?».&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Prima di toccare la configurazione delle region, leggi
+&lt;a href=&quot;https://kiekr.app/why-regions&quot;&gt;&lt;em&gt;Why regions?&lt;/em&gt;&lt;/a&gt; di KiekR: in poche righe
+spiega perché, con il limite di duty cycle europeo, una rete grande senza
+region si satura.&lt;/p&gt;
+&lt;h2 id=&quot;scrivi-codice&quot;&gt;Scrivi codice&lt;/h2&gt;
+&lt;p&gt;Le tre basi ufficiali, tutte sotto licenza MIT e mantenute dal progetto:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/meshcore-dev/meshcore_py&quot;&gt;meshcore_py&lt;/a&gt;, i binding
+Python su seriale, BLE e TCP;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/meshcore-dev/meshcore.js&quot;&gt;meshcore.js&lt;/a&gt;, la libreria
+JavaScript;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/meshcore-dev/meshcore-cli&quot;&gt;meshcore-cli&lt;/a&gt;, la riga di
+comando, utile anche solo per fare script.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sopra queste ci sono l&amp;#39;integrazione ufficiale per
+&lt;a href=&quot;https://github.com/meshcore-dev/meshcore-ha&quot;&gt;Home Assistant&lt;/a&gt;, installabile
+da HACS, e decine di bot e bridge. Uno è anche veneto:
+&lt;a href=&quot;https://github.com/atomozero/MeshBBS&quot;&gt;MeshBBS&lt;/a&gt; di Andrea Bernardi, una BBS
+con bacheche pubbliche e messaggi privati raggiungibile via MeshCore.&lt;/p&gt;
+&lt;p&gt;Per studiare il protocollo:
+&lt;a href=&quot;https://github.com/michaelhart/meshcore-decoder&quot;&gt;meshcore-decoder&lt;/a&gt;
+decodifica i pacchetti in TypeScript, il
+&lt;a href=&quot;https://github.com/aaronb/wireshark-meshcore&quot;&gt;dissector per Wireshark&lt;/a&gt; li
+mostra come qualsiasi altro protocollo di rete, e
+&lt;a href=&quot;https://github.com/matthewdgreen/meshcore_sim&quot;&gt;meshcore_sim&lt;/a&gt; simula la
+logica di instradamento del firmware. Questi tre sono fermi da marzo: vanno
+bene per capire, meno per seguire le ultime versioni.&lt;/p&gt;
+&lt;h2 id=&quot;cerchi-un-firmware-diverso&quot;&gt;Cerchi un firmware diverso&lt;/h2&gt;
+&lt;p&gt;L&amp;#39;elenco ha più di 40 fork. Tre esempi di direzioni molto diverse:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/dt267/MeshCore-Low-Power-Firmware&quot;&gt;MeshCore Low-Power&lt;/a&gt;
+per Heltec V3 e V4: sonno profondo e BLE, USB e Wi-Fi nella stessa immagine,
+pensato per più giorni lontano da una presa;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/ALLFATHER-BV/wadamesh&quot;&gt;Wadamesh&lt;/a&gt;, interfaccia touch per
+T-Deck e Heltec V4 TFT;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/liquidraver/ZephCore&quot;&gt;ZephCore&lt;/a&gt;, che riscrive MeshCore
+da Arduino al sistema operativo Zephyr e supporta già i chip LoRa di nuova
+generazione di cui abbiamo parlato nell&amp;#39;articolo
+&lt;a href=&quot;../hardware-mesh-nel-passato/&quot;&gt;sull&amp;#39;hardware mesh&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Un fork non è il firmware ufficiale: quando qualcosa non va, la prima
+domanda nel gruppo sarà «succede anche con il firmware ufficiale?». Per i
+repeater sulla rete italiana consigliamo il firmware ufficiale.&lt;/p&gt;
+&lt;h2 id=&quot;una-nota-sulla-cifratura&quot;&gt;Una nota sulla cifratura&lt;/h2&gt;
+&lt;p&gt;Fra le risorse c&amp;#39;è anche una issue del repository ufficiale, la
+&lt;a href=&quot;https://github.com/meshcore-dev/MeshCore/issues/259&quot;&gt;#259&lt;/a&gt;, aperta e con
+oltre 90 commenti. Vale la pena conoscerla.&lt;/p&gt;
+&lt;p&gt;Nella nostra &lt;a href=&quot;../../faq/&quot;&gt;FAQ&lt;/a&gt; scriviamo che i messaggi sono cifrati con
+AES-128, ed è vero. Il codice del firmware però mostra due dettagli che la
+FAQ non dice: AES è usato in &lt;strong&gt;modalità ECB&lt;/strong&gt;, cioè blocco per blocco, e
+l&amp;#39;autenticazione HMAC-SHA256 è troncata a &lt;strong&gt;2 byte&lt;/strong&gt;. In ECB due blocchi di
+testo uguali producono blocchi cifrati uguali, e un MAC di 2 byte protegge
+poco contro chi prova a modificare i pacchetti. Nella issue si discute una
+versione 2 della cifratura che sostituisca questa.&lt;/p&gt;
+&lt;p&gt;In pratica: MeshCore va benissimo per comunicare quando manca la rete, ma
+non è uno strumento per proteggere segreti. I canali pubblici e quelli con
+un nome tipo hashtag hanno chiavi note o ricavabili, e chiunque le conosca
+può leggerli. Per i messaggi diretti il contenuto resta privato rispetto ai
+repeater, ma non con le garanzie di un&amp;#39;app come Signal.&lt;/p&gt;
+&lt;h2 id=&quot;manca-qualcosa&quot;&gt;Manca qualcosa?&lt;/h2&gt;
+&lt;p&gt;L&amp;#39;elenco cresce con le segnalazioni. Apri una issue o una pull request sul
+&lt;a href=&quot;https://github.com/meshcore-ita/awesome-meshcore&quot;&gt;repository&lt;/a&gt;, oppure
+scrivici nel gruppo Telegram &lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
   <entry>
     <id>https://meshcore-ita.github.io/blog/mesh-america-awesome-meshcore/</id>
     <title>Mesh America parla di Awesome MeshCore</title>

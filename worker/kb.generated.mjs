@@ -1427,6 +1427,62 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/percorso-awesome-meshcore--perche-un-percorso",
+    "page": "Blog",
+    "title": "Perché un percorso",
+    "url": "https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/#perche-un-percorso",
+    "text": "Quando abbiamo presentato awesome-meshcore le voci erano 160. Oggi sono più di 470. Un elenco così lungo risponde bene alla domanda «esiste uno strumento per X?», ma non aiuta chi non sa ancora quale sia la X. Qui sotto trovi una selezione divisa per profilo. Per ogni progetto abbiamo controllato che il repository sia vivo: salvo dove indicato, tutti hanno ricevuto commit nelle ultime settimane. Le stelle GitHub sono quelle di oggi, 6 ottobre 2026, e servono solo a dare un'idea della diffusione."
+  },
+  {
+    "id": "blog/percorso-awesome-meshcore--hai-appena-comprato-un-nodo",
+    "page": "Blog",
+    "title": "Hai appena comprato un nodo",
+    "url": "https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/#hai-appena-comprato-un-nodo",
+    "text": "Prima di tutto la nostra guida e il preset radio italiano : senza il preset giusto il nodo funziona, ma non sente nessuno. Per il firmware basta il web flasher ufficiale , dal browser. Per le app: l' app ufficiale è gratuita ma closed source, su Android, iOS e nel browser su app.meshcore.nz . È quella che descriviamo nella pagina MeshCore ogni giorno ; MeshCore Open è l'alternativa open source più diffusa (licenza MIT, circa 630 stelle): un client Flutter per Android, iOS e desktop; su iPhone, iPad e Mac c'è anche MeshCore One , nativo in Swift e sotto GPL-3.0. Se preferisci un video, How to get started with MeshCore di Andy Kirby fa vedere tutto il primo setup. È in inglese: i parametri…"
+  },
+  {
+    "id": "blog/percorso-awesome-meshcore--gestisci-un-repeater",
+    "page": "Blog",
+    "title": "Gestisci un repeater",
+    "url": "https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/#gestisci-un-repeater",
+    "text": "Per la configurazione via USB c'è lo strumento ufficiale config.meshcore.io , che evita di scrivere a mano i comandi della CLI . Per aggiornare un repeater senza salire sul tetto, la guida OTA di Mraanderson spiega passo per passo l'aggiornamento via Bluetooth di repeater e room server. Quando il repeater è davvero irraggiungibile c'è Drone MeshCore Updater : un firmware Zephyr per le schede Seeed XIAO che si porta il pacchetto di aggiornamento fino al repeater, in volo su un drone o a piedi, e lo flasha via BLE DFU. È un progetto giovane, ma risolve un problema che chi ha un nodo su un traliccio conosce bene. Per vedere cosa passa davvero sulla rete servono un osservatore e una dashboard:…"
+  },
+  {
+    "id": "blog/percorso-awesome-meshcore--vuoi-pianificare-una-tratta",
+    "page": "Blog",
+    "title": "Vuoi pianificare una tratta",
+    "url": "https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/#vuoi-pianificare-una-tratta",
+    "text": "La teoria è nella pagina su portata e link budget . Per i calcoli sul terreno vero: MeshKit lavora nel browser: profilo del terreno, linea di vista e zona di Fresnel fra due punti; Mesh Community Planner è un'applicazione desktop che, oltre alla propagazione, aiuta a scegliere l'hardware e produce la distinta dei materiali. L'ultimo commit è di giugno; MeshBench è il più ambizioso: simula una rete facendo girare il firmware vero su un canale LoRa simulato a livello di campione, con il terreno reale. È nuovo e ha ancora pochi utenti, ma è l'unico che risponde alla domanda «cosa succede alla rete se aggiungo questo repeater?». Prima di toccare la configurazione delle region, leggi Why…"
+  },
+  {
+    "id": "blog/percorso-awesome-meshcore--scrivi-codice",
+    "page": "Blog",
+    "title": "Scrivi codice",
+    "url": "https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/#scrivi-codice",
+    "text": "Le tre basi ufficiali, tutte sotto licenza MIT e mantenute dal progetto: meshcore_py , i binding Python su seriale, BLE e TCP; meshcore.js , la libreria JavaScript; meshcore-cli , la riga di comando, utile anche solo per fare script. Sopra queste ci sono l'integrazione ufficiale per Home Assistant , installabile da HACS, e decine di bot e bridge. Uno è anche veneto: MeshBBS di Andrea Bernardi, una BBS con bacheche pubbliche e messaggi privati raggiungibile via MeshCore. Per studiare il protocollo: meshcore-decoder decodifica i pacchetti in TypeScript, il dissector per Wireshark li mostra come qualsiasi altro protocollo di rete, e meshcore_sim simula la logica di instradamento del firmware.…"
+  },
+  {
+    "id": "blog/percorso-awesome-meshcore--cerchi-un-firmware-diverso",
+    "page": "Blog",
+    "title": "Cerchi un firmware diverso",
+    "url": "https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/#cerchi-un-firmware-diverso",
+    "text": "L'elenco ha più di 40 fork. Tre esempi di direzioni molto diverse: MeshCore Low-Power per Heltec V3 e V4: sonno profondo e BLE, USB e Wi-Fi nella stessa immagine, pensato per più giorni lontano da una presa; Wadamesh , interfaccia touch per T-Deck e Heltec V4 TFT; ZephCore , che riscrive MeshCore da Arduino al sistema operativo Zephyr e supporta già i chip LoRa di nuova generazione di cui abbiamo parlato nell'articolo sull'hardware mesh . Un fork non è il firmware ufficiale: quando qualcosa non va, la prima domanda nel gruppo sarà «succede anche con il firmware ufficiale?». Per i repeater sulla rete italiana consigliamo il firmware ufficiale."
+  },
+  {
+    "id": "blog/percorso-awesome-meshcore--una-nota-sulla-cifratura",
+    "page": "Blog",
+    "title": "Una nota sulla cifratura",
+    "url": "https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/#una-nota-sulla-cifratura",
+    "text": "Fra le risorse c'è anche una issue del repository ufficiale, la #259 , aperta e con oltre 90 commenti. Vale la pena conoscerla. Nella nostra FAQ scriviamo che i messaggi sono cifrati con AES-128, ed è vero. Il codice del firmware però mostra due dettagli che la FAQ non dice: AES è usato in modalità ECB , cioè blocco per blocco, e l'autenticazione HMAC-SHA256 è troncata a 2 byte . In ECB due blocchi di testo uguali producono blocchi cifrati uguali, e un MAC di 2 byte protegge poco contro chi prova a modificare i pacchetti. Nella issue si discute una versione 2 della cifratura che sostituisca questa. In pratica: MeshCore va benissimo per comunicare quando manca la rete, ma non è uno strumento…"
+  },
+  {
+    "id": "blog/percorso-awesome-meshcore--manca-qualcosa",
+    "page": "Blog",
+    "title": "Manca qualcosa?",
+    "url": "https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/#manca-qualcosa",
+    "text": "L'elenco cresce con le segnalazioni. Apri una issue o una pull request sul repository , oppure scrivici nel gruppo Telegram MeshCore ITA ."
+  },
+  {
     "id": "blog/hardware-mesh-nel-passato--da-dove-partiamo",
     "page": "Blog",
     "title": "Da dove partiamo",
