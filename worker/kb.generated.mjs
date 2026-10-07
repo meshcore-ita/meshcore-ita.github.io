@@ -465,7 +465,7 @@ export const KB_CHUNKS = [
     "page": "FAQ",
     "title": "Ogni quanto un nodo manda il proprio advert?",
     "url": "https://meshcore-ita.github.io/faq/#ogni-quanto-un-nodo-manda-il-proprio-advert",
-    "text": "Ci sono due timer distinti. Il flood advert ( flood.advert.interval ) è quello dei repeater/room server, di default ogni 12 ore, regolabile con set flood.advert.interval <ore> (3-168). Esiste anche un advert a zero hop ( advert.interval ), non rilanciato dagli altri nodi, disattivato di default e regolabile in minuti (60-240) quando abilitato. Un companion, invece, si annuncia solo quando l'utente lo richiede esplicitamente dall'app o dal client web: non c'è un annuncio periodico automatico lato client."
+    "text": "Ci sono due timer distinti. Il flood advert ( flood.advert.interval ) è quello dei repeater/room server, di default ogni 47 ore dal firmware 1.16 (12 ore nelle versioni precedenti; un nodo aggiornato mantiene il valore che aveva), regolabile con set flood.advert.interval <ore> (3-168). Esiste anche un advert a zero hop ( advert.interval ), non rilanciato dagli altri nodi, disattivato di default e regolabile in minuti (60-240) quando abilitato. Un companion, invece, si annuncia solo quando l'utente lo richiede esplicitamente dall'app o dal client web: non c'è un annuncio periodico automatico lato client."
   },
   {
     "id": "faq--il-preset-radio-e-obbligatorio",
@@ -556,7 +556,7 @@ export const KB_CHUNKS = [
     "page": "Confronti",
     "title": "Due filosofie di routing diverse",
     "url": "https://meshcore-ita.github.io/meshcore-vs-meshtastic/#due-filosofie-di-routing-diverse",
-    "text": "Entrambi i sistemi risolvono lo stesso problema — far arrivare un messaggio su una rete LoRa senza infrastruttura — ma con meccanismi diversi. In MeshCore gli advert e i messaggi di canale viaggiano sempre in flood: un repeater li ritrasmette a chiunque sia in ascolto, con un annuncio periodico predefinito ogni 12 ore (regolabile con set flood.advert.interval <ore> ). I messaggi privati, invece, usano un meccanismo diverso: il primo invio raggiunge il destinatario in flood, ma la conferma di consegna che torna al mittente porta con sé l'elenco dei repeater attraversati. Da quel momento il mittente incorpora quel percorso nei pacchetti successivi, e solo i repeater che corrispondono al…"
+    "text": "Entrambi i sistemi risolvono lo stesso problema — far arrivare un messaggio su una rete LoRa senza infrastruttura — ma con meccanismi diversi. In MeshCore gli advert e i messaggi di canale viaggiano sempre in flood: un repeater li ritrasmette a chiunque sia in ascolto, con un annuncio periodico predefinito ogni 47 ore dal firmware 1.16, 12 ore nelle versioni precedenti (regolabile con set flood.advert.interval <ore> ). I messaggi privati, invece, usano un meccanismo diverso: il primo invio raggiunge il destinatario in flood, ma la conferma di consegna che torna al mittente porta con sé l'elenco dei repeater attraversati. Da quel momento il mittente incorpora quel percorso nei pacchetti…"
   },
   {
     "id": "meshcore-vs-meshtastic--meshcore-vs-meshtastic-punto-per-punto",
@@ -682,7 +682,7 @@ export const KB_CHUNKS = [
     "page": "Glossario",
     "title": "Hop e advert",
     "url": "https://meshcore-ita.github.io/glossario/#hop-e-advert",
-    "text": "Un hop è ogni passaggio di un pacchetto attraverso un repeater: il flood generico ha un limite interno di 64 hop, ma gli advert dei repeater/room server non vengono rilanciati oltre 8 hop, e con path hash multi-byte il tetto scende a 32 o 21 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 12 ore), un companion solo su richiesta esplicita dell'utente o con il comando advert ."
+    "text": "Un hop è ogni passaggio di un pacchetto attraverso un repeater: il flood generico ha un limite interno di 64 hop, ma gli advert dei repeater/room server non vengono rilanciati oltre 8 hop, e con path hash multi-byte il tetto scende a 32 o 21 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 47 ore dal firmware 1.16, 12 ore nelle versioni precedenti), un companion solo su richiesta esplicita dell'utente o con il comando advert ."
   },
   {
     "id": "glossario--nodo-repeater-room-server-companion-sensor",

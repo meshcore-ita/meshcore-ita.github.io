@@ -137,7 +137,7 @@
         {
           "@type": "DefinedTerm",
           "name": "Advert",
-          "description": "Pacchetto con cui un nodo annuncia la propria presenza e identità alla mesh: periodico sui repeater e sui room server (default ogni 12 ore), inviato su richiesta dell'utente sui companion."
+          "description": "Pacchetto con cui un nodo annuncia la propria presenza e identità alla mesh: periodico sui repeater e sui room server (default ogni 47 ore dal firmware 1.16, 12 ore nelle versioni precedenti), inviato su richiesta dell'utente sui companion."
         },
         {
           "@type": "DefinedTerm",
@@ -240,7 +240,7 @@
           "description": "Codifica del percorso appreso in un pacchetto: 1, 2 o 3 byte per hop (path.hash.mode 0/1/2), che riduce il limite massimo di hop rispettivamente a 64, 32 o 21."
         }
       ],
-      "dateModified": "2026-09-10"
+      "dateModified": "2026-10-07"
     },
     {
       "@type": "BreadcrumbList",
@@ -338,7 +338,7 @@
     <h3 id="mesh-flood-e-path-discovery">Mesh, flood e path discovery</h3>
     <p>La mesh è la topologia in cui i nodi si scambiano e ripetono pacchetti tra loro senza infrastruttura centrale. Il flood è la modalità con cui un pacchetto viene ritrasmesso verso tutti i vicini, usata da MeshCore per advert e messaggi di canale. Il path discovery è invece il meccanismo con cui MeshCore scopre un percorso diretto tra due nodi per i messaggi privati, evitando di inondare l'intera rete.</p>
     <h3 id="hop-e-advert">Hop e advert</h3>
-    <p>Un hop è ogni passaggio di un pacchetto attraverso un repeater: il flood generico ha un limite interno di 64 hop, ma gli advert dei repeater/room server non vengono rilanciati oltre 8 hop, e con path hash multi-byte il tetto scende a 32 o 21 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 12 ore), un companion solo su richiesta esplicita dell'utente o con il comando <code>advert</code>.</p>
+    <p>Un hop è ogni passaggio di un pacchetto attraverso un repeater: il flood generico ha un limite interno di 64 hop, ma gli advert dei repeater/room server non vengono rilanciati oltre 8 hop, e con path hash multi-byte il tetto scende a 32 o 21 hop. L'advert è il pacchetto con cui un nodo annuncia la propria presenza e identità: un repeater o un room server lo invia periodicamente (default ogni 47 ore dal firmware 1.16, 12 ore nelle versioni precedenti), un companion solo su richiesta esplicita dell'utente o con il comando <code>advert</code>.</p>
     <h3 id="nodo-repeater-room-server-companion-sensor">Nodo, repeater, room server, companion, sensor</h3>
     <p>Nodo è il termine generico per qualsiasi dispositivo che esegue il firmware MeshCore. Un repeater estende la copertura inoltrando i pacchetti sui percorsi appresi. Un room server funziona come una bacheca condivisa, conservando fino a 32 messaggi non letti per ogni utente. Un companion è collegato via BLE o USB a un'app o a un client web e non ripete i pacchetti altrui. Un sensor trasmette telemetria o payload personalizzati sulla mesh. I dettagli su hardware e configurazione di ciascun ruolo sono nella <a class="link" href="../guida/">guida passo passo a MeshCore in italiano</a>.</p>
     <h3 id="routing-ibrido-e-path-hash">Routing ibrido e path hash</h3>
@@ -448,7 +448,7 @@
     </div>
     <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
     <p class="site-footer__note">Contenuti sotto licenza CC BY 4.0, codice del sito sotto licenza MIT.</p>
-    <p class="foot__meta">Aggiornato il 10 settembre 2026</p>
+    <p class="foot__meta">Aggiornato il 7 ottobre 2026</p>
     <p class="foot__meta">Trovato un errore o vuoi aggiungere qualcosa? <a class="link" href="https://github.com/meshcore-ita/meshcore-ita.github.io/edit/main/content/glossario.html" target="_blank" rel="noopener">Modifica questa pagina su GitHub<span class="ext-arrow">↗</span></a> — la modifica diventa una pull request.</p>
     <ul class="site-footer__links">
       <li><a href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Telegram<span class="ext-arrow">↗</span></a></li>

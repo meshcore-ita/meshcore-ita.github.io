@@ -78,7 +78,7 @@ export const REPLIES = {
     '<b>Repeater</b>: inoltra i messaggi per estendere la copertura della mesh\n' +
     '<b>Room Server</b>: punto di ritrovo per canali/gruppi, conserva fino a 32 messaggi non letti per utente\n' +
     '<b>Sensor</b>: nodo che pubblica dati di sensori sulla mesh\n\n' +
-    'Routing: ibrido, flood per advert e canali ogni 12 ore, path-discovery per i messaggi diretti, limite interno di 64 hop per il flood (8 hop per gli advert dei repeater, meno con path hash multi-byte).\n' +
+    'Routing: ibrido, flood per advert e canali (advert dei repeater ogni 47 ore di default dal firmware 1.16, 12 ore prima), path-discovery per i messaggi diretti, limite interno di 64 hop per il flood (8 hop per gli advert dei repeater, meno con path hash multi-byte).\n' +
     'Crittografia: Ed25519 + X25519 + AES-128.',
 
   nomi:

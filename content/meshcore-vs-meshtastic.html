@@ -8,14 +8,14 @@
   "description": "MeshCore vs Meshtastic: differenza tra flood e path-discovery, ruoli, hardware condiviso e quando conviene l'uno o l'altro. Confronto tecnico imparziale.",
   "h1": "MeshCore vs Meshtastic: le differenze tecniche, senza tifo",
   "lede": "Un confronto tecnico e imparziale tra i due protocolli mesh LoRa più diffusi, per capire quando scegliere l'uno o l'altro.",
-  "updated": "2026-09-10",
+  "updated": "2026-10-07",
   "section": "Riferimento",
   "jsonld": [
     {
       "@type": "TechArticle",
       "headline": "MeshCore vs Meshtastic: le differenze tecniche, senza tifo",
       "description": "Confronto tecnico tra il routing ibrido di MeshCore (flood per advert e canali, path-discovery per i messaggi diretti) e il managed flooding di Meshtastic, con ruoli dei nodi, hardware condiviso e non interoperabilità.",
-      "dateModified": "2026-09-10",
+      "dateModified": "2026-10-07",
       "inLanguage": "it",
       "about": [
         "MeshCore",
@@ -60,7 +60,7 @@
       <h2 class="section__title">Due filosofie di routing diverse</h2>
       <p class="section__lede">Entrambi i sistemi risolvono lo stesso problema — far arrivare un messaggio su una rete LoRa senza infrastruttura — ma con meccanismi diversi.</p>
     </div>
-    <p class="prose">In MeshCore gli advert e i messaggi di canale viaggiano sempre in flood: un repeater li ritrasmette a chiunque sia in ascolto, con un annuncio periodico predefinito ogni 12 ore (regolabile con <code>set flood.advert.interval &lt;ore&gt;</code>). I messaggi privati, invece, usano un meccanismo diverso: il primo invio raggiunge il destinatario in flood, ma la conferma di consegna che torna al mittente porta con sé l'elenco dei repeater attraversati. Da quel momento il mittente incorpora quel percorso nei pacchetti successivi, e solo i repeater che corrispondono al percorso lo ritrasmettono — è un routing diretto, non più un flood. Il limite interno del firmware è di 64 hop per pacchetto. Un punto centrale del disegno: i client MeshCore (companion) non ripetono mai il traffico altrui, solo repeater e room server lo fanno.</p>
+    <p class="prose">In MeshCore gli advert e i messaggi di canale viaggiano sempre in flood: un repeater li ritrasmette a chiunque sia in ascolto, con un annuncio periodico predefinito ogni 47 ore dal firmware 1.16, 12 ore nelle versioni precedenti (regolabile con <code>set flood.advert.interval &lt;ore&gt;</code>). I messaggi privati, invece, usano un meccanismo diverso: il primo invio raggiunge il destinatario in flood, ma la conferma di consegna che torna al mittente porta con sé l'elenco dei repeater attraversati. Da quel momento il mittente incorpora quel percorso nei pacchetti successivi, e solo i repeater che corrispondono al percorso lo ritrasmettono — è un routing diretto, non più un flood. Il limite interno del firmware è di 64 hop per pacchetto. Un punto centrale del disegno: i client MeshCore (companion) non ripetono mai il traffico altrui, solo repeater e room server lo fanno.</p>
     <p class="prose">Meshtastic risolve il problema dei pacchetti duplicati con un meccanismo che il progetto stesso chiama "managed flooding": ogni nodo che riceve un pacchetto con un HopLimit diverso da zero prova a ritrasmetterlo, ma prima ascolta per un breve intervallo per verificare se un altro nodo lo ha già fatto — in tal caso non ritrasmette. L'intervallo di attesa dipende dal rapporto segnale/rumore (SNR) del pacchetto ricevuto: i nodi più lontani, con SNR più basso, tendono a ritrasmettere per primi, in modo che il messaggio si propaghi più lontano possibile con meno duplicati. Dalla versione 2.6, anche Meshtastic ha introdotto un meccanismo simile al routing diretto per i messaggi non broadcast: il flood iniziale stabilisce un nodo di inoltro successivo (next-hop) che i messaggi seguenti possono riutilizzare, con ritorno automatico al flood se quel percorso smette di rispondere. Il campo HopLimit nell'header dei pacchetti Meshtastic è codificato su soli 3 bit, quindi il suo valore massimo possibile è 7.</p>
   </section>
 
@@ -82,7 +82,7 @@
       <tbody>
         <tr><th scope="row">Chi ripete i pacchetti</th><td>Solo repeater e room server; i client (companion) non ripetono mai</td><td>Ogni nodo può ritrasmettere fino al limite di hop, con priorità maggiore per i ruoli Router/Repeater</td></tr>
         <tr><th scope="row">Messaggi diretti</th><td>Path-discovery: il primo invio usa il flood, la conferma di consegna stabilisce il percorso diretto da riusare</td><td>Dalla v2.6, next-hop routing: il flood iniziale stabilisce un nodo di inoltro successivo, con fallback al flood se il percorso smette di rispondere</td></tr>
-        <tr><th scope="row">Traffico broadcast (canali/annunci)</th><td>Sempre in flood, gestito dai repeater; annuncio periodico di un repeater ogni 12 ore per impostazione predefinita</td><td>Sempre in "managed flooding": un nodo ascolta prima di ritrasmettere, con backoff basato sull'SNR per ridurre i duplicati</td></tr>
+        <tr><th scope="row">Traffico broadcast (canali/annunci)</th><td>Sempre in flood, gestito dai repeater; annuncio periodico di un repeater ogni 47 ore per impostazione predefinita (12 ore prima del firmware 1.16)</td><td>Sempre in "managed flooding": un nodo ascolta prima di ritrasmettere, con backoff basato sull'SNR per ridurre i duplicati</td></tr>
         <tr><th scope="row">Limite di hop</th><td>64 hop per il flood generico (limite interno del firmware); adverts limitati a 8 hop, meno con path hash multi-byte</td><td>Campo HopLimit di 3 bit nell'header, valore massimo possibile 7</td></tr>
         <tr><th scope="row">Licenza del firmware</th><td>MIT, sviluppato da Scott (Ripple Radios)</td><td>GPL-3.0, sviluppato dal progetto open source Meshtastic</td></tr>
       </tbody>
