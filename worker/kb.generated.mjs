@@ -1427,6 +1427,76 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/aria-condivisa--da-dove-partiamo",
+    "page": "Blog",
+    "title": "Da dove partiamo",
+    "url": "https://meshcore-ita.github.io/blog/aria-condivisa/#da-dove-partiamo",
+    "text": "La normativa ci dà il 10% di duty cycle: al massimo 6 minuti di trasmissione all'ora per dispositivo . È il numero che tutti controllano, ed è giusto farlo. Però c'è un dettaglio che il limite per nodo non racconta. Tutti i nodi italiani usano lo stesso preset : 869.618 MHz, 62,5 kHz, SF8. Non ci sono canali alternativi su cui spostarsi. Quando un nodo trasmette, tutti quelli che lo sentono devono stare zitti o rischiare una collisione. Il canale è uno solo, e il suo tempo si divide fra tutti. Abbiamo aperto il codice del firmware (tag repeater-v1.17.1 ) per fare i conti: quanto pesa ogni pacchetto, quante copie ne girano e quando due trasmissioni si pestano i piedi."
+  },
+  {
+    "id": "blog/aria-condivisa--quanto-pesa-un-pacchetto",
+    "page": "Blog",
+    "title": "Quanto pesa un pacchetto",
+    "url": "https://meshcore-ita.github.io/blog/aria-condivisa/#quanto-pesa-un-pacchetto",
+    "text": "Il tempo in aria si calcola con la formula del datasheet SX1262, la stessa che usiamo nella pagina sul link budget . Con il nostro preset un simbolo dura 4,1 ms. Il firmware usa un preambolo di 32 simboli quando SF è 8 o meno: prima ancora del primo byte utile passano 148 ms . Poi servono le dimensioni dei pacchetti, e quelle si leggono nel codice: un advert contiene la chiave pubblica (32 byte), un timestamp (4), la firma Ed25519 (64) e fino a 32 byte di dati: tipo di nodo, coordinate, nome. Un repeater chiamato IT-Torino-RPT-01 con la posizione impostata arriva a circa 127 byte, e ogni hop aggiunge un byte al percorso; un messaggio di canale porta un byte di hash del canale, 2 di MAC e il…"
+  },
+  {
+    "id": "blog/aria-condivisa--un-pacchetto-tante-copie",
+    "page": "Blog",
+    "title": "Un pacchetto, tante copie",
+    "url": "https://meshcore-ita.github.io/blog/aria-condivisa/#un-pacchetto-tante-copie",
+    "text": "Advert e messaggi di canale viaggiano in flood. Ogni repeater che riceve un pacchetto flood lo ritrasmette una volta sola : il firmware tiene una tabella dei pacchetti già visti e scarta i doppioni. È quello che impedisce alla rete di andare in loop. Una volta sola per repeater, però, vuol dire che un singolo messaggio costa alla rete tante trasmissioni quanti sono i repeater che raggiunge. E chi sta in ascolto in un punto qualunque riceve una copia da ogni repeater che sente. Da qui la distinzione che conta: il duty cycle del nodo misura quanto trasmette lui; l' occupazione del canale misura quanto è occupata l'aria nel punto in cui si trova, sommando tutto quello che sente. Il primo…"
+  },
+  {
+    "id": "blog/aria-condivisa--il-conto-degli-advert",
+    "page": "Blog",
+    "title": "Il conto degli advert",
+    "url": "https://meshcore-ita.github.io/blog/aria-condivisa/#il-conto-degli-advert",
+    "text": "Proviamo con un modello semplice. In una zona ci sono N repeater collegati fra loro, e chi ascolta ne sente k direttamente. Ogni repeater manda un advert flood ogni T ore. Gli advert dei repeater non vengono ripetuti oltre 8 hop ( flood.max.advert , default 8), quindi in una regione grande N è il numero di repeater entro 8 hop, non quello di tutta Italia. Ogni advert arriva in k copie, ognuna da 1,26 secondi: Repeater in zona (N) Ne sento (k) Advert ogni 12 h Advert ogni 47 h 50 5 0,7% 0,2% 150 8 3,5% 0,9% 150 20 8,8% 2,2% Perché due colonne? Fino alla versione 1.15 il default di flood.advert.interval era di 12 ore. Dalla 1.16.0 un repeater appena installato manda l'advert flood ogni 47 ore…"
+  },
+  {
+    "id": "blog/aria-condivisa--il-conto-dei-canali",
+    "page": "Blog",
+    "title": "Il conto dei canali",
+    "url": "https://meshcore-ita.github.io/blog/aria-condivisa/#il-conto-dei-canali",
+    "text": "Gli advert si possono diradare. I messaggi di canale no: li manda la gente, quando ha qualcosa da dire. Un messaggio di canale va in flood fino a 64 hop, quindi attraversa tutta la parte di rete collegata, salvo che il canale sia limitato a una regione (lo vediamo più avanti). Con messaggi di 40 caratteri, ognuno da 0,8 secondi: Messaggi all'ora sul canale Repeater che sento (k) Canale occupato 30 8 5,4% 30 20 13,4% 60 20 26,8% Un messaggio ogni due minuti su un canale pubblico regionale non è tanto. Una serata vivace in chat lo supera facilmente. Ed è qui che la differenza fra un messaggio diretto e uno di canale diventa concreta. Come spieghiamo nella pagina sull' app , il primo messaggio…"
+  },
+  {
+    "id": "blog/aria-condivisa--quando-due-parlano-insieme",
+    "page": "Blog",
+    "title": "Quando due parlano insieme",
+    "url": "https://meshcore-ita.github.io/blog/aria-condivisa/#quando-due-parlano-insieme",
+    "text": "Prima di trasmettere il firmware controlla se il radio sta ricevendo qualcosa. Se sì, aspetta qualche centinaio di millisecondi e riprova. È un \"ascolta prima di parlare\" e funziona bene fra nodi che si sentono fra loro : con 148 ms di preambolo c'è tutto il tempo per accorgersi che qualcuno ha cominciato. Non funziona fra nodi che non si sentono. Due repeater in due valli diverse possono trasmettere nello stesso istante, convinti di avere il canale libero. Il repeater sulla collina in mezzo li sente entrambi e riceve solo rumore. È il classico problema del nodo nascosto . Per chi non si sente vale il modello ALOHA: un pacchetto arriva intatto con probabilità di circa e^(−2G), dove G è il…"
+  },
+  {
+    "id": "blog/aria-condivisa--il-ritardo-casuale-e-set-txdelay",
+    "page": "Blog",
+    "title": "Il ritardo casuale e set txdelay",
+    "url": "https://meshcore-ita.github.io/blog/aria-condivisa/#il-ritardo-casuale-e-set-txdelay",
+    "text": "C'è un momento in cui le collisioni sono quasi certe: subito dopo una trasmissione. Un repeater manda un pacchetto, e tutti i suoi vicini lo ricevono nello stesso istante. Se lo ritrasmettessero subito, partirebbero tutti insieme. Per questo, prima di ritrasmettere un flood, ogni repeater aspetta un tempo casuale. Nel codice la finestra va da zero a 5 × txdelay × tempo in aria del pacchetto . Con il default txdelay 0,5, la finestra è di 2,5 volte la durata del pacchetto. A parità di ritardo, inoltre, passano prima i pacchetti che hanno fatto meno hop. Fra vicini che si sentono basta che uno parta per primo: gli altri lo sentono e aspettano. Fra vicini nascosti decide solo il caso. Per due…"
+  },
+  {
+    "id": "blog/aria-condivisa--cosa-possiamo-fare",
+    "page": "Blog",
+    "title": "Cosa possiamo fare",
+    "url": "https://meshcore-ita.github.io/blog/aria-condivisa/#cosa-possiamo-fare",
+    "text": "Nessuna di queste è una regola della community: sono conseguenze dei numeri. Non accorciare l'intervallo degli advert flood. Se il tuo repeater ha ancora le 12 ore di una versione vecchia, valuta di portarlo a 47 con set flood.advert.interval 47 . Un repeater fisso non cambia identità: farsi riannunciare spesso non serve a nessuno. Dal companion, l'advert flood solo quando serve. Ogni advert flood lanciato dal telefono costa 1,26 secondi per ogni repeater della zona. Messaggi diretti e room server per le conversazioni lunghe. Un canale pubblico è comodo, ma ogni battuta passa da tutta la rete. Canali limitati a una regione. Il region scoping (firmware 1.10+, comandi nella pagina della CLI )…"
+  },
+  {
+    "id": "blog/aria-condivisa--i-limiti-del-conto",
+    "page": "Blog",
+    "title": "I limiti del conto",
+    "url": "https://meshcore-ita.github.io/blog/aria-condivisa/#i-limiti-del-conto",
+    "text": "Il modello è volutamente semplice. Considera i repeater distribuiti in modo uniforme e un traffico costante. Non conta i tentativi ripetuti dopo un messaggio non confermato, i pacchetti di percorso e gli ACK. Tratta le collisioni come se fossero tutte distruttive, ignorando l'effetto cattura. Il traffico vero arriva a raffiche: i picchi contano più della media oraria. Gli ordini di grandezza però reggono. Per la mesh italiana, il primo collo di bottiglia non è il 10% del singolo nodo: è il secondo d'aria condiviso da tutti quelli che si sentono. Gestire bene quel secondo, con meno advert, meno repeater inutili e più messaggi diretti, è qualcosa che possiamo fare subito, senza aspettare un…"
+  },
+  {
+    "id": "blog/aria-condivisa--fonti",
+    "page": "Blog",
+    "title": "Fonti",
+    "url": "https://meshcore-ita.github.io/blog/aria-condivisa/#fonti",
+    "text": "Formato dell'advert e scarto dei doppioni: src/Mesh.cpp e limite di 32 byte di dati in src/MeshCore.h . Default del repeater ( txdelay 0,5, direct.txdelay 0,3, flood.advert.interval 47, flood.max.advert 8) e finestra del ritardo casuale: examples/simple_repeater/MyMesh.cpp . Passaggio da 12 a 47 ore, incluso dalla versione 1.16.0: commit 40180b8 . Ascolto prima della trasmissione: src/Dispatcher.cpp . Preambolo di 32 simboli fino a SF8: src/helpers/radiolib/RadioLibWrappers.h . Formula del tempo in aria: Semtech, datasheet SX1261/2, §6.1.4."
+  },
+  {
     "id": "blog/percorso-awesome-meshcore--perche-un-percorso",
     "page": "Blog",
     "title": "Perché un percorso",

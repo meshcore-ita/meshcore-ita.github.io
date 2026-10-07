@@ -23,6 +23,10 @@
     "label": "Hardware",
     "description": "Chip radio, schede e moduli per MeshCore: cosa c'è dentro i nodi, cosa cambia fra una generazione e l'altra e cosa conviene comprare."
   },
+  "rete": {
+    "label": "Rete",
+    "description": "Come si comporta la mesh: routing, flood, traffico e capacità del canale, con i numeri presi dal firmware."
+  },
   "sito": {
     "label": "Sito",
     "description": "Novità del sito MeshCore ITA: nuove sezioni, funzioni e cambiamenti di struttura."

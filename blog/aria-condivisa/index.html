@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+
+<title>Un canale per tutti: quanta aria ha davvero la mesh</title>
+<meta name="description" content="Il 10% di duty cycle è un limite per nodo, ma la frequenza è una sola. Con il codice del firmware alla mano calcoliamo quanto occupano advert e messaggi di canale, perché i repeater in collina soffrono di più e cosa fa set txdelay.">
+<link rel="canonical" href="https://meshcore-ita.github.io/blog/aria-condivisa/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Blog" href="https://meshcore-ita.github.io/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MeshCore ITA">
+<meta property="og:title" content="Un canale per tutti: quanta aria ha davvero la mesh">
+<meta property="og:description" content="Il 10% di duty cycle è un limite per nodo, ma la frequenza è una sola. Con il codice del firmware alla mano calcoliamo quanto occupano advert e messaggi di canale, perché i repeater in collina soffrono di più e cosa fa set txdelay.">
+<meta property="og:url" content="https://meshcore-ita.github.io/blog/aria-condivisa/">
+<meta property="og:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="it_IT">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Un canale per tutti: quanta aria ha davvero la mesh">
+<meta name="twitter:description" content="Il 10% di duty cycle è un limite per nodo, ma la frequenza è una sola. Con il codice del firmware alla mano calcoliamo quanto occupano advert e messaggi di canale, perché i repeater in collina soffrono di più e cosa fa set txdelay.">
+<meta name="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="mask-icon" href="../../assets/img/favicon.svg" color="#22c55e">
+
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geist-300-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
+
+<link rel="stylesheet" href="../../assets/css/style.css?v=9">
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Un canale per tutti: quanta aria ha davvero la mesh",
+      "description": "Il 10% di duty cycle è un limite per nodo, ma la frequenza è una sola. Con il codice del firmware alla mano calcoliamo quanto occupano advert e messaggi di canale, perché i repeater in collina soffrono di più e cosa fa set txdelay.",
+      "datePublished": "2026-10-07",
+      "dateModified": "2026-10-07",
+      "author": {
+        "@type": "Organization",
+        "name": "MeshCore ITA"
+      },
+      "inLanguage": "it",
+      "mainEntityOfPage": "https://meshcore-ita.github.io/blog/aria-condivisa/",
+      "keywords": "Rete, Software",
+      "wordCount": 1868,
+      "timeRequired": "PT10M",
+      "articleSection": "Blog"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://meshcore-ita.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://meshcore-ita.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Un canale per tutti",
+          "item": "https://meshcore-ita.github.io/blog/aria-condivisa/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Vai al contenuto</a>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<header class="site-header" data-scrolled="false">
+  <div class="site-header__inner">
+    <a class="brand" href="../../">
+      <img class="brand__mark" src="../../assets/img/logo.svg" alt="" width="28" height="28">
+      <span class="brand__text">MeshCore <em>ITA</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a class="nav__link" href="../../#cos-e">Cos'è</a>
+      <a class="nav__link" href="../../guida/">Guida</a>
+      <a class="nav__link" href="../../preset-radio/">Preset radio</a>
+      <a class="nav__link" href="../../hardware/">Hardware</a>
+      <a class="nav__link" href="../../faq/">FAQ</a>
+      <a class="nav__link" href="../../community/">Community</a>
+      <a class="nav__link" href="../../blog/" aria-current="true">Blog</a>
+      <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
+      <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
+    </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="sr-only">Apri il menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero hero--page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="../../">Home</a></li>
+        <li><a href="../">Blog</a></li>
+        <li aria-current="page">Un canale per tutti</li>
+      </ol>
+    </nav>
+    <p class="eyelash">Blog</p>
+    <h1 class="hero__title">Un canale per tutti</h1>
+    <p class="hero__lede">Quando si parla di limiti si guarda sempre il 10% di duty cycle del singolo nodo. Ma tutta la mesh trasmette sulla stessa frequenza, e il limite che arriva prima è un altro: il tempo d'aria condiviso.</p>
+  </section>
+
+<section class="section">
+  <p class="post-meta"><time datetime="2026-10-07">7 ottobre 2026</time> · <span class="post-meta__author">MeshCore ITA</span> · 10 min di lettura</p>
+  <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/rete/">Rete</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/software/">Software</a></li></ul>
+
+<nav class="toc" aria-label="In questo articolo">
+  <p class="toc__label">In questo articolo</p>
+  <ol class="toc__list"><li><a href="#da-dove-partiamo">Da dove partiamo</a></li><li><a href="#quanto-pesa-un-pacchetto">Quanto pesa un pacchetto</a></li><li><a href="#un-pacchetto-tante-copie">Un pacchetto, tante copie</a></li><li><a href="#il-conto-degli-advert">Il conto degli advert</a></li><li><a href="#il-conto-dei-canali">Il conto dei canali</a></li><li><a href="#quando-due-parlano-insieme">Quando due parlano insieme</a></li><li><a href="#il-ritardo-casuale-e-set-txdelay">Il ritardo casuale e set txdelay</a></li><li><a href="#cosa-possiamo-fare">Cosa possiamo fare</a></li><li><a href="#i-limiti-del-conto">I limiti del conto</a></li><li><a href="#fonti">Fonti</a></li></ol>
+</nav>
+  <div class="prose">
+<h2 id="da-dove-partiamo">Da dove partiamo</h2>
+<p>La <a href="../../normativa/">normativa</a> ci dà il 10% di duty cycle: al massimo 6
+minuti di trasmissione all&#39;ora <strong>per dispositivo</strong>. È il numero che tutti
+controllano, ed è giusto farlo.</p>
+<p>Però c&#39;è un dettaglio che il limite per nodo non racconta. Tutti i nodi
+italiani usano lo stesso <a href="../../preset-radio/">preset</a>: 869.618 MHz, 62,5 kHz,
+SF8. Non ci sono canali alternativi su cui spostarsi. Quando un nodo
+trasmette, tutti quelli che lo sentono devono stare zitti o rischiare una
+collisione. Il canale è uno solo, e il suo tempo si divide fra tutti.</p>
+<p>Abbiamo aperto il codice del firmware (tag <code>repeater-v1.17.1</code>) per fare i
+conti: quanto pesa ogni pacchetto, quante copie ne girano e quando due
+trasmissioni si pestano i piedi.</p>
+<h2 id="quanto-pesa-un-pacchetto">Quanto pesa un pacchetto</h2>
+<p>Il tempo in aria si calcola con la formula del datasheet SX1262, la stessa
+che usiamo nella pagina sul <a href="../../link-budget/">link budget</a>. Con il nostro
+preset un simbolo dura 4,1 ms. Il firmware usa un preambolo di 32 simboli
+quando SF è 8 o meno: prima ancora del primo byte utile passano <strong>148 ms</strong>.</p>
+<p>Poi servono le dimensioni dei pacchetti, e quelle si leggono nel codice:</p>
+<ul>
+<li>un <strong>advert</strong> contiene la chiave pubblica (32 byte), un timestamp (4), la
+firma Ed25519 (64) e fino a 32 byte di dati: tipo di nodo, coordinate,
+nome. Un repeater chiamato <code>IT-Torino-RPT-01</code> con la posizione impostata
+arriva a circa 127 byte, e ogni hop aggiunge un byte al percorso;</li>
+<li>un <strong>messaggio di canale</strong> porta un byte di hash del canale, 2 di MAC e il
+testo cifrato: timestamp, tipo, <code>nome: testo</code>, arrotondato a blocchi di
+16 byte. Un messaggio di 40 caratteri sta intorno ai 70 byte;</li>
+<li>una <strong>conferma di consegna</strong> (ACK) è di pochi byte.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Pacchetto</th>
+<th>Byte (circa)</th>
+<th>Tempo in aria</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ACK</td>
+<td>6</td>
+<td>0,25 s</td>
+</tr>
+<tr>
+<td>Messaggio di canale, 40 caratteri</td>
+<td>71</td>
+<td>0,80 s</td>
+</tr>
+<tr>
+<td>Advert di un repeater, dopo 2 hop</td>
+<td>129</td>
+<td>1,26 s</td>
+</tr>
+<tr>
+<td>Pacchetto più lungo possibile</td>
+<td>255</td>
+<td>2,31 s</td>
+</tr>
+</tbody></table>
+<p>L&#39;advert è il pacchetto più pesante fra quelli di routine: più di un secondo
+e un quarto, quasi tutto per la firma e la chiave. Sono i byte che rendono
+l&#39;identità di un nodo verificabile senza un server, e non si possono
+togliere.</p>
+<h2 id="un-pacchetto-tante-copie">Un pacchetto, tante copie</h2>
+<p>Advert e messaggi di canale viaggiano in flood. Ogni repeater che riceve un
+pacchetto flood lo ritrasmette <strong>una volta sola</strong>: il firmware tiene una
+tabella dei pacchetti già visti e scarta i doppioni. È quello che impedisce
+alla rete di andare in loop.</p>
+<p>Una volta sola per repeater, però, vuol dire che un singolo messaggio costa
+alla rete tante trasmissioni quanti sono i repeater che raggiunge. E chi sta
+in ascolto in un punto qualunque riceve una copia da <strong>ogni</strong> repeater che
+sente.</p>
+<p>Da qui la distinzione che conta:</p>
+<ul>
+<li>il <strong>duty cycle del nodo</strong> misura quanto trasmette lui;</li>
+<li>l&#39;<strong>occupazione del canale</strong> misura quanto è occupata l&#39;aria nel punto in
+cui si trova, sommando tutto quello che sente.</li>
+</ul>
+<p>Il primo numero può essere basso mentre il secondo è alto. Un repeater che
+ritrasmette 30 messaggi di canale all&#39;ora usa lo 0,7% del suo 10%. Se però
+sente altri 19 repeater che fanno la stessa cosa, il canale intorno a lui è
+occupato per il 13%. E nessuno ha violato niente.</p>
+<h2 id="il-conto-degli-advert">Il conto degli advert</h2>
+<p>Proviamo con un modello semplice. In una zona ci sono <strong>N</strong> repeater
+collegati fra loro, e chi ascolta ne sente <strong>k</strong> direttamente. Ogni repeater
+manda un advert flood ogni <strong>T</strong> ore. Gli advert dei repeater non vengono
+ripetuti oltre 8 hop (<code>flood.max.advert</code>, default 8), quindi in una regione
+grande N è il numero di repeater entro 8 hop, non quello di tutta Italia.</p>
+<p>Ogni advert arriva in k copie, ognuna da 1,26 secondi:</p>
+<table>
+<thead>
+<tr>
+<th>Repeater in zona (N)</th>
+<th>Ne sento (k)</th>
+<th>Advert ogni 12 h</th>
+<th>Advert ogni 47 h</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>50</td>
+<td>5</td>
+<td>0,7%</td>
+<td>0,2%</td>
+</tr>
+<tr>
+<td>150</td>
+<td>8</td>
+<td>3,5%</td>
+<td>0,9%</td>
+</tr>
+<tr>
+<td>150</td>
+<td>20</td>
+<td>8,8%</td>
+<td>2,2%</td>
+</tr>
+</tbody></table>
+<p>Perché due colonne? Fino alla versione 1.15 il default di
+<code>flood.advert.interval</code> era di 12 ore. Dalla <strong>1.16.0</strong> un repeater appena
+installato manda l&#39;advert flood ogni <strong>47 ore</strong>: in pratica un quarto del
+traffico di advert. Il default vale solo per le installazioni nuove o
+resettate. Un repeater aggiornato conserva le impostazioni che aveva, quindi
+molti nodi in giro mandano ancora l&#39;advert ogni 12 ore.</p>
+<p>L&#39;ultima riga è il caso del repeater in cima a una collina, che sente 20
+vicini. Con il vecchio intervallo spende quasi un decimo dell&#39;aria solo per
+ascoltare gli advert altrui.</p>
+<h2 id="il-conto-dei-canali">Il conto dei canali</h2>
+<p>Gli advert si possono diradare. I messaggi di canale no: li manda la gente,
+quando ha qualcosa da dire. Un messaggio di canale va in flood fino a 64 hop,
+quindi attraversa tutta la parte di rete collegata, salvo che il canale sia
+limitato a una regione (lo vediamo più avanti).</p>
+<p>Con messaggi di 40 caratteri, ognuno da 0,8 secondi:</p>
+<table>
+<thead>
+<tr>
+<th>Messaggi all&#39;ora sul canale</th>
+<th>Repeater che sento (k)</th>
+<th>Canale occupato</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>30</td>
+<td>8</td>
+<td>5,4%</td>
+</tr>
+<tr>
+<td>30</td>
+<td>20</td>
+<td>13,4%</td>
+</tr>
+<tr>
+<td>60</td>
+<td>20</td>
+<td>26,8%</td>
+</tr>
+</tbody></table>
+<p>Un messaggio ogni due minuti su un canale pubblico regionale non è tanto.
+Una serata vivace in chat lo supera facilmente. Ed è qui che la differenza
+fra un messaggio diretto e uno di canale diventa concreta. Come spieghiamo
+nella pagina sull&#39;<a href="../../app/">app</a>, il primo messaggio diretto passa in
+flood, ma poi il percorso viene imparato e i successivi passano solo per i
+repeater che servono. Un canale, invece, paga il flood ogni volta.</p>
+<h2 id="quando-due-parlano-insieme">Quando due parlano insieme</h2>
+<p>Prima di trasmettere il firmware controlla se il radio sta ricevendo
+qualcosa. Se sì, aspetta qualche centinaio di millisecondi e riprova. È un
+&quot;ascolta prima di parlare&quot; e funziona bene <strong>fra nodi che si sentono fra
+loro</strong>: con 148 ms di preambolo c&#39;è tutto il tempo per accorgersi che
+qualcuno ha cominciato.</p>
+<p>Non funziona fra nodi che <strong>non</strong> si sentono. Due repeater in due valli
+diverse possono trasmettere nello stesso istante, convinti di avere il
+canale libero. Il repeater sulla collina in mezzo li sente entrambi e riceve
+solo rumore. È il classico problema del <strong>nodo nascosto</strong>.</p>
+<p>Per chi non si sente vale il modello ALOHA: un pacchetto arriva intatto con
+probabilità di circa e^(−2G), dove G è il carico dei trasmettitori
+nascosti. Se l&#39;aria è occupata per il 10% da nodi che non si sentono fra
+loro, circa 18 pacchetti su 100 si perdono. Al 20%, uno su tre.</p>
+<p>C&#39;è un&#39;attenuante: se uno dei due segnali è più forte di qualche dB, il
+ricevitore LoRa spesso riesce a decodificarlo lo stesso (effetto cattura).
+E in una mesh lo stesso pacchetto arriva da più strade. Il conto resta
+pessimista, ma la direzione è chiara.</p>
+<p>Ecco il paradosso: <strong>il repeater migliore è quello che soffre di più</strong>. Più
+è alto, più vicini sente; più vicini sente, più sono quelli che non si
+sentono fra loro. Le collisioni si concentrano proprio nei nodi da cui
+dipende la copertura di tutti.</p>
+<h2 id="il-ritardo-casuale-e-set-txdelay">Il ritardo casuale e set txdelay</h2>
+<p>C&#39;è un momento in cui le collisioni sono quasi certe: subito dopo una
+trasmissione. Un repeater manda un pacchetto, e tutti i suoi vicini lo
+ricevono nello stesso istante. Se lo ritrasmettessero subito, partirebbero
+tutti insieme.</p>
+<p>Per questo, prima di ritrasmettere un flood, ogni repeater aspetta un tempo
+casuale. Nel codice la finestra va da zero a <strong>5 × txdelay × tempo in aria
+del pacchetto</strong>. Con il default <code>txdelay</code> 0,5, la finestra è di 2,5 volte la
+durata del pacchetto. A parità di ritardo, inoltre, passano prima i
+pacchetti che hanno fatto meno hop.</p>
+<p>Fra vicini che si sentono basta che uno parta per primo: gli altri lo
+sentono e aspettano. Fra vicini nascosti decide solo il caso. Per due
+repeater nascosti la probabilità che le loro trasmissioni si sovrappongano
+dipende dalla larghezza della finestra:</p>
+<table>
+<thead>
+<tr>
+<th><code>txdelay</code></th>
+<th>Finestra</th>
+<th>Due nascosti si sovrappongono</th>
+<th>Ritardo medio per hop (canale)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0,5 (default)</td>
+<td>2,5 × pacchetto</td>
+<td>64%</td>
+<td>1,0 s</td>
+</tr>
+<tr>
+<td>1,0</td>
+<td>5 × pacchetto</td>
+<td>36%</td>
+<td>2,0 s</td>
+</tr>
+<tr>
+<td>2,0 (massimo)</td>
+<td>10 × pacchetto</td>
+<td>19%</td>
+<td>4,0 s</td>
+</tr>
+</tbody></table>
+<p>È uno scambio diretto: meno collisioni in cambio di più latenza, e la
+latenza si somma a ogni hop. Su cinque hop, passare da 0,5 a 1,0 aggiunge
+in media 5 secondi a un messaggio di canale. Per i messaggi diretti c&#39;è un
+parametro separato, <code>direct.txdelay</code>, con default 0,3.</p>
+<h2 id="cosa-possiamo-fare">Cosa possiamo fare</h2>
+<p>Nessuna di queste è una regola della community: sono conseguenze dei
+numeri.</p>
+<ol>
+<li><strong>Non accorciare l&#39;intervallo degli advert flood.</strong> Se il tuo repeater ha
+ancora le 12 ore di una versione vecchia, valuta di portarlo a 47 con
+<code>set flood.advert.interval 47</code>. Un repeater fisso non cambia identità:
+farsi riannunciare spesso non serve a nessuno.</li>
+<li><strong>Dal companion, l&#39;advert flood solo quando serve.</strong> Ogni advert flood
+lanciato dal telefono costa 1,26 secondi per ogni repeater della zona.</li>
+<li><strong>Messaggi diretti e room server per le conversazioni lunghe.</strong> Un canale
+pubblico è comodo, ma ogni battuta passa da tutta la rete.</li>
+<li><strong>Canali limitati a una regione.</strong> Il region scoping (firmware 1.10+,
+comandi nella pagina della <a href="../../comandi/">CLI</a>) impedisce a un messaggio
+locale di attraversare tutta la mesh.</li>
+<li><strong>Un repeater in più non è mai gratis.</strong> Aggiunge una copia di ogni flood
+per tutti quelli che lo sentono. Se copre zone già coperte, toglie aria
+più di quanta ne dia. Prima di installare guarda la
+<a href="../../mappa-copertura/">mappa di copertura</a> e chiedi nel gruppo.</li>
+<li><strong><code>txdelay</code> più alto sui repeater che sentono molto.</strong> Un nodo in collina
+che sente tanti vicini nascosti è il candidato naturale. Alzalo con
+cautela, e coordinati con chi gestisce i repeater vicini.</li>
+<li><strong>Misura invece di indovinare.</strong> Via seriale <code>stats-radio</code> mostra il tempo
+in aria e il noise floor del repeater, e <code>stats-packets</code> i contatori dei
+pacchetti. Un repeater che passa molto tempo a ricevere ti sta dicendo
+quanto è occupato il canale intorno a lui.</li>
+</ol>
+<p>Per chi vuole andare oltre, il firmware ha altre due leve, spente di
+default: il rilevamento di attività in hardware prima di trasmettere
+(<code>set cad on</code>) e una soglia di interferenza basata sull&#39;RSSI
+(<code>set int.thresh</code>). Non le abbiamo provate e non diamo valori consigliati:
+chi le usa ci racconti com&#39;è andata.</p>
+<h2 id="i-limiti-del-conto">I limiti del conto</h2>
+<p>Il modello è volutamente semplice. Considera i repeater distribuiti in modo
+uniforme e un traffico costante. Non conta i tentativi ripetuti dopo un
+messaggio non confermato, i pacchetti di percorso e gli ACK. Tratta le
+collisioni come se fossero tutte distruttive, ignorando l&#39;effetto cattura.
+Il traffico vero arriva a raffiche: i picchi contano più della media oraria.</p>
+<p>Gli ordini di grandezza però reggono. Per la mesh italiana, il primo collo di
+bottiglia non è il 10% del singolo nodo: è il secondo d&#39;aria condiviso da
+tutti quelli che si sentono. Gestire bene quel secondo, con meno advert, meno
+repeater inutili e più messaggi diretti, è qualcosa che possiamo fare subito,
+senza aspettare un nuovo firmware.</p>
+<h2 id="fonti">Fonti</h2>
+<ul>
+<li>Formato dell&#39;advert e scarto dei doppioni:
+<a href="https://github.com/meshcore-dev/MeshCore/blob/repeater-v1.17.1/src/Mesh.cpp"><code>src/Mesh.cpp</code></a>
+e limite di 32 byte di dati in
+<a href="https://github.com/meshcore-dev/MeshCore/blob/repeater-v1.17.1/src/MeshCore.h"><code>src/MeshCore.h</code></a>.</li>
+<li>Default del repeater (<code>txdelay</code> 0,5, <code>direct.txdelay</code> 0,3,
+<code>flood.advert.interval</code> 47, <code>flood.max.advert</code> 8) e finestra del ritardo
+casuale:
+<a href="https://github.com/meshcore-dev/MeshCore/blob/repeater-v1.17.1/examples/simple_repeater/MyMesh.cpp"><code>examples/simple_repeater/MyMesh.cpp</code></a>.</li>
+<li>Passaggio da 12 a 47 ore, incluso dalla versione 1.16.0:
+<a href="https://github.com/meshcore-dev/MeshCore/commit/40180b8f">commit 40180b8</a>.</li>
+<li>Ascolto prima della trasmissione:
+<a href="https://github.com/meshcore-dev/MeshCore/blob/repeater-v1.17.1/src/Dispatcher.cpp"><code>src/Dispatcher.cpp</code></a>.</li>
+<li>Preambolo di 32 simboli fino a SF8:
+<a href="https://github.com/meshcore-dev/MeshCore/blob/repeater-v1.17.1/src/helpers/radiolib/RadioLibWrappers.h"><code>src/helpers/radiolib/RadioLibWrappers.h</code></a>.</li>
+<li>Formula del tempo in aria: Semtech, datasheet SX1261/2, §6.1.4.</li>
+</ul>
+
+  </div>
+</section>
+<nav class="post-nav" aria-label="Articoli adiacenti">
+<a class="post-nav__link post-nav__link--prev" href="../../blog/percorso-awesome-meshcore/"><span class="post-nav__label">Articolo precedente</span><span class="post-nav__title">Da dove partire tra le 470 risorse di awesome-meshcore</span></a>
+<span class="post-nav__link post-nav__link--next post-nav__link--empty"></span>
+</nav>
+
+<div class="share">
+  <p class="share__label">Condividi</p>
+  <a class="share__btn" href="https://t.me/share/url?url=https%3A%2F%2Fmeshcore-ita.github.io%2Fblog%2Faria-condivisa%2F&text=Un%20canale%20per%20tutti%3A%20quanta%20aria%20ha%20davvero%20la%20mesh" target="_blank" rel="noopener">Telegram</a>
+  <button class="share__btn share__copy" type="button" data-copy-link="https://meshcore-ita.github.io/blog/aria-condivisa/" hidden>Copia link</button>
+  <span class="share__status" role="status" aria-live="polite"></span>
+</div>
+
+<section class="section related-posts" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Correlati</p>
+      <h2 class="section__title">Articoli correlati</h2>
+    </div>
+    <ul class="posts">
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-10-06">6 ottobre 2026</time> · 6 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/percorso-awesome-meshcore/">Da dove partire tra le 470 risorse di awesome-meshcore</a></h3>
+        <p class="post-card__body">L'elenco ha superato le 470 voci. Abbiamo scelto quelle che servono davvero, divise per quello che vuoi fare: usare un nodo, gestire un repeater, pianificare una tratta o scrivere codice.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/risorse/">Risorse</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/software/">Software</a></li></ul>
+      </article>
+    </li>
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-26">26 settembre 2026</time> · 3 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/galleria-antenne/">Nasce la galleria delle antenne della community</a></h3>
+        <p class="post-card__body">Dopo l'articolo su xnec2c, Fabrizio ci ha mandato la Yagi che usa sul suo nodo. Da lì è nata una galleria aperta: si condivide il file .nec, e il sito simula l'antenna e spiega cosa significano i numeri.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/software/">Software</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-26">26 settembre 2026</time> · 5 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/antenne-nec-senza-windows/">Simulare antenne senza Windows: xnec2c e il dipolo a 869 MHz</a></h3>
+        <p class="post-card__body">Avendo letto che EZNEC e 4nec2 girano solo su Windows, ci siamo chiesti: chi usa Linux o macOS come simula un'antenna LoRa? La risposta è che il motore di calcolo è pubblico, e attorno a lui esistono strumenti open source.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/software/">Software</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li></ul>
+      </article>
+    </li>
+    </ul>
+  </section>
+<section class="section related" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Continua a leggere</p>
+      <h2 class="section__title">Altri contenuti MeshCore ITA</h2>
+    </div>
+    <div class="grid grid--2">
+      <a class="card" href="../../guida/">
+        <h3 class="card__title">Guida</h3>
+        <p class="card__body">Tutti i passaggi, in italiano, per configurare il tuo primo nodo MeshCore e agganciarlo alla mesh italiana.</p>
+      </a>
+      <a class="card" href="../../preset-radio/">
+        <h3 class="card__title">Preset radio</h3>
+        <p class="card__body">Frequenza, banda, spreading factor e coding rate che permettono a tutti i nodi MeshCore italiani di sentirsi tra loro.</p>
+      </a>
+      <a class="card" href="../../hardware/">
+        <h3 class="card__title">Hardware</h3>
+        <p class="card__body">Le board LoRa supportate dal firmware Companion, confrontate per chip, connettività e uso tipico.</p>
+      </a>
+      <a class="card" href="../">
+        <h3 class="card__title">Blog</h3>
+        <p class="card__body">Tutti gli articoli e le novità di MeshCore ITA.</p>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="foot__nav">
+      <p class="foot__nav-label">Inizia</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../guida/">Guida</a></li>
+        <li><a href="../../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../preset-radio/">Preset radio</a></li>
+        <li><a href="../../hardware/">Hardware</a></li>
+        <li><a href="../../installare-repeater/">Repeater</a></li>
+        <li><a href="../../link-budget/">Portata e link budget</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../mappa-copertura/">Mappa</a></li>
+        <li><a href="../../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../comandi/">Comandi</a></li>
+        <li><a href="../../problemi/">Problemi</a></li>
+        <li><a href="../../faq/">FAQ</a></li>
+        <li><a href="../../meshcore-vs-meshtastic/">Confronti</a></li>
+        <li><a href="../../glossario/">Glossario</a></li>
+        <li><a href="../../normativa/">Normativa</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../community/">Community</a></li>
+      </ul>
+      <p class="foot__nav-label">Blog</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../blog/" aria-current="true">Blog</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
+    <p class="site-footer__note">Contenuti sotto licenza CC BY 4.0, codice del sito sotto licenza MIT.</p>
+    <p class="foot__meta">Aggiornato il 7 ottobre 2026</p>
+    <p class="foot__meta">Trovato un errore o vuoi aggiungere qualcosa? <a class="link" href="https://github.com/meshcore-ita/meshcore-ita.github.io/edit/main/content/blog/aria-condivisa.md" target="_blank" rel="noopener">Modifica questa pagina su GitHub<span class="ext-arrow">↗</span></a> — la modifica diventa una pull request.</p>
+    <ul class="site-footer__links">
+      <li><a href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Telegram<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://meshcore.io/" target="_blank" rel="noopener">MeshCore<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://docs.meshcore.io/" target="_blank" rel="noopener">Docs<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">Flasher<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://map.meshcore.io/" target="_blank" rel="noopener">Mappa pubblica<span class="ext-arrow">↗</span></a></li>
+    </ul>
+  </div>
+</footer>
+
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="../../search-index.json" data-search-extra="../../antenne/search-index.json">
+  <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+<script type="module" src="../../assets/js/main.js?v=6" defer></script>
+<script type="module" src="../../assets/js/search.js?v=2" defer></script>
+<script type="module" src="../../assets/js/widgets.js?v=2" defer></script>
+</body>
+</html>

@@ -4,8 +4,314 @@
   <id>https://meshcore-ita.github.io/blog/tag/software/</id>
   <link rel="self" href="https://meshcore-ita.github.io/blog/tag/software/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/software/"/>
-  <updated>2026-10-06T00:00:00Z</updated>
+  <updated>2026-10-07T00:00:00Z</updated>
   <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/aria-condivisa/</id>
+    <title>Un canale per tutti: quanta aria ha davvero la mesh</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/aria-condivisa/"/>
+    <published>2026-10-07T00:00:00Z</published>
+    <updated>2026-10-07T00:00:00Z</updated>
+    <summary type="text">Quando si parla di limiti si guarda sempre il 10% di duty cycle del singolo nodo. Ma tutta la mesh trasmette sulla stessa frequenza, e il limite che arriva prima è un altro: il tempo d'aria condiviso.</summary>
+    <category term="rete" label="Rete"/>
+    <category term="software" label="Software"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-10-07&quot;&gt;7 ottobre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 10 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/rete/&quot;&gt;Rete&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/software/&quot;&gt;Software&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;da-dove-partiamo&quot;&gt;Da dove partiamo&lt;/h2&gt;
+&lt;p&gt;La &lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt; ci dà il 10% di duty cycle: al massimo 6
+minuti di trasmissione all&amp;#39;ora &lt;strong&gt;per dispositivo&lt;/strong&gt;. È il numero che tutti
+controllano, ed è giusto farlo.&lt;/p&gt;
+&lt;p&gt;Però c&amp;#39;è un dettaglio che il limite per nodo non racconta. Tutti i nodi
+italiani usano lo stesso &lt;a href=&quot;../../preset-radio/&quot;&gt;preset&lt;/a&gt;: 869.618 MHz, 62,5 kHz,
+SF8. Non ci sono canali alternativi su cui spostarsi. Quando un nodo
+trasmette, tutti quelli che lo sentono devono stare zitti o rischiare una
+collisione. Il canale è uno solo, e il suo tempo si divide fra tutti.&lt;/p&gt;
+&lt;p&gt;Abbiamo aperto il codice del firmware (tag &lt;code&gt;repeater-v1.17.1&lt;/code&gt;) per fare i
+conti: quanto pesa ogni pacchetto, quante copie ne girano e quando due
+trasmissioni si pestano i piedi.&lt;/p&gt;
+&lt;h2 id=&quot;quanto-pesa-un-pacchetto&quot;&gt;Quanto pesa un pacchetto&lt;/h2&gt;
+&lt;p&gt;Il tempo in aria si calcola con la formula del datasheet SX1262, la stessa
+che usiamo nella pagina sul &lt;a href=&quot;../../link-budget/&quot;&gt;link budget&lt;/a&gt;. Con il nostro
+preset un simbolo dura 4,1 ms. Il firmware usa un preambolo di 32 simboli
+quando SF è 8 o meno: prima ancora del primo byte utile passano &lt;strong&gt;148 ms&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Poi servono le dimensioni dei pacchetti, e quelle si leggono nel codice:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;un &lt;strong&gt;advert&lt;/strong&gt; contiene la chiave pubblica (32 byte), un timestamp (4), la
+firma Ed25519 (64) e fino a 32 byte di dati: tipo di nodo, coordinate,
+nome. Un repeater chiamato &lt;code&gt;IT-Torino-RPT-01&lt;/code&gt; con la posizione impostata
+arriva a circa 127 byte, e ogni hop aggiunge un byte al percorso;&lt;/li&gt;
+&lt;li&gt;un &lt;strong&gt;messaggio di canale&lt;/strong&gt; porta un byte di hash del canale, 2 di MAC e il
+testo cifrato: timestamp, tipo, &lt;code&gt;nome: testo&lt;/code&gt;, arrotondato a blocchi di
+16 byte. Un messaggio di 40 caratteri sta intorno ai 70 byte;&lt;/li&gt;
+&lt;li&gt;una &lt;strong&gt;conferma di consegna&lt;/strong&gt; (ACK) è di pochi byte.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Pacchetto&lt;/th&gt;
+&lt;th&gt;Byte (circa)&lt;/th&gt;
+&lt;th&gt;Tempo in aria&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;ACK&lt;/td&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;0,25 s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Messaggio di canale, 40 caratteri&lt;/td&gt;
+&lt;td&gt;71&lt;/td&gt;
+&lt;td&gt;0,80 s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Advert di un repeater, dopo 2 hop&lt;/td&gt;
+&lt;td&gt;129&lt;/td&gt;
+&lt;td&gt;1,26 s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Pacchetto più lungo possibile&lt;/td&gt;
+&lt;td&gt;255&lt;/td&gt;
+&lt;td&gt;2,31 s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;L&amp;#39;advert è il pacchetto più pesante fra quelli di routine: più di un secondo
+e un quarto, quasi tutto per la firma e la chiave. Sono i byte che rendono
+l&amp;#39;identità di un nodo verificabile senza un server, e non si possono
+togliere.&lt;/p&gt;
+&lt;h2 id=&quot;un-pacchetto-tante-copie&quot;&gt;Un pacchetto, tante copie&lt;/h2&gt;
+&lt;p&gt;Advert e messaggi di canale viaggiano in flood. Ogni repeater che riceve un
+pacchetto flood lo ritrasmette &lt;strong&gt;una volta sola&lt;/strong&gt;: il firmware tiene una
+tabella dei pacchetti già visti e scarta i doppioni. È quello che impedisce
+alla rete di andare in loop.&lt;/p&gt;
+&lt;p&gt;Una volta sola per repeater, però, vuol dire che un singolo messaggio costa
+alla rete tante trasmissioni quanti sono i repeater che raggiunge. E chi sta
+in ascolto in un punto qualunque riceve una copia da &lt;strong&gt;ogni&lt;/strong&gt; repeater che
+sente.&lt;/p&gt;
+&lt;p&gt;Da qui la distinzione che conta:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;il &lt;strong&gt;duty cycle del nodo&lt;/strong&gt; misura quanto trasmette lui;&lt;/li&gt;
+&lt;li&gt;l&amp;#39;&lt;strong&gt;occupazione del canale&lt;/strong&gt; misura quanto è occupata l&amp;#39;aria nel punto in
+cui si trova, sommando tutto quello che sente.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Il primo numero può essere basso mentre il secondo è alto. Un repeater che
+ritrasmette 30 messaggi di canale all&amp;#39;ora usa lo 0,7% del suo 10%. Se però
+sente altri 19 repeater che fanno la stessa cosa, il canale intorno a lui è
+occupato per il 13%. E nessuno ha violato niente.&lt;/p&gt;
+&lt;h2 id=&quot;il-conto-degli-advert&quot;&gt;Il conto degli advert&lt;/h2&gt;
+&lt;p&gt;Proviamo con un modello semplice. In una zona ci sono &lt;strong&gt;N&lt;/strong&gt; repeater
+collegati fra loro, e chi ascolta ne sente &lt;strong&gt;k&lt;/strong&gt; direttamente. Ogni repeater
+manda un advert flood ogni &lt;strong&gt;T&lt;/strong&gt; ore. Gli advert dei repeater non vengono
+ripetuti oltre 8 hop (&lt;code&gt;flood.max.advert&lt;/code&gt;, default 8), quindi in una regione
+grande N è il numero di repeater entro 8 hop, non quello di tutta Italia.&lt;/p&gt;
+&lt;p&gt;Ogni advert arriva in k copie, ognuna da 1,26 secondi:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Repeater in zona (N)&lt;/th&gt;
+&lt;th&gt;Ne sento (k)&lt;/th&gt;
+&lt;th&gt;Advert ogni 12 h&lt;/th&gt;
+&lt;th&gt;Advert ogni 47 h&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;50&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;0,7%&lt;/td&gt;
+&lt;td&gt;0,2%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;150&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;3,5%&lt;/td&gt;
+&lt;td&gt;0,9%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;150&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;8,8%&lt;/td&gt;
+&lt;td&gt;2,2%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Perché due colonne? Fino alla versione 1.15 il default di
+&lt;code&gt;flood.advert.interval&lt;/code&gt; era di 12 ore. Dalla &lt;strong&gt;1.16.0&lt;/strong&gt; un repeater appena
+installato manda l&amp;#39;advert flood ogni &lt;strong&gt;47 ore&lt;/strong&gt;: in pratica un quarto del
+traffico di advert. Il default vale solo per le installazioni nuove o
+resettate. Un repeater aggiornato conserva le impostazioni che aveva, quindi
+molti nodi in giro mandano ancora l&amp;#39;advert ogni 12 ore.&lt;/p&gt;
+&lt;p&gt;L&amp;#39;ultima riga è il caso del repeater in cima a una collina, che sente 20
+vicini. Con il vecchio intervallo spende quasi un decimo dell&amp;#39;aria solo per
+ascoltare gli advert altrui.&lt;/p&gt;
+&lt;h2 id=&quot;il-conto-dei-canali&quot;&gt;Il conto dei canali&lt;/h2&gt;
+&lt;p&gt;Gli advert si possono diradare. I messaggi di canale no: li manda la gente,
+quando ha qualcosa da dire. Un messaggio di canale va in flood fino a 64 hop,
+quindi attraversa tutta la parte di rete collegata, salvo che il canale sia
+limitato a una regione (lo vediamo più avanti).&lt;/p&gt;
+&lt;p&gt;Con messaggi di 40 caratteri, ognuno da 0,8 secondi:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Messaggi all&amp;#39;ora sul canale&lt;/th&gt;
+&lt;th&gt;Repeater che sento (k)&lt;/th&gt;
+&lt;th&gt;Canale occupato&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;5,4%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;13,4%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;60&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;26,8%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Un messaggio ogni due minuti su un canale pubblico regionale non è tanto.
+Una serata vivace in chat lo supera facilmente. Ed è qui che la differenza
+fra un messaggio diretto e uno di canale diventa concreta. Come spieghiamo
+nella pagina sull&amp;#39;&lt;a href=&quot;../../app/&quot;&gt;app&lt;/a&gt;, il primo messaggio diretto passa in
+flood, ma poi il percorso viene imparato e i successivi passano solo per i
+repeater che servono. Un canale, invece, paga il flood ogni volta.&lt;/p&gt;
+&lt;h2 id=&quot;quando-due-parlano-insieme&quot;&gt;Quando due parlano insieme&lt;/h2&gt;
+&lt;p&gt;Prima di trasmettere il firmware controlla se il radio sta ricevendo
+qualcosa. Se sì, aspetta qualche centinaio di millisecondi e riprova. È un
+&amp;quot;ascolta prima di parlare&amp;quot; e funziona bene &lt;strong&gt;fra nodi che si sentono fra
+loro&lt;/strong&gt;: con 148 ms di preambolo c&amp;#39;è tutto il tempo per accorgersi che
+qualcuno ha cominciato.&lt;/p&gt;
+&lt;p&gt;Non funziona fra nodi che &lt;strong&gt;non&lt;/strong&gt; si sentono. Due repeater in due valli
+diverse possono trasmettere nello stesso istante, convinti di avere il
+canale libero. Il repeater sulla collina in mezzo li sente entrambi e riceve
+solo rumore. È il classico problema del &lt;strong&gt;nodo nascosto&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Per chi non si sente vale il modello ALOHA: un pacchetto arriva intatto con
+probabilità di circa e^(−2G), dove G è il carico dei trasmettitori
+nascosti. Se l&amp;#39;aria è occupata per il 10% da nodi che non si sentono fra
+loro, circa 18 pacchetti su 100 si perdono. Al 20%, uno su tre.&lt;/p&gt;
+&lt;p&gt;C&amp;#39;è un&amp;#39;attenuante: se uno dei due segnali è più forte di qualche dB, il
+ricevitore LoRa spesso riesce a decodificarlo lo stesso (effetto cattura).
+E in una mesh lo stesso pacchetto arriva da più strade. Il conto resta
+pessimista, ma la direzione è chiara.&lt;/p&gt;
+&lt;p&gt;Ecco il paradosso: &lt;strong&gt;il repeater migliore è quello che soffre di più&lt;/strong&gt;. Più
+è alto, più vicini sente; più vicini sente, più sono quelli che non si
+sentono fra loro. Le collisioni si concentrano proprio nei nodi da cui
+dipende la copertura di tutti.&lt;/p&gt;
+&lt;h2 id=&quot;il-ritardo-casuale-e-set-txdelay&quot;&gt;Il ritardo casuale e set txdelay&lt;/h2&gt;
+&lt;p&gt;C&amp;#39;è un momento in cui le collisioni sono quasi certe: subito dopo una
+trasmissione. Un repeater manda un pacchetto, e tutti i suoi vicini lo
+ricevono nello stesso istante. Se lo ritrasmettessero subito, partirebbero
+tutti insieme.&lt;/p&gt;
+&lt;p&gt;Per questo, prima di ritrasmettere un flood, ogni repeater aspetta un tempo
+casuale. Nel codice la finestra va da zero a &lt;strong&gt;5 × txdelay × tempo in aria
+del pacchetto&lt;/strong&gt;. Con il default &lt;code&gt;txdelay&lt;/code&gt; 0,5, la finestra è di 2,5 volte la
+durata del pacchetto. A parità di ritardo, inoltre, passano prima i
+pacchetti che hanno fatto meno hop.&lt;/p&gt;
+&lt;p&gt;Fra vicini che si sentono basta che uno parta per primo: gli altri lo
+sentono e aspettano. Fra vicini nascosti decide solo il caso. Per due
+repeater nascosti la probabilità che le loro trasmissioni si sovrappongano
+dipende dalla larghezza della finestra:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;code&gt;txdelay&lt;/code&gt;&lt;/th&gt;
+&lt;th&gt;Finestra&lt;/th&gt;
+&lt;th&gt;Due nascosti si sovrappongono&lt;/th&gt;
+&lt;th&gt;Ritardo medio per hop (canale)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;0,5 (default)&lt;/td&gt;
+&lt;td&gt;2,5 × pacchetto&lt;/td&gt;
+&lt;td&gt;64%&lt;/td&gt;
+&lt;td&gt;1,0 s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1,0&lt;/td&gt;
+&lt;td&gt;5 × pacchetto&lt;/td&gt;
+&lt;td&gt;36%&lt;/td&gt;
+&lt;td&gt;2,0 s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2,0 (massimo)&lt;/td&gt;
+&lt;td&gt;10 × pacchetto&lt;/td&gt;
+&lt;td&gt;19%&lt;/td&gt;
+&lt;td&gt;4,0 s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;È uno scambio diretto: meno collisioni in cambio di più latenza, e la
+latenza si somma a ogni hop. Su cinque hop, passare da 0,5 a 1,0 aggiunge
+in media 5 secondi a un messaggio di canale. Per i messaggi diretti c&amp;#39;è un
+parametro separato, &lt;code&gt;direct.txdelay&lt;/code&gt;, con default 0,3.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-possiamo-fare&quot;&gt;Cosa possiamo fare&lt;/h2&gt;
+&lt;p&gt;Nessuna di queste è una regola della community: sono conseguenze dei
+numeri.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Non accorciare l&amp;#39;intervallo degli advert flood.&lt;/strong&gt; Se il tuo repeater ha
+ancora le 12 ore di una versione vecchia, valuta di portarlo a 47 con
+&lt;code&gt;set flood.advert.interval 47&lt;/code&gt;. Un repeater fisso non cambia identità:
+farsi riannunciare spesso non serve a nessuno.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Dal companion, l&amp;#39;advert flood solo quando serve.&lt;/strong&gt; Ogni advert flood
+lanciato dal telefono costa 1,26 secondi per ogni repeater della zona.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Messaggi diretti e room server per le conversazioni lunghe.&lt;/strong&gt; Un canale
+pubblico è comodo, ma ogni battuta passa da tutta la rete.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Canali limitati a una regione.&lt;/strong&gt; Il region scoping (firmware 1.10+,
+comandi nella pagina della &lt;a href=&quot;../../comandi/&quot;&gt;CLI&lt;/a&gt;) impedisce a un messaggio
+locale di attraversare tutta la mesh.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Un repeater in più non è mai gratis.&lt;/strong&gt; Aggiunge una copia di ogni flood
+per tutti quelli che lo sentono. Se copre zone già coperte, toglie aria
+più di quanta ne dia. Prima di installare guarda la
+&lt;a href=&quot;../../mappa-copertura/&quot;&gt;mappa di copertura&lt;/a&gt; e chiedi nel gruppo.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;txdelay&lt;/code&gt; più alto sui repeater che sentono molto.&lt;/strong&gt; Un nodo in collina
+che sente tanti vicini nascosti è il candidato naturale. Alzalo con
+cautela, e coordinati con chi gestisce i repeater vicini.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Misura invece di indovinare.&lt;/strong&gt; Via seriale &lt;code&gt;stats-radio&lt;/code&gt; mostra il tempo
+in aria e il noise floor del repeater, e &lt;code&gt;stats-packets&lt;/code&gt; i contatori dei
+pacchetti. Un repeater che passa molto tempo a ricevere ti sta dicendo
+quanto è occupato il canale intorno a lui.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Per chi vuole andare oltre, il firmware ha altre due leve, spente di
+default: il rilevamento di attività in hardware prima di trasmettere
+(&lt;code&gt;set cad on&lt;/code&gt;) e una soglia di interferenza basata sull&amp;#39;RSSI
+(&lt;code&gt;set int.thresh&lt;/code&gt;). Non le abbiamo provate e non diamo valori consigliati:
+chi le usa ci racconti com&amp;#39;è andata.&lt;/p&gt;
+&lt;h2 id=&quot;i-limiti-del-conto&quot;&gt;I limiti del conto&lt;/h2&gt;
+&lt;p&gt;Il modello è volutamente semplice. Considera i repeater distribuiti in modo
+uniforme e un traffico costante. Non conta i tentativi ripetuti dopo un
+messaggio non confermato, i pacchetti di percorso e gli ACK. Tratta le
+collisioni come se fossero tutte distruttive, ignorando l&amp;#39;effetto cattura.
+Il traffico vero arriva a raffiche: i picchi contano più della media oraria.&lt;/p&gt;
+&lt;p&gt;Gli ordini di grandezza però reggono. Per la mesh italiana, il primo collo di
+bottiglia non è il 10% del singolo nodo: è il secondo d&amp;#39;aria condiviso da
+tutti quelli che si sentono. Gestire bene quel secondo, con meno advert, meno
+repeater inutili e più messaggi diretti, è qualcosa che possiamo fare subito,
+senza aspettare un nuovo firmware.&lt;/p&gt;
+&lt;h2 id=&quot;fonti&quot;&gt;Fonti&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Formato dell&amp;#39;advert e scarto dei doppioni:
+&lt;a href=&quot;https://github.com/meshcore-dev/MeshCore/blob/repeater-v1.17.1/src/Mesh.cpp&quot;&gt;&lt;code&gt;src/Mesh.cpp&lt;/code&gt;&lt;/a&gt;
+e limite di 32 byte di dati in
+&lt;a href=&quot;https://github.com/meshcore-dev/MeshCore/blob/repeater-v1.17.1/src/MeshCore.h&quot;&gt;&lt;code&gt;src/MeshCore.h&lt;/code&gt;&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Default del repeater (&lt;code&gt;txdelay&lt;/code&gt; 0,5, &lt;code&gt;direct.txdelay&lt;/code&gt; 0,3,
+&lt;code&gt;flood.advert.interval&lt;/code&gt; 47, &lt;code&gt;flood.max.advert&lt;/code&gt; 8) e finestra del ritardo
+casuale:
+&lt;a href=&quot;https://github.com/meshcore-dev/MeshCore/blob/repeater-v1.17.1/examples/simple_repeater/MyMesh.cpp&quot;&gt;&lt;code&gt;examples/simple_repeater/MyMesh.cpp&lt;/code&gt;&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Passaggio da 12 a 47 ore, incluso dalla versione 1.16.0:
+&lt;a href=&quot;https://github.com/meshcore-dev/MeshCore/commit/40180b8f&quot;&gt;commit 40180b8&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Ascolto prima della trasmissione:
+&lt;a href=&quot;https://github.com/meshcore-dev/MeshCore/blob/repeater-v1.17.1/src/Dispatcher.cpp&quot;&gt;&lt;code&gt;src/Dispatcher.cpp&lt;/code&gt;&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Preambolo di 32 simboli fino a SF8:
+&lt;a href=&quot;https://github.com/meshcore-dev/MeshCore/blob/repeater-v1.17.1/src/helpers/radiolib/RadioLibWrappers.h&quot;&gt;&lt;code&gt;src/helpers/radiolib/RadioLibWrappers.h&lt;/code&gt;&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Formula del tempo in aria: Semtech, datasheet SX1261/2, §6.1.4.&lt;/li&gt;
+&lt;/ul&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
   <entry>
     <id>https://meshcore-ita.github.io/blog/percorso-awesome-meshcore/</id>
     <title>Da dove partire tra le 470 risorse di awesome-meshcore</title>
