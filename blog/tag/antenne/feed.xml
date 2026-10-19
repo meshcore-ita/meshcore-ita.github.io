@@ -4,8 +4,192 @@
   <id>https://meshcore-ita.github.io/blog/tag/antenne/</id>
   <link rel="self" href="https://meshcore-ita.github.io/blog/tag/antenne/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/antenne/"/>
-  <updated>2026-09-28T00:00:00Z</updated>
+  <updated>2026-10-19T18:00:00+02:00</updated>
   <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/biquad-paolo/</id>
+    <title>La biquad di Paolo: quasi 10 dBi con un metro di rame e una piastra</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/biquad-paolo/"/>
+    <published>2026-10-19T18:00:00+02:00</published>
+    <updated>2026-10-19T18:00:00+02:00</updated>
+    <summary type="text">Paolo ha caricato nella galleria la biquad che aveva usato come esempio nel suo tutorial su EZNEC, e sul suo blog spiega passo per passo come costruirla e tararla con il NanoVNA.</summary>
+    <category term="antenne" label="Antenne"/>
+    <category term="autocostruzione" label="Autocostruzione"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-10-19&quot;&gt;19 ottobre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 5 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/autocostruzione/&quot;&gt;Autocostruzione&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;cos-e-una-biquad&quot;&gt;Cos&amp;#39;è una biquad&lt;/h2&gt;
+&lt;p&gt;Una &lt;strong&gt;biquad&lt;/strong&gt; sono due anelli quadrati di filo, ognuno lungo circa una
+lunghezza d&amp;#39;onda di perimetro, uniti al centro come un &amp;quot;8&amp;quot; coricato. Il cavo
+si collega nel punto in cui i due quadrati si toccano. Da sola irradia sia
+avanti sia indietro. Con una piastra metallica dietro, a pochi centimetri,
+l&amp;#39;energia che andrebbe all&amp;#39;indietro viene riflessa in avanti e l&amp;#39;antenna
+diventa &lt;strong&gt;direttiva&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;È un progetto classico del Wi-Fi fai-da-te a 2,4 GHz. A 869 MHz le misure
+crescono, ma restano da scrivania: un lato di circa 8,5 cm e una piastra di
+30 × 20 cm.&lt;/p&gt;
+&lt;h2 id=&quot;il-modello-nella-galleria&quot;&gt;Il modello nella galleria&lt;/h2&gt;
+&lt;p&gt;La &lt;a href=&quot;https://meshcore-ita.github.io/antenne/paolo-biquad/&quot;&gt;scheda di Paolo&lt;/a&gt;
+contiene il file NEC esportato da 4nec2. Le parti sono queste:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parte&lt;/th&gt;
+&lt;th&gt;Misura nel modello&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Lato dei quadrati&lt;/td&gt;
+&lt;td&gt;84 mm, filo di rame da 2 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Punto di alimentazione&lt;/td&gt;
+&lt;td&gt;tratto verticale di 9 mm al centro&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Riflettore&lt;/td&gt;
+&lt;td&gt;griglia di 350 × 262 mm, maglia da 29 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Distanza radiatore–riflettore&lt;/td&gt;
+&lt;td&gt;35 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;I quadrati sono ruotati di 45°, a rombo, e il punto di alimentazione è
+verticale. Per questo la polarizzazione risulta &lt;strong&gt;verticale&lt;/strong&gt;, la stessa di
+quasi tutti i nodi MeshCore. Paolo insiste sullo stesso punto nell&amp;#39;articolo:
+i capi del coassiale vanno orientati in verticale, perché &amp;quot;fa tutta la
+differenza di questo mondo&amp;quot;. Ruotata di 90°, l&amp;#39;antenna parlerebbe in
+polarizzazione orizzontale, e verso un nodo verticale si perderebbero molti
+dB.&lt;/p&gt;
+&lt;p&gt;Il riflettore è una griglia di fili perché NEC-2 descrive solo fili, non
+superfici. Una maglia di 29 mm, circa un dodicesimo della lunghezza d&amp;#39;onda,
+a questa frequenza si comporta come una lastra piena.&lt;/p&gt;
+&lt;h2 id=&quot;cosa-dice-il-simulatore&quot;&gt;Cosa dice il simulatore&lt;/h2&gt;
+&lt;p&gt;A 869,618 MHz, in spazio libero:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Guadagno 9,8 dBi&lt;/strong&gt; (7,6 dBd), circa 5,8 volte la potenza di un dipolo
+nella direzione migliore.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Avanti/dietro 18 dB&lt;/strong&gt;: dietro la piastra arriva circa 1/60 della
+potenza che va in avanti.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Impedenza 49,3 − j5,3 Ω, ROS 1,11&lt;/strong&gt;, con il cavo saldato direttamente
+sull&amp;#39;antenna e nessun adattatore.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Minimo del ROS a 875 MHz&lt;/strong&gt;: il modello è leggermente corto. Il ROS
+resta comunque ottimo nella sub-banda.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;dal-modello-al-banco&quot;&gt;Dal modello al banco&lt;/h2&gt;
+&lt;p&gt;La parte più interessante sta nell&amp;#39;articolo
+&lt;a href=&quot;https://lora868.at1839.name/biquad-alla-griglia/&quot;&gt;&lt;em&gt;Biquad alla griglia&lt;/em&gt;&lt;/a&gt;.
+Paolo racconta un prototipo vero, misurato con il NanoVNA, con tutti gli
+aggiustamenti del caso.&lt;/p&gt;
+&lt;p&gt;Il materiale è poco:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;un metro di rame nudo da 2 mm;&lt;/li&gt;
+&lt;li&gt;una piastra di alluminio da almeno 30 × 20 cm;&lt;/li&gt;
+&lt;li&gt;una barra filettata da lampadario, con i suoi dadi. Dentro la barra passa
+il coassiale, e la barra regge il radiatore davanti alla piastra;&lt;/li&gt;
+&lt;li&gt;uno spezzone di buon cavo (Paolo ha usato LMR240 in una barra M10; con una
+M14 entrerebbe anche RG213);&lt;/li&gt;
+&lt;li&gt;una staffa, possibilmente per un palo in plastica.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Paolo ha piegato i quadrati con 85 mm di lato, apposta un po&amp;#39; lunghi. La
+prima misura gli ha dato torto: a 869 MHz c&amp;#39;erano troppa resistenza e
+reattanza induttiva, cioè un&amp;#39;antenna troppo lunga. Ha dovuto accorciare
+quasi un centimetro per elemento, tagliando 5 mm alle estremità e
+risaldando. Poi, girando i dadi sulla barra, ha regolato la distanza dalla
+piastra fino a un ROS &amp;quot;praticamente perfetto&amp;quot;. La distanza finale è di
+&lt;strong&gt;40 mm&lt;/strong&gt;, non i 35 del modello.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Modello&lt;/th&gt;
+&lt;th&gt;Prototipo&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Lato&lt;/td&gt;
+&lt;td&gt;84 mm&lt;/td&gt;
+&lt;td&gt;85 mm, poi accorciato&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Distanza dalla piastra&lt;/td&gt;
+&lt;td&gt;35 mm&lt;/td&gt;
+&lt;td&gt;40 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Riflettore&lt;/td&gt;
+&lt;td&gt;griglia 350 × 262 mm&lt;/td&gt;
+&lt;td&gt;piastra piena di alluminio&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Le differenze non devono stupire. Il modello è in spazio libero, senza
+barra filettata, senza coassiale, senza nastro e senza staffa, e con un
+riflettore di forma diversa. La distanza dalla piastra cambia molto
+l&amp;#39;impedenza della biquad, ed è per questo che la barra filettata funziona
+così bene come regolazione. Tra il modello che chiede di allungare e il
+prototipo che ha chiesto di accorciare, ha ragione il NanoVNA.&lt;/p&gt;
+&lt;p&gt;È la lezione di tutta la galleria: il simulatore dice com&amp;#39;è fatta l&amp;#39;antenna
+e da dove partire, la taratura si fa sull&amp;#39;antenna montata.&lt;/p&gt;
+&lt;h2 id=&quot;attenzione-alla-potenza&quot;&gt;Attenzione alla potenza&lt;/h2&gt;
+&lt;p&gt;Con 7,6 dBd di guadagno questa antenna va sul nodo &lt;strong&gt;a potenza ridotta&lt;/strong&gt;.
+Il preset italiano consente 27 dBm ERP (500 mW, vedi la
+&lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt;):&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Perdita nel cavo&lt;/th&gt;
+&lt;th&gt;TX massima&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;0 dB&lt;/td&gt;
+&lt;td&gt;19,4 dBm (87 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1 dB&lt;/td&gt;
+&lt;td&gt;20,4 dBm (109 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2 dB&lt;/td&gt;
+&lt;td&gt;21,4 dBm (137 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Un SX1262 al massimo arriva a 22 dBm, cioè oltre il limite con qualunque
+cavo corto. Con questa antenna la potenza sul nodo va abbassata. Il
+guadagno non si perde: la portata la dà l&amp;#39;antenna, anche in ricezione, che
+nessun limite di ERP tocca.&lt;/p&gt;
+&lt;h2 id=&quot;dove-usarla&quot;&gt;Dove usarla&lt;/h2&gt;
+&lt;p&gt;Una direttiva con 18 dB avanti/dietro non serve a coprire un quartiere. È
+fatta per un &lt;strong&gt;collegamento punto-punto&lt;/strong&gt;: un ripetitore che deve
+raggiungere un altro ripetitore lontano, oppure un nodo in valle che deve
+puntare verso l&amp;#39;unica cima da cui si vede la rete. Rispetto a una Yagi della
+stessa resa è molto più corta, e la piastra posteriore protegge anche dai
+disturbi che arrivano da dietro.&lt;/p&gt;
+&lt;h2 id=&quot;e-ora&quot;&gt;E ora?&lt;/h2&gt;
+&lt;p&gt;Paolo stesso considera questo un prototipo. Accorciando i lati, i quadrati
+sono venuti un po&amp;#39; storti, e per una versione definitiva propone due idee:
+un modo più pulito per tagliare gli elementi, oppure anelli &lt;strong&gt;circolari&lt;/strong&gt;,
+più belli da vedere, con dimensioni ancora da verificare. Suggerisce anche
+di fissare il radiatore con una colata di resina e due supporti laterali
+isolanti, al posto del nastro autoagglomerante della prova.&lt;/p&gt;
+&lt;p&gt;La scheda con la vista 3D, i grafici di ROS e impedenza e il file NEC
+spiegato riga per riga è qui:
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/paolo-biquad/&quot;&gt;Biquad con riflettore&lt;/a&gt;.
+La teoria e l&amp;#39;uso di EZNEC sono nel tutorial di Paolo,
+&lt;a href=&quot;https://lora868.at1839.name/eznec-chi-era-costui-2/&quot;&gt;&lt;em&gt;EZNEC, chi era costui (2)&lt;/em&gt;&lt;/a&gt;;
+per gli strumenti open source equivalenti c&amp;#39;è il nostro articolo sulle
+&lt;a href=&quot;../antenne-nec-senza-windows/&quot;&gt;antenne NEC senza Windows&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Hai una tua antenna? Le istruzioni sono nell&amp;#39;articolo sulla
+&lt;a href=&quot;../galleria-antenne/&quot;&gt;galleria&lt;/a&gt;, oppure mandala nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Grazie a Paolo.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
   <entry>
     <id>https://meshcore-ita.github.io/blog/cactus-j-pole-fabrizio/</id>
     <title>La Cactus J-Pole di Fabrizio: una J-pole che ignora il palo</title>

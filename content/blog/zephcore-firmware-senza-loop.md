@@ -6,6 +6,7 @@
   "h1": "ZephCore: MeshCore senza il loop",
   "lede": "Ne avevamo parlato di passaggio, come il firmware che supporta già i chip LoRa nuovi. Questa volta guardiamo dentro: come gira, cosa fa diversamente dal firmware ufficiale e quando ha senso provarlo.",
   "published": "2026-10-19",
+  "time": "10:00",
   "tags": ["software", "rete"]
 }
 -->

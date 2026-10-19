@@ -1427,6 +1427,55 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/biquad-paolo--cos-e-una-biquad",
+    "page": "Blog",
+    "title": "Cos'è una biquad",
+    "url": "https://meshcore-ita.github.io/blog/biquad-paolo/#cos-e-una-biquad",
+    "text": "Una biquad sono due anelli quadrati di filo, ognuno lungo circa una lunghezza d'onda di perimetro, uniti al centro come un \"8\" coricato. Il cavo si collega nel punto in cui i due quadrati si toccano. Da sola irradia sia avanti sia indietro. Con una piastra metallica dietro, a pochi centimetri, l'energia che andrebbe all'indietro viene riflessa in avanti e l'antenna diventa direttiva . È un progetto classico del Wi-Fi fai-da-te a 2,4 GHz. A 869 MHz le misure crescono, ma restano da scrivania: un lato di circa 8,5 cm e una piastra di 30 × 20 cm."
+  },
+  {
+    "id": "blog/biquad-paolo--il-modello-nella-galleria",
+    "page": "Blog",
+    "title": "Il modello nella galleria",
+    "url": "https://meshcore-ita.github.io/blog/biquad-paolo/#il-modello-nella-galleria",
+    "text": "La scheda di Paolo contiene il file NEC esportato da 4nec2. Le parti sono queste: Parte Misura nel modello Lato dei quadrati 84 mm, filo di rame da 2 mm Punto di alimentazione tratto verticale di 9 mm al centro Riflettore griglia di 350 × 262 mm, maglia da 29 mm Distanza radiatore–riflettore 35 mm I quadrati sono ruotati di 45°, a rombo, e il punto di alimentazione è verticale. Per questo la polarizzazione risulta verticale , la stessa di quasi tutti i nodi MeshCore. Paolo insiste sullo stesso punto nell'articolo: i capi del coassiale vanno orientati in verticale, perché \"fa tutta la differenza di questo mondo\". Ruotata di 90°, l'antenna parlerebbe in polarizzazione orizzontale, e verso un…"
+  },
+  {
+    "id": "blog/biquad-paolo--cosa-dice-il-simulatore",
+    "page": "Blog",
+    "title": "Cosa dice il simulatore",
+    "url": "https://meshcore-ita.github.io/blog/biquad-paolo/#cosa-dice-il-simulatore",
+    "text": "A 869,618 MHz, in spazio libero: Guadagno 9,8 dBi (7,6 dBd), circa 5,8 volte la potenza di un dipolo nella direzione migliore. Avanti/dietro 18 dB : dietro la piastra arriva circa 1/60 della potenza che va in avanti. Impedenza 49,3 − j5,3 Ω, ROS 1,11 , con il cavo saldato direttamente sull'antenna e nessun adattatore. Minimo del ROS a 875 MHz : il modello è leggermente corto. Il ROS resta comunque ottimo nella sub-banda."
+  },
+  {
+    "id": "blog/biquad-paolo--dal-modello-al-banco",
+    "page": "Blog",
+    "title": "Dal modello al banco",
+    "url": "https://meshcore-ita.github.io/blog/biquad-paolo/#dal-modello-al-banco",
+    "text": "La parte più interessante sta nell'articolo Biquad alla griglia . Paolo racconta un prototipo vero, misurato con il NanoVNA, con tutti gli aggiustamenti del caso. Il materiale è poco: un metro di rame nudo da 2 mm; una piastra di alluminio da almeno 30 × 20 cm; una barra filettata da lampadario, con i suoi dadi. Dentro la barra passa il coassiale, e la barra regge il radiatore davanti alla piastra; uno spezzone di buon cavo (Paolo ha usato LMR240 in una barra M10; con una M14 entrerebbe anche RG213); una staffa, possibilmente per un palo in plastica. Paolo ha piegato i quadrati con 85 mm di lato, apposta un po' lunghi. La prima misura gli ha dato torto: a 869 MHz c'erano troppa resistenza e…"
+  },
+  {
+    "id": "blog/biquad-paolo--attenzione-alla-potenza",
+    "page": "Blog",
+    "title": "Attenzione alla potenza",
+    "url": "https://meshcore-ita.github.io/blog/biquad-paolo/#attenzione-alla-potenza",
+    "text": "Con 7,6 dBd di guadagno questa antenna va sul nodo a potenza ridotta . Il preset italiano consente 27 dBm ERP (500 mW, vedi la normativa ): Perdita nel cavo TX massima 0 dB 19,4 dBm (87 mW) 1 dB 20,4 dBm (109 mW) 2 dB 21,4 dBm (137 mW) Un SX1262 al massimo arriva a 22 dBm, cioè oltre il limite con qualunque cavo corto. Con questa antenna la potenza sul nodo va abbassata. Il guadagno non si perde: la portata la dà l'antenna, anche in ricezione, che nessun limite di ERP tocca."
+  },
+  {
+    "id": "blog/biquad-paolo--dove-usarla",
+    "page": "Blog",
+    "title": "Dove usarla",
+    "url": "https://meshcore-ita.github.io/blog/biquad-paolo/#dove-usarla",
+    "text": "Una direttiva con 18 dB avanti/dietro non serve a coprire un quartiere. È fatta per un collegamento punto-punto : un ripetitore che deve raggiungere un altro ripetitore lontano, oppure un nodo in valle che deve puntare verso l'unica cima da cui si vede la rete. Rispetto a una Yagi della stessa resa è molto più corta, e la piastra posteriore protegge anche dai disturbi che arrivano da dietro."
+  },
+  {
+    "id": "blog/biquad-paolo--e-ora",
+    "page": "Blog",
+    "title": "E ora?",
+    "url": "https://meshcore-ita.github.io/blog/biquad-paolo/#e-ora",
+    "text": "Paolo stesso considera questo un prototipo. Accorciando i lati, i quadrati sono venuti un po' storti, e per una versione definitiva propone due idee: un modo più pulito per tagliare gli elementi, oppure anelli circolari , più belli da vedere, con dimensioni ancora da verificare. Suggerisce anche di fissare il radiatore con una colata di resina e due supporti laterali isolanti, al posto del nastro autoagglomerante della prova. La scheda con la vista 3D, i grafici di ROS e impedenza e il file NEC spiegato riga per riga è qui: Biquad con riflettore . La teoria e l'uso di EZNEC sono nel tutorial di Paolo, EZNEC, chi era costui (2) ; per gli strumenti open source equivalenti c'è il nostro…"
+  },
+  {
     "id": "blog/zephcore-firmware-senza-loop--da-dove-partiamo",
     "page": "Blog",
     "title": "Da dove partiamo",

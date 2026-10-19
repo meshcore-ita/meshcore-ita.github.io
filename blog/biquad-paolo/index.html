@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+
+<title>La biquad di Paolo: quasi 10 dBi con un metro di rame e una piastra</title>
+<meta name="description" content="Paolo aggiunge alla galleria una biquad con riflettore per 869 MHz e racconta su lora868 come l'ha costruita e tarata con il NanoVNA. In simulazione 9,8 dBi e 18 dB avanti/dietro; sul banco, lati accorciati e schermo a 40 mm. Numeri, differenze tra modello e prototipo, e la potenza da abbassare.">
+<link rel="canonical" href="https://meshcore-ita.github.io/blog/biquad-paolo/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Blog" href="https://meshcore-ita.github.io/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MeshCore ITA">
+<meta property="og:title" content="La biquad di Paolo: quasi 10 dBi con un metro di rame e una piastra">
+<meta property="og:description" content="Paolo aggiunge alla galleria una biquad con riflettore per 869 MHz e racconta su lora868 come l'ha costruita e tarata con il NanoVNA. In simulazione 9,8 dBi e 18 dB avanti/dietro; sul banco, lati accorciati e schermo a 40 mm. Numeri, differenze tra modello e prototipo, e la potenza da abbassare.">
+<meta property="og:url" content="https://meshcore-ita.github.io/blog/biquad-paolo/">
+<meta property="og:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="it_IT">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La biquad di Paolo: quasi 10 dBi con un metro di rame e una piastra">
+<meta name="twitter:description" content="Paolo aggiunge alla galleria una biquad con riflettore per 869 MHz e racconta su lora868 come l'ha costruita e tarata con il NanoVNA. In simulazione 9,8 dBi e 18 dB avanti/dietro; sul banco, lati accorciati e schermo a 40 mm. Numeri, differenze tra modello e prototipo, e la potenza da abbassare.">
+<meta name="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="mask-icon" href="../../assets/img/favicon.svg" color="#22c55e">
+
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geist-300-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
+
+<link rel="stylesheet" href="../../assets/css/style.css?v=9">
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "La biquad di Paolo: quasi 10 dBi con un metro di rame e una piastra",
+      "description": "Paolo aggiunge alla galleria una biquad con riflettore per 869 MHz e racconta su lora868 come l'ha costruita e tarata con il NanoVNA. In simulazione 9,8 dBi e 18 dB avanti/dietro; sul banco, lati accorciati e schermo a 40 mm. Numeri, differenze tra modello e prototipo, e la potenza da abbassare.",
+      "datePublished": "2026-10-19",
+      "dateModified": "2026-10-19",
+      "author": {
+        "@type": "Organization",
+        "name": "MeshCore ITA"
+      },
+      "inLanguage": "it",
+      "mainEntityOfPage": "https://meshcore-ita.github.io/blog/biquad-paolo/",
+      "keywords": "Antenne, Autocostruzione, Community",
+      "wordCount": 959,
+      "timeRequired": "PT5M",
+      "articleSection": "Blog"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://meshcore-ita.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://meshcore-ita.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Due quadrati di rame davanti a uno specchio",
+          "item": "https://meshcore-ita.github.io/blog/biquad-paolo/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Vai al contenuto</a>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<header class="site-header" data-scrolled="false">
+  <div class="site-header__inner">
+    <a class="brand" href="../../">
+      <img class="brand__mark" src="../../assets/img/logo.svg" alt="" width="28" height="28">
+      <span class="brand__text">MeshCore <em>ITA</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a class="nav__link" href="../../#cos-e">Cos'è</a>
+      <a class="nav__link" href="../../guida/">Guida</a>
+      <a class="nav__link" href="../../preset-radio/">Preset radio</a>
+      <a class="nav__link" href="../../hardware/">Hardware</a>
+      <a class="nav__link" href="../../faq/">FAQ</a>
+      <a class="nav__link" href="../../community/">Community</a>
+      <a class="nav__link" href="../../blog/" aria-current="true">Blog</a>
+      <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
+      <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
+    </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="sr-only">Apri il menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero hero--page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="../../">Home</a></li>
+        <li><a href="../">Blog</a></li>
+        <li aria-current="page">Due quadrati di rame davanti a uno specchio</li>
+      </ol>
+    </nav>
+    <p class="eyelash">Blog</p>
+    <h1 class="hero__title">Due quadrati di rame davanti a uno specchio</h1>
+    <p class="hero__lede">Paolo ha caricato nella galleria la biquad che aveva usato come esempio nel suo tutorial su EZNEC, e sul suo blog spiega passo per passo come costruirla e tararla con il NanoVNA.</p>
+  </section>
+
+<section class="section">
+  <p class="post-meta"><time datetime="2026-10-19">19 ottobre 2026</time> · <span class="post-meta__author">MeshCore ITA</span> · 5 min di lettura</p>
+  <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+
+<nav class="toc" aria-label="In questo articolo">
+  <p class="toc__label">In questo articolo</p>
+  <ol class="toc__list"><li><a href="#cos-e-una-biquad">Cos'è una biquad</a></li><li><a href="#il-modello-nella-galleria">Il modello nella galleria</a></li><li><a href="#cosa-dice-il-simulatore">Cosa dice il simulatore</a></li><li><a href="#dal-modello-al-banco">Dal modello al banco</a></li><li><a href="#attenzione-alla-potenza">Attenzione alla potenza</a></li><li><a href="#dove-usarla">Dove usarla</a></li><li><a href="#e-ora">E ora?</a></li></ol>
+</nav>
+  <div class="prose">
+<h2 id="cos-e-una-biquad">Cos&#39;è una biquad</h2>
+<p>Una <strong>biquad</strong> sono due anelli quadrati di filo, ognuno lungo circa una
+lunghezza d&#39;onda di perimetro, uniti al centro come un &quot;8&quot; coricato. Il cavo
+si collega nel punto in cui i due quadrati si toccano. Da sola irradia sia
+avanti sia indietro. Con una piastra metallica dietro, a pochi centimetri,
+l&#39;energia che andrebbe all&#39;indietro viene riflessa in avanti e l&#39;antenna
+diventa <strong>direttiva</strong>.</p>
+<p>È un progetto classico del Wi-Fi fai-da-te a 2,4 GHz. A 869 MHz le misure
+crescono, ma restano da scrivania: un lato di circa 8,5 cm e una piastra di
+30 × 20 cm.</p>
+<h2 id="il-modello-nella-galleria">Il modello nella galleria</h2>
+<p>La <a href="https://meshcore-ita.github.io/antenne/paolo-biquad/">scheda di Paolo</a>
+contiene il file NEC esportato da 4nec2. Le parti sono queste:</p>
+<table>
+<thead>
+<tr>
+<th>Parte</th>
+<th>Misura nel modello</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Lato dei quadrati</td>
+<td>84 mm, filo di rame da 2 mm</td>
+</tr>
+<tr>
+<td>Punto di alimentazione</td>
+<td>tratto verticale di 9 mm al centro</td>
+</tr>
+<tr>
+<td>Riflettore</td>
+<td>griglia di 350 × 262 mm, maglia da 29 mm</td>
+</tr>
+<tr>
+<td>Distanza radiatore–riflettore</td>
+<td>35 mm</td>
+</tr>
+</tbody></table>
+<p>I quadrati sono ruotati di 45°, a rombo, e il punto di alimentazione è
+verticale. Per questo la polarizzazione risulta <strong>verticale</strong>, la stessa di
+quasi tutti i nodi MeshCore. Paolo insiste sullo stesso punto nell&#39;articolo:
+i capi del coassiale vanno orientati in verticale, perché &quot;fa tutta la
+differenza di questo mondo&quot;. Ruotata di 90°, l&#39;antenna parlerebbe in
+polarizzazione orizzontale, e verso un nodo verticale si perderebbero molti
+dB.</p>
+<p>Il riflettore è una griglia di fili perché NEC-2 descrive solo fili, non
+superfici. Una maglia di 29 mm, circa un dodicesimo della lunghezza d&#39;onda,
+a questa frequenza si comporta come una lastra piena.</p>
+<h2 id="cosa-dice-il-simulatore">Cosa dice il simulatore</h2>
+<p>A 869,618 MHz, in spazio libero:</p>
+<ul>
+<li><strong>Guadagno 9,8 dBi</strong> (7,6 dBd), circa 5,8 volte la potenza di un dipolo
+nella direzione migliore.</li>
+<li><strong>Avanti/dietro 18 dB</strong>: dietro la piastra arriva circa 1/60 della
+potenza che va in avanti.</li>
+<li><strong>Impedenza 49,3 − j5,3 Ω, ROS 1,11</strong>, con il cavo saldato direttamente
+sull&#39;antenna e nessun adattatore.</li>
+<li><strong>Minimo del ROS a 875 MHz</strong>: il modello è leggermente corto. Il ROS
+resta comunque ottimo nella sub-banda.</li>
+</ul>
+<h2 id="dal-modello-al-banco">Dal modello al banco</h2>
+<p>La parte più interessante sta nell&#39;articolo
+<a href="https://lora868.at1839.name/biquad-alla-griglia/"><em>Biquad alla griglia</em></a>.
+Paolo racconta un prototipo vero, misurato con il NanoVNA, con tutti gli
+aggiustamenti del caso.</p>
+<p>Il materiale è poco:</p>
+<ul>
+<li>un metro di rame nudo da 2 mm;</li>
+<li>una piastra di alluminio da almeno 30 × 20 cm;</li>
+<li>una barra filettata da lampadario, con i suoi dadi. Dentro la barra passa
+il coassiale, e la barra regge il radiatore davanti alla piastra;</li>
+<li>uno spezzone di buon cavo (Paolo ha usato LMR240 in una barra M10; con una
+M14 entrerebbe anche RG213);</li>
+<li>una staffa, possibilmente per un palo in plastica.</li>
+</ul>
+<p>Paolo ha piegato i quadrati con 85 mm di lato, apposta un po&#39; lunghi. La
+prima misura gli ha dato torto: a 869 MHz c&#39;erano troppa resistenza e
+reattanza induttiva, cioè un&#39;antenna troppo lunga. Ha dovuto accorciare
+quasi un centimetro per elemento, tagliando 5 mm alle estremità e
+risaldando. Poi, girando i dadi sulla barra, ha regolato la distanza dalla
+piastra fino a un ROS &quot;praticamente perfetto&quot;. La distanza finale è di
+<strong>40 mm</strong>, non i 35 del modello.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Modello</th>
+<th>Prototipo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Lato</td>
+<td>84 mm</td>
+<td>85 mm, poi accorciato</td>
+</tr>
+<tr>
+<td>Distanza dalla piastra</td>
+<td>35 mm</td>
+<td>40 mm</td>
+</tr>
+<tr>
+<td>Riflettore</td>
+<td>griglia 350 × 262 mm</td>
+<td>piastra piena di alluminio</td>
+</tr>
+</tbody></table>
+<p>Le differenze non devono stupire. Il modello è in spazio libero, senza
+barra filettata, senza coassiale, senza nastro e senza staffa, e con un
+riflettore di forma diversa. La distanza dalla piastra cambia molto
+l&#39;impedenza della biquad, ed è per questo che la barra filettata funziona
+così bene come regolazione. Tra il modello che chiede di allungare e il
+prototipo che ha chiesto di accorciare, ha ragione il NanoVNA.</p>
+<p>È la lezione di tutta la galleria: il simulatore dice com&#39;è fatta l&#39;antenna
+e da dove partire, la taratura si fa sull&#39;antenna montata.</p>
+<h2 id="attenzione-alla-potenza">Attenzione alla potenza</h2>
+<p>Con 7,6 dBd di guadagno questa antenna va sul nodo <strong>a potenza ridotta</strong>.
+Il preset italiano consente 27 dBm ERP (500 mW, vedi la
+<a href="../../normativa/">normativa</a>):</p>
+<table>
+<thead>
+<tr>
+<th>Perdita nel cavo</th>
+<th>TX massima</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0 dB</td>
+<td>19,4 dBm (87 mW)</td>
+</tr>
+<tr>
+<td>1 dB</td>
+<td>20,4 dBm (109 mW)</td>
+</tr>
+<tr>
+<td>2 dB</td>
+<td>21,4 dBm (137 mW)</td>
+</tr>
+</tbody></table>
+<p>Un SX1262 al massimo arriva a 22 dBm, cioè oltre il limite con qualunque
+cavo corto. Con questa antenna la potenza sul nodo va abbassata. Il
+guadagno non si perde: la portata la dà l&#39;antenna, anche in ricezione, che
+nessun limite di ERP tocca.</p>
+<h2 id="dove-usarla">Dove usarla</h2>
+<p>Una direttiva con 18 dB avanti/dietro non serve a coprire un quartiere. È
+fatta per un <strong>collegamento punto-punto</strong>: un ripetitore che deve
+raggiungere un altro ripetitore lontano, oppure un nodo in valle che deve
+puntare verso l&#39;unica cima da cui si vede la rete. Rispetto a una Yagi della
+stessa resa è molto più corta, e la piastra posteriore protegge anche dai
+disturbi che arrivano da dietro.</p>
+<h2 id="e-ora">E ora?</h2>
+<p>Paolo stesso considera questo un prototipo. Accorciando i lati, i quadrati
+sono venuti un po&#39; storti, e per una versione definitiva propone due idee:
+un modo più pulito per tagliare gli elementi, oppure anelli <strong>circolari</strong>,
+più belli da vedere, con dimensioni ancora da verificare. Suggerisce anche
+di fissare il radiatore con una colata di resina e due supporti laterali
+isolanti, al posto del nastro autoagglomerante della prova.</p>
+<p>La scheda con la vista 3D, i grafici di ROS e impedenza e il file NEC
+spiegato riga per riga è qui:
+<a href="https://meshcore-ita.github.io/antenne/paolo-biquad/">Biquad con riflettore</a>.
+La teoria e l&#39;uso di EZNEC sono nel tutorial di Paolo,
+<a href="https://lora868.at1839.name/eznec-chi-era-costui-2/"><em>EZNEC, chi era costui (2)</em></a>;
+per gli strumenti open source equivalenti c&#39;è il nostro articolo sulle
+<a href="../antenne-nec-senza-windows/">antenne NEC senza Windows</a>.</p>
+<p>Hai una tua antenna? Le istruzioni sono nell&#39;articolo sulla
+<a href="../galleria-antenne/">galleria</a>, oppure mandala nel gruppo Telegram
+<a href="https://t.me/meshcore_ita">MeshCore ITA</a>.</p>
+<p>Grazie a Paolo.</p>
+
+  </div>
+</section>
+<nav class="post-nav" aria-label="Articoli adiacenti">
+<a class="post-nav__link post-nav__link--prev" href="../../blog/zephcore-firmware-senza-loop/"><span class="post-nav__label">Articolo precedente</span><span class="post-nav__title">ZephCore: MeshCore senza il loop di Arduino</span></a>
+<span class="post-nav__link post-nav__link--next post-nav__link--empty"></span>
+</nav>
+
+<div class="share">
+  <p class="share__label">Condividi</p>
+  <a class="share__btn" href="https://t.me/share/url?url=https%3A%2F%2Fmeshcore-ita.github.io%2Fblog%2Fbiquad-paolo%2F&text=La%20biquad%20di%20Paolo%3A%20quasi%2010%20dBi%20con%20un%20metro%20di%20rame%20e%20una%20piastra" target="_blank" rel="noopener">Telegram</a>
+  <button class="share__btn share__copy" type="button" data-copy-link="https://meshcore-ita.github.io/blog/biquad-paolo/" hidden>Copia link</button>
+  <span class="share__status" role="status" aria-live="polite"></span>
+</div>
+
+<section class="section related-posts" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Correlati</p>
+      <h2 class="section__title">Articoli correlati</h2>
+    </div>
+    <ul class="posts">
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-28">28 settembre 2026</time> · 6 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/cactus-j-pole-fabrizio/">La Cactus J-Pole di Fabrizio: una J-pole che ignora il palo</a></h3>
+        <p class="post-card__body">Dopo la Yagi LFA, Fabrizio ha caricato nella galleria una J-pole verticale pensata per il palo metallico. Il primo prototipo è già in funzione sul suo nodo di casa.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-27">27 settembre 2026</time> · 3 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/yagi-lfa-fabrizio/">La Yagi LFA di Fabrizio: 50 Ω senza adattatore</a></h3>
+        <p class="post-card__body">Il giorno dopo l'apertura della galleria, Fabrizio ci ha mandato una Yagi a 3 elementi un po' speciale: l'elemento alimentato è un anello chiuso. Il simulatore ha risposto con un ROS di 1,02.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-26">26 settembre 2026</time> · 3 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/galleria-antenne/">Nasce la galleria delle antenne della community</a></h3>
+        <p class="post-card__body">Dopo l'articolo su xnec2c, Fabrizio ci ha mandato la Yagi che usa sul suo nodo. Da lì è nata una galleria aperta: si condivide il file .nec, e il sito simula l'antenna e spiega cosa significano i numeri.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/software/">Software</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    </ul>
+  </section>
+<section class="section related" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Continua a leggere</p>
+      <h2 class="section__title">Altri contenuti MeshCore ITA</h2>
+    </div>
+    <div class="grid grid--2">
+      <a class="card" href="../../guida/">
+        <h3 class="card__title">Guida</h3>
+        <p class="card__body">Tutti i passaggi, in italiano, per configurare il tuo primo nodo MeshCore e agganciarlo alla mesh italiana.</p>
+      </a>
+      <a class="card" href="../../preset-radio/">
+        <h3 class="card__title">Preset radio</h3>
+        <p class="card__body">Frequenza, banda, spreading factor e coding rate che permettono a tutti i nodi MeshCore italiani di sentirsi tra loro.</p>
+      </a>
+      <a class="card" href="../../hardware/">
+        <h3 class="card__title">Hardware</h3>
+        <p class="card__body">Le board LoRa supportate dal firmware Companion, confrontate per chip, connettività e uso tipico.</p>
+      </a>
+      <a class="card" href="../">
+        <h3 class="card__title">Blog</h3>
+        <p class="card__body">Tutti gli articoli e le novità di MeshCore ITA.</p>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="foot__nav">
+      <p class="foot__nav-label">Inizia</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../guida/">Guida</a></li>
+        <li><a href="../../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../preset-radio/">Preset radio</a></li>
+        <li><a href="../../hardware/">Hardware</a></li>
+        <li><a href="../../installare-repeater/">Repeater</a></li>
+        <li><a href="../../link-budget/">Portata e link budget</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../mappa-copertura/">Mappa</a></li>
+        <li><a href="../../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../comandi/">Comandi</a></li>
+        <li><a href="../../problemi/">Problemi</a></li>
+        <li><a href="../../faq/">FAQ</a></li>
+        <li><a href="../../meshcore-vs-meshtastic/">Confronti</a></li>
+        <li><a href="../../glossario/">Glossario</a></li>
+        <li><a href="../../normativa/">Normativa</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../community/">Community</a></li>
+      </ul>
+      <p class="foot__nav-label">Blog</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../blog/" aria-current="true">Blog</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
+    <p class="site-footer__note">Contenuti sotto licenza CC BY 4.0, codice del sito sotto licenza MIT.</p>
+    <p class="foot__meta">Aggiornato il 19 ottobre 2026</p>
+    <p class="foot__meta">Trovato un errore o vuoi aggiungere qualcosa? <a class="link" href="https://github.com/meshcore-ita/meshcore-ita.github.io/edit/main/content/blog/biquad-paolo.md" target="_blank" rel="noopener">Modifica questa pagina su GitHub<span class="ext-arrow">↗</span></a> — la modifica diventa una pull request.</p>
+    <ul class="site-footer__links">
+      <li><a href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Telegram<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://meshcore.io/" target="_blank" rel="noopener">MeshCore<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://docs.meshcore.io/" target="_blank" rel="noopener">Docs<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">Flasher<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://map.meshcore.io/" target="_blank" rel="noopener">Mappa pubblica<span class="ext-arrow">↗</span></a></li>
+    </ul>
+  </div>
+</footer>
+
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="../../search-index.json" data-search-extra="../../antenne/search-index.json">
+  <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+<script type="module" src="../../assets/js/main.js?v=6" defer></script>
+<script type="module" src="../../assets/js/search.js?v=2" defer></script>
+<script type="module" src="../../assets/js/widgets.js?v=2" defer></script>
+</body>
+</html>

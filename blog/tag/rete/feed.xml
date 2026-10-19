@@ -4,14 +4,14 @@
   <id>https://meshcore-ita.github.io/blog/tag/rete/</id>
   <link rel="self" href="https://meshcore-ita.github.io/blog/tag/rete/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/rete/"/>
-  <updated>2026-10-19T00:00:00Z</updated>
+  <updated>2026-10-19T10:00:00+02:00</updated>
   <author><name>MeshCore ITA</name></author>
   <entry>
     <id>https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/</id>
     <title>ZephCore: MeshCore senza il loop di Arduino</title>
     <link rel="alternate" href="https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/"/>
-    <published>2026-10-19T00:00:00Z</published>
-    <updated>2026-10-19T00:00:00Z</updated>
+    <published>2026-10-19T10:00:00+02:00</published>
+    <updated>2026-10-19T10:00:00+02:00</updated>
     <summary type="text">Ne avevamo parlato di passaggio, come il firmware che supporta già i chip LoRa nuovi. Questa volta guardiamo dentro: come gira, cosa fa diversamente dal firmware ufficiale e quando ha senso provarlo.</summary>
     <category term="software" label="Software"/>
     <category term="rete" label="Rete"/>
