@@ -1427,6 +1427,83 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/zephcore-firmware-senza-loop--da-dove-partiamo",
+    "page": "Blog",
+    "title": "Da dove partiamo",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#da-dove-partiamo",
+    "text": "Nell'articolo sull'hardware mesh abbiamo citato ZephCore due volte: ha già i driver per i chip LoRa di nuova generazione (LR1110 e LR2021) e una build per l'nRF54L15, che il firmware ufficiale non può supportare perché gira su un core Arduino solo per nRF52. Lo abbiamo poi rimesso nel percorso tra le risorse di awesome-meshcore , fra i firmware alternativi. Il punto però non è solo l'hardware. ZephCore cambia il modo in cui il firmware passa il tempo. Il firmware ufficiale gira in un ciclo che controlla tutto, di continuo. ZephCore invece aspetta che succeda qualcosa. Questo articolo si basa sul codice di ZephCore 1.18.0 e sul ramo principale di MeshCore di metà ottobre 2026."
+  },
+  {
+    "id": "blog/zephcore-firmware-senza-loop--stesso-protocollo-sotto-e-tutto-diverso",
+    "page": "Blog",
+    "title": "Stesso protocollo, sotto è tutto diverso",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#stesso-protocollo-sotto-e-tutto-diverso",
+    "text": "ZephCore non è un fork del protocollo. Un nodo ZephCore parla con i nodi MeshCore normali, si accoppia con le stesse app e risponde agli stessi comandi della CLI. Il formato dei pacchetti in aria è bloccato a quello ufficiale: il documento di progetto lo chiama frozen , e ogni funzione in più deve restare locale al nodo. Cambia quello che sta sotto. Al posto di Arduino c'è Zephyr , un sistema operativo real-time per microcontrollori della Linux Foundation. I driver radio, il Bluetooth, la USB e il file system sono quelli di Zephyr. Il codice della mesh ( Dispatcher , Mesh , Packet , le identità) è invece copiato da MeshCore quasi riga per riga: ogni modifica è marcata con un commento //…"
+  },
+  {
+    "id": "blog/zephcore-firmware-senza-loop--il-loop-del-firmware-ufficiale",
+    "page": "Blog",
+    "title": "Il loop del firmware ufficiale",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#il-loop-del-firmware-ufficiale",
+    "text": "Un programma Arduino ha due funzioni: setup() , che parte una volta, e loop() , che viene chiamata all'infinito. Il repeater ufficiale fa così. A ogni giro loop() : legge la seriale, un carattere alla volta, per vedere se è arrivato un comando della CLI; chiama the_mesh.loop() , che a sua volta chiede alla radio se ha finito di trasmettere, se ha ricevuto un pacchetto, se c'è qualcosa da spedire; aggiorna sensori, display e orologio; se powersaving è attivo e non c'è lavoro in sospeso, mette il processore a dormire. La radio non chiama nessuno. Quando l'SX1262 riceve un pacchetto, alza il pin DIO1 e l'interrupt imposta un flag ( STATE_INT_READY nel wrapper di RadioLib). Sarà il giro…"
+  },
+  {
+    "id": "blog/zephcore-firmware-senza-loop--niente-loop-un-thread-che-aspetta",
+    "page": "Blog",
+    "title": "Niente loop: un thread che aspetta",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#niente-loop-un-thread-che-aspetta",
+    "text": "In ZephCore la mesh vive in un solo thread, il thread principale di Zephyr. Quel thread passa quasi tutto il tempo fermo in una chiamata, k_event_wait() , che si sblocca solo quando qualcuno alza uno dei bit di evento: pacchetto LoRa ricevuto, trasmissione finita, comando arrivato da USB o Bluetooth, scadenza di manutenzione, azione del GPS. Il percorso di un pacchetto ricevuto è questo: la radio alza DIO1; il driver Zephyr legge il pacchetto e lo scrive in un buffer circolare da 8 posti; il driver alza l'evento MESH_EVENT_LORA_RX ; il thread principale si sveglia, guarda quali bit sono alzati e svuota il buffer con lo stesso Dispatcher del firmware ufficiale; finito il lavoro, torna ad…"
+  },
+  {
+    "id": "blog/zephcore-firmware-senza-loop--le-scadenze-al-posto-del-timer",
+    "page": "Blog",
+    "title": "Le scadenze al posto del timer",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#le-scadenze-al-posto-del-timer",
+    "text": "Restava un pezzo di polling. Fino alla 1.16.7 il repeater ZephCore si svegliava comunque ogni 5 secondi, per fare la manutenzione: misurare il rumore di fondo, controllare il timer degli advert, rimettere a posto una configurazione radio temporanea. Dalla 1.16.8 il repeater è guidato dalle scadenze. Prima di addormentarsi chiede «quando è il prossimo lavoro?» e programma un'unica sveglia per quel momento. Una sveglia di sicurezza ogni 60 secondi copre il caso di una scadenza dimenticata. Il documento di progetto riporta circa 0,07 risvegli al secondo per un repeater fermo, cioè uno ogni 14 secondi circa. Oggi il room server condivide lo stesso ciclo del repeater, e quindi le stesse sveglie.…"
+  },
+  {
+    "id": "blog/zephcore-firmware-senza-loop--le-macchine-a-stati",
+    "page": "Blog",
+    "title": "Le macchine a stati",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#le-macchine-a-stati",
+    "text": "Un firmware senza loop non può più scrivere «aspetta che la radio finisca» come una riga dentro un ciclo. Ogni componente che ha un'attesa deve sapere in che fase si trova e cosa la fa passare alla fase dopo. In pratica, diventa una macchina a stati esplicita. In ZephCore ce ne sono diverse: La radio ( LoRaRadio ): ricezione, ascolto prima di parlare, trasmissione, ritorno in ricezione. Ogni passaggio è innescato da un interrupt del chip, non da un controllo periodico. Il GPS : spento, in acquisizione, in attesa. Se è impostato un intervallo, dopo 5 posizioni buone spegne il modulo e lo riaccende alla scadenza successiva. Il Dispatcher : coda di trasmissione, controllo del canale libero,…"
+  },
+  {
+    "id": "blog/zephcore-firmware-senza-loop--il-ritardo-adattivo-al-posto-di-txdelay",
+    "page": "Blog",
+    "title": "Il ritardo adattivo al posto di txdelay",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#il-ritardo-adattivo-al-posto-di-txdelay",
+    "text": "Nell'articolo sul tempo d'aria condiviso abbiamo visto come funziona il ritardo casuale prima di ritrasmettere un flood: la finestra è fissa, 5 × txdelay × tempo in aria, e alzare txdelay sui repeater in collina riduce le collisioni al prezzo di più latenza. ZephCore sostituisce quel parametro con tre meccanismi: Finestra adattiva. Il repeater misura quanto è affollato il suo intorno e allarga o stringe la finestra di conseguenza. Il tetto è il minore fra 2 secondi e 6 volte il tempo in aria del pacchetto. Rinvio a ogni doppione. Se mentre aspetta sente un altro nodo ritrasmettere lo stesso pacchetto, rimanda la propria trasmissione di una frazione del tempo in aria, fino a un massimo.…"
+  },
+  {
+    "id": "blog/zephcore-firmware-senza-loop--le-altre-differenze",
+    "page": "Blog",
+    "title": "Le altre differenze",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#le-altre-differenze",
+    "text": "Più processori e chip radio. nRF52840, nRF54L15, la famiglia ESP32, EFR32MG24 e STM32WL; per le radio SX126x, SX127x, LR1110 e LR2021. Con l'LR2021 si può impostare una frequenza a 2,4 GHz. In Italia per ora non serve: nell'articolo sull'hardware abbiamo visto perché. Un ruolo in più, l'observer. Un nodo ESP32 che ascolta e basta, e pubblica tutto quello che sente su un server MQTT via Wi-Fi. Anche un repeater ESP32 può mandare i pacchetti a MQTT mentre ripete. Sincronizzazione dell'ora. I nodi senza GPS possono mettersi d'accordo sull'ora usando i timestamp firmati degli advert dei vicini. È spenta di default ( set meshtimesync on ). LED configurabili. set leds off li spegne tutti; si può…"
+  },
+  {
+    "id": "blog/zephcore-firmware-senza-loop--prima-di-installarlo",
+    "page": "Blog",
+    "title": "Prima di installarlo",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#prima-di-installarlo",
+    "text": "Le impostazioni non passano. Fra firmware ufficiale e ZephCore, in entrambe le direzioni, contatti, canali e configurazione non vengono conservati. Su un repeater vuol dire rifare password, nome, preset radio e posizione. Se il nodo ha un'identità che i vicini conoscono, esportala prima. Su nRF52 il bootloader resta quello. Si installa trascinando il file UF2, come il firmware ufficiale, e si torna indietro allo stesso modo. L'installazione più semplice è il web flasher di ZephCore , da Chrome o Edge. Le schede nRF sono le più provate. Il manutentore prova le release soprattutto su schede nRF; le schede ESP32 sono provate in buona parte dalla community. Il codice è scritto quasi tutto da…"
+  },
+  {
+    "id": "blog/zephcore-firmware-senza-loop--cosa-ci-portiamo-a-casa",
+    "page": "Blog",
+    "title": "Cosa ci portiamo a casa",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#cosa-ci-portiamo-a-casa",
+    "text": "Per chi usa un companion, ZephCore è soprattutto un modo di avere MeshCore su schede che il firmware ufficiale non supporta. Per chi gestisce un repeater, è un esperimento interessante su due fronti: un processore che dorme davvero quando non c'è traffico e un ritardo di ritrasmissione che si adatta da solo invece di essere regolato a mano. Il modo giusto di provarlo è su un nodo che controlli da vicino, non sul repeater in cima alla collina che serve mezza provincia. E se lo provi, raccontaci com'è andata nel gruppo: stabilità, consumi, cosa senti in più o in meno."
+  },
+  {
+    "id": "blog/zephcore-firmware-senza-loop--fonti",
+    "page": "Blog",
+    "title": "Fonti",
+    "url": "https://meshcore-ita.github.io/blog/zephcore-firmware-senza-loop/#fonti",
+    "text": "Architettura, modello a thread unico, regole su attese e ripristini: docs/DESIGN.md di ZephCore. Ciclo a eventi del repeater e del room server: zephcore/src/server_main_common.cpp . Macchina a stati della radio, flusso di un pacchetto ricevuto e ripristini: docs/ARCHITECTURE.md . Ritardo adattivo e txdelay ignorato: ADR 0007 . Repeater guidati dalle scadenze: note di rilascio 1.16.8 . Loop del repeater ufficiale: examples/simple_repeater/main.cpp ; gestione dell'interrupt radio: src/helpers/radiolib/RadioLibWrappers.cpp ; sonno su nRF52: src/helpers/NRF52Board.cpp ."
+  },
+  {
     "id": "blog/aria-condivisa--da-dove-partiamo",
     "page": "Blog",
     "title": "Da dove partiamo",
