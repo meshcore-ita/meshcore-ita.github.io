@@ -1427,6 +1427,62 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/collineare-paolo--cos-e-una-collineare",
+    "page": "Blog",
+    "title": "Cos'è una collineare",
+    "url": "https://meshcore-ita.github.io/blog/collineare-paolo/#cos-e-una-collineare",
+    "text": "Una collineare è una pila di radiatori a mezz'onda, uno sopra l'altro sullo stesso asse. Perché i loro campi si sommino, le correnti nei vari elementi devono essere in fase . Due mezz'onde semplicemente in fila non lo sono: tra l'una e l'altra serve qualcosa che sfasi il segnale di 180°. Nella versione di Paolo questo compito lo svolge una bobina di filo di rame. Il risultato è un'antenna verticale e omnidirezionale, come il dipolo di partenza, ma con un lobo più schiacciato verso l'orizzonte. Quello che si perde verso il cielo, dove a un nodo MeshCore non serve, si guadagna verso i nodi vicini."
+  },
+  {
+    "id": "blog/collineare-paolo--il-punto-di-partenza",
+    "page": "Blog",
+    "title": "Il punto di partenza",
+    "url": "https://meshcore-ita.github.io/blog/collineare-paolo/#il-punto-di-partenza",
+    "text": "Paolo non è partito da zero. La base è uno sleeve dipole LoRaWAN con radome in fibra e connettore N, comprato online e già recensito sul suo blog . Il piano è semplice: aprire il radome in cima, saldare sulla punta del dipolo la bobina e un secondo radiatore verticale, poi richiudere il tutto in un radome allungato."
+  },
+  {
+    "id": "blog/collineare-paolo--il-modello-nella-galleria",
+    "page": "Blog",
+    "title": "Il modello nella galleria",
+    "url": "https://meshcore-ita.github.io/blog/collineare-paolo/#il-modello-nella-galleria",
+    "text": "La scheda di Paolo contiene il modello NEC esportato da 4nec2. Le parti sono queste: Parte Misura nel modello Dipolo di base 161 mm, filo da 2 mm, alimentato al centro Bobina di sfasamento 7,65 spire, diametro 11 mm, alta circa 77 mm Secondo radiatore 184 mm, fino a 421 mm di altezza totale Il dipolo del modello è di filo da 2 mm, mentre quello vero è un tubo da 10 mm. Paolo lo spiega nel tutorial: EZNEC rifiuta di collegare la bobina, fatta di filo sottile, a un elemento cinque volte più grosso. Il dipolo è stato quindi ricalcolato come se fosse anche lui di filo da 2 mm, con la lunghezza corretta per restare risonante. A 869,618 MHz, in spazio libero, il simulatore della galleria dà:…"
+  },
+  {
+    "id": "blog/collineare-paolo--il-ros-sbagliato-che-non-e-sbagliato",
+    "page": "Blog",
+    "title": "Il ROS \"sbagliato\" che non è sbagliato",
+    "url": "https://meshcore-ita.github.io/blog/collineare-paolo/#il-ros-sbagliato-che-non-e-sbagliato",
+    "text": "Qui c'è la parte più istruttiva. Il modello originale di Paolo in EZNEC include un pezzo che il motore della galleria non sa simulare: la linea di trasmissione dentro lo sleeve dipole. Il cavo che va dal connettore N al centro del dipolo è un coassiale lungo circa 19 cm, che a 869 MHz vale grosso modo tre quarti d'onda . Una linea a quarto d'onda (o a tre quarti) è un trasformatore di impedenza. I circa 75 Ω di un dipolo a mezz'onda, visti attraverso 3/4 d'onda di cavo a 50 Ω, diventano circa 33 Ω. Paolo aveva misurato 30,5 Ω al connettore dello sleeve dipole originale e all'inizio non tornava nulla: con questo modello torna tutto. La regola che ne esce è utile per chiunque usi un NanoVNA:…"
+  },
+  {
+    "id": "blog/collineare-paolo--dal-modello-al-banco",
+    "page": "Blog",
+    "title": "Dal modello al banco",
+    "url": "https://meshcore-ita.github.io/blog/collineare-paolo/#dal-modello-al-banco",
+    "text": "La costruzione è descritta in Trasformazione in collineare dello sleeve dipole Arceli . Il materiale: lo sleeve dipole da sacrificare; uno spezzone di canalina elettrica da 20 mm di diametro esterno, più un breve tubo di plastica da 20 mm interni per raccordarla al radome originale, e un tappo; rame da 2 mm; un tubetto da 10 mm come forma per avvolgere la bobina; un raccordo tra bobina e radiatore superiore (Paolo ha usato 1 cm di tubetto di ottone; va bene anche l'interno di un mammut); saldatore e NanoVNA. Il radome originale si apre in cima con un Dremel e si allunga con la canalina fino a circa 55–60 cm. La bobina si avvolge lunga , una dozzina di spire distese su circa 8 cm, e si salda…"
+  },
+  {
+    "id": "blog/collineare-paolo--attenzione-alla-potenza",
+    "page": "Blog",
+    "title": "Attenzione alla potenza",
+    "url": "https://meshcore-ita.github.io/blog/collineare-paolo/#attenzione-alla-potenza",
+    "text": "Con 2,7 dBd di guadagno, il limite di 27 dBm ERP del preset italiano (vedi la normativa ) lascia molto margine: Perdita nel cavo TX massima 0 dB 24,3 dBm (267 mW) 1 dB 25,3 dBm (336 mW) 2 dB 26,3 dBm (423 mW) Un SX1262 si ferma a 22 dBm, quindi con questa antenna lo si può usare al massimo senza superare il limite. Chi usa moduli con amplificatore più potente deve invece fare il conto."
+  },
+  {
+    "id": "blog/collineare-paolo--dove-usarla",
+    "page": "Blog",
+    "title": "Dove usarla",
+    "url": "https://meshcore-ita.github.io/blog/collineare-paolo/#dove-usarla",
+    "text": "È un'antenna da nodo fisso : un ripetitore su un tetto, un room server, un nodo di casa che deve coprire tutto attorno. Rispetto a una direttiva come la biquad di Paolo non va puntata, e rispetto a uno sleeve dipole semplice guadagna qualche dB sull'orizzonte. Il prezzo è la lunghezza, circa 60 cm, e un lobo più stretto in verticale: un nodo in cima a una collina che deve raggiungere la valle molto più in basso può trovarsi meglio con un dipolo semplice."
+  },
+  {
+    "id": "blog/collineare-paolo--e-ora",
+    "page": "Blog",
+    "title": "E ora?",
+    "url": "https://meshcore-ita.github.io/blog/collineare-paolo/#e-ora",
+    "text": "Le collineari, avverte Paolo già nella descrizione della scheda, \"sono sempre complesse da costruire e da tarare\". La parte delicata è la bobina, e il metodo per tararla è spiegato a fondo nell'articolo Verticali collineari, la storia infinita . La scheda con la vista 3D, i grafici di ROS e impedenza e il file NEC spiegato riga per riga è qui: Collineare 2 elementi . La teoria, compresa la parte sulle linee di trasmissione, è nella terza puntata del tutorial di Paolo, EZNEC, chi era costui (3) ; per gli strumenti open source equivalenti c'è il nostro articolo sulle antenne NEC senza Windows . Hai una tua antenna? Le istruzioni sono nell'articolo sulla galleria , oppure mandala nel gruppo…"
+  },
+  {
     "id": "blog/biquad-paolo--cos-e-una-biquad",
     "page": "Blog",
     "title": "Cos'è una biquad",

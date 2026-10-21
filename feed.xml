@@ -4,8 +4,235 @@
   <id>https://meshcore-ita.github.io/blog/</id>
   <link rel="self" href="https://meshcore-ita.github.io/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/"/>
-  <updated>2026-10-19T18:00:00+02:00</updated>
+  <updated>2026-10-21T18:00:00+02:00</updated>
   <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/collineare-paolo/</id>
+    <title>La collineare di Paolo: uno sleeve dipole da Amazon diventa a due elementi</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/collineare-paolo/"/>
+    <published>2026-10-21T18:00:00+02:00</published>
+    <updated>2026-10-21T18:00:00+02:00</updated>
+    <summary type="text">Paolo ha caricato nella galleria la collineare a due elementi che ha ricavato da uno sleeve dipole commerciale, e sul suo blog racconta sia il modello EZNEC sia la costruzione e la taratura con il NanoVNA.</summary>
+    <category term="antenne" label="Antenne"/>
+    <category term="autocostruzione" label="Autocostruzione"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-10-21&quot;&gt;21 ottobre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 7 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/autocostruzione/&quot;&gt;Autocostruzione&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;cos-e-una-collineare&quot;&gt;Cos&amp;#39;è una collineare&lt;/h2&gt;
+&lt;p&gt;Una &lt;strong&gt;collineare&lt;/strong&gt; è una pila di radiatori a mezz&amp;#39;onda, uno sopra l&amp;#39;altro
+sullo stesso asse. Perché i loro campi si sommino, le correnti nei vari
+elementi devono essere &lt;strong&gt;in fase&lt;/strong&gt;. Due mezz&amp;#39;onde semplicemente in fila non
+lo sono: tra l&amp;#39;una e l&amp;#39;altra serve qualcosa che sfasi il segnale di 180°.
+Nella versione di Paolo questo compito lo svolge una &lt;strong&gt;bobina&lt;/strong&gt; di filo di
+rame.&lt;/p&gt;
+&lt;p&gt;Il risultato è un&amp;#39;antenna verticale e omnidirezionale, come il dipolo di
+partenza, ma con un lobo più schiacciato verso l&amp;#39;orizzonte. Quello che si
+perde verso il cielo, dove a un nodo MeshCore non serve, si guadagna verso i
+nodi vicini.&lt;/p&gt;
+&lt;h2 id=&quot;il-punto-di-partenza&quot;&gt;Il punto di partenza&lt;/h2&gt;
+&lt;p&gt;Paolo non è partito da zero. La base è uno &lt;strong&gt;sleeve dipole LoRaWAN&lt;/strong&gt; con
+radome in fibra e connettore N, comprato online e già
+&lt;a href=&quot;https://lora868.at1839.name/recensione-antenna-lorawan/&quot;&gt;recensito sul suo blog&lt;/a&gt;.
+Il piano è semplice: aprire il radome in cima, saldare sulla punta del dipolo
+la bobina e un secondo radiatore verticale, poi richiudere il tutto in un
+radome allungato.&lt;/p&gt;
+&lt;h2 id=&quot;il-modello-nella-galleria&quot;&gt;Il modello nella galleria&lt;/h2&gt;
+&lt;p&gt;La &lt;a href=&quot;https://meshcore-ita.github.io/antenne/paolo-collineare/&quot;&gt;scheda di Paolo&lt;/a&gt;
+contiene il modello NEC esportato da 4nec2. Le parti sono queste:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parte&lt;/th&gt;
+&lt;th&gt;Misura nel modello&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Dipolo di base&lt;/td&gt;
+&lt;td&gt;161 mm, filo da 2 mm, alimentato al centro&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Bobina di sfasamento&lt;/td&gt;
+&lt;td&gt;7,65 spire, diametro 11 mm, alta circa 77 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Secondo radiatore&lt;/td&gt;
+&lt;td&gt;184 mm, fino a 421 mm di altezza totale&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Il dipolo del modello è di filo da 2 mm, mentre quello vero è un tubo da
+10 mm. Paolo lo spiega nel tutorial: EZNEC rifiuta di collegare la bobina,
+fatta di filo sottile, a un elemento cinque volte più grosso. Il dipolo è
+stato quindi ricalcolato come se fosse anche lui di filo da 2 mm, con la
+lunghezza corretta per restare risonante.&lt;/p&gt;
+&lt;p&gt;A 869,618 MHz, in spazio libero, il simulatore della galleria dà:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Guadagno 4,9 dBi&lt;/strong&gt; (2,7 dBd), circa 1,9 volte la potenza di un dipolo
+sull&amp;#39;orizzonte.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Avanti/dietro 0 dB&lt;/strong&gt;: è omnidirezionale, come deve essere.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Impedenza 82,9 − j0,2 Ω, ROS 1,66&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;il-ros-sbagliato-che-non-e-sbagliato&quot;&gt;Il ROS &amp;quot;sbagliato&amp;quot; che non è sbagliato&lt;/h2&gt;
+&lt;p&gt;Qui c&amp;#39;è la parte più istruttiva. Il modello originale di Paolo in EZNEC
+include un pezzo che il motore della galleria non sa simulare: la &lt;strong&gt;linea di
+trasmissione&lt;/strong&gt; dentro lo sleeve dipole. Il cavo che va dal connettore N al
+centro del dipolo è un coassiale lungo circa 19 cm, che a 869 MHz vale
+grosso modo &lt;strong&gt;tre quarti d&amp;#39;onda&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Una linea a quarto d&amp;#39;onda (o a tre quarti) è un trasformatore di impedenza.
+I circa 75 Ω di un dipolo a mezz&amp;#39;onda, visti attraverso 3/4 d&amp;#39;onda di cavo a
+50 Ω, diventano circa 33 Ω. Paolo aveva misurato 30,5 Ω al connettore dello
+sleeve dipole originale e all&amp;#39;inizio non tornava nulla: con questo modello
+torna tutto.&lt;/p&gt;
+&lt;p&gt;La regola che ne esce è utile per chiunque usi un NanoVNA:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Una linea della stessa impedenza del sistema (50 Ω) cambia l&amp;#39;impedenza
+letta, ma &lt;strong&gt;non cambia il ROS&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Nel tutorial c&amp;#39;è una tabella che lo mostra: facendo variare la lunghezza
+elettrica della linea da 180° a 370°, l&amp;#39;impedenza gira da 75 Ω a 33 Ω e
+indietro, con la reattanza che passa da capacitiva a induttiva, mentre il
+ROS resta sempre 1,506. La conseguenza pratica è che, misurando attraverso
+un pigtail di lunghezza ignota, il segno della reattanza può ingannare: si
+può credere che il radiatore sia lungo quando è corto, e viceversa.&lt;/p&gt;
+&lt;p&gt;Per il ROS, la scheda della galleria non sbaglia: 1,66 è il valore del
+modello con o senza linea. Il prototipo, però, ha fatto meglio.&lt;/p&gt;
+&lt;h2 id=&quot;dal-modello-al-banco&quot;&gt;Dal modello al banco&lt;/h2&gt;
+&lt;p&gt;La costruzione è descritta in
+&lt;a href=&quot;https://lora868.at1839.name/trasformazione-in-collineare-dello-sleeve-dipole-arceli/&quot;&gt;&lt;em&gt;Trasformazione in collineare dello sleeve dipole Arceli&lt;/em&gt;&lt;/a&gt;.
+Il materiale:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;lo sleeve dipole da sacrificare;&lt;/li&gt;
+&lt;li&gt;uno spezzone di &lt;strong&gt;canalina elettrica&lt;/strong&gt; da 20 mm di diametro esterno, più
+un breve tubo di plastica da 20 mm interni per raccordarla al radome
+originale, e un tappo;&lt;/li&gt;
+&lt;li&gt;rame da 2 mm;&lt;/li&gt;
+&lt;li&gt;un tubetto da 10 mm come forma per avvolgere la bobina;&lt;/li&gt;
+&lt;li&gt;un raccordo tra bobina e radiatore superiore (Paolo ha usato 1 cm di
+tubetto di ottone; va bene anche l&amp;#39;interno di un mammut);&lt;/li&gt;
+&lt;li&gt;saldatore e NanoVNA.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Il radome originale si apre in cima con un Dremel e si allunga con la
+canalina fino a circa 55–60 cm.&lt;/p&gt;
+&lt;p&gt;La bobina si avvolge &lt;strong&gt;lunga&lt;/strong&gt;, una dozzina di spire distese su circa 8 cm,
+e si salda da sola in testa al dipolo. Poi la si accorcia poco alla volta,
+&lt;strong&gt;sempre con il radome infilato&lt;/strong&gt;, finché il NanoVNA a 869 MHz legge
+un&amp;#39;impedenza puramente resistiva, senza reattanza. In questa fase il ROS non
+conta: conta che la bobina sfasi davvero di 180°. Solo allora si salda il
+radiatore superiore, anche lui lungo, e lo si accorcia allo stesso modo.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Modello&lt;/th&gt;
+&lt;th&gt;Prototipo&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Spire&lt;/td&gt;
+&lt;td&gt;7,65&lt;/td&gt;
+&lt;td&gt;circa 9&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Altezza bobina&lt;/td&gt;
+&lt;td&gt;~77 mm&lt;/td&gt;
+&lt;td&gt;66 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Radiatore superiore&lt;/td&gt;
+&lt;td&gt;184 mm&lt;/td&gt;
+&lt;td&gt;poco meno di 170 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Il prototipo vuole più spire e un radiatore più corto, ed è normale: il
+radome rallenta l&amp;#39;onda e allunga elettricamente tutto quello che contiene, e
+nessun modello a fili lo può rappresentare.&lt;/p&gt;
+&lt;p&gt;Le misure finali:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Collegamento&lt;/th&gt;
+&lt;th&gt;Impedenza&lt;/th&gt;
+&lt;th&gt;ROS&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;NanoVNA direttamente sul connettore N&lt;/td&gt;
+&lt;td&gt;42 + j5 Ω&lt;/td&gt;
+&lt;td&gt;1,23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Attraverso il pigtail SMA in dotazione&lt;/td&gt;
+&lt;td&gt;38 − j1 Ω&lt;/td&gt;
+&lt;td&gt;1,31&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Attraverso un cavo N di qualità&lt;/td&gt;
+&lt;td&gt;40,6 − j2,75 Ω&lt;/td&gt;
+&lt;td&gt;1,24&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Con il cavo buono la reattanza cambia segno ma il ROS resta quasi uguale,
+esattamente come prevede la teoria. Lo scarto con il pigtail SMA va
+attribuito al cavo o ai connettori, non all&amp;#39;antenna.&lt;/p&gt;
+&lt;p&gt;Il ROS reale, quindi, è intorno a &lt;strong&gt;1,3&lt;/strong&gt;, contro l&amp;#39;1,66 della simulazione.
+Nella prova sul campo, scrive Paolo, la collineare si è comportata
+&amp;quot;nettamente al di sopra&amp;quot; del classico sleeve dipole economico.&lt;/p&gt;
+&lt;h2 id=&quot;attenzione-alla-potenza&quot;&gt;Attenzione alla potenza&lt;/h2&gt;
+&lt;p&gt;Con 2,7 dBd di guadagno, il limite di 27 dBm ERP del preset italiano (vedi
+la &lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt;) lascia molto margine:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Perdita nel cavo&lt;/th&gt;
+&lt;th&gt;TX massima&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;0 dB&lt;/td&gt;
+&lt;td&gt;24,3 dBm (267 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1 dB&lt;/td&gt;
+&lt;td&gt;25,3 dBm (336 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2 dB&lt;/td&gt;
+&lt;td&gt;26,3 dBm (423 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Un SX1262 si ferma a 22 dBm, quindi con questa antenna lo si può usare al
+massimo senza superare il limite. Chi usa moduli con amplificatore più
+potente deve invece fare il conto.&lt;/p&gt;
+&lt;h2 id=&quot;dove-usarla&quot;&gt;Dove usarla&lt;/h2&gt;
+&lt;p&gt;È un&amp;#39;antenna da &lt;strong&gt;nodo fisso&lt;/strong&gt;: un ripetitore su un tetto, un room server,
+un nodo di casa che deve coprire tutto attorno. Rispetto a una direttiva
+come la &lt;a href=&quot;../biquad-paolo/&quot;&gt;biquad di Paolo&lt;/a&gt; non va puntata, e rispetto a uno
+sleeve dipole semplice guadagna qualche dB sull&amp;#39;orizzonte. Il prezzo è la
+lunghezza, circa 60 cm, e un lobo più stretto in verticale: un nodo in
+cima a una collina che deve raggiungere la valle molto più in basso può
+trovarsi meglio con un dipolo semplice.&lt;/p&gt;
+&lt;h2 id=&quot;e-ora&quot;&gt;E ora?&lt;/h2&gt;
+&lt;p&gt;Le collineari, avverte Paolo già nella descrizione della scheda, &amp;quot;sono
+sempre complesse da costruire e da tarare&amp;quot;. La parte delicata è la bobina,
+e il metodo per tararla è spiegato a fondo nell&amp;#39;articolo
+&lt;a href=&quot;https://lora868.at1839.name/verticali-collineari-la-storia-infinita/&quot;&gt;&lt;em&gt;Verticali collineari, la storia infinita&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;La scheda con la vista 3D, i grafici di ROS e impedenza e il file NEC
+spiegato riga per riga è qui:
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/paolo-collineare/&quot;&gt;Collineare 2 elementi&lt;/a&gt;.
+La teoria, compresa la parte sulle linee di trasmissione, è nella terza
+puntata del tutorial di Paolo,
+&lt;a href=&quot;https://lora868.at1839.name/eznec-chi-era-costui-3/&quot;&gt;&lt;em&gt;EZNEC, chi era costui (3)&lt;/em&gt;&lt;/a&gt;;
+per gli strumenti open source equivalenti c&amp;#39;è il nostro articolo sulle
+&lt;a href=&quot;../antenne-nec-senza-windows/&quot;&gt;antenne NEC senza Windows&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Hai una tua antenna? Le istruzioni sono nell&amp;#39;articolo sulla
+&lt;a href=&quot;../galleria-antenne/&quot;&gt;galleria&lt;/a&gt;, oppure mandala nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Grazie a Paolo.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
   <entry>
     <id>https://meshcore-ita.github.io/blog/biquad-paolo/</id>
     <title>La biquad di Paolo: quasi 10 dBi con un metro di rame e una piastra</title>
