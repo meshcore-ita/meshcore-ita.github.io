@@ -4,8 +4,107 @@
   <id>https://meshcore-ita.github.io/blog/tag/antenne/</id>
   <link rel="self" href="https://meshcore-ita.github.io/blog/tag/antenne/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/antenne/"/>
-  <updated>2026-10-21T18:00:00+02:00</updated>
+  <updated>2026-10-23T12:00:00+02:00</updated>
   <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/galleria-antenne-novita/</id>
+    <title>Galleria antenne: correnti nel 3D, listato NEC collegato e foto a schermo intero</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/galleria-antenne-novita/"/>
+    <published>2026-10-23T12:00:00+02:00</published>
+    <updated>2026-10-23T12:00:00+02:00</updated>
+    <summary type="text">Da quando è nata la galleria sono arrivate la biquad e la collineare di Paolo, e con loro un po' di lavoro sotto il cofano. Ecco cosa è cambiato per chi guarda le schede e per chi vuole caricare un modello.</summary>
+    <category term="antenne" label="Antenne"/>
+    <category term="software" label="Software"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-10-23&quot;&gt;23 ottobre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 4 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/software/&quot;&gt;Software&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;cosa-vedi-nella-vista-3d&quot;&gt;Cosa vedi nella vista 3D&lt;/h2&gt;
+&lt;p&gt;La vista 3D delle &lt;a href=&quot;https://meshcore-ita.github.io/antenne/&quot;&gt;schede&lt;/a&gt; non mostra
+più solo il diagramma di irradiazione: ora c&amp;#39;è anche l&amp;#39;antenna, e si capisce
+come lavora.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Le correnti.&lt;/strong&gt; Ogni segmento dei fili è colorato in base all&amp;#39;intensità
+della corrente: grigio-blu quasi zero, arancio e giallo il massimo. Si vede
+subito dove l&amp;#39;antenna &amp;quot;lavora&amp;quot;: nel centro di un dipolo la corrente è alta,
+alle punte va a zero.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La fase.&lt;/strong&gt; Il pulsante &lt;em&gt;Fase&lt;/em&gt; anima la corrente nel tempo: i tratti
+sfasati pulsano in momenti diversi. È il modo più rapido per capire perché
+una &lt;a href=&quot;../collineare-paolo/&quot;&gt;collineare&lt;/a&gt; ha bisogno di una bobina tra i due
+elementi.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Il punto di alimentazione e il lobo principale&lt;/strong&gt;, indicati nella scena,
+con una legenda per corrente e guadagno. Le linee di trasmissione &lt;code&gt;TL&lt;/code&gt;, se
+presenti, sono tratteggiate.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Diagramma in dB o lineare.&lt;/strong&gt; In scala lineare i lobi secondari quasi
+spariscono e resta il fascio principale.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;I tagli 2D.&lt;/strong&gt; Due anelli sulla superficie mostrano da dove vengono i
+grafici sotto: il taglio in azimut e quello in elevazione, nel piano del
+lobo principale.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Punti di vista pronti&lt;/strong&gt;: 3D, dall&amp;#39;alto, di fronte e di lato (rispetto al
+lobo principale), rotazione automatica attivabile, reset e schermo intero.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;il-3d-e-il-file-nec-parlano-tra-loro&quot;&gt;Il 3D e il file NEC parlano tra loro&lt;/h2&gt;
+&lt;p&gt;Il file &lt;code&gt;.nec&lt;/code&gt; di ogni scheda è spiegato riga per riga. Adesso è collegato
+alla vista:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;passando il mouse su un &lt;strong&gt;filo&lt;/strong&gt; nel 3D si vedono numero di filo, riga e
+corrente; un clic porta alla riga &lt;code&gt;GW&lt;/code&gt; che lo definisce;&lt;/li&gt;
+&lt;li&gt;passando o cliccando su una riga &lt;code&gt;GW&lt;/code&gt; o &lt;code&gt;EX&lt;/code&gt; del listato, &lt;strong&gt;il filo si
+illumina&lt;/strong&gt; nel 3D.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Il listato ha anche i colori per tipo di scheda (geometria, sorgente,
+controlli, commenti), la sintassi evidenziata per le variabili &lt;code&gt;SY&lt;/code&gt;, un
+pulsante &lt;strong&gt;Copia&lt;/strong&gt; accanto a &lt;em&gt;Scarica antenna.nec&lt;/em&gt; e una legenda in cima.
+Per chi sta imparando a leggere un modello NEC è la differenza tra guardare
+una tabella di numeri e vedere cosa fa ciascuna riga.&lt;/p&gt;
+&lt;h2 id=&quot;un-parser-piu-robusto&quot;&gt;Un parser più robusto&lt;/h2&gt;
+&lt;p&gt;Con i modelli di Paolo, esportati da 4nec2, il parser interno è stato messo
+sotto stress e migliorato:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Più schede supportate&lt;/strong&gt;: ora anche &lt;code&gt;TL&lt;/code&gt; (linee di trasmissione) e &lt;code&gt;NT&lt;/code&gt;
+(reti a due porte), oltre a &lt;code&gt;CM CE SY GW GS GE EK GN EX LD FR&lt;/code&gt;. Le schede
+di sola visualizzazione (&lt;code&gt;RP&lt;/code&gt;, &lt;code&gt;PT&lt;/code&gt;, &lt;code&gt;PL&lt;/code&gt;, &lt;code&gt;XQ&lt;/code&gt;, &lt;code&gt;NE&lt;/code&gt;, &lt;code&gt;NH&lt;/code&gt;) vengono
+ignorate, perché il diagramma lo calcola la galleria.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Espressioni complete nelle &lt;code&gt;SY&lt;/code&gt;&lt;/strong&gt;: &lt;code&gt;+ - * / ^&lt;/code&gt; e funzioni come &lt;code&gt;sqrt&lt;/code&gt;,
+&lt;code&gt;sin&lt;/code&gt;, &lt;code&gt;cos&lt;/code&gt;, &lt;code&gt;atan&lt;/code&gt;, &lt;code&gt;log&lt;/code&gt;, &lt;code&gt;exp&lt;/code&gt;, &lt;code&gt;pi&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Controlli più severi&lt;/strong&gt;: il build si ferma se mancano campi obbligatori in
+&lt;code&gt;meta.json&lt;/code&gt;, se una foto non c&amp;#39;è o se &lt;code&gt;EX&lt;/code&gt;, &lt;code&gt;LD&lt;/code&gt; o &lt;code&gt;TL&lt;/code&gt; puntano a fili o
+segmenti inesistenti. Segnala con un avviso (senza fermarsi) i segmenti
+troppo lunghi, oltre λ/20, o troppo corti rispetto al raggio del filo.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Regola sul raggio corretta.&lt;/strong&gt; La guida diceva che un segmento deve essere
+lungo almeno 4 volte il raggio. Il manuale di NEC-2 chiede 8 volte con il
+kernel normale e 2 con &lt;code&gt;EK&lt;/code&gt;, quello esteso, che tutti i modelli della
+galleria usano. Abbiamo corretto sia il controllo sia la
+&lt;a href=&quot;https://meshcore-ita.github.io/antenne/guida/&quot;&gt;guida&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I tre modelli di Paolo (biquad, collineare, Yagi a 10 elementi) sono stati
+riscritti nello stesso stile commentato degli altri, così il listato spiegato
+è leggibile come quelli di Fabrizio.&lt;/p&gt;
+&lt;h2 id=&quot;le-foto&quot;&gt;Le foto&lt;/h2&gt;
+&lt;p&gt;Le miniature delle schede hanno ora un rapporto 4:3 uniforme e, con un clic,
+si aprono in una &lt;strong&gt;lightbox&lt;/strong&gt; a schermo intero: frecce per scorrere, &lt;code&gt;Esc&lt;/code&gt; o
+un clic fuori dall&amp;#39;immagine per chiudere. Le foto di costruzione e taratura
+della &lt;a href=&quot;../biquad-paolo/&quot;&gt;biquad&lt;/a&gt; si guardano finalmente come meritano.&lt;/p&gt;
+&lt;h2 id=&quot;caricare-un-modello&quot;&gt;Caricare un modello&lt;/h2&gt;
+&lt;p&gt;Le regole per aggiungere un&amp;#39;antenna sono in
+&lt;a href=&quot;https://github.com/meshcore-ita/antenne/blob/main/CONTRIBUTING.md&quot;&gt;CONTRIBUTING.md&lt;/a&gt;
+del repository. Due consigli pratici dopo questi cambiamenti:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;se esporti da 4nec2 o EZNEC, i campi sono separati da TAB e non ci sono
+commenti: riscrivi il file nello stile della galleria prima della pull
+request;&lt;/li&gt;
+&lt;li&gt;usa righe terminate con LF (non CRLF) e UTF-8, così gli accenti nei
+commenti si leggono bene.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Non serve installare nulla: il 3D usa &lt;a href=&quot;https://threejs.org/&quot;&gt;three.js&lt;/a&gt;
+incluso nel repository, e la galleria non carica niente da servizi esterni.
+Se la vista non parte perché il browser ha WebGL disattivato, i grafici e il
+file NEC restano comunque visibili.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
   <entry>
     <id>https://meshcore-ita.github.io/blog/collineare-paolo/</id>
     <title>La collineare di Paolo: uno sleeve dipole da Amazon diventa a due elementi</title>

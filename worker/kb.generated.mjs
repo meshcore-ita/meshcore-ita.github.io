@@ -1427,6 +1427,41 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/galleria-antenne-novita--cosa-vedi-nella-vista-3d",
+    "page": "Blog",
+    "title": "Cosa vedi nella vista 3D",
+    "url": "https://meshcore-ita.github.io/blog/galleria-antenne-novita/#cosa-vedi-nella-vista-3d",
+    "text": "La vista 3D delle schede non mostra più solo il diagramma di irradiazione: ora c'è anche l'antenna, e si capisce come lavora. Le correnti. Ogni segmento dei fili è colorato in base all'intensità della corrente: grigio-blu quasi zero, arancio e giallo il massimo. Si vede subito dove l'antenna \"lavora\": nel centro di un dipolo la corrente è alta, alle punte va a zero. La fase. Il pulsante Fase anima la corrente nel tempo: i tratti sfasati pulsano in momenti diversi. È il modo più rapido per capire perché una collineare ha bisogno di una bobina tra i due elementi. Il punto di alimentazione e il lobo principale , indicati nella scena, con una legenda per corrente e guadagno. Le linee di…"
+  },
+  {
+    "id": "blog/galleria-antenne-novita--il-3d-e-il-file-nec-parlano-tra-loro",
+    "page": "Blog",
+    "title": "Il 3D e il file NEC parlano tra loro",
+    "url": "https://meshcore-ita.github.io/blog/galleria-antenne-novita/#il-3d-e-il-file-nec-parlano-tra-loro",
+    "text": "Il file .nec di ogni scheda è spiegato riga per riga. Adesso è collegato alla vista: passando il mouse su un filo nel 3D si vedono numero di filo, riga e corrente; un clic porta alla riga GW che lo definisce; passando o cliccando su una riga GW o EX del listato, il filo si illumina nel 3D. Il listato ha anche i colori per tipo di scheda (geometria, sorgente, controlli, commenti), la sintassi evidenziata per le variabili SY , un pulsante Copia accanto a Scarica antenna.nec e una legenda in cima. Per chi sta imparando a leggere un modello NEC è la differenza tra guardare una tabella di numeri e vedere cosa fa ciascuna riga."
+  },
+  {
+    "id": "blog/galleria-antenne-novita--un-parser-piu-robusto",
+    "page": "Blog",
+    "title": "Un parser più robusto",
+    "url": "https://meshcore-ita.github.io/blog/galleria-antenne-novita/#un-parser-piu-robusto",
+    "text": "Con i modelli di Paolo, esportati da 4nec2, il parser interno è stato messo sotto stress e migliorato: Più schede supportate : ora anche TL (linee di trasmissione) e NT (reti a due porte), oltre a CM CE SY GW GS GE EK GN EX LD FR . Le schede di sola visualizzazione ( RP , PT , PL , XQ , NE , NH ) vengono ignorate, perché il diagramma lo calcola la galleria. Espressioni complete nelle SY : + - * / ^ e funzioni come sqrt , sin , cos , atan , log , exp , pi . Controlli più severi : il build si ferma se mancano campi obbligatori in meta.json , se una foto non c'è o se EX , LD o TL puntano a fili o segmenti inesistenti. Segnala con un avviso (senza fermarsi) i segmenti troppo lunghi, oltre λ/20,…"
+  },
+  {
+    "id": "blog/galleria-antenne-novita--le-foto",
+    "page": "Blog",
+    "title": "Le foto",
+    "url": "https://meshcore-ita.github.io/blog/galleria-antenne-novita/#le-foto",
+    "text": "Le miniature delle schede hanno ora un rapporto 4:3 uniforme e, con un clic, si aprono in una lightbox a schermo intero: frecce per scorrere, Esc o un clic fuori dall'immagine per chiudere. Le foto di costruzione e taratura della biquad si guardano finalmente come meritano."
+  },
+  {
+    "id": "blog/galleria-antenne-novita--caricare-un-modello",
+    "page": "Blog",
+    "title": "Caricare un modello",
+    "url": "https://meshcore-ita.github.io/blog/galleria-antenne-novita/#caricare-un-modello",
+    "text": "Le regole per aggiungere un'antenna sono in CONTRIBUTING.md del repository. Due consigli pratici dopo questi cambiamenti: se esporti da 4nec2 o EZNEC, i campi sono separati da TAB e non ci sono commenti: riscrivi il file nello stile della galleria prima della pull request; usa righe terminate con LF (non CRLF) e UTF-8, così gli accenti nei commenti si leggono bene. Non serve installare nulla: il 3D usa three.js incluso nel repository, e la galleria non carica niente da servizi esterni. Se la vista non parte perché il browser ha WebGL disattivato, i grafici e il file NEC restano comunque visibili."
+  },
+  {
     "id": "blog/collineare-paolo--cos-e-una-collineare",
     "page": "Blog",
     "title": "Cos'è una collineare",
