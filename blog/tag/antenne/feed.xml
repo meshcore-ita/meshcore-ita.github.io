@@ -4,8 +4,336 @@
   <id>https://meshcore-ita.github.io/blog/tag/antenne/</id>
   <link rel="self" href="https://meshcore-ita.github.io/blog/tag/antenne/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/antenne/"/>
-  <updated>2026-10-23T12:00:00+02:00</updated>
+  <updated>2026-10-27T13:00:00+01:00</updated>
   <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/yagi-10-paolo/</id>
+    <title>La Yagi a 10 elementi di Paolo: 14 dBi e un dipolo ripiegato senza balun</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/yagi-10-paolo/"/>
+    <published>2026-10-27T13:00:00+01:00</published>
+    <updated>2026-10-27T13:00:00+01:00</updated>
+    <summary type="text">Nella galleria c'è una nuova Yagi: dieci elementi calcolati con DL6WU e un radiatore ripiegato che si salda al cavo così com'è. Paolo spiega sul suo blog perché ha scelto questa strada e come ha portato l'impedenza a 50 Ω spostando il radiatore di 35 mm.</summary>
+    <category term="antenne" label="Antenne"/>
+    <category term="autocostruzione" label="Autocostruzione"/>
+    <category term="community" label="Community"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-10-27&quot;&gt;27 ottobre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 8 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/antenne/&quot;&gt;Antenne&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/autocostruzione/&quot;&gt;Autocostruzione&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;cos-e-una-yagi&quot;&gt;Cos&amp;#39;è una Yagi&lt;/h2&gt;
+&lt;p&gt;Una &lt;strong&gt;Yagi&lt;/strong&gt; ha un solo elemento collegato al cavo, il &lt;strong&gt;radiatore&lt;/strong&gt;. Tutti
+gli altri sono &lt;strong&gt;parassiti&lt;/strong&gt;: pezzi di metallo non collegati a niente che
+irradiano di nuovo il segnale che ricevono. Dietro il radiatore sta un
+&lt;strong&gt;riflettore&lt;/strong&gt;, un po&amp;#39; più lungo; davanti, una fila di &lt;strong&gt;direttori&lt;/strong&gt;, un po&amp;#39;
+più corti. Se lunghezze e distanze sono giuste, ogni elemento sfasa
+quanto basta perché il segnale si sommi in avanti e si annulli indietro.&lt;/p&gt;
+&lt;p&gt;Più direttori ci sono, più stretto e più guadagnoso è il fascio. Costa solo
+lunghezza di boom: a 869 MHz la lunghezza d&amp;#39;onda è di 34,5 cm, e questa
+Yagi è lunga 74 cm, poco più di due lunghezze d&amp;#39;onda.&lt;/p&gt;
+&lt;p&gt;Nella galleria c&amp;#39;erano già quattro Yagi di Fabrizio (compresa la
+&lt;a href=&quot;../yagi-lfa-fabrizio/&quot;&gt;LFA a tre elementi&lt;/a&gt;) e una a tre elementi di
+MeshCore ITA. Questa è la più lunga e la più guadagnosa.&lt;/p&gt;
+&lt;h2 id=&quot;i-numeri-della-scheda&quot;&gt;I numeri della scheda&lt;/h2&gt;
+&lt;p&gt;La &lt;a href=&quot;https://meshcore-ita.github.io/antenne/paolo-yagi10/&quot;&gt;scheda di Paolo&lt;/a&gt;
+contiene il modello NEC derivato dal calcolatore DL6WU. Il riflettore e gli
+otto direttori sono tondini da 4 mm; il radiatore è un &lt;strong&gt;dipolo ripiegato&lt;/strong&gt;
+di filo da 1 mm.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parte&lt;/th&gt;
+&lt;th&gt;Misura nel modello&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Riflettore&lt;/td&gt;
+&lt;td&gt;167 mm, in posizione 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Dipolo ripiegato&lt;/td&gt;
+&lt;td&gt;146 × 20 mm, a 34 mm dal riflettore&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Direttori&lt;/td&gt;
+&lt;td&gt;8, da 146 a 134 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Posizione dell&amp;#39;ultimo direttore&lt;/td&gt;
+&lt;td&gt;740 mm dal riflettore&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Le posizioni lungo il boom sono cumulative, a partire dal riflettore. I
+direttori stanno a 95, 157, 231, 317, 414, 517, 626 e 740 mm: la distanza tra
+l&amp;#39;uno e l&amp;#39;altro cresce da 62 a 114 mm, perché più si va avanti e meno serve
+tenerli stretti.&lt;/p&gt;
+&lt;p&gt;A 869,618 MHz, in spazio libero, la scheda riporta:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Guadagno 14,1 dBi&lt;/strong&gt; (11,9 dBd): circa 15,6 volte la potenza di un dipolo
+nella direzione migliore.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Avanti/dietro 20,1 dB&lt;/strong&gt;: dietro arriva circa 1/100 della potenza che va
+avanti.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Impedenza 51,3 + j7,0 Ω, ROS 1,15&lt;/strong&gt;, con il cavo saldato direttamente.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Minimo del ROS a 868 MHz&lt;/strong&gt;, un soffio sotto la sub-banda.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Come per le altre antenne direttive, il modello è orientato in orizzontale
+(elementi lungo x) solo per comodità di descrizione. Per MeshCore l&amp;#39;antenna
+va &lt;strong&gt;montata in verticale&lt;/strong&gt;, con gli elementi in verticale. Guadagno, ROS e
+forma del fascio non cambiano; cambia la polarizzazione, che diventa verticale
+come quella dei nodi.&lt;/p&gt;
+&lt;p&gt;Rifacendo la simulazione con il file della scheda ho ricavato altri due
+numeri che la pagina non dà:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Apertura del fascio a −3 dB: circa 36° in un piano e 40° nell&amp;#39;altro.&lt;/strong&gt;
+L&amp;#39;antenna va puntata con un errore massimo di una ventina di gradi per lato,
+cioè a occhio, ma non a caso.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ROS sotto 1,5 tra circa 862 e 873 MHz&lt;/strong&gt;, sotto 2 tra circa 859 e 880. La
+banda è stretta: quella dei 10 elementi non perdona un&amp;#39;antenna tarata male
+di qualche millimetro.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;il-calcolatore-e-dove-non-basta&quot;&gt;Il calcolatore, e dove non basta&lt;/h2&gt;
+&lt;p&gt;Paolo parte dal calcolatore online di
+&lt;a href=&quot;https://3g-aerial.biz/en/online-calculations/antenna-calculations/dl6wu-yagi-uda-antenna-online-calculator&quot;&gt;3G-Aerial basato su DL6WU&lt;/a&gt;.
+Non è un dettaglio neutro: il calcolatore chiede il &lt;strong&gt;tipo di boom&lt;/strong&gt;, e
+sbagliare questa scelta dà un&amp;#39;antenna sbagliata. Paolo ha scelto un boom
+&lt;strong&gt;non conduttivo&lt;/strong&gt; (legno verniciato o plastica rigida, di sezione quadra da
+20 mm) con gli elementi che lo attraversano. Gli altri parametri:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parametro&lt;/th&gt;
+&lt;th&gt;Valore&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Forma del radiatore&lt;/td&gt;
+&lt;td&gt;dritto (poi ripiegato, vedi sotto)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Frequenza&lt;/td&gt;
+&lt;td&gt;869 MHz&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Elementi&lt;/td&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Diametro degli elementi&lt;/td&gt;
+&lt;td&gt;4 mm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Boom&lt;/td&gt;
+&lt;td&gt;quadro, 20 mm, dielettrico&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Il calcolatore dà 744 mm di boom e circa 13,9 dBi; la scheda ne simula 14,1
+con il radiatore spostato. Ma Paolo mette in guardia: DL6WU &lt;strong&gt;non garantisce
+50 Ω&lt;/strong&gt; al radiatore. E una Yagi lunga e ottimizzata a fondo ha un&amp;#39;impedenza
+più vicina a 30 Ω che a 50.&lt;/p&gt;
+&lt;h2 id=&quot;il-problema-del-radiatore&quot;&gt;Il problema del radiatore&lt;/h2&gt;
+&lt;p&gt;A 869 MHz fare un adattamento di impedenza, hairpin o gamma match, è
+difficile: le misure sono millimetriche e un contatto approssimativo toglie
+resa senza dare nessun segnale. Il ROS può anche risultare perfetto mentre
+l&amp;#39;antenna rende meno di quanto potrebbe. E il dipolo dritto del calcolatore
+va montato &lt;strong&gt;attraverso il boom&lt;/strong&gt;, aperto al centro, in modo che le viti non
+facciano da contatto.&lt;/p&gt;
+&lt;p&gt;La strada di Paolo è un&amp;#39;altra: un &lt;strong&gt;dipolo ripiegato&lt;/strong&gt; (folded) di filo di
+rame da 1 mm, un rettangolo chiuso di 146 × 20 mm, a cui si saldano
+direttamente i capi del coassiale. È molto più semplice da montare. Ma ha un
+difetto: l&amp;#39;impedenza di un dipolo ripiegato è circa quattro volte quella di
+uno dritto.&lt;/p&gt;
+&lt;p&gt;Paolo lo verifica con NEC, nell&amp;#39;ordine:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Passo&lt;/th&gt;
+&lt;th&gt;Impedenza&lt;/th&gt;
+&lt;th&gt;ROS&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Folded come da calcolatore, 4 mm&lt;/td&gt;
+&lt;td&gt;143 − j34 Ω&lt;/td&gt;
+&lt;td&gt;3,0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Filo da 1 mm&lt;/td&gt;
+&lt;td&gt;142 − j53 Ω&lt;/td&gt;
+&lt;td&gt;3,3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Lato lungo portato a 150 mm (risonanza)&lt;/td&gt;
+&lt;td&gt;163 − j1 Ω&lt;/td&gt;
+&lt;td&gt;3,3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Radiatore da 69 a &lt;strong&gt;34 mm&lt;/strong&gt; dal riflettore, lato di nuovo 146 mm&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;52 + j6 Ω&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;1,14&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Il trucco sta nell&amp;#39;ultima riga: &lt;strong&gt;avvicinare il radiatore al riflettore
+abbassa la parte resistiva dell&amp;#39;impedenza&lt;/strong&gt;. Con una sola modifica geometrica
+(e riaccorciando il lato) l&amp;#39;impedenza passa da 163 a 52 Ω, senza balun e senza
+trasformatori.&lt;/p&gt;
+&lt;p&gt;Con il modello della scheda ho provato a spostare solo il radiatore,
+lasciando tutto il resto com&amp;#39;è:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Distanza dal riflettore&lt;/th&gt;
+&lt;th&gt;Impedenza&lt;/th&gt;
+&lt;th&gt;ROS&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;34 mm&lt;/td&gt;
+&lt;td&gt;51 + j7 Ω&lt;/td&gt;
+&lt;td&gt;1,15&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;40 mm&lt;/td&gt;
+&lt;td&gt;68 + j13 Ω&lt;/td&gt;
+&lt;td&gt;1,47&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;50 mm&lt;/td&gt;
+&lt;td&gt;99 + j10 Ω&lt;/td&gt;
+&lt;td&gt;2,01&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;69 mm&lt;/td&gt;
+&lt;td&gt;146 − j42 Ω&lt;/td&gt;
+&lt;td&gt;3,19&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Sei millimetri spostano il ROS da 1,15 a 1,47. Questa è la ragione per cui
+Paolo lascia l&amp;#39;ultima messa a punto al NanoVNA: il radiatore si sposta di
+qualche millimetro in avanti o indietro finché il ROS è minimo.&lt;/p&gt;
+&lt;h2 id=&quot;il-prezzo-da-pagare&quot;&gt;Il prezzo da pagare&lt;/h2&gt;
+&lt;p&gt;Paolo dice chiaramente cosa si perde: il diagramma peggiora, in particolare
+il &lt;strong&gt;rapporto avanti/dietro&lt;/strong&gt;, che rispetto a un modello perfetto cala di
+circa 10 dB. Il guadagno invece non scende, anzi sembra salire. La banda
+larga, che di solito è il pregio di una Yagi ottimizzata, a un nodo MeshCore
+non serve: il canale è uno solo.&lt;/p&gt;
+&lt;p&gt;Per il nostro uso è un buon compromesso. Un avanti/dietro di 20 dB è più che
+sufficiente per un collegamento punto-punto, e non c&amp;#39;è nessuna rete di
+adattamento da costruire a 869 MHz.&lt;/p&gt;
+&lt;p&gt;Un altro punto, di mestiere: i capi del coassiale vanno saldati al dipolo
+&lt;strong&gt;il più corti possibile e in linea con il dipolo&lt;/strong&gt;, a formare una &lt;strong&gt;T&lt;/strong&gt; e
+non una V. Paolo non mette il balun, e sostiene che &amp;quot;statisticamente&amp;quot; non
+serve: il tema delle correnti sulla calza del cavo lo rimanda a un contributo
+specifico.&lt;/p&gt;
+&lt;h2 id=&quot;dal-modello-al-banco&quot;&gt;Dal modello al banco&lt;/h2&gt;
+&lt;p&gt;Paolo ha costruito diverse antenne come descritte. Una è stata misurata con
+il NanoVNA e confrontata con una &lt;strong&gt;ground plane tarata alla perfezione&lt;/strong&gt;:
+sul campo la Yagi ha dato circa &lt;strong&gt;12 dB in più di RSSI&lt;/strong&gt;. Il conto torna:
+14,1 dBi di guadagno contro i 2,2 dBi della ground plane fanno 11,9 dB.&lt;/p&gt;
+&lt;p&gt;Il materiale è quello che si trova ovunque:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;barra piena di alluminio da 4 mm per riflettore e direttori;&lt;/li&gt;
+&lt;li&gt;filo di rame da 1 mm per il radiatore;&lt;/li&gt;
+&lt;li&gt;un quadrello di legno da verniciare, o un tubo di plastica rigido, come
+boom;&lt;/li&gt;
+&lt;li&gt;staffe da antenna TV per il montaggio;&lt;/li&gt;
+&lt;li&gt;un trapano a colonna, o almeno una guida, per i fori: gli elementi storti
+non sono belli da vedere, anche se ci sono margini prima che il diagramma
+ne risenta.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Per il radiatore non serve nessun foro. Il file del modello è nella scheda e si apre con xnec2c o 4nec2:
+vedi l&amp;#39;articolo sulle &lt;a href=&quot;../antenne-nec-senza-windows/&quot;&gt;antenne NEC senza Windows&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;il-confronto-con-le-altre-yagi&quot;&gt;Il confronto con le altre Yagi&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Antenna&lt;/th&gt;
+&lt;th&gt;Elementi&lt;/th&gt;
+&lt;th&gt;Guadagno&lt;/th&gt;
+&lt;th&gt;Avanti/dietro&lt;/th&gt;
+&lt;th&gt;ROS&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Yagi di Paolo&lt;/td&gt;
+&lt;td&gt;10 (boom 740 mm)&lt;/td&gt;
+&lt;td&gt;14,1 dBi&lt;/td&gt;
+&lt;td&gt;20,1 dB&lt;/td&gt;
+&lt;td&gt;1,15&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://meshcore-ita.github.io/antenne/fabrizio-yagi-10el/&quot;&gt;Yagi di Fabrizio&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;10 (boom circa 583 mm)&lt;/td&gt;
+&lt;td&gt;12,5 dBi&lt;/td&gt;
+&lt;td&gt;22,3 dB&lt;/td&gt;
+&lt;td&gt;1,82&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;../yagi-lfa-fabrizio/&quot;&gt;Yagi LFA 3 elementi&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;8,8 dBi&lt;/td&gt;
+&lt;td&gt;15,1 dB&lt;/td&gt;
+&lt;td&gt;1,02&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://meshcore-ita.github.io/antenne/meshcore-ita-yagi-3el/&quot;&gt;Yagi 3 elementi MeshCore ITA&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;8,1 dBi&lt;/td&gt;
+&lt;td&gt;5,9 dB&lt;/td&gt;
+&lt;td&gt;1,23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Il confronto non è del tutto alla pari: la Yagi di Fabrizio è un progetto
+tedesco a 432 MHz riscalato, con boom metallico e un radiatore da 14 mm, ed
+è più corta di 16 cm. Ma serve a mettere a fuoco una cosa: i 14 dBi di Paolo
+non vengono da trucchi di modellazione. Vengono da due lunghezze d&amp;#39;onda di
+boom e da una taratura molto ben fatta del radiatore.&lt;/p&gt;
+&lt;h2 id=&quot;attenzione-alla-potenza&quot;&gt;Attenzione alla potenza&lt;/h2&gt;
+&lt;p&gt;Con 11,9 dBd di guadagno questa antenna va sul nodo &lt;strong&gt;a potenza ridotta&lt;/strong&gt;. Il
+preset italiano consente 27 dBm ERP (500 mW, vedi la
+&lt;a href=&quot;../../normativa/&quot;&gt;normativa&lt;/a&gt;):&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Perdita nel cavo&lt;/th&gt;
+&lt;th&gt;TX massima&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;0 dB&lt;/td&gt;
+&lt;td&gt;15,1 dBm (32 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1 dB&lt;/td&gt;
+&lt;td&gt;16,1 dBm (41 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2 dB&lt;/td&gt;
+&lt;td&gt;17,1 dBm (51 mW)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Un SX1262 si ferma a 22 dBm, quindi qui la potenza va &lt;strong&gt;abbassata di 5-7 dB&lt;/strong&gt;
+rispetto al massimo. Si perde poco: la portata la dà l&amp;#39;antenna, anche in
+ricezione, e nessun limite di ERP tocca il guadagno in ricezione.&lt;/p&gt;
+&lt;h2 id=&quot;dove-usarla&quot;&gt;Dove usarla&lt;/h2&gt;
+&lt;p&gt;Una Yagi a 10 elementi con un fascio di 40° è un&amp;#39;antenna da
+&lt;strong&gt;collegamento punto-punto&lt;/strong&gt;, o da nodo in valle che deve raggiungere
+l&amp;#39;unica cima da cui si vede la rete. Non copre un quartiere. Per un
+ripetitore che serve la zona è meglio una
+&lt;a href=&quot;../collineare-paolo/&quot;&gt;collineare&lt;/a&gt; o un dipolo. Per un collegamento tra due
+ripetitori lontani, o per un bersaglio in una direzione sola, è la scelta
+giusta.&lt;/p&gt;
+&lt;p&gt;La &lt;a href=&quot;https://meshcore-ita.github.io/antenne/paolo-yagi10/&quot;&gt;scheda con vista 3D, grafici e file NEC&lt;/a&gt;
+è nella galleria; il tutorial completo di Paolo, con il calcolo e le foto,
+è
+&lt;a href=&quot;https://lora868.at1839.name/yagi-uda-1926-2026/&quot;&gt;&lt;em&gt;Yagi-Uda 1926-2026&lt;/em&gt;&lt;/a&gt;
+(pubblicato anche su Lora Italia).&lt;/p&gt;
+&lt;p&gt;Hai una tua antenna? Le istruzioni sono nell&amp;#39;articolo sulla
+&lt;a href=&quot;../galleria-antenne/&quot;&gt;galleria&lt;/a&gt;, oppure mandala nel gruppo Telegram
+&lt;a href=&quot;https://t.me/meshcore_ita&quot;&gt;MeshCore ITA&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Grazie a Paolo.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
   <entry>
     <id>https://meshcore-ita.github.io/blog/galleria-antenne-novita/</id>
     <title>Galleria antenne: correnti nel 3D, listato NEC collegato e foto a schermo intero</title>

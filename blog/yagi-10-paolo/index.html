@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+
+<title>La Yagi a 10 elementi di Paolo: 14 dBi e un dipolo ripiegato senza balun</title>
+<meta name="description" content="Paolo carica nella galleria una Yagi a 10 elementi per 869 MHz calcolata con DL6WU: boom di 74 cm, dipolo ripiegato di filo da 1 mm saldato direttamente al coassiale. In simulazione 14,1 dBi, 20 dB avanti/dietro, ROS 1,15; sul banco, circa 12 dB di RSSI sopra una ground plane tarata. Il trucco: avvicinare il radiatore al riflettore per abbassare l'impedenza.">
+<link rel="canonical" href="https://meshcore-ita.github.io/blog/yagi-10-paolo/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="application/atom+xml" title="MeshCore ITA — Blog" href="https://meshcore-ita.github.io/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MeshCore ITA">
+<meta property="og:title" content="La Yagi a 10 elementi di Paolo: 14 dBi e un dipolo ripiegato senza balun">
+<meta property="og:description" content="Paolo carica nella galleria una Yagi a 10 elementi per 869 MHz calcolata con DL6WU: boom di 74 cm, dipolo ripiegato di filo da 1 mm saldato direttamente al coassiale. In simulazione 14,1 dBi, 20 dB avanti/dietro, ROS 1,15; sul banco, circa 12 dB di RSSI sopra una ground plane tarata. Il trucco: avvicinare il radiatore al riflettore per abbassare l'impedenza.">
+<meta property="og:url" content="https://meshcore-ita.github.io/blog/yagi-10-paolo/">
+<meta property="og:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="it_IT">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La Yagi a 10 elementi di Paolo: 14 dBi e un dipolo ripiegato senza balun">
+<meta name="twitter:description" content="Paolo carica nella galleria una Yagi a 10 elementi per 869 MHz calcolata con DL6WU: boom di 74 cm, dipolo ripiegato di filo da 1 mm saldato direttamente al coassiale. In simulazione 14,1 dBi, 20 dB avanti/dietro, ROS 1,15; sul banco, circa 12 dB di RSSI sopra una ground plane tarata. Il trucco: avvicinare il radiatore al riflettore per abbassare l'impedenza.">
+<meta name="twitter:image" content="https://meshcore-ita.github.io/assets/img/og-image.png">
+
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link rel="mask-icon" href="../../assets/img/favicon.svg" color="#22c55e">
+
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geist-300-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/jetbrains-mono-400-latin.woff2" crossorigin>
+
+<link rel="stylesheet" href="../../assets/css/style.css?v=9">
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "La Yagi a 10 elementi di Paolo: 14 dBi e un dipolo ripiegato senza balun",
+      "description": "Paolo carica nella galleria una Yagi a 10 elementi per 869 MHz calcolata con DL6WU: boom di 74 cm, dipolo ripiegato di filo da 1 mm saldato direttamente al coassiale. In simulazione 14,1 dBi, 20 dB avanti/dietro, ROS 1,15; sul banco, circa 12 dB di RSSI sopra una ground plane tarata. Il trucco: avvicinare il radiatore al riflettore per abbassare l'impedenza.",
+      "datePublished": "2026-10-27",
+      "dateModified": "2026-10-27",
+      "author": {
+        "@type": "Organization",
+        "name": "MeshCore ITA"
+      },
+      "inLanguage": "it",
+      "mainEntityOfPage": "https://meshcore-ita.github.io/blog/yagi-10-paolo/",
+      "keywords": "Antenne, Autocostruzione, Community",
+      "wordCount": 1585,
+      "timeRequired": "PT8M",
+      "articleSection": "Blog"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://meshcore-ita.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://meshcore-ita.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Dieci elementi, un boom da 74 cm e nessuna rete di adattamento",
+          "item": "https://meshcore-ita.github.io/blog/yagi-10-paolo/"
+        }
+      ]
+    }
+  ]
+}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Vai al contenuto</a>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<header class="site-header" data-scrolled="false">
+  <div class="site-header__inner">
+    <a class="brand" href="../../">
+      <img class="brand__mark" src="../../assets/img/logo.svg" alt="" width="28" height="28">
+      <span class="brand__text">MeshCore <em>ITA</em></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a class="nav__link" href="../../#cos-e">Cos'è</a>
+      <a class="nav__link" href="../../guida/">Guida</a>
+      <a class="nav__link" href="../../preset-radio/">Preset radio</a>
+      <a class="nav__link" href="../../hardware/">Hardware</a>
+      <a class="nav__link" href="../../faq/">FAQ</a>
+      <a class="nav__link" href="../../community/">Community</a>
+      <a class="nav__link" href="../../blog/" aria-current="true">Blog</a>
+      <a class="nav__link nav__link--ext" href="https://t.me/meshcore_ita" target="_blank" rel="noopener">TELEGRAM<span class="ext-arrow">↗</span></a>
+      <a class="nav__link nav__link--ext" href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a>
+    </nav>
+    <button class="search-toggle" type="button" aria-label="Cerca" data-search-open></button>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="sr-only">Apri il menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero hero--page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="../../">Home</a></li>
+        <li><a href="../">Blog</a></li>
+        <li aria-current="page">Dieci elementi, un boom da 74 cm e nessuna rete di adattamento</li>
+      </ol>
+    </nav>
+    <p class="eyelash">Blog</p>
+    <h1 class="hero__title">Dieci elementi, un boom da 74 cm e nessuna rete di adattamento</h1>
+    <p class="hero__lede">Nella galleria c'è una nuova Yagi: dieci elementi calcolati con DL6WU e un radiatore ripiegato che si salda al cavo così com'è. Paolo spiega sul suo blog perché ha scelto questa strada e come ha portato l'impedenza a 50 Ω spostando il radiatore di 35 mm.</p>
+  </section>
+
+<section class="section">
+  <p class="post-meta"><time datetime="2026-10-27">27 ottobre 2026</time> · <span class="post-meta__author">MeshCore ITA</span> · 8 min di lettura</p>
+  <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+
+<nav class="toc" aria-label="In questo articolo">
+  <p class="toc__label">In questo articolo</p>
+  <ol class="toc__list"><li><a href="#cos-e-una-yagi">Cos'è una Yagi</a></li><li><a href="#i-numeri-della-scheda">I numeri della scheda</a></li><li><a href="#il-calcolatore-e-dove-non-basta">Il calcolatore, e dove non basta</a></li><li><a href="#il-problema-del-radiatore">Il problema del radiatore</a></li><li><a href="#il-prezzo-da-pagare">Il prezzo da pagare</a></li><li><a href="#dal-modello-al-banco">Dal modello al banco</a></li><li><a href="#il-confronto-con-le-altre-yagi">Il confronto con le altre Yagi</a></li><li><a href="#attenzione-alla-potenza">Attenzione alla potenza</a></li><li><a href="#dove-usarla">Dove usarla</a></li></ol>
+</nav>
+  <div class="prose">
+<h2 id="cos-e-una-yagi">Cos&#39;è una Yagi</h2>
+<p>Una <strong>Yagi</strong> ha un solo elemento collegato al cavo, il <strong>radiatore</strong>. Tutti
+gli altri sono <strong>parassiti</strong>: pezzi di metallo non collegati a niente che
+irradiano di nuovo il segnale che ricevono. Dietro il radiatore sta un
+<strong>riflettore</strong>, un po&#39; più lungo; davanti, una fila di <strong>direttori</strong>, un po&#39;
+più corti. Se lunghezze e distanze sono giuste, ogni elemento sfasa
+quanto basta perché il segnale si sommi in avanti e si annulli indietro.</p>
+<p>Più direttori ci sono, più stretto e più guadagnoso è il fascio. Costa solo
+lunghezza di boom: a 869 MHz la lunghezza d&#39;onda è di 34,5 cm, e questa
+Yagi è lunga 74 cm, poco più di due lunghezze d&#39;onda.</p>
+<p>Nella galleria c&#39;erano già quattro Yagi di Fabrizio (compresa la
+<a href="../yagi-lfa-fabrizio/">LFA a tre elementi</a>) e una a tre elementi di
+MeshCore ITA. Questa è la più lunga e la più guadagnosa.</p>
+<h2 id="i-numeri-della-scheda">I numeri della scheda</h2>
+<p>La <a href="https://meshcore-ita.github.io/antenne/paolo-yagi10/">scheda di Paolo</a>
+contiene il modello NEC derivato dal calcolatore DL6WU. Il riflettore e gli
+otto direttori sono tondini da 4 mm; il radiatore è un <strong>dipolo ripiegato</strong>
+di filo da 1 mm.</p>
+<table>
+<thead>
+<tr>
+<th>Parte</th>
+<th>Misura nel modello</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Riflettore</td>
+<td>167 mm, in posizione 0</td>
+</tr>
+<tr>
+<td>Dipolo ripiegato</td>
+<td>146 × 20 mm, a 34 mm dal riflettore</td>
+</tr>
+<tr>
+<td>Direttori</td>
+<td>8, da 146 a 134 mm</td>
+</tr>
+<tr>
+<td>Posizione dell&#39;ultimo direttore</td>
+<td>740 mm dal riflettore</td>
+</tr>
+</tbody></table>
+<p>Le posizioni lungo il boom sono cumulative, a partire dal riflettore. I
+direttori stanno a 95, 157, 231, 317, 414, 517, 626 e 740 mm: la distanza tra
+l&#39;uno e l&#39;altro cresce da 62 a 114 mm, perché più si va avanti e meno serve
+tenerli stretti.</p>
+<p>A 869,618 MHz, in spazio libero, la scheda riporta:</p>
+<ul>
+<li><strong>Guadagno 14,1 dBi</strong> (11,9 dBd): circa 15,6 volte la potenza di un dipolo
+nella direzione migliore.</li>
+<li><strong>Avanti/dietro 20,1 dB</strong>: dietro arriva circa 1/100 della potenza che va
+avanti.</li>
+<li><strong>Impedenza 51,3 + j7,0 Ω, ROS 1,15</strong>, con il cavo saldato direttamente.</li>
+<li><strong>Minimo del ROS a 868 MHz</strong>, un soffio sotto la sub-banda.</li>
+</ul>
+<p>Come per le altre antenne direttive, il modello è orientato in orizzontale
+(elementi lungo x) solo per comodità di descrizione. Per MeshCore l&#39;antenna
+va <strong>montata in verticale</strong>, con gli elementi in verticale. Guadagno, ROS e
+forma del fascio non cambiano; cambia la polarizzazione, che diventa verticale
+come quella dei nodi.</p>
+<p>Rifacendo la simulazione con il file della scheda ho ricavato altri due
+numeri che la pagina non dà:</p>
+<ul>
+<li><strong>Apertura del fascio a −3 dB: circa 36° in un piano e 40° nell&#39;altro.</strong>
+L&#39;antenna va puntata con un errore massimo di una ventina di gradi per lato,
+cioè a occhio, ma non a caso.</li>
+<li><strong>ROS sotto 1,5 tra circa 862 e 873 MHz</strong>, sotto 2 tra circa 859 e 880. La
+banda è stretta: quella dei 10 elementi non perdona un&#39;antenna tarata male
+di qualche millimetro.</li>
+</ul>
+<h2 id="il-calcolatore-e-dove-non-basta">Il calcolatore, e dove non basta</h2>
+<p>Paolo parte dal calcolatore online di
+<a href="https://3g-aerial.biz/en/online-calculations/antenna-calculations/dl6wu-yagi-uda-antenna-online-calculator">3G-Aerial basato su DL6WU</a>.
+Non è un dettaglio neutro: il calcolatore chiede il <strong>tipo di boom</strong>, e
+sbagliare questa scelta dà un&#39;antenna sbagliata. Paolo ha scelto un boom
+<strong>non conduttivo</strong> (legno verniciato o plastica rigida, di sezione quadra da
+20 mm) con gli elementi che lo attraversano. Gli altri parametri:</p>
+<table>
+<thead>
+<tr>
+<th>Parametro</th>
+<th>Valore</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Forma del radiatore</td>
+<td>dritto (poi ripiegato, vedi sotto)</td>
+</tr>
+<tr>
+<td>Frequenza</td>
+<td>869 MHz</td>
+</tr>
+<tr>
+<td>Elementi</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Diametro degli elementi</td>
+<td>4 mm</td>
+</tr>
+<tr>
+<td>Boom</td>
+<td>quadro, 20 mm, dielettrico</td>
+</tr>
+</tbody></table>
+<p>Il calcolatore dà 744 mm di boom e circa 13,9 dBi; la scheda ne simula 14,1
+con il radiatore spostato. Ma Paolo mette in guardia: DL6WU <strong>non garantisce
+50 Ω</strong> al radiatore. E una Yagi lunga e ottimizzata a fondo ha un&#39;impedenza
+più vicina a 30 Ω che a 50.</p>
+<h2 id="il-problema-del-radiatore">Il problema del radiatore</h2>
+<p>A 869 MHz fare un adattamento di impedenza, hairpin o gamma match, è
+difficile: le misure sono millimetriche e un contatto approssimativo toglie
+resa senza dare nessun segnale. Il ROS può anche risultare perfetto mentre
+l&#39;antenna rende meno di quanto potrebbe. E il dipolo dritto del calcolatore
+va montato <strong>attraverso il boom</strong>, aperto al centro, in modo che le viti non
+facciano da contatto.</p>
+<p>La strada di Paolo è un&#39;altra: un <strong>dipolo ripiegato</strong> (folded) di filo di
+rame da 1 mm, un rettangolo chiuso di 146 × 20 mm, a cui si saldano
+direttamente i capi del coassiale. È molto più semplice da montare. Ma ha un
+difetto: l&#39;impedenza di un dipolo ripiegato è circa quattro volte quella di
+uno dritto.</p>
+<p>Paolo lo verifica con NEC, nell&#39;ordine:</p>
+<table>
+<thead>
+<tr>
+<th>Passo</th>
+<th>Impedenza</th>
+<th>ROS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Folded come da calcolatore, 4 mm</td>
+<td>143 − j34 Ω</td>
+<td>3,0</td>
+</tr>
+<tr>
+<td>Filo da 1 mm</td>
+<td>142 − j53 Ω</td>
+<td>3,3</td>
+</tr>
+<tr>
+<td>Lato lungo portato a 150 mm (risonanza)</td>
+<td>163 − j1 Ω</td>
+<td>3,3</td>
+</tr>
+<tr>
+<td>Radiatore da 69 a <strong>34 mm</strong> dal riflettore, lato di nuovo 146 mm</td>
+<td><strong>52 + j6 Ω</strong></td>
+<td><strong>1,14</strong></td>
+</tr>
+</tbody></table>
+<p>Il trucco sta nell&#39;ultima riga: <strong>avvicinare il radiatore al riflettore
+abbassa la parte resistiva dell&#39;impedenza</strong>. Con una sola modifica geometrica
+(e riaccorciando il lato) l&#39;impedenza passa da 163 a 52 Ω, senza balun e senza
+trasformatori.</p>
+<p>Con il modello della scheda ho provato a spostare solo il radiatore,
+lasciando tutto il resto com&#39;è:</p>
+<table>
+<thead>
+<tr>
+<th>Distanza dal riflettore</th>
+<th>Impedenza</th>
+<th>ROS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>34 mm</td>
+<td>51 + j7 Ω</td>
+<td>1,15</td>
+</tr>
+<tr>
+<td>40 mm</td>
+<td>68 + j13 Ω</td>
+<td>1,47</td>
+</tr>
+<tr>
+<td>50 mm</td>
+<td>99 + j10 Ω</td>
+<td>2,01</td>
+</tr>
+<tr>
+<td>69 mm</td>
+<td>146 − j42 Ω</td>
+<td>3,19</td>
+</tr>
+</tbody></table>
+<p>Sei millimetri spostano il ROS da 1,15 a 1,47. Questa è la ragione per cui
+Paolo lascia l&#39;ultima messa a punto al NanoVNA: il radiatore si sposta di
+qualche millimetro in avanti o indietro finché il ROS è minimo.</p>
+<h2 id="il-prezzo-da-pagare">Il prezzo da pagare</h2>
+<p>Paolo dice chiaramente cosa si perde: il diagramma peggiora, in particolare
+il <strong>rapporto avanti/dietro</strong>, che rispetto a un modello perfetto cala di
+circa 10 dB. Il guadagno invece non scende, anzi sembra salire. La banda
+larga, che di solito è il pregio di una Yagi ottimizzata, a un nodo MeshCore
+non serve: il canale è uno solo.</p>
+<p>Per il nostro uso è un buon compromesso. Un avanti/dietro di 20 dB è più che
+sufficiente per un collegamento punto-punto, e non c&#39;è nessuna rete di
+adattamento da costruire a 869 MHz.</p>
+<p>Un altro punto, di mestiere: i capi del coassiale vanno saldati al dipolo
+<strong>il più corti possibile e in linea con il dipolo</strong>, a formare una <strong>T</strong> e
+non una V. Paolo non mette il balun, e sostiene che &quot;statisticamente&quot; non
+serve: il tema delle correnti sulla calza del cavo lo rimanda a un contributo
+specifico.</p>
+<h2 id="dal-modello-al-banco">Dal modello al banco</h2>
+<p>Paolo ha costruito diverse antenne come descritte. Una è stata misurata con
+il NanoVNA e confrontata con una <strong>ground plane tarata alla perfezione</strong>:
+sul campo la Yagi ha dato circa <strong>12 dB in più di RSSI</strong>. Il conto torna:
+14,1 dBi di guadagno contro i 2,2 dBi della ground plane fanno 11,9 dB.</p>
+<p>Il materiale è quello che si trova ovunque:</p>
+<ul>
+<li>barra piena di alluminio da 4 mm per riflettore e direttori;</li>
+<li>filo di rame da 1 mm per il radiatore;</li>
+<li>un quadrello di legno da verniciare, o un tubo di plastica rigido, come
+boom;</li>
+<li>staffe da antenna TV per il montaggio;</li>
+<li>un trapano a colonna, o almeno una guida, per i fori: gli elementi storti
+non sono belli da vedere, anche se ci sono margini prima che il diagramma
+ne risenta.</li>
+</ul>
+<p>Per il radiatore non serve nessun foro. Il file del modello è nella scheda e si apre con xnec2c o 4nec2:
+vedi l&#39;articolo sulle <a href="../antenne-nec-senza-windows/">antenne NEC senza Windows</a>.</p>
+<h2 id="il-confronto-con-le-altre-yagi">Il confronto con le altre Yagi</h2>
+<table>
+<thead>
+<tr>
+<th>Antenna</th>
+<th>Elementi</th>
+<th>Guadagno</th>
+<th>Avanti/dietro</th>
+<th>ROS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Yagi di Paolo</td>
+<td>10 (boom 740 mm)</td>
+<td>14,1 dBi</td>
+<td>20,1 dB</td>
+<td>1,15</td>
+</tr>
+<tr>
+<td><a href="https://meshcore-ita.github.io/antenne/fabrizio-yagi-10el/">Yagi di Fabrizio</a></td>
+<td>10 (boom circa 583 mm)</td>
+<td>12,5 dBi</td>
+<td>22,3 dB</td>
+<td>1,82</td>
+</tr>
+<tr>
+<td><a href="../yagi-lfa-fabrizio/">Yagi LFA 3 elementi</a></td>
+<td>3</td>
+<td>8,8 dBi</td>
+<td>15,1 dB</td>
+<td>1,02</td>
+</tr>
+<tr>
+<td><a href="https://meshcore-ita.github.io/antenne/meshcore-ita-yagi-3el/">Yagi 3 elementi MeshCore ITA</a></td>
+<td>3</td>
+<td>8,1 dBi</td>
+<td>5,9 dB</td>
+<td>1,23</td>
+</tr>
+</tbody></table>
+<p>Il confronto non è del tutto alla pari: la Yagi di Fabrizio è un progetto
+tedesco a 432 MHz riscalato, con boom metallico e un radiatore da 14 mm, ed
+è più corta di 16 cm. Ma serve a mettere a fuoco una cosa: i 14 dBi di Paolo
+non vengono da trucchi di modellazione. Vengono da due lunghezze d&#39;onda di
+boom e da una taratura molto ben fatta del radiatore.</p>
+<h2 id="attenzione-alla-potenza">Attenzione alla potenza</h2>
+<p>Con 11,9 dBd di guadagno questa antenna va sul nodo <strong>a potenza ridotta</strong>. Il
+preset italiano consente 27 dBm ERP (500 mW, vedi la
+<a href="../../normativa/">normativa</a>):</p>
+<table>
+<thead>
+<tr>
+<th>Perdita nel cavo</th>
+<th>TX massima</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0 dB</td>
+<td>15,1 dBm (32 mW)</td>
+</tr>
+<tr>
+<td>1 dB</td>
+<td>16,1 dBm (41 mW)</td>
+</tr>
+<tr>
+<td>2 dB</td>
+<td>17,1 dBm (51 mW)</td>
+</tr>
+</tbody></table>
+<p>Un SX1262 si ferma a 22 dBm, quindi qui la potenza va <strong>abbassata di 5-7 dB</strong>
+rispetto al massimo. Si perde poco: la portata la dà l&#39;antenna, anche in
+ricezione, e nessun limite di ERP tocca il guadagno in ricezione.</p>
+<h2 id="dove-usarla">Dove usarla</h2>
+<p>Una Yagi a 10 elementi con un fascio di 40° è un&#39;antenna da
+<strong>collegamento punto-punto</strong>, o da nodo in valle che deve raggiungere
+l&#39;unica cima da cui si vede la rete. Non copre un quartiere. Per un
+ripetitore che serve la zona è meglio una
+<a href="../collineare-paolo/">collineare</a> o un dipolo. Per un collegamento tra due
+ripetitori lontani, o per un bersaglio in una direzione sola, è la scelta
+giusta.</p>
+<p>La <a href="https://meshcore-ita.github.io/antenne/paolo-yagi10/">scheda con vista 3D, grafici e file NEC</a>
+è nella galleria; il tutorial completo di Paolo, con il calcolo e le foto,
+è
+<a href="https://lora868.at1839.name/yagi-uda-1926-2026/"><em>Yagi-Uda 1926-2026</em></a>
+(pubblicato anche su Lora Italia).</p>
+<p>Hai una tua antenna? Le istruzioni sono nell&#39;articolo sulla
+<a href="../galleria-antenne/">galleria</a>, oppure mandala nel gruppo Telegram
+<a href="https://t.me/meshcore_ita">MeshCore ITA</a>.</p>
+<p>Grazie a Paolo.</p>
+
+  </div>
+</section>
+<nav class="post-nav" aria-label="Articoli adiacenti">
+<a class="post-nav__link post-nav__link--prev" href="../../blog/galleria-antenne-novita/"><span class="post-nav__label">Articolo precedente</span><span class="post-nav__title">Galleria antenne: correnti nel 3D, listato NEC collegato e foto a schermo intero</span></a>
+<span class="post-nav__link post-nav__link--next post-nav__link--empty"></span>
+</nav>
+
+<div class="share">
+  <p class="share__label">Condividi</p>
+  <a class="share__btn" href="https://t.me/share/url?url=https%3A%2F%2Fmeshcore-ita.github.io%2Fblog%2Fyagi-10-paolo%2F&text=La%20Yagi%20a%2010%20elementi%20di%20Paolo%3A%2014%20dBi%20e%20un%20dipolo%20ripiegato%20senza%20balun" target="_blank" rel="noopener">Telegram</a>
+  <button class="share__btn share__copy" type="button" data-copy-link="https://meshcore-ita.github.io/blog/yagi-10-paolo/" hidden>Copia link</button>
+  <span class="share__status" role="status" aria-live="polite"></span>
+</div>
+
+<section class="section related-posts" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Correlati</p>
+      <h2 class="section__title">Articoli correlati</h2>
+    </div>
+    <ul class="posts">
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-10-21">21 ottobre 2026</time> · 7 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/collineare-paolo/">La collineare di Paolo: uno sleeve dipole da Amazon diventa a due elementi</a></h3>
+        <p class="post-card__body">Paolo ha caricato nella galleria la collineare a due elementi che ha ricavato da uno sleeve dipole commerciale, e sul suo blog racconta sia il modello EZNEC sia la costruzione e la taratura con il NanoVNA.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-10-19">19 ottobre 2026</time> · 5 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/biquad-paolo/">La biquad di Paolo: quasi 10 dBi con un metro di rame e una piastra</a></h3>
+        <p class="post-card__body">Paolo ha caricato nella galleria la biquad che aveva usato come esempio nel suo tutorial su EZNEC, e sul suo blog spiega passo per passo come costruirla e tararla con il NanoVNA.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    <li class="post-card">
+      <article class="post-card__inner">
+        <p class="post-card__meta"><time datetime="2026-09-28">28 settembre 2026</time> · 6 min di lettura</p>
+        <h3 class="post-card__title"><a class="post-card__link" href="../../blog/cactus-j-pole-fabrizio/">La Cactus J-Pole di Fabrizio: una J-pole che ignora il palo</a></h3>
+        <p class="post-card__body">Dopo la Yagi LFA, Fabrizio ha caricato nella galleria una J-pole verticale pensata per il palo metallico. Il primo prototipo è già in funzione sul suo nodo di casa.</p>
+        <ul class="tags"><li class="tag"><a class="tag__link" href="../../blog/tag/antenne/">Antenne</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/autocostruzione/">Autocostruzione</a></li><li class="tag"><a class="tag__link" href="../../blog/tag/community/">Community</a></li></ul>
+      </article>
+    </li>
+    </ul>
+  </section>
+<section class="section related" data-reveal>
+    <div class="section__head">
+      <p class="eyelash">Continua a leggere</p>
+      <h2 class="section__title">Altri contenuti MeshCore ITA</h2>
+    </div>
+    <div class="grid grid--2">
+      <a class="card" href="../../guida/">
+        <h3 class="card__title">Guida</h3>
+        <p class="card__body">Tutti i passaggi, in italiano, per configurare il tuo primo nodo MeshCore e agganciarlo alla mesh italiana.</p>
+      </a>
+      <a class="card" href="../../preset-radio/">
+        <h3 class="card__title">Preset radio</h3>
+        <p class="card__body">Frequenza, banda, spreading factor e coding rate che permettono a tutti i nodi MeshCore italiani di sentirsi tra loro.</p>
+      </a>
+      <a class="card" href="../../hardware/">
+        <h3 class="card__title">Hardware</h3>
+        <p class="card__body">Le board LoRa supportate dal firmware Companion, confrontate per chip, connettività e uso tipico.</p>
+      </a>
+      <a class="card" href="../">
+        <h3 class="card__title">Blog</h3>
+        <p class="card__body">Tutti gli articoli e le novità di MeshCore ITA.</p>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="foot__nav">
+      <p class="foot__nav-label">Inizia</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../guida/">Guida</a></li>
+        <li><a href="../../app/">App</a></li>
+      </ul>
+      <p class="foot__nav-label">Hardware</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../preset-radio/">Preset radio</a></li>
+        <li><a href="../../hardware/">Hardware</a></li>
+        <li><a href="../../installare-repeater/">Repeater</a></li>
+        <li><a href="../../link-budget/">Portata e link budget</a></li>
+      </ul>
+      <p class="foot__nav-label">Rete</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../mappa-copertura/">Mappa</a></li>
+        <li><a href="../../regioni/">Regioni</a></li>
+      </ul>
+      <p class="foot__nav-label">Riferimento</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../comandi/">Comandi</a></li>
+        <li><a href="../../problemi/">Problemi</a></li>
+        <li><a href="../../faq/">FAQ</a></li>
+        <li><a href="../../meshcore-vs-meshtastic/">Confronti</a></li>
+        <li><a href="../../glossario/">Glossario</a></li>
+        <li><a href="../../normativa/">Normativa</a></li>
+      </ul>
+      <p class="foot__nav-label">Community</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../community/">Community</a></li>
+      </ul>
+      <p class="foot__nav-label">Blog</p>
+      <ul class="foot__nav-list">
+        <li><a href="../../blog/" aria-current="true">Blog</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__note">MeshCore ITA — community indipendente. Non affiliata al progetto MeshCore.</p>
+    <p class="site-footer__note">Contenuti sotto licenza CC BY 4.0, codice del sito sotto licenza MIT.</p>
+    <p class="foot__meta">Aggiornato il 27 ottobre 2026</p>
+    <p class="foot__meta">Trovato un errore o vuoi aggiungere qualcosa? <a class="link" href="https://github.com/meshcore-ita/meshcore-ita.github.io/edit/main/content/blog/yagi-10-paolo.md" target="_blank" rel="noopener">Modifica questa pagina su GitHub<span class="ext-arrow">↗</span></a> — la modifica diventa una pull request.</p>
+    <ul class="site-footer__links">
+      <li><a href="https://t.me/meshcore_ita" target="_blank" rel="noopener">Telegram<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://github.com/meshcore-ita" target="_blank" rel="noopener">GitHub<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://meshcore.io/" target="_blank" rel="noopener">MeshCore<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://docs.meshcore.io/" target="_blank" rel="noopener">Docs<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">Flasher<span class="ext-arrow">↗</span></a></li>
+      <li><a href="https://map.meshcore.io/" target="_blank" rel="noopener">Mappa pubblica<span class="ext-arrow">↗</span></a></li>
+    </ul>
+  </div>
+</footer>
+
+<dialog class="search" id="search" aria-label="Cerca nella documentazione" data-search-index="../../search-index.json" data-search-extra="../../antenne/search-index.json">
+  <form class="search__form" method="dialog">
+    <label class="sr-only" for="search-input">Cerca nella documentazione</label>
+    <input class="search__input" id="search-input" type="search" placeholder="Cerca nella documentazione…" autocomplete="off" spellcheck="false">
+    <button class="search__close" type="submit" value="close" aria-label="Chiudi">Esc</button>
+  </form>
+  <ul class="search__results" id="search-results"></ul>
+  <p class="search__empty" id="search-empty" hidden>Nessun risultato.</p>
+</dialog>
+<script type="module" src="../../assets/js/main.js?v=6" defer></script>
+<script type="module" src="../../assets/js/search.js?v=2" defer></script>
+<script type="module" src="../../assets/js/widgets.js?v=2" defer></script>
+</body>
+</html>

@@ -1427,6 +1427,69 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/yagi-10-paolo--cos-e-una-yagi",
+    "page": "Blog",
+    "title": "Cos'è una Yagi",
+    "url": "https://meshcore-ita.github.io/blog/yagi-10-paolo/#cos-e-una-yagi",
+    "text": "Una Yagi ha un solo elemento collegato al cavo, il radiatore . Tutti gli altri sono parassiti : pezzi di metallo non collegati a niente che irradiano di nuovo il segnale che ricevono. Dietro il radiatore sta un riflettore , un po' più lungo; davanti, una fila di direttori , un po' più corti. Se lunghezze e distanze sono giuste, ogni elemento sfasa quanto basta perché il segnale si sommi in avanti e si annulli indietro. Più direttori ci sono, più stretto e più guadagnoso è il fascio. Costa solo lunghezza di boom: a 869 MHz la lunghezza d'onda è di 34,5 cm, e questa Yagi è lunga 74 cm, poco più di due lunghezze d'onda. Nella galleria c'erano già quattro Yagi di Fabrizio (compresa la LFA a tre…"
+  },
+  {
+    "id": "blog/yagi-10-paolo--i-numeri-della-scheda",
+    "page": "Blog",
+    "title": "I numeri della scheda",
+    "url": "https://meshcore-ita.github.io/blog/yagi-10-paolo/#i-numeri-della-scheda",
+    "text": "La scheda di Paolo contiene il modello NEC derivato dal calcolatore DL6WU. Il riflettore e gli otto direttori sono tondini da 4 mm; il radiatore è un dipolo ripiegato di filo da 1 mm. Parte Misura nel modello Riflettore 167 mm, in posizione 0 Dipolo ripiegato 146 × 20 mm, a 34 mm dal riflettore Direttori 8, da 146 a 134 mm Posizione dell'ultimo direttore 740 mm dal riflettore Le posizioni lungo il boom sono cumulative, a partire dal riflettore. I direttori stanno a 95, 157, 231, 317, 414, 517, 626 e 740 mm: la distanza tra l'uno e l'altro cresce da 62 a 114 mm, perché più si va avanti e meno serve tenerli stretti. A 869,618 MHz, in spazio libero, la scheda riporta: Guadagno 14,1 dBi (11,9…"
+  },
+  {
+    "id": "blog/yagi-10-paolo--il-calcolatore-e-dove-non-basta",
+    "page": "Blog",
+    "title": "Il calcolatore, e dove non basta",
+    "url": "https://meshcore-ita.github.io/blog/yagi-10-paolo/#il-calcolatore-e-dove-non-basta",
+    "text": "Paolo parte dal calcolatore online di 3G-Aerial basato su DL6WU . Non è un dettaglio neutro: il calcolatore chiede il tipo di boom , e sbagliare questa scelta dà un'antenna sbagliata. Paolo ha scelto un boom non conduttivo (legno verniciato o plastica rigida, di sezione quadra da 20 mm) con gli elementi che lo attraversano. Gli altri parametri: Parametro Valore Forma del radiatore dritto (poi ripiegato, vedi sotto) Frequenza 869 MHz Elementi 10 Diametro degli elementi 4 mm Boom quadro, 20 mm, dielettrico Il calcolatore dà 744 mm di boom e circa 13,9 dBi; la scheda ne simula 14,1 con il radiatore spostato. Ma Paolo mette in guardia: DL6WU non garantisce 50 Ω al radiatore. E una Yagi lunga e…"
+  },
+  {
+    "id": "blog/yagi-10-paolo--il-problema-del-radiatore",
+    "page": "Blog",
+    "title": "Il problema del radiatore",
+    "url": "https://meshcore-ita.github.io/blog/yagi-10-paolo/#il-problema-del-radiatore",
+    "text": "A 869 MHz fare un adattamento di impedenza, hairpin o gamma match, è difficile: le misure sono millimetriche e un contatto approssimativo toglie resa senza dare nessun segnale. Il ROS può anche risultare perfetto mentre l'antenna rende meno di quanto potrebbe. E il dipolo dritto del calcolatore va montato attraverso il boom , aperto al centro, in modo che le viti non facciano da contatto. La strada di Paolo è un'altra: un dipolo ripiegato (folded) di filo di rame da 1 mm, un rettangolo chiuso di 146 × 20 mm, a cui si saldano direttamente i capi del coassiale. È molto più semplice da montare. Ma ha un difetto: l'impedenza di un dipolo ripiegato è circa quattro volte quella di uno dritto.…"
+  },
+  {
+    "id": "blog/yagi-10-paolo--il-prezzo-da-pagare",
+    "page": "Blog",
+    "title": "Il prezzo da pagare",
+    "url": "https://meshcore-ita.github.io/blog/yagi-10-paolo/#il-prezzo-da-pagare",
+    "text": "Paolo dice chiaramente cosa si perde: il diagramma peggiora, in particolare il rapporto avanti/dietro , che rispetto a un modello perfetto cala di circa 10 dB. Il guadagno invece non scende, anzi sembra salire. La banda larga, che di solito è il pregio di una Yagi ottimizzata, a un nodo MeshCore non serve: il canale è uno solo. Per il nostro uso è un buon compromesso. Un avanti/dietro di 20 dB è più che sufficiente per un collegamento punto-punto, e non c'è nessuna rete di adattamento da costruire a 869 MHz. Un altro punto, di mestiere: i capi del coassiale vanno saldati al dipolo il più corti possibile e in linea con il dipolo , a formare una T e non una V. Paolo non mette il balun, e…"
+  },
+  {
+    "id": "blog/yagi-10-paolo--dal-modello-al-banco",
+    "page": "Blog",
+    "title": "Dal modello al banco",
+    "url": "https://meshcore-ita.github.io/blog/yagi-10-paolo/#dal-modello-al-banco",
+    "text": "Paolo ha costruito diverse antenne come descritte. Una è stata misurata con il NanoVNA e confrontata con una ground plane tarata alla perfezione : sul campo la Yagi ha dato circa 12 dB in più di RSSI . Il conto torna: 14,1 dBi di guadagno contro i 2,2 dBi della ground plane fanno 11,9 dB. Il materiale è quello che si trova ovunque: barra piena di alluminio da 4 mm per riflettore e direttori; filo di rame da 1 mm per il radiatore; un quadrello di legno da verniciare, o un tubo di plastica rigido, come boom; staffe da antenna TV per il montaggio; un trapano a colonna, o almeno una guida, per i fori: gli elementi storti non sono belli da vedere, anche se ci sono margini prima che il diagramma…"
+  },
+  {
+    "id": "blog/yagi-10-paolo--il-confronto-con-le-altre-yagi",
+    "page": "Blog",
+    "title": "Il confronto con le altre Yagi",
+    "url": "https://meshcore-ita.github.io/blog/yagi-10-paolo/#il-confronto-con-le-altre-yagi",
+    "text": "Antenna Elementi Guadagno Avanti/dietro ROS Yagi di Paolo 10 (boom 740 mm) 14,1 dBi 20,1 dB 1,15 Yagi di Fabrizio 10 (boom circa 583 mm) 12,5 dBi 22,3 dB 1,82 Yagi LFA 3 elementi 3 8,8 dBi 15,1 dB 1,02 Yagi 3 elementi MeshCore ITA 3 8,1 dBi 5,9 dB 1,23 Il confronto non è del tutto alla pari: la Yagi di Fabrizio è un progetto tedesco a 432 MHz riscalato, con boom metallico e un radiatore da 14 mm, ed è più corta di 16 cm. Ma serve a mettere a fuoco una cosa: i 14 dBi di Paolo non vengono da trucchi di modellazione. Vengono da due lunghezze d'onda di boom e da una taratura molto ben fatta del radiatore."
+  },
+  {
+    "id": "blog/yagi-10-paolo--attenzione-alla-potenza",
+    "page": "Blog",
+    "title": "Attenzione alla potenza",
+    "url": "https://meshcore-ita.github.io/blog/yagi-10-paolo/#attenzione-alla-potenza",
+    "text": "Con 11,9 dBd di guadagno questa antenna va sul nodo a potenza ridotta . Il preset italiano consente 27 dBm ERP (500 mW, vedi la normativa ): Perdita nel cavo TX massima 0 dB 15,1 dBm (32 mW) 1 dB 16,1 dBm (41 mW) 2 dB 17,1 dBm (51 mW) Un SX1262 si ferma a 22 dBm, quindi qui la potenza va abbassata di 5-7 dB rispetto al massimo. Si perde poco: la portata la dà l'antenna, anche in ricezione, e nessun limite di ERP tocca il guadagno in ricezione."
+  },
+  {
+    "id": "blog/yagi-10-paolo--dove-usarla",
+    "page": "Blog",
+    "title": "Dove usarla",
+    "url": "https://meshcore-ita.github.io/blog/yagi-10-paolo/#dove-usarla",
+    "text": "Una Yagi a 10 elementi con un fascio di 40° è un'antenna da collegamento punto-punto , o da nodo in valle che deve raggiungere l'unica cima da cui si vede la rete. Non copre un quartiere. Per un ripetitore che serve la zona è meglio una collineare o un dipolo. Per un collegamento tra due ripetitori lontani, o per un bersaglio in una direzione sola, è la scelta giusta. La scheda con vista 3D, grafici e file NEC è nella galleria; il tutorial completo di Paolo, con il calcolo e le foto, è Yagi-Uda 1926-2026 (pubblicato anche su Lora Italia). Hai una tua antenna? Le istruzioni sono nell'articolo sulla galleria , oppure mandala nel gruppo Telegram MeshCore ITA . Grazie a Paolo."
+  },
+  {
     "id": "blog/galleria-antenne-novita--cosa-vedi-nella-vista-3d",
     "page": "Blog",
     "title": "Cosa vedi nella vista 3D",
