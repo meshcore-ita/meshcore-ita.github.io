@@ -1427,6 +1427,34 @@ export const KB_CHUNKS = [
     "text": "Semtech Corporation, AN1200.22 LoRa Modulation Basics , Revision 2, maggio 2015 (§5.3 Link Budget, §4.2 rumore/sensibilità). ea1jao.com/wp-content/uploads/2024/02/an1200.22.pdf Semtech Corporation, SX1261/2 datasheet , Rev. 1.2, giugno 2019, Tabella 3-8 \"Receive Mode Specifications\" (p. 19/111), §6.1.4 \"LoRa Time-on-Air\" (p. 41/111), nota LDRO (p. 39/111). cdn.sparkfun.com/assets/6/b/5/1/4/SX1262_datasheet.pdf ETSI, EN 300 220-2 V3.2.1 , giugno 2018 (limiti di potenza ERP e duty cycle per SRD 863-876 MHz). etsi.org/deliver/.../en_30022002v030201p.pdf ITU-R, Recommendation ITU-R P.526-16, Propagation by diffraction , novembre 2025 (§2.1 raggio zona di Fresnel, §2.3/2.5 criterio del 60% di…"
   },
   {
+    "id": "blog/mesh-node-configurator-qrmesh--da-dove-nascono",
+    "page": "Blog",
+    "title": "Da dove nascono",
+    "url": "https://meshcore-ita.github.io/blog/mesh-node-configurator-qrmesh/#da-dove-nascono",
+    "text": "Chi passa dal gruppo conosce le due domande: cosa mettere in un nodo autonomo e dove trovare la chiave di un canale. Due strumenti, presentati nel gruppo da Alessandro, provano a rispondere in modo self-service. Sono due siti web statici, gratuiti e senza registrazione. Il codice è pubblico nel profilo GitHub arkanet , e la presentazione completa sta sul blog di Loracity: Mesh Node Configurator e QRMesh ."
+  },
+  {
+    "id": "blog/mesh-node-configurator-qrmesh--mesh-node-configurator-la-distinta-del-nodo",
+    "page": "Blog",
+    "title": "Mesh Node Configurator: la distinta del nodo",
+    "url": "https://meshcore-ita.github.io/blog/mesh-node-configurator-qrmesh/#mesh-node-configurator-la-distinta-del-nodo",
+    "text": "meshnode.vercel.app · codice Un nodo autonomo sul tetto non è solo una scheda LoRa: servono batteria, pannello solare, antenna, magari un filtro e una scatola stagna. Il configuratore fa scegliere questi pezzi uno alla volta: piattaforma LoRa , batteria, pannello e accessori di montaggio; antenna e filtro RF , con avvisi quando specifiche o compatibilità non tornano; alla fine, una distinta con il costo stimato, i link di ricerca e l'esportazione in CSV. Due avvertenze, scritte dall'autore stesso. I prezzi sono stime indicative , non quotazioni aggiornate. I link portano ad AliExpress solo per comodità di ricerca: niente affiliazioni e nessuna commissione. Il configuratore non è legato a…"
+  },
+  {
+    "id": "blog/mesh-node-configurator-qrmesh--qrmesh-il-canale-in-un-qr",
+    "page": "Blog",
+    "title": "QRMesh: il canale in un QR",
+    "url": "https://meshcore-ita.github.io/blog/mesh-node-configurator-qrmesh/#qrmesh-il-canale-in-un-qr",
+    "text": "allqrmesh.vercel.app · codice · bot @allqrmesh_bot Copiare a mano nome e chiave di un canale è il modo più sicuro per sbagliare un carattere. QRMesh genera il QR di importazione, da inquadrare con l'app. SINGOLO , per MeshCore e Meshtastic: si sceglie il protocollo, la community e il canale dal catalogo, oppure si inseriscono i dati a mano, e si ottiene QR e link. MULTI , solo Meshtastic: da uno a otto canali (CH0 primario, CH1–CH7 secondari), anche di community diverse, in un unico QR. Si possono aggiungere regione, preset del modem e potenza. Le stesse funzioni ci sono nel bot Telegram: /start apre il menu, /qr e /link danno il canale, /multi avvia la procedura multicanale, /help spiega…"
+  },
+  {
+    "id": "blog/mesh-node-configurator-qrmesh--contribuire",
+    "page": "Blog",
+    "title": "Contribuire",
+    "url": "https://meshcore-ita.github.io/blog/mesh-node-configurator-qrmesh/#contribuire",
+    "text": "Entrambi i progetti sono aperti: un dispositivo che manca nel configuratore, un canale da aggiungere al catalogo di QRMesh o un prezzo sbagliato si segnalano con una issue sui rispettivi repository."
+  },
+  {
     "id": "blog/yagi-10-paolo--cos-e-una-yagi",
     "page": "Blog",
     "title": "Cos'è una Yagi",

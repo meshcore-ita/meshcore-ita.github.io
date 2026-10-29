@@ -4,8 +4,84 @@
   <id>https://meshcore-ita.github.io/blog/tag/hardware/</id>
   <link rel="self" href="https://meshcore-ita.github.io/blog/tag/hardware/feed.xml"/>
   <link rel="alternate" href="https://meshcore-ita.github.io/blog/tag/hardware/"/>
-  <updated>2026-10-01T00:00:00Z</updated>
+  <updated>2026-10-29T10:00:00+01:00</updated>
   <author><name>MeshCore ITA</name></author>
+  <entry>
+    <id>https://meshcore-ita.github.io/blog/mesh-node-configurator-qrmesh/</id>
+    <title>Mesh Node Configurator e QRMesh: due strumenti per le domande che tornano sempre</title>
+    <link rel="alternate" href="https://meshcore-ita.github.io/blog/mesh-node-configurator-qrmesh/"/>
+    <published>2026-10-29T10:00:00+01:00</published>
+    <updated>2026-10-29T10:00:00+01:00</updated>
+    <summary type="text">Cosa mettere in un nodo sul tetto e dove trovare la chiave di un canale sono le due domande che tornano più spesso nel gruppo. Per rispondere Alessandro ha creato Mesh Node Configurator e QRMesh, pubblicati con il codice su GitHub.</summary>
+    <category term="software" label="Software"/>
+    <category term="community" label="Community"/>
+    <category term="hardware" label="Hardware"/>
+    <content type="html">&lt;section class=&quot;section&quot;&gt;
+  &lt;p class=&quot;post-meta&quot;&gt;&lt;time datetime=&quot;2026-10-29&quot;&gt;29 ottobre 2026&lt;/time&gt; · &lt;span class=&quot;post-meta__author&quot;&gt;MeshCore ITA&lt;/span&gt; · 3 min di lettura&lt;/p&gt;
+  &lt;ul class=&quot;tags&quot;&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/software/&quot;&gt;Software&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/community/&quot;&gt;Community&lt;/a&gt;&lt;/li&gt;&lt;li class=&quot;tag&quot;&gt;&lt;a class=&quot;tag__link&quot; href=&quot;../../blog/tag/hardware/&quot;&gt;Hardware&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class=&quot;prose&quot;&gt;
+&lt;h2 id=&quot;da-dove-nascono&quot;&gt;Da dove nascono&lt;/h2&gt;
+&lt;p&gt;Chi passa dal gruppo conosce le due domande: cosa mettere in un nodo
+autonomo e dove trovare la chiave di un canale. Due strumenti, presentati
+nel gruppo da Alessandro, provano a rispondere in modo
+self-service.&lt;/p&gt;
+&lt;p&gt;Sono due siti web statici, gratuiti e senza registrazione. Il codice è
+pubblico nel profilo GitHub &lt;a href=&quot;https://github.com/arkanet&quot;&gt;arkanet&lt;/a&gt;, e la
+presentazione completa sta sul blog di Loracity:
+&lt;a href=&quot;https://mesh.loracity.it/mesh-node-configurator-configuratore-open-source-per-nodi-lora-mesh/&quot;&gt;Mesh Node Configurator&lt;/a&gt;
+e &lt;a href=&quot;https://mesh.loracity.it/qrmesh-un-qr-per-condividere-i-canali-mesh/&quot;&gt;QRMesh&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;mesh-node-configurator-la-distinta-del-nodo&quot;&gt;Mesh Node Configurator: la distinta del nodo&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://meshnode.vercel.app/&quot;&gt;meshnode.vercel.app&lt;/a&gt; ·
+&lt;a href=&quot;https://github.com/arkanet/MeshNodeConfigurator&quot;&gt;codice&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Un nodo autonomo sul tetto non è solo una scheda LoRa: servono batteria,
+pannello solare, antenna, magari un filtro e una scatola stagna. Il
+configuratore fa scegliere questi pezzi uno alla volta:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;piattaforma LoRa&lt;/strong&gt;, batteria, pannello e accessori di montaggio;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;antenna e filtro RF&lt;/strong&gt;, con avvisi quando specifiche o compatibilità
+non tornano;&lt;/li&gt;
+&lt;li&gt;alla fine, una &lt;strong&gt;distinta&lt;/strong&gt; con il costo stimato, i link di ricerca e
+l&amp;#39;esportazione in CSV.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Due avvertenze, scritte dall&amp;#39;autore stesso. I prezzi sono &lt;strong&gt;stime
+indicative&lt;/strong&gt;, non quotazioni aggiornate. I link portano ad AliExpress solo
+per comodità di ricerca: &lt;strong&gt;niente affiliazioni&lt;/strong&gt; e nessuna commissione.&lt;/p&gt;
+&lt;p&gt;Il configuratore non è legato a una rete in particolare: tra i riferimenti
+cita Meshtastic, DarkMesh e Reticulum. L&amp;#39;hardware però è lo stesso di
+MeshCore, quindi la distinta vale anche per un nostro ripetitore. Per
+scegliere l&amp;#39;antenna, la nostra &lt;a href=&quot;https://meshcore-ita.github.io/antenne/&quot;&gt;galleria&lt;/a&gt; ha misure e
+simulazioni di quelle costruite dalla community.&lt;/p&gt;
+&lt;h2 id=&quot;qrmesh-il-canale-in-un-qr&quot;&gt;QRMesh: il canale in un QR&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://allqrmesh.vercel.app/&quot;&gt;allqrmesh.vercel.app&lt;/a&gt; ·
+&lt;a href=&quot;https://github.com/arkanet/QRMesh&quot;&gt;codice&lt;/a&gt; ·
+bot &lt;a href=&quot;https://t.me/allqrmesh_bot&quot;&gt;@allqrmesh_bot&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Copiare a mano nome e chiave di un canale è il modo più sicuro per
+sbagliare un carattere. QRMesh genera il QR di importazione, da
+inquadrare con l&amp;#39;app.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SINGOLO&lt;/strong&gt;, per &lt;strong&gt;MeshCore&lt;/strong&gt; e Meshtastic: si sceglie il protocollo,
+la community e il canale dal catalogo, oppure si inseriscono i dati a
+mano, e si ottiene QR e link.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MULTI&lt;/strong&gt;, solo Meshtastic: da uno a otto canali (CH0 primario, CH1–CH7
+secondari), anche di community diverse, in un unico QR. Si possono
+aggiungere regione, preset del modem e potenza.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Le stesse funzioni ci sono nel bot Telegram: &lt;code&gt;/start&lt;/code&gt; apre il menu,
+&lt;code&gt;/qr&lt;/code&gt; e &lt;code&gt;/link&lt;/code&gt; danno il canale, &lt;code&gt;/multi&lt;/code&gt; avvia la procedura multicanale,
+&lt;code&gt;/help&lt;/code&gt; spiega il resto.&lt;/p&gt;
+&lt;p&gt;Una nota che l&amp;#39;autore mette in chiaro e che vale la pena ripetere: le
+chiavi dei &lt;strong&gt;canali pubblici non sono segrete&lt;/strong&gt;, chiunque le può leggere.
+Per le conversazioni private servono un canale con chiave propria o i
+messaggi diretti. Prima di importare un QR conviene controllare nome,
+chiave e provenienza.&lt;/p&gt;
+&lt;h2 id=&quot;contribuire&quot;&gt;Contribuire&lt;/h2&gt;
+&lt;p&gt;Entrambi i progetti sono aperti: un dispositivo che manca nel
+configuratore, un canale da aggiungere al catalogo di QRMesh o un prezzo
+sbagliato si segnalano con una issue sui rispettivi repository.&lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</content>
+  </entry>
   <entry>
     <id>https://meshcore-ita.github.io/blog/hardware-mesh-nel-passato/</id>
     <title>Perché l'hardware mesh vive nel passato? La versione italiana</title>

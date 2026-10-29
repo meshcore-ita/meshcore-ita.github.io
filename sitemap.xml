@@ -65,11 +65,15 @@
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/pagina/2/</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-09-28</lastmod>
+  </url>
+  <url>
+    <loc>https://meshcore-ita.github.io/blog/mesh-node-configurator-qrmesh/</loc>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/yagi-10-paolo/</loc>
@@ -137,7 +141,7 @@
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/archivio/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/tag/antenne/</loc>
@@ -149,15 +153,15 @@
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/tag/software/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/tag/community/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/tag/community/pagina/2/</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-09-14</lastmod>
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/tag/risorse/</loc>
@@ -165,7 +169,7 @@
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/tag/hardware/</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://meshcore-ita.github.io/blog/tag/rete/</loc>
